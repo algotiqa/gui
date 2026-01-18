@@ -35,8 +35,10 @@ button:
   login     : LOGIN
 
 menu-button:
+  view         : View
   edit         : Edit
   filter       : Filter
+  finalize     : Finalize
   documentation: Documentation
   toTrading    : Move to trading
   toReady      : Move to ready
