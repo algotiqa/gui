@@ -1,5 +1,5 @@
 # Gui
-Frontend to the Tradalia ecosystem
+Frontend to the Algotiqa ecosystem
 
 ## Development server
 

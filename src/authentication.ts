@@ -12,10 +12,10 @@ import {LogLevel, PassedInitialConfig} from "angular-auth-oidc-client";
 
 export const authConfig : PassedInitialConfig = {
   config: {
-    authority: 'https://tradalia-server:8443/auth/realms/tradalia',
+    authority: 'https://algotiqa-server:8443/auth/realms/algotiqa',
     redirectUrl: window.location.origin,
     postLogoutRedirectUri: window.location.origin,
-    clientId: 'tradalia-frontend',
+    clientId: 'algotiqa-frontend',
     scope: 'openid profile email offline_access',
     responseType: 'code',
     silentRenew: true,
@@ -23,7 +23,7 @@ export const authConfig : PassedInitialConfig = {
     ignoreNonceAfterRefresh: true,
     triggerRefreshWhenIdTokenExpired: false,
     logLevel: LogLevel.Debug,
-    secureRoutes: [ 'https://tradalia-server:8443/' ],
+    secureRoutes: [ 'https://algotiqa-server:8443/' ],
   },
 }
 

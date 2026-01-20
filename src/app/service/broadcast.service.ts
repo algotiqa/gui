@@ -18,7 +18,7 @@ export class BroadcastService {
   //---
   //-------------------------------------------------------------------------
 
-  private bc = new BroadcastChannel("tradalia")
+  private bc = new BroadcastChannel("algotiqa")
 
   //-------------------------------------------------------------------------
   //---
