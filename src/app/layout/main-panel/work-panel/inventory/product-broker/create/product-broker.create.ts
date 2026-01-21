@@ -30,7 +30,7 @@ import {InputNumberRequired} from "../../../../../../component/form/input-intege
 import {
   PresetProductSelectorDialog
 } from "../../../../../../component/form/preset-product-selector/preset-product-selector.dialog";
-import {PresetProduct} from "../../../../../../service/presets.service";
+import {PresetProduct, PresetsService} from "../../../../../../service/presets.service";
 import {MatDialog} from "@angular/material/dialog";
 import {TextSelectorPanel} from "../../../../../../component/form/text-selector/text-selector.panel";
 import {
@@ -105,7 +105,8 @@ export class BrokerProductCreatePanel extends AbstractPanel {
               labelService             : LabelService,
               router                   : Router,
               public  dialog           : MatDialog,
-              private inventoryService : InventoryService) {
+              private inventoryService : InventoryService,
+              private presetsService   : PresetsService) {
 
     super(eventBusService, labelService, router, "inventory.brokerProduct", "brokerProduct");
     super.subscribeToApp(AppEvent.BROKERPRODUCT_CREATE_START, (e : AppEvent) => this.onStart(e));
@@ -184,6 +185,15 @@ export class BrokerProductCreatePanel extends AbstractPanel {
         this.pb.productType= "FU"
         this.pb.pointValue = rs.pointValue
         this.pb.increment  = rs.increment
+
+        if (this.currConn) {
+          let preset = this.presetsService.getProduct(rs.code, this.currConn?.systemCode)
+          if (preset != undefined) {
+            this.pb.costPerOperation = preset.costPerOperation
+            this.pb.marginValue      = preset.margin
+            this.pb.marketType       = preset.market
+          }
+        }
       }
     })
   }

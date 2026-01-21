@@ -192,7 +192,6 @@ export class ProductDataCreatePanel extends AbstractPanel {
       minWidth : "1200px",
       data     : <DialogData>{
         connectionCode: this.currConn?.code,
-        systemCode    : this.currConn?.systemCode
       }
     })
 
@@ -202,8 +201,8 @@ export class ProductDataCreatePanel extends AbstractPanel {
         this.pd.name            = rs.instrument
         this.pd.exchangeId      = this.getExchangeId(rs.exchange)
         this.pd.productType     = "FU"
-        this.pd.months          = "fghjkmnquvxz"
         this.pd.marketType      = undefined
+        this.pd.months          = "fghjkmnquvxz"
         this.pd.rolloverTrigger = undefined
 
         if (this.currConn) {
