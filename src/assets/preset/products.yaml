@@ -1,7 +1,7 @@
 #--- Indices --------------------------------
 
 - symbol:
-    default       : ESc
+    default       : ES
   name            : E-Mini S&P 500
   increment       : 0.25
   market          : IN
@@ -150,7 +150,7 @@
   exchange        : COMEX
   pointValue      : 100
   costPerOperation: 20
-  margin          : 16034c
+  margin          : 16034
   strategies      : bias
   months          : GJMQvZ
   rollover        : sd30
