@@ -21,8 +21,17 @@
 
   <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
-  @if (selTab.value=='market') {
-    <quality-market-panel class="panel-layout" [qar]="qar"></quality-market-panel>
+  @if (goodData) {
+    @if (selTab.value=='market') {
+      <quality-market-panel class="panel-layout" [qar]="qar"></quality-market-panel>
+    }
+  }
+
+  @if (!goodData) {
+    <div class="no-data">
+      <mat-icon class="material-symbols-outlined">info</mat-icon>
+      <span>{{loc("noData")}}</span>
+    </div>
   }
 
   <!-- ============================================================================================================= -->

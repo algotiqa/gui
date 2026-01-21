@@ -37,3 +37,23 @@
 }
 
 //=============================================================================
+
+.no-data {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 8px;
+}
+
+//=============================================================================
+
+.no-data mat-icon {
+  font-size: 96px;
+  width: 96px;
+  height: 96px;
+  color: #505AC2;
+}
+
+//=============================================================================

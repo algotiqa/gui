@@ -825,6 +825,7 @@ page:
           name: All
       tab:
         market    : Market
+      noData: Instrument doesn't have enough data to calculate the SQN
       market:
         all  : All
         long : Long

@@ -59,6 +59,8 @@ export class TradingSystemQualityPanel extends AbstractPanel {
   tsId : number = 0
   qar  : QualityAnalysisResponse = new QualityAnalysisResponse()
 
+  goodData = true
+
   //-------------------------------------------------------------------------
   //---
   //--- Constructor
@@ -144,7 +146,8 @@ export class TradingSystemQualityPanel extends AbstractPanel {
     }
 
     this.portfolioService.getQualityAnalysis(this.tsId, req).subscribe(res => {
-      this.qar = res
+      this.qar      = res
+      this.goodData = res.qualityAllGross != undefined
     })
   }
 }
