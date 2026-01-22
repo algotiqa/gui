@@ -22,21 +22,21 @@ import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatInput} from "@angular/material/input";
 import {PorTradingSystem} from "../../../../../../model/model";
 import {PortfolioService} from "../../../../../../service/portfolio.service";
-import {ReadyCard} from "./card/ready.card";
+import {ArchiveCard} from "./card/archive.card";
 import {AppEvent} from "../../../../../../model/event";
 
 //=============================================================================
 
 @Component({
-    selector: 'ready-panel',
-    templateUrl: './ready.panel.html',
-    styleUrls: ['./ready.panel.scss'],
-    imports: [CommonModule, RouterModule, MatTabsModule, ReactiveFormsModule, FormsModule, MatFormField, MatIcon, MatIconButton, MatInput, MatLabel, MatSuffix, MatButton, ReadyCard]
+    selector: 'archive-panel',
+    templateUrl: './archive.panel.html',
+    styleUrls: ['./archive.panel.scss'],
+    imports: [CommonModule, RouterModule, MatTabsModule, ReactiveFormsModule, FormsModule, MatFormField, MatIcon, MatIconButton, MatInput, MatLabel, MatSuffix, MatButton, ArchiveCard]
 })
 
 //=============================================================================
 
-export class ReadyPanel extends AbstractPanel {
+export class ArchivePanel extends AbstractPanel {
 
   //-------------------------------------------------------------------------
   //---
@@ -65,7 +65,7 @@ export class ReadyPanel extends AbstractPanel {
 
     super(eventBusService, labelService, router, "portfolio.tradingSystem.ready");
 
-    eventBusService.subscribeToApp(AppEvent.TRADINGSYSTEM_READY_LIST_RELOAD, () => {
+    eventBusService.subscribeToApp(AppEvent.TRADINGSYSTEM_ARCHIVE_LIST_RELOAD, () => {
       this.reload()
     })
   }

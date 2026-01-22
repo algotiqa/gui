@@ -57,13 +57,13 @@ import {
 import {BiasAnalysisViewPanel} from "./app/layout/main-panel/work-panel/tool/bias-analysis/view/bias-analysis.view";
 import {DocEditorComponent} from "./app/module/doc-editor/doc-editor.component";
 import {TradingSystemPerformancePanel} from "./app/module/performance-metrics/performance.panel";
-import {
-  TradingSystemReadyEditPanel
-} from "./app/layout/main-panel/work-panel/portfolio/trading-system/ready/edit/edit.panel";
 import {AdapterTestPanel} from "./app/layout/main-panel/work-panel/admin/test/adapter-test.panel";
 import {MarketAnalysisListPanel} from "./app/layout/main-panel/work-panel/tool/market-analysis/market-analysis.list";
 import {TradingSystemQualityPanel} from "./app/module/quality-analyzer/quality.panel";
 import {TradingSystemSimulationPanel} from "./app/module/simulator/simulation.panel";
+import {
+  TradingSystemArchiveEditPanel
+} from "./app/layout/main-panel/work-panel/portfolio/trading-system/archive/edit/edit.panel";
 
 //=============================================================================
 
@@ -93,8 +93,8 @@ export const routes: Routes = [
   //--- Portfolio
 
   { path: Url.Portfolio_TradingSystems,           component: TradingSystemDashboard          },
-  { path: Url.Right_TradingSystem_DevelEdit,      component: TradingSystemDevelEditPanel,   outlet : 'right' },
-  { path: Url.Right_TradingSystem_ReadyEdit,      component: TradingSystemReadyEditPanel,   outlet : 'right' },
+  { path: Url.Right_TradingSystem_DevelopEdit,    component: TradingSystemDevelEditPanel,   outlet : 'right' },
+  { path: Url.Right_TradingSystem_ArchiveEdit,    component: TradingSystemArchiveEditPanel, outlet : 'right' },
 
   { path: Url.Portfolio_TradingSystems_Id, children : [
       { path: Url.Sub_Filtering, component:  FilteringPanel }

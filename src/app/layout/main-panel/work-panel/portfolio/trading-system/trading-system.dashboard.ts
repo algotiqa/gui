@@ -7,7 +7,6 @@
 //=============================================================================
 
 import {Component, ViewChild} from '@angular/core';
-import {NgIf} from "@angular/common";
 import {AbstractPanel} from "../../../../../component/abstract.panel";
 import {LabelService} from "../../../../../service/label.service";
 import {EventBusService} from "../../../../../service/eventbus.service";
@@ -17,8 +16,8 @@ import {LocalService} from "../../../../../service/local.service";
 import { MatButtonToggleModule} from "@angular/material/button-toggle";
 import {Setting} from "../../../../../model/setting";
 import {TradingPanel} from "./trading/trading.panel";
-import {ReadyPanel} from "./ready/ready.panel";
 import {DevelopmentPanel} from "./development/development.panel";
+import {ArchivePanel} from "./archive/archive.panel";
 
 //=============================================================================
 
@@ -26,7 +25,7 @@ import {DevelopmentPanel} from "./development/development.panel";
     selector: 'portfolio-trading-system-db',
     templateUrl: './trading-system.dashboard.html',
     styleUrls: ['./trading-system.dashboard.scss'],
-    imports: [MatButtonToggleModule, ReactiveFormsModule, TradingPanel, NgIf, ReadyPanel, DevelopmentPanel]
+    imports: [MatButtonToggleModule, ReactiveFormsModule, TradingPanel, ArchivePanel, DevelopmentPanel]
 })
 
 //=============================================================================
@@ -42,8 +41,8 @@ export class TradingSystemDashboard extends AbstractPanel {
   selScope = new FormControl("DV")
 
   @ViewChild("developPanel") developPanel? : DevelopmentPanel
-  @ViewChild("readyPanel")   readyPanel?   : ReadyPanel
   @ViewChild("tradingPanel") tradingPanel? : TradingPanel
+  @ViewChild("archivePanel") archivePanel? : ArchivePanel
 
   //-------------------------------------------------------------------------
   //---

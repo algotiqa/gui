@@ -1,23 +1,29 @@
-<development-panel #developPanel *ngIf="selScope.value=='DV'" class="main-panel">
-  <mat-button-toggle-group [hideSingleSelectionIndicator]="true" [formControl]="selScope" class="scope-selector">
-    <mat-button-toggle value="DV" (change)="onScopeSet()">{{ scope("DV") }}</mat-button-toggle>
-    <mat-button-toggle value="RD" (change)="onScopeSet()">{{ scope("RD") }}</mat-button-toggle>
-    <mat-button-toggle value="TR" (change)="onScopeSet()">{{ scope("TR") }}</mat-button-toggle>
-  </mat-button-toggle-group>
-</development-panel>
+@if (selScope.value=='DV') {
+  <development-panel #developPanel class="main-panel">
+    <mat-button-toggle-group [hideSingleSelectionIndicator]="true" [formControl]="selScope" class="scope-selector">
+      <mat-button-toggle value="DV" (change)="onScopeSet()">{{ scope("DV") }}</mat-button-toggle>
+      <mat-button-toggle value="TR" (change)="onScopeSet()">{{ scope("TR") }}</mat-button-toggle>
+      <mat-button-toggle value="AR" (change)="onScopeSet()">{{ scope("AR") }}</mat-button-toggle>
+    </mat-button-toggle-group>
+  </development-panel>
+}
 
-<ready-panel #readyPanel *ngIf="selScope.value=='RD'" class="main-panel">
-  <mat-button-toggle-group [hideSingleSelectionIndicator]="true" [formControl]="selScope" class="scope-selector">
-    <mat-button-toggle value="DV" (change)="onScopeSet()">{{ scope("DV") }}</mat-button-toggle>
-    <mat-button-toggle value="RD" (change)="onScopeSet()">{{ scope("RD") }}</mat-button-toggle>
-    <mat-button-toggle value="TR" (change)="onScopeSet()">{{ scope("TR") }}</mat-button-toggle>
-  </mat-button-toggle-group>
-</ready-panel>
+@if (selScope.value=='TR') {
+  <trading-panel #tradingPanel class="main-panel">
+    <mat-button-toggle-group [hideSingleSelectionIndicator]="true" [formControl]="selScope" class="scope-selector">
+      <mat-button-toggle value="DV" (change)="onScopeSet()">{{ scope("DV") }}</mat-button-toggle>
+      <mat-button-toggle value="TR" (change)="onScopeSet()">{{ scope("TR") }}</mat-button-toggle>
+      <mat-button-toggle value="AR" (change)="onScopeSet()">{{ scope("AR") }}</mat-button-toggle>
+    </mat-button-toggle-group>
+  </trading-panel>
+}
 
-<trading-panel #tradingPanel *ngIf="selScope.value=='TR'" class="main-panel">
-  <mat-button-toggle-group [hideSingleSelectionIndicator]="true" [formControl]="selScope" class="scope-selector">
-    <mat-button-toggle value="DV" (change)="onScopeSet()">{{ scope("DV") }}</mat-button-toggle>
-    <mat-button-toggle value="RD" (change)="onScopeSet()">{{ scope("RD") }}</mat-button-toggle>
-    <mat-button-toggle value="TR" (change)="onScopeSet()">{{ scope("TR") }}</mat-button-toggle>
-  </mat-button-toggle-group>
-</trading-panel>
+@if (selScope.value=='AR') {
+  <archive-panel #archivePanel class="main-panel">
+    <mat-button-toggle-group [hideSingleSelectionIndicator]="true" [formControl]="selScope" class="scope-selector">
+      <mat-button-toggle value="DV" (change)="onScopeSet()">{{ scope("DV") }}</mat-button-toggle>
+      <mat-button-toggle value="TR" (change)="onScopeSet()">{{ scope("TR") }}</mat-button-toggle>
+      <mat-button-toggle value="AR" (change)="onScopeSet()">{{ scope("AR") }}</mat-button-toggle>
+    </mat-button-toggle-group>
+  </archive-panel>
+}

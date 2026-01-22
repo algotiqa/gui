@@ -51,7 +51,7 @@ import {AppEvent} from "../../../../../../../model/event";
 
 //=============================================================================
 
-export class TradingSystemReadyEditPanel extends AbstractPanel {
+export class TradingSystemArchiveEditPanel extends AbstractPanel {
 
   //-------------------------------------------------------------------------
   //---
@@ -89,8 +89,8 @@ export class TradingSystemReadyEditPanel extends AbstractPanel {
               router                   : Router,
               private inventoryService : InventoryService) {
 
-    super(eventBusService, labelService, router, "portfolio.tradingSystem.ready", "tradingSystem");
-    super.subscribeToApp(AppEvent.TRADINGSYSTEM_READY_EDIT_START, (e : AppEvent) => this.onStart(e));
+    super(eventBusService, labelService, router, "portfolio.tradingSystem.archive", "tradingSystem");
+    super.subscribeToApp(AppEvent.TRADINGSYSTEM_ARCHIVE_EDIT_START, (e : AppEvent) => this.onStart(e));
 
     inventoryService.getAgentProfiles().subscribe(
       result => {
@@ -122,7 +122,7 @@ export class TradingSystemReadyEditPanel extends AbstractPanel {
   //-------------------------------------------------------------------------
 
   private onStart(event : AppEvent) : void {
-    console.log("TradingSystemEditPanel: Starting...");
+    console.log("TradingSystemArchivePanel: Starting...");
 
     this.strategyTypes = this.labelService.getLabel("map.strategyType")
 
@@ -158,7 +158,7 @@ export class TradingSystemReadyEditPanel extends AbstractPanel {
     this.ts.tags = this.tagSet.join("|")
     this.inventoryService.updateTradingSystem(this.ts).subscribe( c => {
       this.onClose();
-      this.emitToApp(new AppEvent<any>(AppEvent.TRADINGSYSTEM_READY_LIST_RELOAD))
+      this.emitToApp(new AppEvent<any>(AppEvent.TRADINGSYSTEM_ARCHIVE_LIST_RELOAD))
     })
   }
 

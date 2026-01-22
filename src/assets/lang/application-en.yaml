@@ -1009,8 +1009,8 @@ map:
 
   scope:
     DV: Development
-    RD: Ready
     TR: Trading
+    AR: Archive
 
   strategyType:
     TF: Trend following

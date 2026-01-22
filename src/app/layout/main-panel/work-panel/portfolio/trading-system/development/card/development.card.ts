@@ -151,7 +151,7 @@ export class DevelopmentCard extends AbstractPanel {
   //-------------------------------------------------------------------------
 
   onMenuEdit() {
-    this.openRightPanel(Url.Portfolio_TradingSystems, Url.Right_TradingSystem_ReadyEdit, AppEvent.TRADINGSYSTEM_READY_EDIT_START, this.ts);
+    this.openRightPanel(Url.Portfolio_TradingSystems, Url.Right_TradingSystem_DevelopEdit, AppEvent.TRADINGSYSTEM_DEVELOP_EDIT_START, this.ts);
   }
 
   //-------------------------------------------------------------------------
@@ -173,7 +173,7 @@ export class DevelopmentCard extends AbstractPanel {
   onMenuDelete() {
     this.inventoryService.deleteTradingSystem(this.ts.id).subscribe( res => {
       this.broadcastService.sendTradingSystemDeleted(this.ts.id)
-      this.emitToApp(new AppEvent<any>(AppEvent.TRADINGSYSTEM_READY_LIST_RELOAD))
+      this.emitToApp(new AppEvent<any>(AppEvent.TRADINGSYSTEM_DEVELOP_LIST_RELOAD))
     })
   }
 }

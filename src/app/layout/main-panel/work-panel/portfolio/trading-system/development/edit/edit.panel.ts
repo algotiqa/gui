@@ -96,7 +96,7 @@ export class TradingSystemDevelEditPanel extends AbstractPanel {
               private inventoryService : InventoryService) {
 
     super(eventBusService, labelService, router, "portfolio.tradingSystem.development", "tradingSystem");
-    super.subscribeToApp(AppEvent.TRADINGSYSTEM_DEVEL_EDIT_START, (e : AppEvent) => this.onStart(e));
+    super.subscribeToApp(AppEvent.TRADINGSYSTEM_DEVELOP_EDIT_START, (e : AppEvent) => this.onStart(e));
 
     inventoryService.getAgentProfiles().subscribe(
       result => {
@@ -171,13 +171,13 @@ export class TradingSystemDevelEditPanel extends AbstractPanel {
     if (this.ts.id == undefined) {
       this.inventoryService.addTradingSystem(this.ts).subscribe( c => {
         this.onClose();
-        this.emitToApp(new AppEvent<any>(AppEvent.TRADINGSYSTEM_DEVEL_LIST_RELOAD))
+        this.emitToApp(new AppEvent<any>(AppEvent.TRADINGSYSTEM_DEVELOP_LIST_RELOAD))
       })
     }
     else {
       this.inventoryService.updateTradingSystem(this.ts).subscribe( c => {
         this.onClose();
-        this.emitToApp(new AppEvent<any>(AppEvent.TRADINGSYSTEM_DEVEL_LIST_RELOAD))
+        this.emitToApp(new AppEvent<any>(AppEvent.TRADINGSYSTEM_DEVELOP_LIST_RELOAD))
       })
     }
   }

@@ -6,7 +6,7 @@
 //=== found in the LICENSE file
 //=============================================================================
 
-import {Component, EventEmitter, Input, Output} from "@angular/core";
+import {Component, Input} from "@angular/core";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatButtonModule} from "@angular/material/button";
@@ -35,15 +35,15 @@ const LABEL_ROOT = "page.portfolio.tradingSystem.trading.buttons"
 //=============================================================================
 
 @Component({
-    selector: 'ready-card',
-    templateUrl: './ready.card.html',
-    styleUrls: ['./ready.card.scss'],
+    selector: 'archive-card',
+    templateUrl: './archive.card.html',
+    styleUrls: [ './archive.card.scss'],
   imports: [MatFormFieldModule, FormsModule, ReactiveFormsModule, MatButtonModule, MatIconModule, MatCardModule, MatMenuModule, FlatButton]
 })
 
 //=============================================================================
 
-export class ReadyCard extends AbstractPanel {
+export class ArchiveCard extends AbstractPanel {
 
   //-------------------------------------------------------------------------
   //---
@@ -71,7 +71,7 @@ export class ReadyCard extends AbstractPanel {
               private moduleService    : ModuleService,
               private broadcastService : BroadcastService
   ) {
-    super(eventBusService, labelService, router, "portfolio.tradingSystem.ready");
+    super(eventBusService, labelService, router, "portfolio.tradingSystem.archive");
   }
 
   //-------------------------------------------------------------------------
@@ -148,7 +148,7 @@ export class ReadyCard extends AbstractPanel {
   onMenuToTrading() {
     this.portfolioService.setTradingSystemTrading(this.ts.id, true).subscribe( res => {
       if (res.status == TspResponseStatus.OK) {
-        this.emitToApp(new AppEvent<any>(AppEvent.TRADINGSYSTEM_READY_LIST_RELOAD))
+        this.emitToApp(new AppEvent<any>(AppEvent.TRADINGSYSTEM_ARCHIVE_LIST_RELOAD))
       }
       else if (res.status == TspResponseStatus.ERROR) {
         let message = this.loc("error.toTrading")+" : "+ res.message
@@ -160,7 +160,7 @@ export class ReadyCard extends AbstractPanel {
   //-------------------------------------------------------------------------
 
   onMenuEdit() {
-    this.openRightPanel(Url.Portfolio_TradingSystems, Url.Right_TradingSystem_ReadyEdit, AppEvent.TRADINGSYSTEM_READY_EDIT_START, this.ts);
+    this.openRightPanel(Url.Portfolio_TradingSystems, Url.Right_TradingSystem_ArchiveEdit, AppEvent.TRADINGSYSTEM_ARCHIVE_EDIT_START, this.ts);
   }
 
   //-------------------------------------------------------------------------
@@ -179,7 +179,7 @@ export class ReadyCard extends AbstractPanel {
 
   onMenuDeleteTrades() {
     this.portfolioService.deleteTradingSystemTrades(this.ts.id).subscribe( res => {
-      this.emitToApp(new AppEvent<any>(AppEvent.TRADINGSYSTEM_READY_LIST_RELOAD))
+      this.emitToApp(new AppEvent<any>(AppEvent.TRADINGSYSTEM_ARCHIVE_LIST_RELOAD))
     })
   }
 
@@ -188,7 +188,7 @@ export class ReadyCard extends AbstractPanel {
   onMenuDelete() {
     this.inventoryService.deleteTradingSystem(this.ts.id).subscribe( res => {
       this.broadcastService.sendTradingSystemDeleted(this.ts.id)
-      this.emitToApp(new AppEvent<any>(AppEvent.TRADINGSYSTEM_READY_LIST_RELOAD))
+      this.emitToApp(new AppEvent<any>(AppEvent.TRADINGSYSTEM_ARCHIVE_LIST_RELOAD))
     })
   }
 }

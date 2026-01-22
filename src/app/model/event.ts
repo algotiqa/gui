@@ -44,11 +44,11 @@ export class AppEvent<T = any>  {
   static CONNECTION_CREATE_START : string = "connection.create.start";
   static CONNECTION_EDIT_START   : string = "connection.edit.start";
 
-  static TRADINGSYSTEM_DEVEL_LIST_RELOAD   : string = "tradingSystem.devel.list.reload";
-  static TRADINGSYSTEM_DEVEL_EDIT_START    : string = "tradingSystem.devel.edit.start";
-  static TRADINGSYSTEM_READY_LIST_RELOAD   : string = "tradingSystem.ready.list.reload";
-  static TRADINGSYSTEM_READY_EDIT_START    : string = "tradingSystem.ready.edit.start";
+  static TRADINGSYSTEM_DEVELOP_LIST_RELOAD : string = "tradingSystem.develop.list.reload";
+  static TRADINGSYSTEM_DEVELOP_EDIT_START  : string = "tradingSystem.develop.edit.start";
   static TRADINGSYSTEM_TRADING_LIST_RELOAD : string = "tradingSystem.trading.list.reload";
+  static TRADINGSYSTEM_ARCHIVE_LIST_RELOAD : string = "tradingSystem.archive.list.reload";
+  static TRADINGSYSTEM_ARCHIVE_EDIT_START  : string = "tradingSystem.archive.edit.start";
 
   static DATAPRODUCT_LIST_RELOAD   : string = "dataProduct.list.reload";
   static DATAPRODUCT_CREATE_START  : string = "dataProduct.create.start";
