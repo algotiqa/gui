@@ -43,7 +43,7 @@ menu-button:
   toTrading    : Move to trading
   toReady      : Move to ready
   delete       : Delete
-  deleteTrades : Delete trades
+  reloadTrades : Reload trades from agent
   quality      : Quality
   simulation   : Simulation
 
@@ -424,6 +424,10 @@ page:
         lastTrade      : Last trade
         currency       : Currency
         performance    : Performance
+        reloadTrades:
+          none   : No data files found
+          prefix : Reloaded trades from file(s)
+          suffix : Please, wait a few seconds to complete the operation
         chart:
           time  : Time
           trades: Trades

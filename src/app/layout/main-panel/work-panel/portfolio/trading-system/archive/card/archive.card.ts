@@ -177,14 +177,6 @@ export class ArchiveCard extends AbstractPanel {
 
   //-------------------------------------------------------------------------
 
-  onMenuDeleteTrades() {
-    this.portfolioService.deleteTradingSystemTrades(this.ts.id).subscribe( res => {
-      this.emitToApp(new AppEvent<any>(AppEvent.TRADINGSYSTEM_ARCHIVE_LIST_RELOAD))
-    })
-  }
-
-  //-------------------------------------------------------------------------
-
   onMenuDelete() {
     this.inventoryService.deleteTradingSystem(this.ts.id).subscribe( res => {
       this.broadcastService.sendTradingSystemDeleted(this.ts.id)

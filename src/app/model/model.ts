@@ -99,6 +99,12 @@ export class FinalizationResponse {
 
 //=============================================================================
 
+export class ReloadTradesResponse {
+  tradeCount : {[file:string]:number} = {};
+}
+
+//=============================================================================
+
 export class ConnectionSpec {
   id?                 : number
   code                : string = ""

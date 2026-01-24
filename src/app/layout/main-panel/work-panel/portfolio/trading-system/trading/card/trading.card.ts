@@ -19,7 +19,7 @@ import {CheckButton} from "../../../../../../../component/form/check-button/chec
 import {AbstractPanel} from "../../../../../../../component/abstract.panel";
 import {TradingSystemStatusStyler} from "../../../../../../../component/panel/flex-table/icon-sylers";
 import {CheckButtonConfig} from "../../../../../../../component/form/check-button/check-button-config";
-import {PorTradingSystem, TspResponseStatus} from "../../../../../../../model/model";
+import {PorTradingSystem, ReloadTradesResponse, TspResponseStatus} from "../../../../../../../model/model";
 import {EventBusService} from "../../../../../../../service/eventbus.service";
 import {LabelService} from "../../../../../../../service/label.service";
 import {PortfolioService} from "../../../../../../../service/portfolio.service";
@@ -265,6 +265,15 @@ export class TradingCard extends AbstractPanel {
   }
 
   //-------------------------------------------------------------------------
+
+  onMenuReloadTrades() {
+    this.inventoryService.reloadTrades(this.ts.id).subscribe( res => {
+      this.displayResult(res)
+      this.emitToApp(new AppEvent<any>(AppEvent.TRADINGSYSTEM_TRADING_LIST_RELOAD))
+    })
+  }
+
+  //-------------------------------------------------------------------------
   //---
   //--- Private methods
   //---
@@ -280,6 +289,23 @@ export class TradingCard extends AbstractPanel {
     this.ts.active          = ts.active
     this.ts.status          = ts.status
     this.ts.suggestedAction = ts.suggestedAction
+  }
+
+  //-------------------------------------------------------------------------
+
+  private displayResult(res : ReloadTradesResponse) {
+    let message = this.loc("reloadTrades.none")
+    if (Object.keys(res.tradeCount).length != 0) {
+      message = this.loc("reloadTrades.prefix") +": "
+
+      for (let file in res.tradeCount) {
+          message = message +" "+ file +" ("+res.tradeCount[file]+")"
+      }
+
+      message = message +". "+ this.loc("reloadTrades.suffix")
+    }
+
+    this.snackBar.open(message, "Ok")
   }
 }
 

@@ -11,14 +11,14 @@ import {Observable}        from "rxjs";
 import {ListResponse}      from "../model/flex-table";
 import {
   Connection,
-  ConnectionSpec, Currency, Exchange, DatafileUploadSpec, DataInstrument, InvTradingSystem,
-  InvTradingSystemFull, Portfolio, PortfolioTree,
+  ConnectionSpec, Currency, Exchange, InvTradingSystem,
+  InvTradingSystemFull,
   BrokerProduct, BrokerProductSpec,
   DataProduct, DataProductExt, DataProductSpec,
-  TradingSession, TradingSystemSpec, DatafileUploadResponse, AgentProfile, FinalizationResponse, DataProductFull,
-  BrokerProductExt, BrokerProductFull
+  TradingSession, TradingSystemSpec, AgentProfile, FinalizationResponse, DataProductFull,
+  BrokerProductExt, BrokerProductFull, ReloadTradesResponse
 } from "../model/model";
-import {HttpService, UploadEvent} from "./http.service";
+import {HttpService} from "./http.service";
 import { HttpParams } from "@angular/common/http";
 
 //=============================================================================
@@ -168,6 +168,12 @@ export class InventoryService {
 
   public finalizeTradingSystem = (id: number): Observable<FinalizationResponse> => {
     return this.httpService.post<FinalizationResponse>('/api/inventory/v1/trading-systems/'+ id +'/finalize', {});
+  }
+
+  //---------------------------------------------------------------------------
+
+  public reloadTrades = (id: number): Observable<ReloadTradesResponse> => {
+    return this.httpService.post<ReloadTradesResponse>('/api/inventory/v1/trading-systems/'+ id +'/reload-trades', {});
   }
 
   //---------------------------------------------------------------------------
