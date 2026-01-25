@@ -63,7 +63,7 @@ export class ArchivePanel extends AbstractPanel {
               private portfolioService: PortfolioService,
               private storageService  : LocalService) {
 
-    super(eventBusService, labelService, router, "portfolio.tradingSystem.ready");
+    super(eventBusService, labelService, router, "portfolio.tradingSystem.archive");
 
     eventBusService.subscribeToApp(AppEvent.TRADINGSYSTEM_ARCHIVE_LIST_RELOAD, () => {
       this.reload()

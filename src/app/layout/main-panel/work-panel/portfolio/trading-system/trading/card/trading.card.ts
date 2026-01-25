@@ -234,13 +234,13 @@ export class TradingCard extends AbstractPanel {
   //---
   //-------------------------------------------------------------------------
 
-  onMenuToReady() {
+  onMenuToArchive() {
     this.portfolioService.setTradingSystemTrading(this.ts.id, false).subscribe( res => {
       if (res.status == TspResponseStatus.OK) {
         this.emitToApp(new AppEvent<any>(AppEvent.TRADINGSYSTEM_TRADING_LIST_RELOAD))
       }
       else if (res.status == TspResponseStatus.ERROR) {
-        let message = this.loc("error.toReady")+" : "+ res.message
+        let message = this.loc("error.toArchive")+" : "+ res.message
         this.snackBar.open(message, this.button("ok"))
       }
     })
