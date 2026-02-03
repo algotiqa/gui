@@ -306,7 +306,7 @@
   costPerOperation: 0
   margin          : 0
   months          : FGHJKMNQUVXZ
-  rollover        :
+  rollover        : bd3
 
 - symbol:
     default       : MNG
@@ -320,7 +320,7 @@
   margin          : 0
   months          : FGHJKMNQUVXZ
   micro           : true
-  rollover        :
+  rollover        : bd3
 
 - symbol:
     default       : RB

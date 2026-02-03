@@ -1027,6 +1027,7 @@ map:
     sd4 :  4 solar days before expiration
     sd6 :  6 solar days before expiration
     sd30: 30 solar days before expiration
+    bd3 : 3 business days before expiration
 
   dataInstrumentStatus:
     waiting   : Waiting
