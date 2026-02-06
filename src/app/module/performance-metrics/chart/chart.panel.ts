@@ -8,7 +8,7 @@
 
 import {Component, Input} from '@angular/core';
 import {Router} from "@angular/router";
-import { ApexStroke, ApexXAxis, ChartComponent} from "ng-apexcharts";
+import {ApexAnnotations, ApexStroke, ApexXAxis, ChartComponent} from "ng-apexcharts";
 import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatButtonToggle, MatButtonToggleGroup} from "@angular/material/button-toggle";
 import {AbstractPanel} from "../../../component/abstract.panel";
@@ -20,6 +20,7 @@ import {LocalService} from "../../../service/local.service";
 import {Setting} from "../../../model/setting";
 import {Lib} from "../../../lib/lib";
 import {PerfEquities, PerformanceAnalysisResponse} from "../../../model/performance";
+import {IntDateAdapter} from "../../../component/form/date-picker/int-date-adapter";
 
 //=============================================================================
 
@@ -245,7 +246,8 @@ export class PerformanceChartPanel extends AbstractPanel {
       }
     }
 
-    this.chartOptions.series = datasets
+    this.chartOptions.series      = datasets
+    this.chartOptions.annotations = this.rebuildAnnotations()
   }
 
   //-------------------------------------------------------------------------
@@ -305,6 +307,43 @@ export class PerformanceChartPanel extends AbstractPanel {
     }
 
     return axis
+  }
+
+  //-------------------------------------------------------------------------
+
+  private rebuildAnnotations() : ApexAnnotations {
+    if (this._par == undefined) {
+      return {}
+    }
+
+    let isTo = this._par.tradingSystem?.inSampleTo
+    if (isTo == undefined || isTo == 0) {
+      return {}
+    }
+
+    let y = new IntDateAdapter().year(isTo)
+    let m = new IntDateAdapter().month(isTo)
+    let d = new IntDateAdapter().day(isTo)
+
+    return {
+      xaxis: [{
+        x : new Date(y, m, d).getTime(),
+        x2: new Date().getTime(),
+        fillColor: "#B3F7CA",
+        opacity: 0.3,
+        strokeDashArray: 0,
+        borderColor: '#775DD0',
+        label: {
+          borderColor: '#775DD0',
+          style: {
+            fontSize  : '13px',
+            color     : '#fff',
+            background: '#775DD0',
+          },
+          text: this.loc("outOfSample"),
+        }
+      }]
+    }
   }
 }
 

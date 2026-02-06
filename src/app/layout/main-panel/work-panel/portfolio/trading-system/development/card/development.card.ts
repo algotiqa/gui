@@ -71,7 +71,7 @@ export class DevelopmentCard extends AbstractPanel {
               private moduleService    : ModuleService,
               private broadcastService : BroadcastService
   ) {
-    super(eventBusService, labelService, router, "portfolio.tradingSystem.ready");
+    super(eventBusService, labelService, router, "portfolio.tradingSystem.development");
   }
 
   //-------------------------------------------------------------------------

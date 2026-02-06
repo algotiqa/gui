@@ -11,7 +11,6 @@ import {Router} from "@angular/router";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatOptionModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
-import {NgIf} from "@angular/common";
 import {MatInputModule} from "@angular/material/input";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
@@ -50,7 +49,7 @@ import {DatePicker} from "../../../../../../../component/form/date-picker/date-p
     styleUrls: ['./edit.panel.scss'],
   imports: [RightTitlePanel, MatFormFieldModule, MatOptionModule, MatSelectModule,
     MatInputModule, MatIconModule, MatButtonModule, FormsModule, ReactiveFormsModule,
-    MatDividerModule, InputTextRequired, SelectRequired, InputNumberRequired, ChipSetTextComponent, SelectTextRequired, MatSlideToggle, NgIf, DataProductSelector, BrokerProductSelector, DatePicker
+    MatDividerModule, InputTextRequired, SelectRequired, InputNumberRequired, ChipSetTextComponent, SelectTextRequired, MatSlideToggle, DataProductSelector, BrokerProductSelector, DatePicker
   ]
 })
 
@@ -75,14 +74,16 @@ export class TradingSystemDevelEditPanel extends AbstractPanel {
 
   title : string =""
 
-  @ViewChild("tsNameCtrl")      tsNameCtrl?      : InputTextRequired
-  @ViewChild("tsDataCtrl")      tsDataCtrl?      : DataProductSelector
-  @ViewChild("tsBrokerCtrl")    tsBrokerCtrl?    : SelectRequired
-  @ViewChild("tsSessionCtrl")   tsSessionCtrl?   : SelectRequired
-  @ViewChild("tsTimeframeCtrl") tsTimeframeCtrl? : InputNumberRequired
-  @ViewChild("tsStratTypeCtrl") tsStratTypeCtrl? : SelectRequired
-  @ViewChild("tsProfileCtrl")   tsProfileCtrl?   : SelectRequired
-  @ViewChild("tsExternRefCtrl") tsExternRefCtrl? : InputTextRequired
+  @ViewChild("tsNameCtrl")         tsNameCtrl?        : InputTextRequired
+  @ViewChild("tsDataCtrl")         tsDataCtrl?        : DataProductSelector
+  @ViewChild("tsBrokerCtrl")       tsBrokerCtrl?      : SelectRequired
+  @ViewChild("tsSessionCtrl")      tsSessionCtrl?     : SelectRequired
+  @ViewChild("tsTimeframeCtrl")    tsTimeframeCtrl?   : InputNumberRequired
+  @ViewChild("tsStratTypeCtrl")    tsStratTypeCtrl?   : SelectRequired
+  @ViewChild("tsInSampleFromCtrl") tsInSampleFromCtrl?: DatePicker
+  @ViewChild("tsInSampleToCtrl")   tsInSampleToCtrl? : DatePicker
+  @ViewChild("tsProfileCtrl")      tsProfileCtrl?    : SelectRequired
+  @ViewChild("tsExternRefCtrl")    tsExternRefCtrl?  : InputTextRequired
 
   //-------------------------------------------------------------------------
   //---
@@ -152,12 +153,14 @@ export class TradingSystemDevelEditPanel extends AbstractPanel {
       agent = this.tsExternRefCtrl?.isValid()
     }
 
-    return  this.tsNameCtrl     ?.isValid() &&
-            this.tsDataCtrl     ?.isValid() &&
-            this.tsBrokerCtrl   ?.isValid() &&
-            this.tsSessionCtrl  ?.isValid() &&
-            this.tsTimeframeCtrl?.isValid() &&
-            this.tsStratTypeCtrl?.isValid() &&
+    return  this.tsNameCtrl        ?.isValid() &&
+            this.tsDataCtrl        ?.isValid() &&
+            this.tsBrokerCtrl      ?.isValid() &&
+            this.tsSessionCtrl     ?.isValid() &&
+            this.tsTimeframeCtrl   ?.isValid() &&
+            this.tsStratTypeCtrl   ?.isValid() &&
+            this.tsInSampleFromCtrl?.isValid() &&
+            this.tsInSampleToCtrl  ?.isValid() &&
             agent
   }
 

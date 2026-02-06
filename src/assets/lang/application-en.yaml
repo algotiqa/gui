@@ -404,6 +404,8 @@ page:
         edit  : Edit trading system
         none  : None
         filter: Filter...
+        currency   : Currency
+        performance: Performance
 
       trading:
         filter: Filter...
@@ -782,6 +784,7 @@ page:
         grossDrawdown : Gross drawdown
         netDrawdown   : Net drawdown
         stepline      : Stepline
+        outOfSample   : Out of sample
       distribution:
         trades      : Trades
         daily       : Daily
@@ -1040,7 +1043,7 @@ map:
     notStored : Not stored
 
   engineCode:
-    bfl     : Scripting language
+    tiq     : Scripting language
     external: External (agent based)
 
 # ==============================================================================
