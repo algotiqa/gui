@@ -206,9 +206,22 @@
   exchange        : COMEX
   pointValue      : 5000
   costPerOperation: 0
-  margin          : 0
+  margin          : 85000
   months          : HKNUZ
-  rollover        :
+  rollover        : sd30
+
+- symbol:
+    default       : SIL
+  name            : Micro Silver
+  increment       : 0.005
+  market          : ME
+  product         : FU
+  exchange        : COMEX
+  pointValue      : 1000
+  costPerOperation: 0
+  margin          : 11500
+  months          : HKNUZ
+  rollover        : sd30
 
 - symbol:
     default       : HG
@@ -219,9 +232,9 @@
   exchange        : COMEX
   pointValue      : 25000
   costPerOperation: 0
-  margin          : 0
+  margin          : 12000
   months          : HKNUZ
-  rollover        :
+  rollover        : sd30
 
 - symbol:
     default       : MHG
@@ -232,10 +245,10 @@
   exchange        : COMEX
   pointValue      : 2500
   costPerOperation: 0
-  margin          : 0
+  margin          : 1200
   micro           : true
   months          : HKNUZ
-  rollover        :
+  rollover        : sd30
 
 #--- Energy --------------------------------
 
