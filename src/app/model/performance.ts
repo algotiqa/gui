@@ -34,6 +34,7 @@ export class PerformanceAnalysisResponse {
   aggregates?    : Aggregates
   distributions? : Distributions
   rolling?       : Rolling
+  livePeriods    : LivePeriod[] = []
 }
 
 //=============================================================================
@@ -158,6 +159,13 @@ export class RollingInfo {
 export class YoYRolling {
   year   : number        = 0
   data   : RollingInfo[] = []
+}
+
+//=============================================================================
+
+export class LivePeriod {
+    from? : Date
+    to?   : Date
 }
 
 //=============================================================================

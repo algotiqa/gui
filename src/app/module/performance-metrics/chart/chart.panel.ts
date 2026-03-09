@@ -8,7 +8,7 @@
 
 import {Component, Input} from '@angular/core';
 import {Router} from "@angular/router";
-import {ApexAnnotations, ApexStroke, ApexXAxis, ChartComponent} from "ng-apexcharts";
+import {ApexAnnotations, ApexStroke, ApexXAxis, ChartComponent, XAxisAnnotations} from "ng-apexcharts";
 import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatButtonToggle, MatButtonToggleGroup} from "@angular/material/button-toggle";
 import {AbstractPanel} from "../../../component/abstract.panel";
@@ -316,17 +316,26 @@ export class PerformanceChartPanel extends AbstractPanel {
       return {}
     }
 
-    let isTo = this._par.tradingSystem?.inSampleTo
+    let list = [...this.rebuildInSample(this._par), ...this.rebuildLive(this._par)]
+
+    return {
+      xaxis: list
+    }
+  }
+
+  //-------------------------------------------------------------------------
+
+  private rebuildInSample(par : PerformanceAnalysisResponse) : XAxisAnnotations[] {
+    let isTo = par.tradingSystem?.inSampleTo
     if (isTo == undefined || isTo == 0) {
-      return {}
+      return []
     }
 
     let y = new IntDateAdapter().year(isTo)
     let m = new IntDateAdapter().month(isTo)
     let d = new IntDateAdapter().day(isTo)
 
-    return {
-      xaxis: [{
+    return [{
         x : new Date(y, m, d).getTime(),
         x2: new Date().getTime(),
         fillColor: "#B3F7CA",
@@ -343,7 +352,47 @@ export class PerformanceChartPanel extends AbstractPanel {
           text: this.loc("outOfSample"),
         }
       }]
-    }
+  }
+
+  //-------------------------------------------------------------------------
+
+  private rebuildLive(par : PerformanceAnalysisResponse) : XAxisAnnotations[] {
+    let list :XAxisAnnotations[] = []
+
+    par.livePeriods.forEach((d, i) => {
+      let from = new Date(2000, 1, 1).getTime()
+      let to   = new Date(3000, 2, 1).getTime()
+
+      if (d.from) {
+        from = new Date(d.from).getTime()
+      }
+
+      if (d.to) {
+        to = new Date(d.to).getTime()
+      }
+
+      let lp = {
+        x : from,
+        x2: to,
+        fillColor: "#F3B7CA",
+        opacity: 0.3,
+        strokeDashArray: 0,
+        borderColor: '#D75D70',
+        label: {
+          borderColor: '#D75D70',
+          style: {
+            fontSize  : '13px',
+            color     : '#fff',
+            background: '#D75D70',
+          },
+          text: this.loc("live"),
+        }
+      }
+      list = list.concat(lp)
+      console.log("Processed ", JSON.stringify(list))
+    })
+
+    return list
   }
 }
 

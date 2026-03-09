@@ -785,6 +785,7 @@ page:
         netDrawdown   : Net drawdown
         stepline      : Stepline
         outOfSample   : Out of sample
+        live          : Live
       distribution:
         trades      : Trades
         daily       : Daily
