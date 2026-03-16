@@ -238,7 +238,10 @@ export class HttpService {
 	private handleError = (err: HttpErrorResponse, caught: Observable<any>) : Observable<any> => {
 
 		console.log("HTTP error : " + JSON.stringify(err));
-    console.log("Observable : " + JSON.stringify(caught));
+
+    if (err.status == 0) {
+      this.sessionService.checkAuthentication()
+    }
 
 		let reqError : ErrorEvent = {
       code : err.status.toString(),
