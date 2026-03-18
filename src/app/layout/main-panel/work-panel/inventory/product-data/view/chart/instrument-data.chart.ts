@@ -64,7 +64,7 @@ export class DataInstrumentChartPanel extends AbstractPanel {
 
   fromDate      : number|null = null
   toDate        : number|null = null
-  timeframe     : string = "60m"
+  timeframe     : string = "60"
   timezone      : string = "exchange"
   instrumentIds : number[] = [];
   minPeriod     : number|undefined

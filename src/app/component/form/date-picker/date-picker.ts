@@ -10,8 +10,6 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {AbstractSubscriber} from "../../../service/abstract-subscriber";
-import {NgIf} from "@angular/common";
 import {
   AbstractControl,
   FormControl,
@@ -19,8 +17,7 @@ import {
   ReactiveFormsModule,
   ValidationErrors,
 } from "@angular/forms";
-import {BfErrorStateMatcher} from "../error-state-matcher";
-import {EventBusService} from "../../../service/eventbus.service";
+import {CustomErrorStateMatcher} from "../error-state-matcher";
 import {LabelService} from "../../../service/label.service";
 import {DateAdapter, MatNativeDateModule} from "@angular/material/core";
 import {IntDateAdapter} from "./int-date-adapter";
@@ -31,7 +28,7 @@ import {IntDateAdapter} from "./int-date-adapter";
     selector: 'date-picker',
     templateUrl: 'date-picker.html',
     styleUrls: ['date-picker.scss'],
-    imports: [MatFormFieldModule, MatInputModule, MatDatepickerModule, NgIf, ReactiveFormsModule, MatNativeDateModule],
+    imports: [MatFormFieldModule, MatInputModule, MatDatepickerModule, ReactiveFormsModule, MatNativeDateModule],
     providers: [{ provide: DateAdapter, useClass: IntDateAdapter }]
 })
 
@@ -53,7 +50,7 @@ export class DatePicker {
   //-------------------------------------------------------------------------
 
   formControl = new FormControl<number|null>(null)
-  matcher    = new BfErrorStateMatcher();
+  matcher = new CustomErrorStateMatcher();
 
   private _valid : boolean = false
   private prevValue : any
@@ -136,7 +133,6 @@ export class DatePicker {
 
   private validator = (control: AbstractControl<number|null>): ValidationErrors | null => {
     if (this.required && control.value == null) {
-      console.log("Required!!!")
       return { "required": "-" }
     }
 

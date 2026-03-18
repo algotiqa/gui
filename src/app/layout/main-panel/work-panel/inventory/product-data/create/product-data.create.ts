@@ -16,7 +16,6 @@ import {Router} from "@angular/router";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatOptionModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
-import {NgIf} from "@angular/common";
 import {MatInputModule} from "@angular/material/input";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
@@ -37,6 +36,7 @@ import {
 } from "../../../../../../component/form/root-product-selector/root-product-selector.dialog";
 import {DialogData} from "../../../../../../component/form/root-product-selector/dialog-data";
 import {MatCheckbox} from "@angular/material/checkbox";
+import {TimePicker} from "../../../../../../component/form/time-picker/time-picker";
 
 //=============================================================================
 
@@ -54,7 +54,7 @@ enum Status {
     styleUrls: [ './product-data.create.scss'],
   imports: [RightTitlePanel, MatFormFieldModule, MatOptionModule, MatSelectModule,
     MatInputModule, MatIconModule, MatButtonModule, FormsModule, ReactiveFormsModule,
-    MatDividerModule, InputTextRequired, SelectRequired, TextSelectorPanel, NgIf, MatCheckbox,
+    MatDividerModule, InputTextRequired, SelectRequired, TextSelectorPanel, MatCheckbox, TimePicker,
   ]
 })
 
@@ -93,14 +93,15 @@ export class ProductDataCreatePanel extends AbstractPanel {
 
   //-------------------------------------------------------------------------
 
-  @ViewChild("pdConnCtrl")     pdConnCtrl?     : SelectRequired
+  @ViewChild("pdConnCtrl")     pdConnCtrl?       : SelectRequired
 
-  @ViewChild("pdSymbolCtrl")   pdSymbolCtrl?   : InputTextRequired
-  @ViewChild("pdNameCtrl")     pdNameCtrl?     : InputTextRequired
-  @ViewChild("pdMarketCtrl")   pdMarketCtrl?   : SelectRequired
-  @ViewChild("pdProductCtrl")  pdProductCtrl?  : SelectRequired
-  @ViewChild("pdExchangeCtrl") pdExchangeCtrl? : SelectRequired
-  @ViewChild("pdRollTypeCtrl") pdRollTypeCtrl? : SelectRequired
+  @ViewChild("pdSymbolCtrl")   pdSymbolCtrl?     : InputTextRequired
+  @ViewChild("pdNameCtrl")     pdNameCtrl?       : InputTextRequired
+  @ViewChild("pdMarketCtrl")   pdMarketCtrl?     : SelectRequired
+  @ViewChild("pdProductCtrl")  pdProductCtrl?    : SelectRequired
+  @ViewChild("pdExchangeCtrl") pdExchangeCtrl?   : SelectRequired
+  @ViewChild("pdRollTypeCtrl") pdRollTypeCtrl?   : SelectRequired
+  @ViewChild("pdSessStartCtrl") pdSessStartCtrl? : TimePicker
 
   //-------------------------------------------------------------------------
 
@@ -211,6 +212,7 @@ export class ProductDataCreatePanel extends AbstractPanel {
             this.pd.marketType      = preset.market
             this.pd.months          = preset.months
             this.pd.rolloverTrigger = preset.rollover
+            this.pd.sessionStart    = preset.sessionStart
           }
         }
 
@@ -250,7 +252,8 @@ export class ProductDataCreatePanel extends AbstractPanel {
             this.pdNameCtrl    ?.isValid() &&
             this.pdMarketCtrl  ?.isValid() &&
             this.pdProductCtrl ?.isValid() &&
-            this.pdExchangeCtrl?.isValid()
+            this.pdExchangeCtrl?.isValid() &&
+            this.pdSessStartCtrl?.isValid()
   }
 
   //-------------------------------------------------------------------------
@@ -282,6 +285,7 @@ export class ProductDataCreatePanel extends AbstractPanel {
         this.pd.name        = pp.name
         this.pd.marketType  = pp.market
         this.pd.productType = pp.product
+        this.pd.sessionStart= pp.sessionStart
         this.pd.exchangeId  = this.getExchangeId(pp.exchange)
       }
     })
@@ -367,13 +371,6 @@ export class ProductDataCreatePanel extends AbstractPanel {
   private monthTraded(months : string, code : string) : boolean {
     return months.indexOf(code) != -1
   }
-}
-
-//=============================================================================
-
-class ContractMonth {
-  code : string = ""
-  name : string = ""
 }
 
 //=============================================================================

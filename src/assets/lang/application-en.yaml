@@ -180,6 +180,7 @@ model:
     timezone       : Timezone
     months         : Months
     rollTrigger    : Rollover trigger
+    sessionStart   : Session starts at
 
   dataInstrument:
     id: Id
@@ -972,13 +973,17 @@ map:
     exc: Exchange
 
   timeframe:
-    1m   : 1 min
-    5m   : 5 min
-    10m  : 10 min
-    15m  : 15 min
-    30m  : 30 min
-    60m  : 1 hour
-    1440m: Daily
+    1   : 1 min
+    5   : 5 min
+    10  : 10 min
+    15  : 15 min
+    30  : 30 min
+    60  : 60 min (1 hour)
+    120 : 120 min (2 hours)
+    240 : 240 min (4 hours)
+    480 : 480 min (8 hours)
+    720 : 720 min (half day)
+    1440: 1440 min (1 day)
 
   dows:
     sun: Sunday
@@ -1065,9 +1070,10 @@ list:
 
 errors:
   input:
-    required: Value is required
-    tooLong: Value is too long
-    minValue: Min value is
-    maxValue: Max value is
+    required  : Value is required
+    tooLong   : Value is too long
+    minValue  : Min value is
+    maxValue  : Max value is
+    timeFormat: Bad time format
 
 # ==============================================================================

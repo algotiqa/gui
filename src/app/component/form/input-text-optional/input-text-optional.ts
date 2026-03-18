@@ -25,7 +25,7 @@ import {
 import {AbstractSubscriber} from "../../../service/abstract-subscriber";
 import {EventBusService}    from "../../../service/eventbus.service";
 import {LabelService}       from "../../../service/label.service";
-import {BfErrorStateMatcher} from "../error-state-matcher";
+import {CustomErrorStateMatcher} from "../error-state-matcher";
 
 //=============================================================================
 
@@ -33,7 +33,7 @@ import {BfErrorStateMatcher} from "../error-state-matcher";
   selector    :     'input-text-optional',
   templateUrl :   './input-text-optional.html',
   styleUrls   : [ './input-text-optional.scss' ],
-  imports     : [ MatFormFieldModule, MatOptionModule, NgForOf, MatInputModule, MatIconModule,
+  imports     : [ MatFormFieldModule, MatOptionModule, MatInputModule, MatIconModule,
     MatButtonModule, NgIf, FormsModule, ReactiveFormsModule],
   standalone  : true
 })
@@ -56,7 +56,7 @@ export class InputTextOptional extends AbstractSubscriber {
   //-------------------------------------------------------------------------
 
   formControl = new FormControl()
-  matcher = new BfErrorStateMatcher();
+  matcher = new CustomErrorStateMatcher();
 
   private _len   : number  = 0
   private _valid : boolean = false

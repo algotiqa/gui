@@ -123,6 +123,7 @@ export class PresetProduct {
   months          : string  = ""
   micro           : boolean = false
   rollover        : string  = "xxx"
+  sessionStart    : number  = 0
 }
 
 //=============================================================================

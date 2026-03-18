@@ -9,7 +9,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {ErrorStateMatcher, MatOptionModule} from "@angular/material/core";
-import {NgForOf, NgIf}      from "@angular/common";
 import {MatInputModule}     from "@angular/material/input";
 import {MatIconModule}      from "@angular/material/icon";
 import {MatButtonModule}    from "@angular/material/button";
@@ -25,7 +24,7 @@ import {
 import {AbstractSubscriber} from "../../../service/abstract-subscriber";
 import {EventBusService}    from "../../../service/eventbus.service";
 import {LabelService}       from "../../../service/label.service";
-import {BfErrorStateMatcher} from "../error-state-matcher";
+import {CustomErrorStateMatcher} from "../error-state-matcher";
 
 //=============================================================================
 
@@ -33,7 +32,7 @@ import {BfErrorStateMatcher} from "../error-state-matcher";
     selector: 'input-number-required',
     templateUrl: './input-number-required.html',
     styleUrls: ['./input-number-required.scss'],
-    imports: [MatFormFieldModule, MatOptionModule, MatInputModule, FormsModule, ReactiveFormsModule, NgIf, MatButtonModule, MatIconModule]
+    imports: [MatFormFieldModule, MatOptionModule, MatInputModule, FormsModule, ReactiveFormsModule, MatButtonModule, MatIconModule]
 })
 
 //=============================================================================
@@ -53,7 +52,7 @@ export class InputNumberRequired extends AbstractSubscriber {
   //-------------------------------------------------------------------------
 
   formControl = new FormControl<number|undefined>(undefined, [Validators.required])
-  matcher    = new BfErrorStateMatcher();
+  matcher    = new CustomErrorStateMatcher();
 
   private _min?  : number
   private _max?  : number

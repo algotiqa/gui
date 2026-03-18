@@ -28,7 +28,7 @@ import {environment}             from "./environments/environment";
 import {SystemAdapterService} from "./app/service/system-adapter.service";
 import {InventoryService} from "./app/service/inventory.service";
 import {PortfolioService} from "./app/service/portfolio.service";
-import {MatNativeDateModule} from "@angular/material/core";
+import {MAT_DATE_LOCALE, MatNativeDateModule, provideNativeDateAdapter} from "@angular/material/core";
 import {CollectorService} from "./app/service/collector.service";
 import {PresetsService} from "./app/service/presets.service";
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from "@angular/material/form-field";
@@ -47,6 +47,7 @@ bootstrapApplication(AppComponent, {
 	providers: [
 		importProvidersFrom(BrowserAnimationsModule),
     importProvidersFrom(MatNativeDateModule),
+    provideNativeDateAdapter(), { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
     provideHttpClient(withInterceptorsFromDi()),
     provideZoneChangeDetection({ eventCoalescing: true }),
 		provideRouter(routes),

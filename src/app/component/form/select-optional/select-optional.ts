@@ -24,7 +24,6 @@ import {AbstractSubscriber} from "../../../service/abstract-subscriber";
 import {EventBusService}    from "../../../service/eventbus.service";
 import {LabelService}       from "../../../service/label.service";
 import {MatSelectModule} from "@angular/material/select";
-import {BfErrorStateMatcher} from "../error-state-matcher";
 
 //=============================================================================
 

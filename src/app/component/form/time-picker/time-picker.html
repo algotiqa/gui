@@ -1,0 +1,14 @@
+<mat-form-field class="main-layout">
+  <mat-label>{{label}}</mat-label>
+  <input matInput [matTimepicker]="picker" [formControl]="formControl" [errorStateMatcher]="matcher">
+  <mat-timepicker-toggle matIconSuffix [for]="picker"/>
+  <mat-timepicker #picker/>
+  <mat-hint>HH:MM (24H)</mat-hint>
+
+  @if (formControl.errors?.['required']) {
+    <mat-error>{{loc("input.required")}}</mat-error>
+  }
+  @if (formControl.errors?.['matTimepickerParse']) {
+    <mat-error>{{loc("input.timeFormat")}}</mat-error>
+  }
+</mat-form-field>

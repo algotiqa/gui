@@ -160,6 +160,7 @@ export class DataProductSpec {
   productType?    : string
   months?         : string
   rolloverTrigger?: string
+  sessionStart    : number|null = null
 }
 
 //=============================================================================
