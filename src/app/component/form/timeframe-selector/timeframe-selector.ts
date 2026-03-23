@@ -1,74 +1,64 @@
 //=============================================================================
 //===
-//=== Copyright (C) 2023 Andrea Carboni
+//=== Copyright (C) 2026 Andrea Carboni
 //===
 //=== Use of this source code is governed by an MIT-style license that can be
 //=== found in the LICENSE file
 //=============================================================================
 
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatOptionModule}    from "@angular/material/core";
-import {MatIconModule}      from "@angular/material/icon";
-import {
-  FormControl,
-  FormControlStatus,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators
-} from "@angular/forms";
-import {AbstractSubscriber} from "../../../service/abstract-subscriber";
-import {EventBusService}    from "../../../service/eventbus.service";
-import {LabelService}       from "../../../service/label.service";
-import {MatSelectModule} from "@angular/material/select";
+import {FormControl, FormControlStatus, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
 import {CustomErrorStateMatcher} from "../error-state-matcher";
+import {LabelService} from "../../../service/label.service";
 
 //=============================================================================
 
 @Component({
-    selector: 'select-required',
-    templateUrl: './select-required.html',
-    styleUrls: ['./select-required.scss'],
-    imports: [MatFormFieldModule, MatOptionModule, MatSelectModule, MatIconModule,
-              FormsModule, ReactiveFormsModule]
+  selector: 'timeframe-selector',
+  templateUrl: 'timeframe-selector.html',
+  styleUrl   : 'timeframe-selector.scss',
+  imports: [FormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, ReactiveFormsModule ],
 })
 
 //=============================================================================
 
-export class SelectRequired extends AbstractSubscriber {
+export class TimeframeSelector {
 
-	//-------------------------------------------------------------------------
-	//---
-	//--- Variables
-	//---
-	//-------------------------------------------------------------------------
+  //-------------------------------------------------------------------------
+  //---
+  //--- Variables
+  //---
+  //-------------------------------------------------------------------------
 
-	@Input() label     : string = ""
-	@Input() keyField  : string = ""
-	@Input() valueField: string = ""
-  @Input() list      : any[]  = []
-  @Input() map       : Object = {}
+  @Input() label : string = ""
 
-  @Output() keyChange = new EventEmitter<any>();
+  @Output() valueChange = new EventEmitter<any>();
+
+  timeframes: any
 
   //-------------------------------------------------------------------------
 
-	formControl = new FormControl<any>('', [Validators.required])
-	matcher = new CustomErrorStateMatcher();
+  formControl = new FormControl<number|undefined>(undefined, [
+      Validators.required, Validators.min(1), Validators.max(1440)
+  ])
+
+  matcher = new CustomErrorStateMatcher();
 
   private _valid : boolean= false
-  private prevValue : any
 
-	//-------------------------------------------------------------------------
-	//---
-	//--- Constructor
-	//---
-	//-------------------------------------------------------------------------
+  //-------------------------------------------------------------------------
+  //---
+  //--- Constructor
+  //---
+  //-------------------------------------------------------------------------
 
-  constructor(eventBusService : EventBusService, private labelService : LabelService) {
-		super(eventBusService)
+  constructor(private labelService : LabelService) {
     this.formControl.statusChanges.subscribe(this.valueChanged)
-	}
+    this.timeframes = this.labelService.getLabel("map.timeframe");
+  }
 
   //-------------------------------------------------------------------------
   //---
@@ -76,14 +66,18 @@ export class SelectRequired extends AbstractSubscriber {
   //---
   //-------------------------------------------------------------------------
 
-  get key() : any {
+  get value() : number|undefined {
+    if (this.formControl.value == null) {
+      return undefined
+    }
+
     return this.formControl.value
   }
 
   //-------------------------------------------------------------------------
 
   @Input()
-  set key(v : any) {
+  set value(v : number|undefined) {
     this.formControl.setValue(v)
   }
 
@@ -106,14 +100,14 @@ export class SelectRequired extends AbstractSubscriber {
   }
 
   //-------------------------------------------------------------------------
-	//---
-	//--- Public methods
-	//---
-	//-------------------------------------------------------------------------
+  //---
+  //--- Public methods
+  //---
+  //-------------------------------------------------------------------------
 
-	public loc = (code : string) : string => {
-		return this.labelService.getLabelString("errors."+ code);
-	}
+  public loc = (code : string) : string => {
+    return this.labelService.getLabelString("errors."+ code);
+  }
 
   //-------------------------------------------------------------------------
 
@@ -124,14 +118,13 @@ export class SelectRequired extends AbstractSubscriber {
   //-------------------------------------------------------------------------
 
   public mapKeys() {
-    return Object.keys(this.map);
+    return Object.keys(this.timeframes);
   }
 
   //-------------------------------------------------------------------------
 
   public mapValue(key : string) : string {
-    // @ts-ignore
-    return this.map[key];
+    return this.timeframes[key];
   }
 
   //-------------------------------------------------------------------------
@@ -142,14 +135,9 @@ export class SelectRequired extends AbstractSubscriber {
 
   private valueChanged = (s : FormControlStatus) => {
     this._valid = (s == "VALID")
-    let value = this.formControl.value
-
-    if (value != this.prevValue) {
-      this.prevValue = value
-      this.keyChange.emit(value)
-    }
+    this.valueChange.emit(this.formControl.value)
   }
+  protected readonly JSON = JSON;
 }
 
 //=============================================================================
-

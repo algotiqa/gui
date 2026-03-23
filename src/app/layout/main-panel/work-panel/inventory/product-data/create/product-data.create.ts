@@ -22,7 +22,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatDividerModule} from "@angular/material/divider";
 import {InputTextRequired} from "../../../../../../component/form/input-text-required/input-text-required";
-import {Connection, DataProductSpec, Exchange, RootSymbol} from "../../../../../../model/model";
+import {Connection, DataProductSpec, Exchange, RootSymbol, TradingSession} from "../../../../../../model/model";
 import {SelectRequired} from "../../../../../../component/form/select-required/select-required";
 import {InventoryService} from "../../../../../../service/inventory.service";
 import {MatDialog} from "@angular/material/dialog";
@@ -36,7 +36,6 @@ import {
 } from "../../../../../../component/form/root-product-selector/root-product-selector.dialog";
 import {DialogData} from "../../../../../../component/form/root-product-selector/dialog-data";
 import {MatCheckbox} from "@angular/material/checkbox";
-import {TimePicker} from "../../../../../../component/form/time-picker/time-picker";
 
 //=============================================================================
 
@@ -52,10 +51,10 @@ enum Status {
     selector: "productData-create",
     templateUrl: './product-data.create.html',
     styleUrls: [ './product-data.create.scss'],
-  imports: [RightTitlePanel, MatFormFieldModule, MatOptionModule, MatSelectModule,
-    MatInputModule, MatIconModule, MatButtonModule, FormsModule, ReactiveFormsModule,
-    MatDividerModule, InputTextRequired, SelectRequired, TextSelectorPanel, MatCheckbox, TimePicker,
-  ]
+    imports: [RightTitlePanel, MatFormFieldModule, MatOptionModule, MatSelectModule,
+      MatInputModule, MatIconModule, MatButtonModule, FormsModule, ReactiveFormsModule,
+      MatDividerModule, InputTextRequired, SelectRequired, TextSelectorPanel, MatCheckbox,
+    ]
 })
 
 //=============================================================================
@@ -72,7 +71,8 @@ export class ProductDataCreatePanel extends AbstractPanel {
   connections : Connection[] = []
   markets     : Object = {}
   products    : Object = {}
-  exchanges   : Exchange[]   = []
+  exchanges   : Exchange[] = []
+  sessions    : TradingSession[] = []
   rollTriggers: Object = {}
 
   status = Status.Selecting
@@ -101,7 +101,7 @@ export class ProductDataCreatePanel extends AbstractPanel {
   @ViewChild("pdProductCtrl")  pdProductCtrl?    : SelectRequired
   @ViewChild("pdExchangeCtrl") pdExchangeCtrl?   : SelectRequired
   @ViewChild("pdRollTypeCtrl") pdRollTypeCtrl?   : SelectRequired
-  @ViewChild("pdSessStartCtrl") pdSessStartCtrl? : TimePicker
+  @ViewChild("pdSessionCtrl")  pdSessionCtrl?    : SelectRequired
 
   //-------------------------------------------------------------------------
 
@@ -145,6 +145,11 @@ export class ProductDataCreatePanel extends AbstractPanel {
     inventoryService.getExchanges().subscribe(
       result => {
         this.exchanges = result.result;
+      })
+
+    inventoryService.getTradingSessions().subscribe(
+      result => {
+        this.sessions = result.result;
       })
   }
 
@@ -212,7 +217,7 @@ export class ProductDataCreatePanel extends AbstractPanel {
             this.pd.marketType      = preset.market
             this.pd.months          = preset.months
             this.pd.rolloverTrigger = preset.rollover
-            this.pd.sessionStart    = preset.sessionStart
+            this.pd.sessionId       = preset.sessionId
           }
         }
 
@@ -253,7 +258,7 @@ export class ProductDataCreatePanel extends AbstractPanel {
             this.pdMarketCtrl  ?.isValid() &&
             this.pdProductCtrl ?.isValid() &&
             this.pdExchangeCtrl?.isValid() &&
-            this.pdSessStartCtrl?.isValid()
+            this.pdSessionCtrl ?.isValid()
   }
 
   //-------------------------------------------------------------------------
@@ -285,7 +290,7 @@ export class ProductDataCreatePanel extends AbstractPanel {
         this.pd.name        = pp.name
         this.pd.marketType  = pp.market
         this.pd.productType = pp.product
-        this.pd.sessionStart= pp.sessionStart
+        this.pd.sessionId   = pp.sessionId
         this.pd.exchangeId  = this.getExchangeId(pp.exchange)
       }
     })

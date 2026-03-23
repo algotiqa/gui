@@ -13,7 +13,7 @@
   strategies      : reversal(good), trendf(hard), bias(no)
   months          : HMUZ
   rollover        : sd6
-  sessionStart    : 1700
+  sessionId       : 1
 
 - symbol:
     default       : MES
@@ -29,7 +29,7 @@
   months          : HMUZ
   micro           : true
   rollover        : sd6
-  sessionStart    : 1700
+  sessionId       : 1
 
 - symbol:
     default       : NQ
@@ -43,7 +43,7 @@
   margin          : 36070
   months          : HMUZ
   rollover        : sd6
-  sessionStart    : 1700
+  sessionId       : 1
 
 - symbol:
     default       : MNQ
@@ -58,7 +58,7 @@
   months          : HMUZ
   micro           : true
   rollover        : sd6
-  sessionStart    : 1700
+  sessionId       : 1
 
 - symbol:
     default       : YM
@@ -66,13 +66,13 @@
   increment       : 1
   market          : IN
   product         : FU
-  exchange        : CME
+  exchange        : CBOT
   pointValue      : 5
   costPerOperation: 0
   margin          : 12800
   months          : HMUZ
   rollover        : sd6
-  sessionStart    : 1700
+  sessionId       : 6
 
 - symbol:
     default       : MYM
@@ -80,14 +80,14 @@
   increment       : 1
   market          : IN
   product         : FU
-  exchange        : CME
+  exchange        : CBOT
   pointValue      : 0.5
   costPerOperation: 5
   margin          : 1280
   months          : HMUZ
   micro           : true
   rollover        : sd6
-  sessionStart    : 1700
+  sessionId       : 6
 
 - symbol:
     default       : FDAX
@@ -102,7 +102,7 @@
   strategies      : bias(good), reversal(good,first-half-day), trendf(intraday)
   months          : HMUZ
   rollover        :
-  sessionStart    : 110
+  sessionId       : 100
 
 - symbol:
     default       : FDXM
@@ -117,7 +117,7 @@
   strategies      : bias, reversal(first-half-day), intraday
   months          : HMUZ
   rollover        :
-  sessionStart    : 110
+  sessionId       : 100
 
 - symbol:
     default       : FDXS
@@ -133,7 +133,7 @@
   months          : HMUZ
   micro           : true
   rollover        :
-  sessionStart    : 110
+  sessionId       : 100
 
 - symbol:
     default       : FESX
@@ -142,12 +142,26 @@
   market          : IN
   product         : FU
   exchange        : EUREX
-  pointValue      : 0
+  pointValue      : 10
   costPerOperation: 0
   margin          : 0
   months          : HMUZ
   rollover        :
-  sessionStart    : 110
+  sessionId       : 100
+
+- symbol:
+    default       : FSXE
+  name            : Micro-Euro Stoxx 50
+  increment       : 0
+  market          : IN
+  product         : FU
+  exchange        : EUREX
+  pointValue      : 1
+  costPerOperation: 0
+  margin          : 0
+  months          : HMUZ
+  rollover        :
+  sessionId       : 100
 
 #--- Metals --------------------------------
 
@@ -164,7 +178,7 @@
   strategies      : bias
   months          : GJMQvZ
   rollover        : sd30
-  sessionStart    : 1800
+  sessionId       : 4
 
 - symbol:
     default       : MGC
@@ -180,7 +194,7 @@
   micro           : true
   months          : GJMQvZ
   rollover        : sd30
-  sessionStart    : 1800
+  sessionId       : 4
 
 - symbol:
     default       : PL
@@ -194,7 +208,7 @@
   margin          : 0
   months          : FJNV
   rollover        :
-  sessionStart    : 1800
+  sessionId       : 3
 
 - symbol:
     default       : PLM
@@ -209,7 +223,7 @@
   months          : FJNV
   micro           : true
   rollover        :
-  sessionStart    : 1800
+  sessionId       : 3
 
 - symbol:
     default       : SI
@@ -223,7 +237,7 @@
   margin          : 85000
   months          : HKNUZ
   rollover        : sd30
-  sessionStart    : 1800
+  sessionId       : 4
 
 - symbol:
     default       : SIL
@@ -237,7 +251,7 @@
   margin          : 11500
   months          : HKNUZ
   rollover        : sd30
-  sessionStart    : 1800
+  sessionId       : 4
 
 - symbol:
     default       : HG
@@ -251,7 +265,7 @@
   margin          : 12000
   months          : HKNUZ
   rollover        : sd30
-  sessionStart    : 1800
+  sessionId       : 4
 
 - symbol:
     default       : MHG
@@ -266,7 +280,7 @@
   micro           : true
   months          : HKNUZ
   rollover        : sd30
-  sessionStart    : 1800
+  sessionId       : 4
 
 #--- Energy --------------------------------
 
@@ -283,7 +297,7 @@
   strategies      : bias(good), reversal(no), trendf(intraday, overnight), 5min
   months          : FGHJKMNQUVXZ
   rollover        : sd6
-  sessionStart    : 1800
+  sessionId       : 3
 
 - symbol:
     default       : MCL
@@ -299,7 +313,7 @@
   months          : FGHJKMNQUVXZ
   micro           : true
   rollover        : sd6
-  sessionStart    : 1800
+  sessionId       : 3
 
 - symbol:
     default       : HO
@@ -313,7 +327,7 @@
   margin          : 0
   months          : FGHJKMNQUVXZ
   rollover        :
-  sessionStart    : 1800
+  sessionId       : 3
 
 - symbol:
     default       : MHO
@@ -328,7 +342,7 @@
   months          : FGHJKMNQUVXZ
   micro           : true
   rollover        :
-  sessionStart    : 1800
+  sessionId       : 3
 
 - symbol:
     default       : NG
@@ -342,7 +356,7 @@
   margin          : 0
   months          : FGHJKMNQUVXZ
   rollover        : bd3
-  sessionStart    : 1800
+  sessionId       : 3
 
 - symbol:
     default       : MNG
@@ -357,7 +371,7 @@
   months          : FGHJKMNQUVXZ
   micro           : true
   rollover        : bd3
-  sessionStart    : 1800
+  sessionId       : 3
 
 - symbol:
     default       : RB
@@ -371,7 +385,7 @@
   margin          : 0
   months          : FGHJKMNQUVXZ
   rollover        :
-  sessionStart    : 1800
+  sessionId       : 3
 
 - symbol:
     default       : MRB
@@ -386,7 +400,7 @@
   months          : FGHJKMNQUVXZ
   micro           : true
   rollover        :
-  sessionStart    : 1800
+  sessionId       : 3
 
 #--- Currencies --------------------------------
 
@@ -402,7 +416,7 @@
   costPerOperation: 0
   margin          : 0
   months          : HMUZ
-  sessionStart    : 1700
+  sessionId       : 1
 
 - symbol:
     default       : 6B
@@ -417,7 +431,7 @@
   margin          : 2977
   months          : HMUZ
   rollover        : sd4
-  sessionStart    : 1700
+  sessionId       : 1
 
 - symbol:
     default       : M6B
@@ -432,7 +446,7 @@
   months          : HMUZ
   micro           : true
   rollover        : sd4
-  sessionStart    : 1700
+  sessionId       : 1
 
 - symbol:
     default       : 6C
@@ -447,7 +461,7 @@
   margin          : 0
   months          : HMUZ
   rollover        :
-  sessionStart    : 1700
+  sessionId       : 1
 
 - symbol:
     default       : 6E
@@ -463,7 +477,7 @@
   strategies      : bias, 5min
   months          : HMUZ
   rollover        :
-  sessionStart    : 1700
+  sessionId       : 1
 
 - symbol:
     default       : E7
@@ -478,7 +492,7 @@
   strategies      : bias, reversal 1h, 5min
   months          : HMUZ
   rollover        :
-  sessionStart    : 1700
+  sessionId       : 1
 
 - symbol:
     default       : 6J
@@ -493,7 +507,7 @@
   margin          : 0
   months          : HMUZ
   rollover        :
-  sessionStart    : 1700
+  sessionId       : 1
 
 - symbol:
     default       : 6N
@@ -508,7 +522,7 @@
   margin          : 0
   months          : HMUZ
   rollover        :
-  sessionStart    : 1800
+  sessionId       : 1
 
 #--- Grains --------------------------------
 
@@ -525,7 +539,7 @@
   margin          : 0
   months          : FHKNquX
   rollover        :
-  sessionStart    : 1900
+  sessionId       : 7
 
 - symbol:
     default       : ZC
@@ -540,7 +554,7 @@
   margin          : 0
   months          : HKNUZ
   rollover        :
-  sessionStart    : 1900
+  sessionId       : 7
 
 - symbol:
     default       : ZW
@@ -556,7 +570,7 @@
   notes           : Verify pointValue & increment
   months          : HKNUZ
   rollover        :
-  sessionStart    : 1900
+  sessionId       : 7
 
 #--- Softs --------------------------------
 
@@ -566,13 +580,13 @@
   increment       : 0.05
   market          : SO
   product         : FU
-  exchange        : IFUS
+  exchange        : ICEUS
   pointValue      : 375
   costPerOperation: 0
   margin          : 0
   months          : HKNUZ
   rollover        :
-  sessionStart    : 415
+  sessionId       : 997
 
 - symbol:
     default       : CT
@@ -580,13 +594,13 @@
   increment       : 0.01
   market          : SO
   product         : FU
-  exchange        : IFUS
+  exchange        : ICEUS
   pointValue      : 500
   costPerOperation: 0
   margin          : 0
   months          : HKNvZ
   rollover        :
-  sessionStart    : 2100
+  sessionId       : 999
 
 #--- Bonds --------------------------------
 
@@ -603,7 +617,7 @@
   margin          : 0
   months          : HMUZ
   rollover        :
-  sessionStart    : 1700
+  sessionId       : 6
 
 - symbol:
     default       : ZB
@@ -618,11 +632,11 @@
   margin          : 0
   months          : HMUZ
   rollover        :
-  sessionStart    : 1700
+  sessionId       : 6
 
 - symbol:
     default       : FGBL
-  name            : Bund
+  name            : Euro-Bund
   increment       : 0
   market          : BO
   product         : FU
@@ -632,6 +646,7 @@
   margin          : 0
   months          : HMUZ
   rollover        :
+  sessionId       : 100
 
 #--- Meats --------------------------------
 
@@ -648,7 +663,7 @@
   margin          : 0
   months          : FHJKQUVX
   rollover        :
-  sessionStart    : 830
+  sessionId       : 2
 
 - symbol:
     default       : HE
@@ -664,7 +679,7 @@
   strategies      : overnight
   months          : GJMQVZ
   rollover        :
-  sessionStart    : 830
+  sessionId       : 2
 
 - symbol:
     default       : LE
@@ -680,4 +695,4 @@
   strategies      : reversal(good), trendf(overnight, weak), bias(no)
   months          : GJMQVZ
   rollover        :
-  sessionStart    : 830
+  sessionId       : 2

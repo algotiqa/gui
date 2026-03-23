@@ -1,0 +1,22 @@
+<mat-form-field class="class-mainlayout">
+  <mat-label>{{label}}</mat-label>
+  <input matInput type="number" [formControl]="formControl" [errorStateMatcher]="matcher" [matAutocomplete]="auto">
+
+  <mat-autocomplete #auto="matAutocomplete">
+    @for (key of mapKeys(); track key) {
+      <mat-option [value]="key">{{mapValue(key)}}</mat-option>
+    }
+  </mat-autocomplete>
+
+  @if (formControl.hasError('required')) {
+    <mat-error>{{loc("input.required")}}</mat-error>
+  }
+
+  @if (formControl.hasError('min')) {
+    <mat-error>{{loc("input.minValue")}} : 1</mat-error>
+  }
+
+  @if (formControl.hasError('max')) {
+    <mat-error>{{loc("input.maxValue")}} : 1440</mat-error>
+  }
+</mat-form-field>

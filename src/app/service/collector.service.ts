@@ -100,7 +100,7 @@ export class CollectorService {
 
   //---------------------------------------------------------------------------
 
-  public getDataInstrumentData = (id: number, from:string, to:string, timeframe:string, timezone:string, reduction:number): Observable<DataInstrumentDataResponse> => {
+  public getDataInstrumentData = (id: number, from:string, to:string, timeframe:number, timezone:string, reduction:number): Observable<DataInstrumentDataResponse> => {
     let options= {
       params: {
         from     : from,

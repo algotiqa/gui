@@ -71,6 +71,7 @@ export class TradingSystemDevelEditPanel extends AbstractPanel {
   engineCodes   : Object        [] = []
   profiles      : AgentProfile  [] = []
   tagSet        : string        [] = []
+  externalRefs  : any              = {}
 
   title : string =""
 
@@ -142,6 +143,22 @@ export class TradingSystemDevelEditPanel extends AbstractPanel {
       this.ts = Object.assign(new TradingSystemSpec(), event.params)
       this.title = this.loc('edit')
     }
+  }
+
+  //-------------------------------------------------------------------------
+
+  public onProfileChange(id : number) : void {
+    this.externalRefs = {}
+
+    if (id == undefined) {
+      return
+    }
+
+    this.inventoryService.getAgentExternalRefs(id).subscribe( result => {
+      result.forEach((xref) => {
+        this.externalRefs[xref] = xref;
+      })
+    })
   }
 
   //-------------------------------------------------------------------------

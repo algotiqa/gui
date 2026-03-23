@@ -154,13 +154,13 @@ export class DataProductSpec {
   id?             : number
   connectionId?   : number
   exchangeId?     : number
+  sessionId?      : number
   symbol?         : string
   name?           : string
   marketType?     : string
   productType?    : string
   months?         : string
   rolloverTrigger?: string
-  sessionStart    : number|null = null
 }
 
 //=============================================================================

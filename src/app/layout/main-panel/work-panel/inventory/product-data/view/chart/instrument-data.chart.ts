@@ -38,6 +38,7 @@ import {
 } from "ng-apexcharts";
 import {ChartOptions} from "../../../../../../../lib/chart-lib";
 import {InstrumentStatusStyler} from "../../../../../../../component/panel/flex-table/icon-sylers";
+import {TimeframeSelector} from "../../../../../../../component/form/timeframe-selector/timeframe-selector";
 
 //=============================================================================
 
@@ -45,9 +46,9 @@ import {InstrumentStatusStyler} from "../../../../../../../component/panel/flex-
     selector: 'instrumentData-chart',
     templateUrl: './instrument-data.chart.html',
     styleUrls: ['./instrument-data.chart.scss'],
-    imports: [CommonModule, MatButtonModule, MatIconModule, MatInputModule, MatFormFieldModule,
-        RouterModule, FlexTablePanel, MatChipsModule, MatSelectModule, SelectRequired,
-        DatePicker, NgApexchartsModule]
+  imports: [CommonModule, MatButtonModule, MatIconModule, MatInputModule, MatFormFieldModule,
+    RouterModule, FlexTablePanel, MatChipsModule, MatSelectModule, SelectRequired,
+    DatePicker, NgApexchartsModule, TimeframeSelector]
 })
 
 //=============================================================================
@@ -64,7 +65,7 @@ export class DataInstrumentChartPanel extends AbstractPanel {
 
   fromDate      : number|null = null
   toDate        : number|null = null
-  timeframe     : string = "60"
+  timeframe     : number = 60
   timezone      : string = "exchange"
   instrumentIds : number[] = [];
   minPeriod     : number|undefined
@@ -148,7 +149,7 @@ export class DataInstrumentChartPanel extends AbstractPanel {
 
   //-------------------------------------------------------------------------
 
-  onTimeframeChange(value: string) {
+  onTimeframeChange(value: number) {
     this.timeframe = value;
     this.reload(true);
   }

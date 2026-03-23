@@ -26,6 +26,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {SelectRequired} from "../../../../../../../component/form/select-required/select-required";
 import {DatePicker} from "../../../../../../../component/form/date-picker/date-picker";
 import {DataPointTimeTranscoder} from "../../../../../../../component/panel/flex-table/transcoders";
+import {TimeframeSelector} from "../../../../../../../component/form/timeframe-selector/timeframe-selector";
 
 //=============================================================================
 
@@ -33,9 +34,9 @@ import {DataPointTimeTranscoder} from "../../../../../../../component/panel/flex
     selector: 'instrumentData-data',
     templateUrl: './instrument-data.data.html',
     styleUrls: ['./instrument-data.data.scss'],
-    imports: [CommonModule, MatButtonModule, MatIconModule, MatInputModule, MatFormFieldModule,
-        RouterModule, FlexTablePanel, MatChipsModule, MatSelectModule, SelectRequired,
-        DatePicker]
+  imports: [CommonModule, MatButtonModule, MatIconModule, MatInputModule, MatFormFieldModule,
+    RouterModule, FlexTablePanel, MatChipsModule, MatSelectModule, SelectRequired,
+    DatePicker, TimeframeSelector]
 })
 
 //=============================================================================
@@ -52,7 +53,7 @@ export class DataInstrumentDataPanel extends AbstractPanel {
 
   fromDate      : number|null = null
   toDate        : number|null = null
-  timeframe     : string = "60m"
+  timeframe     : number = 60
   timezone      : string = "exchange"
 
   columns         : FlexTableColumn[] = [];
@@ -114,7 +115,7 @@ export class DataInstrumentDataPanel extends AbstractPanel {
 
   //-------------------------------------------------------------------------
 
-  onTimeframeChange(value: string) {
+  onTimeframeChange(value: number) {
     this.timeframe = value;
   }
 
@@ -212,12 +213,12 @@ export class DataInstrumentDataPanel extends AbstractPanel {
 
   private pointsInADay() : number {
     switch (this.timeframe) {
-      case "1m": return 1440
-      case "5m": return 288
-      case "10m": return 144
-      case "15m": return 96
-      case "30m": return 48
-      case "60m": return 24
+      case  1: return 1440
+      case  5: return 288
+      case 10: return 144
+      case 15: return 96
+      case 30: return 48
+      case 60: return 24
     }
 
     return 0

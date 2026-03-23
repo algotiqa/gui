@@ -183,6 +183,12 @@ export class InventoryService {
   public getAgentProfiles = (): Observable<ListResponse<AgentProfile>> => {
     return this.httpService.get<ListResponse<AgentProfile>>('/api/inventory/v1/agent-profiles');
   }
+
+  //---------------------------------------------------------------------------
+
+  public getAgentExternalRefs = (id : number): Observable<string[]> => {
+    return this.httpService.get<string[]>('/api/inventory/v1/agent-profiles/'+ id +'/external-refs');
+  }
 }
 
 //=============================================================================

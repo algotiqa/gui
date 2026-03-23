@@ -14,10 +14,10 @@
     <date-picker         #tsInSampleToCtrl    class="half-width" [label]="mod('inSampleTo')"    [(value)]="ts.inSampleTo"   [required]="true"></date-picker>
     <select-required     #tsEngineCodeCtrl class="full-width"  [(key)]="ts.engineCode" [label]="mod('engineCode')" [map]="engineCodes"></select-required>
   @if (ts.engineCode == 'external') {
-    <select-optional     #tsProfileCtrl  class="half-width" [(key)]="ts.agentProfileId" [label]="mod('agentProfile')" keyField="id" valueField="name" [list]="profiles"></select-optional>
+    <select-optional     #tsProfileCtrl  class="half-width" [(key)]="ts.agentProfileId" [label]="mod('agentProfile')" keyField="id" valueField="name" [list]="profiles" (keyChange)="onProfileChange($event)"></select-optional>
   }
   @if (ts.agentProfileId) {
-    <input-text-required #tsExternRefCtrl class="half-width" [(value)]="ts.externalRef" [label]="mod('externalRef')" [len]="64"></input-text-required>
+    <select-required     #tsExternRefCtrl class="half-width"   [(key)]="ts.externalRef" [label]="mod('externalRef')" [map]="externalRefs"></select-required>
   }
   </div>
 
