@@ -491,7 +491,7 @@
   margin          : 1842
   strategies      : bias, reversal 1h, 5min
   months          : HMUZ
-  rollover        :
+  rollover        : sd4
   sessionId       : 1
 
 - symbol:

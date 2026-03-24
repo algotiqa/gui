@@ -3,7 +3,7 @@
 
   <div class="form-layout">
     <input-text-required     #tsNameCtrl class="full-width"        [(value)]="ts.name"           [label]="mod('name')" [len]="64"></input-text-required>
-    <data-product-selector   #tsDataCtrl class="half-width" [(productId)]="ts.dataProductId"></data-product-selector>
+    <data-product-selector   #tsDataCtrl class="half-width" [(productId)]="ts.dataProductId" (productChange)="onDataProductChange($event)"></data-product-selector>
     <broker-product-selector #tsBrokerCtrl class="half-width"  [(productId)]="ts.brokerProductId"></broker-product-selector>
     <select-required         #tsSessionCtrl class="full-width"  [(key)]="ts.tradingSessionId" [label]="mod('tradingSession')"  keyField="id" valueField="name" [list]="sessions"></select-required>
     <input-number-required   #tsTimeframeCtrl  class="half-width" [(value)]="ts.timeframe"      [label]="mod('timeframe')" [min]="1" [max]="1440"></input-number-required>

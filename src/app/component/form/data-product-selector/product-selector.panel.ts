@@ -45,7 +45,8 @@ export class DataProductSelector extends AbstractSubscriber {
   name?       : string
   connection? : string
 
-  @Output() productIdChange : EventEmitter<number|undefined> = new EventEmitter<number|undefined>();
+  @Output() productIdChange : EventEmitter<number>          = new EventEmitter<number>();
+  @Output() productChange   : EventEmitter<DataProductFull> = new EventEmitter<DataProductFull>();
 
   //-------------------------------------------------------------------------
   //---
@@ -132,12 +133,15 @@ export class DataProductSelector extends AbstractSubscriber {
 
     dialogRef.afterClosed().subscribe((dpf : DataProductFull) => {
       if (dpf) {
-        this.selectedId = dpf.id
-        this.symbol     = dpf.symbol;
-        this.name       = dpf.name;
-        this.connection = dpf.connectionName;
+        if (this.selectedId != dpf.id) {
+          this.selectedId = dpf.id
+          this.symbol     = dpf.symbol;
+          this.name       = dpf.name;
+          this.connection = dpf.connectionName;
 
-        this.productIdChange.emit(dpf.id)
+          this.productIdChange.emit(dpf.id)
+          this.productChange.emit(dpf)
+        }
       }
     })
   }

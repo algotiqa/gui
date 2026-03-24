@@ -27,7 +27,7 @@ import {AbstractPanel} from "../../../../../../../component/abstract.panel";
 import {
   AgentProfile,
   BrokerProduct,
-  DataProduct,
+  DataProduct, DataProductFull,
   TradingSession,
   TradingSystemSpec
 } from "../../../../../../../model/model";
@@ -143,6 +143,12 @@ export class TradingSystemDevelEditPanel extends AbstractPanel {
       this.ts = Object.assign(new TradingSystemSpec(), event.params)
       this.title = this.loc('edit')
     }
+  }
+
+  //-------------------------------------------------------------------------
+
+  public onDataProductChange(dpf : DataProductFull) : void {
+    this.ts.tradingSessionId = dpf.sessionId
   }
 
   //-------------------------------------------------------------------------
