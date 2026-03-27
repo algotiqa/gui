@@ -15,7 +15,9 @@ import {PorTradingSystem} from "./model";
 //=============================================================================
 
 export class QualityAnalysisRequest {
-  daysBack : number = 0
+  daysBack      : number = 0
+  timeframeType : string = ""
+  atrLength     : number = 20
 }
 
 //=============================================================================

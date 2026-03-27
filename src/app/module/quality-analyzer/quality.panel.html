@@ -4,7 +4,9 @@
   <!-- ============================================================================================================= -->
 
   <div class="header-layout">
-    <select-required [label]="loc('period')" [(key)]="selectedPeriod" [list]="periods" (keyChange)="onPeriodChange($event)" keyField="id" valueField="name"></select-required>
+    <select-required [label]="loc('period')"    [(key)]="selectedPeriod" [list]="periods"    (keyChange)="onPeriodChange($event)" keyField="id" valueField="name"></select-required>
+    <select-required [label]="loc('timeframe')" [(key)]="timeframeType"  [map] ="timeframes" (keyChange)="onTimeframeChange($event)"></select-required>
+    <select-required [label]="loc('atrLength')" [(key)]="atrLength"      [map] ="atrLengths" (keyChange)="onAtrLengthChange($event)"></select-required>
 
     <span style="flex:1 0 auto"></span>
 

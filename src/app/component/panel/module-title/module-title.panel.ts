@@ -10,6 +10,12 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule}    from "@angular/material/icon";
 import {MatButtonModule, MatIconButton} from "@angular/material/button";
+import {EventBusService} from "../../../service/eventbus.service";
+import {LabelService} from "../../../service/label.service";
+import {Router} from "@angular/router";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {AppEvent, ErrorEvent} from "../../../model/event";
+import {AbstractPanel} from "../../abstract.panel";
 
 
 //=============================================================================
@@ -23,7 +29,7 @@ import {MatButtonModule, MatIconButton} from "@angular/material/button";
 
 //=============================================================================
 
-export class ModuleTitlePanel {
+export class ModuleTitlePanel extends AbstractPanel {
 
   //-------------------------------------------------------------------------
   //---
@@ -39,10 +45,47 @@ export class ModuleTitlePanel {
   @Output() onClose : EventEmitter<Event> = new EventEmitter<Event>();
 
   //-------------------------------------------------------------------------
+
+  spinnerHidden = true
+
+  //-------------------------------------------------------------------------
   //---
-  //--- API methods
+  //--- Constructor
   //---
   //-------------------------------------------------------------------------
+
+  constructor(eventBusService : EventBusService,
+              labelService    : LabelService,
+              router          : Router,
+              private _snackBar: MatSnackBar) {
+    super(eventBusService, labelService, router, "");
+
+    eventBusService.subscribeToError(this.onError)
+    eventBusService.subscribeToApp(AppEvent.SUBMIT_START, this.onSubmitStart)
+    eventBusService.subscribeToApp(AppEvent.SUBMIT_END,   this.onSubmitEnd)
+  }
+
+  //-------------------------------------------------------------------------
+  //---
+  //--- Events
+  //---
+  //-------------------------------------------------------------------------
+
+  private onError = (event : ErrorEvent) => {
+    this._snackBar.open(""+ event.error, "Ok")
+  }
+
+  //-------------------------------------------------------------------------
+
+  private onSubmitStart = (event : AppEvent) => {
+    this.spinnerHidden = false
+  }
+
+  //-------------------------------------------------------------------------
+
+  private onSubmitEnd = (event : AppEvent) => {
+    this.spinnerHidden = true
+  }
 }
 
 //=============================================================================

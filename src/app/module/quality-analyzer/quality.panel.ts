@@ -50,9 +50,13 @@ export class TradingSystemQualityPanel extends AbstractPanel {
   //---
   //-------------------------------------------------------------------------
 
-  selectedPeriod : number = 0
+  selectedPeriod : number = 1825
+  timeframeType  : string = "daily"
+  atrLength      : string = "20"
 
-  periods : any
+  periods   : any
+  timeframes: any
+  atrLengths: any
 
   selTab = new FormControl("market")
 
@@ -93,8 +97,10 @@ export class TradingSystemQualityPanel extends AbstractPanel {
   override init = () : void => {
     console.log("TradingSystemQualityPanel: Initializing...")
 
-    this.periods = this.labelMap("periods");
-    this.tsId    = Number(this.route.snapshot.paramMap.get("id"));
+    this.periods   = this.labelMap("periods");
+    this.timeframes= this.labelMap("timeframes");
+    this.atrLengths= this.labelMap("atrLengths");
+    this.tsId      = Number(this.route.snapshot.paramMap.get("id"));
 
     //--- Reloading is implicitly triggered by the 2 select-required components
     //--- this.reload()
@@ -108,6 +114,20 @@ export class TradingSystemQualityPanel extends AbstractPanel {
 
   onPeriodChange(value: string) {
     console.log("Analysis period change : ", value)
+    this.reload();
+  }
+
+  //-------------------------------------------------------------------------
+
+  onTimeframeChange(value: string) {
+    console.log("Timeframe type change : ", value)
+    this.reload();
+  }
+
+  //-------------------------------------------------------------------------
+
+  onAtrLengthChange(value: number) {
+    console.log("ATR length change : ", value)
     this.reload();
   }
 
@@ -142,7 +162,9 @@ export class TradingSystemQualityPanel extends AbstractPanel {
     console.log("Reloading with: tsId="+this.tsId+", daysBack="+ this.selectedPeriod)
 
     let req : QualityAnalysisRequest = {
-      daysBack : this.selectedPeriod,
+      daysBack     : this.selectedPeriod,
+      timeframeType: this.timeframeType,
+      atrLength    : Number(this.atrLength)
     }
 
     this.portfolioService.getQualityAnalysis(this.tsId, req).subscribe(res => {

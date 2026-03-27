@@ -833,6 +833,22 @@ page:
           name: Last 5 years
         - id: 0
           name: All
+      timeframe: Timeframe
+      timeframes:
+        ts   : From trading system
+        daily: Daily
+      atrLength: ATR length
+      atrLengths:
+        5 : 5 bars
+        10: 10 bars
+        15: 15 bars
+        20: 20 bars (recommended)
+        25: 25 bars
+        30: 30 bars
+        35: 35 bars
+        40: 40 bars
+        45: 45 bars
+        50: 50 bars
       tab:
         market    : Market
       noData: Instrument doesn't have enough data to calculate the SQN

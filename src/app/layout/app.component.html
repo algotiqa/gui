@@ -1,15 +1,21 @@
-<div *ngIf="sessionService.isAuthenticated && labelService.isLoaded">
+@if (sessionService.isAuthenticated && labelService.isLoaded) {
+  <div>
 
-  <!-- Main application - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+    <!-- Main application - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
-  <div *ngIf="!isModule()">
-    <header-panel></header-panel>
-    <main-panel></main-panel>
+    @if (!isModule()) {
+      <div>
+        <header-panel></header-panel>
+        <main-panel></main-panel>
+      </div>
+    }
+
+    <!-- Modules (doc/code editors, performance metrics, etc...) - - - - - - - - - - - - - -->
+
+    @if (isModule()) {
+      <div class="module-layout">
+        <router-outlet></router-outlet>
+      </div>
+    }
   </div>
-
-  <!-- Modules (doc/code editors, performance metrics, etc...) - - - - - - - - - - - - - -->
-
-  <div *ngIf="isModule()" class="module-layout">
-    <router-outlet></router-outlet>
-  </div>
-</div>
+}
