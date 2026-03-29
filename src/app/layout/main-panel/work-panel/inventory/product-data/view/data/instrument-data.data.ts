@@ -34,9 +34,9 @@ import {TimeframeSelector} from "../../../../../../../component/form/timeframe-s
     selector: 'instrumentData-data',
     templateUrl: './instrument-data.data.html',
     styleUrls: ['./instrument-data.data.scss'],
-  imports: [CommonModule, MatButtonModule, MatIconModule, MatInputModule, MatFormFieldModule,
-    RouterModule, FlexTablePanel, MatChipsModule, MatSelectModule, SelectRequired,
-    DatePicker, TimeframeSelector]
+    imports: [CommonModule, MatButtonModule, MatIconModule, MatInputModule, MatFormFieldModule,
+        RouterModule, FlexTablePanel, MatChipsModule, MatSelectModule, SelectRequired,
+        DatePicker, TimeframeSelector]
 })
 
 //=============================================================================
@@ -162,6 +162,9 @@ export class DataInstrumentDataPanel extends AbstractPanel {
       new FlexTableColumn(instr, "close"),
       new FlexTableColumn(instr, "upVolume"),
       new FlexTableColumn(instr, "downVolume"),
+      new FlexTableColumn(instr, "upTicks"),
+      new FlexTableColumn(instr, "downTicks"),
+      new FlexTableColumn(instr, "openInterest"),
     ]
   }
 
@@ -199,29 +202,9 @@ export class DataInstrumentDataPanel extends AbstractPanel {
     let toD = (this.toDate) % 100
 
     let days   = (toY - fromY)*365 + (toM - fromM)*12 + (toD - fromD)
-    let pInDay = this.pointsInADay()
-
-    if (pInDay == 0) {
-      alert("Timeframe not managed: "+this.timeframe)
-      return true
-    }
+    let pInDay = 1440 / this.timeframe
 
     return (days*pInDay > 10000)
-  }
-
-  //-------------------------------------------------------------------------
-
-  private pointsInADay() : number {
-    switch (this.timeframe) {
-      case  1: return 1440
-      case  5: return 288
-      case 10: return 144
-      case 15: return 96
-      case 30: return 48
-      case 60: return 24
-    }
-
-    return 0
   }
 }
 

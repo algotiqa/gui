@@ -214,13 +214,16 @@ model:
     ijError        : Error
 
   dataPoint:
-    time      : Date/time
-    open      : Open
-    high      : High
-    low       : Low
-    close     : Close
-    upVolume  : Up volume
-    downVolume: Down volume
+    time        : Date/time
+    open        : Open
+    high        : High
+    low         : Low
+    close       : Close
+    upVolume    : Up volume
+    downVolume  : Down volume
+    upTicks     : Up ticks
+    downTicks   : Down ticks
+    openInterest: Open interest
 
   brokerProduct:
     id              : Id
