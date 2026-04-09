@@ -68,7 +68,7 @@ export class QualityMarketPanel extends AbstractPanel {
 
   tradeType   = new FormControl("all")
   returnType  = new FormControl("net")
-  metricType  = new FormControl("sqn")
+  metricType  = new FormControl("sqn100")
 
   //---------------------------------------------------------------------------
   //---

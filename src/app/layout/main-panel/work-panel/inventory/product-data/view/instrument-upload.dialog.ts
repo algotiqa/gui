@@ -10,7 +10,6 @@ import {MatButtonModule} from "@angular/material/button";
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
 import {Component, Inject, ViewChild} from "@angular/core";
 import {Router} from "@angular/router";
-import {NgIf} from "@angular/common";
 import {DialogData} from "./dialog-data";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatGridListModule} from "@angular/material/grid-list";
@@ -18,16 +17,14 @@ import {MatIconModule} from "@angular/material/icon";
 import {AbstractPanel} from "../../../../../../component/abstract.panel";
 import {EventBusService} from "../../../../../../service/eventbus.service";
 import {LabelService} from "../../../../../../service/label.service";
-import {InventoryService} from "../../../../../../service/inventory.service";
 import {InputTextRequired} from "../../../../../../component/form/input-text-required/input-text-required";
-import {DatePicker} from "../../../../../../component/form/date-picker/date-picker";
 import {FileUploader} from "../../../../../../component/form/file-uploader/file-uploader";
 import {DatafileUploadSpec, ParserMap} from "../../../../../../model/model";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {CollectorService} from "../../../../../../service/collector.service";
 import {SelectRequired} from "../../../../../../component/form/select-required/select-required";
-import {MatChipSelectionChange, MatChipsModule} from "@angular/material/chips";
+import {MatChipsModule} from "@angular/material/chips";
 
 //=============================================================================
 
@@ -35,8 +32,8 @@ import {MatChipSelectionChange, MatChipsModule} from "@angular/material/chips";
     selector: 'instrument-upload-dialog',
     templateUrl: 'instrument-upload.dialog.html',
     styleUrls: ['instrument-upload.dialog.scss'],
-    imports: [MatDialogModule, MatButtonModule, NgIf, MatProgressSpinnerModule, MatGridListModule,
-        MatIconModule, InputTextRequired, DatePicker, FileUploader, MatProgressBarModule, SelectRequired, MatChipsModule]
+    imports: [MatDialogModule, MatButtonModule, MatProgressSpinnerModule, MatGridListModule,
+        MatIconModule, InputTextRequired, FileUploader, MatProgressBarModule, SelectRequired, MatChipsModule]
 })
 
 //=============================================================================

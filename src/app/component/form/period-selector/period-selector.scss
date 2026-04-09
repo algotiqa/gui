@@ -1,0 +1,40 @@
+//=============================================================================
+//===
+//=== Copyright (C) 2024 Andrea Carboni
+//===
+//=== Use of this source code is governed by an MIT-style license that can be
+//=== found in the LICENSE file
+//=============================================================================
+
+.main-layout {
+  width: inherit;
+
+  select-required {
+    width: 320px;
+  }
+
+  date-picker {
+    width: 160px;
+  }
+}
+
+//=============================================================================
+
+$dropdown-path: 'M8 4h13v2H8zm-5-.5h3v3H3zm0 7h3v3H3zm0 7h3v3H3zM8 11h13v2H8zm0 7h13v2H8z';
+$calendar-path: 'M17 3h4a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h4V1h2v2h6V1h2zM4 9v10h16V9zm2 2h2v2H6zm5 0h2v2h-2zm5 0h2v2h-2z';
+
+::ng-deep .period-class .mdc-switch__icon {
+  transform: scale(0.8);
+
+  // Toggle off
+  &--off > path {
+    d: path($dropdown-path);
+  }
+
+  // Toggle on
+  &--on > path {
+    d: path($calendar-path);
+  }
+}
+
+//=============================================================================

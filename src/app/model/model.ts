@@ -69,8 +69,8 @@ export class TradingSystemSpec {
   tags?             : string
   agentProfileId?   : number
   externalRef?      : string
-  inSampleFrom      : number|null = null
-  inSampleTo        : number|null = null
+  inSampleFrom?     : number
+  inSampleTo?       : number
   engineCode?       : string
 }
 
@@ -472,13 +472,10 @@ export class TradingFilter {
 //=============================================================================
 
 export class FilterAnalysisRequest {
-  startDate? : string
-  filter?    : TradingFilter
-
-  constructor(startDate? : string, filter? : TradingFilter) {
-    this.startDate = startDate
-    this.filter    = filter
-  }
+  daysBack? : number
+  fromDate? : number
+  toDate?   : number
+  filter?   : TradingFilter
 }
 
 //=============================================================================

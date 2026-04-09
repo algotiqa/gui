@@ -26,6 +26,8 @@ import {FlatButton} from "../../../component/form/flat-button/flat-button";
 import {InputNumberRequired} from "../../../component/form/input-integer-required/input-number-required";
 import {MatCardModule} from "@angular/material/card";
 import {PorTradingSystem} from "../../../model/model";
+import {PeriodSelector, PeriodSelectorInfo} from "../../../component/form/period-selector/period-selector";
+import {PerformanceAnalysisRequest} from "../../../model/performance";
 
 //=============================================================================
 
@@ -35,7 +37,7 @@ import {PorTradingSystem} from "../../../model/model";
   styleUrls : ['./params.panel.scss'],
   imports: [MatFormFieldModule, MatOptionModule, MatSelectModule,
     MatInputModule, MatIconModule, MatButtonModule, FormsModule, ReactiveFormsModule,
-    MatDividerModule, MatButtonToggleModule, MatIconModule, SelectRequired, FlatButton, InputNumberRequired, MatCardModule]
+    MatDividerModule, MatButtonToggleModule, MatIconModule, FlatButton, InputNumberRequired, MatCardModule, PeriodSelector]
 })
 
 //=============================================================================
@@ -48,9 +50,7 @@ export class SimulationParamsPanel extends AbstractPanel {
   //---
   //-------------------------------------------------------------------------
 
-  selectedPeriod : number = 0
-  periods        : any
-
+  period : PeriodSelectorInfo = new PeriodSelectorInfo()
 
   @Input() ts? : PorTradingSystem
   @Input() req : SimulationRequest = new SimulationRequest()
@@ -82,7 +82,6 @@ export class SimulationParamsPanel extends AbstractPanel {
 
   override init = () : void => {
     console.log("SimulationParamsPanel: Initializing...")
-    this.periods = this.labelMap("periods");
   }
 
   //-------------------------------------------------------------------------
@@ -92,6 +91,14 @@ export class SimulationParamsPanel extends AbstractPanel {
   //-------------------------------------------------------------------------
 
   onRunClick() : void {
+    this.req.daysBack = this.period.daysBack
+    this.req.fromDate = this.period.fromDate
+    this.req.toDate   = this.period.toDate
+
+    if (this.period.custom) {
+      this.req.daysBack = undefined
+    }
+
     this.runChange.emit(this.req);
   }
 

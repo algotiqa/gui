@@ -129,7 +129,7 @@ export class InvDataProductViewPanel extends AbstractPanel {
     this.setupColumns();
     this.pdId = Number(this.route.snapshot.paramMap.get("id"));
 
-    this.selStatusType.setValue(this.localService.getItemWithDefault(Setting.Inventory_DataProd_Status, "*"))
+    this.selStatusType.setValue(this.localService.getStringItem(Setting.Inventory_DataProd_Status, "*"))
 
     this.inventoryService.getDataProductById(this.pdId).subscribe(
       result => {
@@ -214,7 +214,7 @@ export class InvDataProductViewPanel extends AbstractPanel {
 
   onFilterChange() {
     let value = this.selStatusType.value
-    this.localService.setItem(Setting.Inventory_DataProd_Status, value)
+    this.localService.setStringItem(Setting.Inventory_DataProd_Status, value)
     this.table?.applyFilter()
   }
 

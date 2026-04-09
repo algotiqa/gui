@@ -19,16 +19,28 @@
 
 //=============================================================================
 
-.inner-panel {
-  flex: 1 1 auto;
-  overflow: auto;
+.toolbar {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 8px;
+
+  data-product-selector {
+    width: 350px;
+  }
+
+  select-required {
+    width: 300px;
+  }
 }
 
 //=============================================================================
 
-data-product-selector {
-  width: 300px;
-  margin-right: 8px;
+.inner-panel {
+  flex: 1 1 auto;
+  overflow: auto;
 }
 
 //=============================================================================

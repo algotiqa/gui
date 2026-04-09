@@ -4,10 +4,16 @@
   <!-- ============================================================================================================= -->
 
   <div class="header-layout">
-    <select-required [label]="loc('period')"   [(key)]="selectedPeriod" [list]="periods"     (keyChange)  ="onPeriodChange($event)"   keyField="id"       valueField="name"></select-required>
-    <select-required [label]="loc('timezone')" [(key)]="timezone"       [list]="timezones"   (keyChange)  ="onTimezoneChange($event)" keyField="timezone" valueField="code"></select-required>
-    <date-picker     [label]="loc('fromDate')" [disabled]="!isCustom()" [(value)]="fromDate" (valueChange)="onFromChange($event)"></date-picker>
-    <date-picker     [label]="loc('toDate')"   [disabled]="!isCustom()" [(value)]="toDate"   (valueChange)="onToChange($event)"></date-picker>
+    <period-selector [(period)]="period" (periodChange)="onPeriodChange($event)"></period-selector>
+    <select-required [label]="loc('timezone')" [(key)]="timezone" [list]="timezones" (keyChange)="onTimezoneChange($event)" keyField="timezone" valueField="code"></select-required>
+    <div>
+      <span>{{loc('dataFrom')}} : </span><br/>
+      <span>{{loc('dataTo')}} : </span>
+    </div>
+    <div>
+      <b>{{dataFrom}}</b><br/>
+      <b>{{dataTo}}</b>
+    </div>
 
     <span style="flex:1 0 auto"></span>
 

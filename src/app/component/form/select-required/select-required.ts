@@ -85,6 +85,7 @@ export class SelectRequired extends AbstractSubscriber {
   @Input()
   set key(v : any) {
     this.formControl.setValue(v)
+    this.prevValue = v
   }
 
   //-------------------------------------------------------------------------

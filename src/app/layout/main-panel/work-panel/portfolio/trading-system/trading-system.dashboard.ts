@@ -65,7 +65,7 @@ export class TradingSystemDashboard extends AbstractPanel {
   //-------------------------------------------------------------------------
 
   override init = () : void => {
-    this.selScope.setValue(this.storageService.getItemWithDefault(Setting.Portfolio_TradSys_Scope, "TR"))
+    this.selScope.setValue(this.storageService.getStringItem(Setting.Portfolio_TradSys_Scope, "TR"))
   }
 
   //-------------------------------------------------------------------------
@@ -86,7 +86,7 @@ export class TradingSystemDashboard extends AbstractPanel {
 
   onScopeSet() {
     let value = this.selScope.value
-    this.storageService.setItem(Setting.Portfolio_TradSys_Scope, value)
+    this.storageService.setStringItem(Setting.Portfolio_TradSys_Scope, value)
   }
 }
 

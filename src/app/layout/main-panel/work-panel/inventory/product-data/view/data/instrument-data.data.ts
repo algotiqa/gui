@@ -51,8 +51,8 @@ export class DataInstrumentDataPanel extends AbstractPanel {
 
   id : number = 0
 
-  fromDate      : number|null = null
-  toDate        : number|null = null
+  fromDate?     : number
+  toDate?       : number
   timeframe     : number = 60
   timezone      : string = "exchange"
 
@@ -105,12 +105,12 @@ export class DataInstrumentDataPanel extends AbstractPanel {
   //---
   //-------------------------------------------------------------------------
 
-  onFromChange(value:number|null) {
+  onFromChange(value:number|undefined) {
   }
 
   //-------------------------------------------------------------------------
 
-  onToChange(value:number|null) {
+  onToChange(value?:number) {
   }
 
   //-------------------------------------------------------------------------
@@ -134,6 +134,7 @@ export class DataInstrumentDataPanel extends AbstractPanel {
     }
 
     this.collectorService.getDataInstrumentData(this.id,
+      0, //FIXME
       this.buildDate(this.fromDate, false),
       this.buildDate(this.toDate, true),
       this.timeframe, this.timezone,
@@ -170,7 +171,7 @@ export class DataInstrumentDataPanel extends AbstractPanel {
 
   //-------------------------------------------------------------------------
 
-  private buildDate(value : number|null, isEnd : boolean) : string {
+  private buildDate(value : number|undefined, isEnd : boolean) : string {
     if (value == null) {
       return ""
     }

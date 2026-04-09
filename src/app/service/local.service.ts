@@ -31,7 +31,7 @@ export class LocalService {
 
   //-------------------------------------------------------------------------
 
-  public getItemWithDefault = (key:string, defValue:string) : string => {
+  public getStringItem = (key:string, defValue:string) : string => {
     let value = localStorage.getItem(key)
 
     if (value == null) {
@@ -43,12 +43,35 @@ export class LocalService {
 
   //-------------------------------------------------------------------------
 
-  public setItem = (key:string, value:string|null) => {
+  public getNumericItem = (key:string, defValue:number) : number => {
+    let value = localStorage.getItem(key)
+
+    if (value == null) {
+      return defValue
+    }
+
+    return Number(value)
+  }
+
+  //-------------------------------------------------------------------------
+
+  public setStringItem = (key:string, value:string|null) => {
     if (value == null) {
       localStorage.removeItem(key)
     }
     else {
       localStorage.setItem(key, value)
+    }
+  }
+
+  //-------------------------------------------------------------------------
+
+  public setNumericItem = (key:string, value:number|null) => {
+    if (value == null) {
+      localStorage.removeItem(key)
+    }
+    else {
+      localStorage.setItem(key, String(value))
     }
   }
 

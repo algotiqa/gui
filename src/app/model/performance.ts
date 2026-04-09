@@ -14,7 +14,7 @@
 import {PorTradingSystem, Trade} from "./model";
 
 export class PerformanceAnalysisRequest {
-  daysBack  : number = 0
+  daysBack? : number
   timezone  : string = ""
   fromDate? : number
   toDate?   : number
@@ -40,8 +40,8 @@ export class PerformanceAnalysisResponse {
 //=============================================================================
 
 export class General {
-  fromDate               : number = 0
-  toDate                 : number = 0
+  fromDate?              : number
+  toDate?                : number
   sharpeRatioAnnualized? : number
   standardDevAnnualized? : number
   lowerTail?             : number

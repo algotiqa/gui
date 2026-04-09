@@ -45,15 +45,15 @@ export class DatePicker {
   @Input() label    : string  = ""
   @Input() required : boolean = false
 
-  @Output() valueChange = new EventEmitter<number|null>();
+  @Output() valueChange = new EventEmitter<number|undefined>();
 
   //-------------------------------------------------------------------------
 
-  formControl = new FormControl<number|null>(null)
+  formControl = new FormControl<number|undefined>(undefined)
   matcher = new CustomErrorStateMatcher();
 
   private _valid : boolean = false
-  private prevValue : any
+  private prevValue : number|undefined
 
   //-------------------------------------------------------------------------
   //---
@@ -72,14 +72,19 @@ export class DatePicker {
   //---
   //-------------------------------------------------------------------------
 
-  get value() : number|null {
-    return this.formControl.value
+  get value() : number|undefined {
+    let value = this.formControl.value
+    if (value == null) {
+      return undefined
+    }
+
+    return value
   }
 
   //-------------------------------------------------------------------------
 
   @Input()
-  set value(v : number|null) {
+  set value(v : number|undefined) {
     this.formControl.setValue(v)
   }
 
@@ -122,6 +127,9 @@ export class DatePicker {
   private valueChanged = (s : FormControlStatus) => {
     this._valid = (s == "VALID")
     let value = this.formControl.value
+    if (value == null) {
+      value = undefined
+    }
 
     if (value != this.prevValue) {
       this.prevValue = value

@@ -5,7 +5,7 @@
       <mat-card-subtitle>&nbsp;</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-      <select-required [label]="loc('period')" [(key)]="req.daysBack" [list]="periods" keyField="id" valueField="name"></select-required>
+      <period-selector [(period)]="period"></period-selector>
       <input-number-required #tsRunsCtrl [(value)]="req.runs"              [label]="loc('runs')"     [min]="10" [max]="50000"></input-number-required>
 <!--      <input-number-required #tsCapitalCtrl [(value)]="req.initialCapital" [label]="loc('capital') +' ('+ ts?.currencyCode +')'" [min]="10" [max]="50000000"></input-number-required>-->
 <!--      <input-number-required #tsRuinPerCtrl [(value)]="req.ruinPercentage" [label]="loc('ruinPerc')" [min]="5"  [max]="95"></input-number-required>-->

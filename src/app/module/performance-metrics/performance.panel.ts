@@ -35,6 +35,9 @@ import {PerformanceAggregatePanel} from "./aggregate/aggregate.panel";
 import {PerformanceDistributionPanel} from "./distribution/distribution.panel";
 import {PerformanceRollingPanel} from "./rolling/rolling.panel";
 import {PerformanceAnalysisRequest, PerformanceAnalysisResponse} from "../../model/performance";
+import {PeriodSelector, PeriodSelectorInfo} from "../../component/form/period-selector/period-selector";
+import {IntDateAdapter} from "../../component/form/date-picker/int-date-adapter";
+import {IntDateTranscoder} from "../../component/panel/flex-table/transcoders";
 
 //=============================================================================
 
@@ -44,7 +47,7 @@ import {PerformanceAnalysisRequest, PerformanceAnalysisResponse} from "../../mod
     styleUrls : ['./performance.panel.scss'],
   imports: [MatFormFieldModule, MatOptionModule, MatSelectModule,
     MatInputModule, MatIconModule, MatButtonModule, FormsModule, ReactiveFormsModule,
-    MatDividerModule, MatButtonToggleModule, MatIconModule, PerformanceSummaryPanel, PerformanceChartPanel, PerformanceTradePanel, SelectRequired, ModuleTitlePanel, DatePicker, PerformanceAggregatePanel, PerformanceDistributionPanel, PerformanceRollingPanel,
+    MatDividerModule, MatButtonToggleModule, MatIconModule, PerformanceSummaryPanel, PerformanceChartPanel, PerformanceTradePanel, SelectRequired, ModuleTitlePanel, PerformanceAggregatePanel, PerformanceDistributionPanel, PerformanceRollingPanel, PeriodSelector,
   ]
 })
 
@@ -58,13 +61,12 @@ export class TradingSystemPerformancePanel extends AbstractPanel {
   //---
   //-------------------------------------------------------------------------
 
-  selectedPeriod : number = 180
-  timezone       : string = "exchange"
-  fromDate       : number|null = null
-  toDate         : number|null = 0
+  period    : PeriodSelectorInfo = new PeriodSelectorInfo()
+  timezone  : string             = "exchange"
+  dataFrom  : string             = ""
+  dataTo    : string             = ""
 
-  periods        : any
-  timezones      : any
+  timezones : any
 
   selTab = new FormControl("summary")
 
@@ -104,8 +106,8 @@ export class TradingSystemPerformancePanel extends AbstractPanel {
   override init = () : void => {
     console.log("TradingSystemPerformancePanel: Initializing...")
 
-    this.selectedPeriod = Number(this.localService.getItemWithDefault(Setting.Portfolio_TradSys_PerfPeriod, "180"))
-    this.selTab.setValue(this.localService.getItemWithDefault(Setting.Portfolio_TradSys_PerfTab, "summary"))
+    this.period.daysBack = this.localService.getNumericItem(Setting.Portfolio_TradSys_PerfPeriod, 365)
+    this.selTab.setValue(this.localService.getStringItem(Setting.Portfolio_TradSys_PerfTab, "summary"))
 
     this.inventoryService.getExchanges().subscribe(
       result => {
@@ -118,8 +120,7 @@ export class TradingSystemPerformancePanel extends AbstractPanel {
       }
     )
 
-    this.periods = this.labelMap("periods");
-    this.tsId    = Number(this.route.snapshot.paramMap.get("id"));
+    this.tsId = Number(this.route.snapshot.paramMap.get("id"));
 
     //--- Reloading is implicitly triggered by the 2 select-required components
     //--- this.reload()
@@ -131,39 +132,22 @@ export class TradingSystemPerformancePanel extends AbstractPanel {
   //---
   //-------------------------------------------------------------------------
 
-  onPeriodChange(value: string) {
-    console.log("Analysis period change : ", value)
-    this.localService.setItem(Setting.Portfolio_TradSys_PerfPeriod, value)
-
-    if (this.selectedPeriod != -1) {
-      this.reload();
-    }
+  onPeriodChange(period: PeriodSelectorInfo) {
+    this.localService.setNumericItem(Setting.Portfolio_TradSys_PerfPeriod, period.daysBack)
+    this.reload();
   }
 
   //-------------------------------------------------------------------------
 
   onTimezoneChange(value: string) {
-    console.log("Timezone change : ", value)
     this.reload()
-  }
-
-  //-------------------------------------------------------------------------
-
-  onFromChange(value: number|null) {
-    console.log("From period change : ", value)
-  }
-
-  //-------------------------------------------------------------------------
-
-  onToChange(value: number|null) {
-    console.log("To period change : ", value)
   }
 
   //-------------------------------------------------------------------------
 
   onTabSet() {
     let value = this.selTab.value
-    this.localService.setItem(Setting.Portfolio_TradSys_PerfTab, value)
+    this.localService.setStringItem(Setting.Portfolio_TradSys_PerfTab, value)
   }
 
   //-------------------------------------------------------------------------
@@ -180,16 +164,6 @@ export class TradingSystemPerformancePanel extends AbstractPanel {
 
   //-------------------------------------------------------------------------
   //---
-  //--- Public methods
-  //---
-  //-------------------------------------------------------------------------
-
-  isCustom() : boolean {
-    return this.selectedPeriod == -1
-  }
-
-  //-------------------------------------------------------------------------
-  //---
   //--- Private methods
   //---
   //-------------------------------------------------------------------------
@@ -199,27 +173,25 @@ export class TradingSystemPerformancePanel extends AbstractPanel {
       return
     }
 
-    console.log("Reloading with: tsId="+this.tsId+", daysBack="+ this.selectedPeriod+", timezone="+ this.timezone)
+    console.log("Reloading with: tsId="+this.tsId+", daysBack="+ this.period+", timezone="+ this.timezone)
 
     let req : PerformanceAnalysisRequest = {
-      daysBack : this.selectedPeriod,
+      daysBack : this.period.daysBack,
       timezone : this.timezone,
+      fromDate : this.period.fromDate,
+      toDate   : this.period.toDate,
     }
 
-    if (this.fromDate != null) {
-      req.fromDate = this.fromDate;
-    }
-
-    if (this.toDate != null) {
-      req.toDate = this.toDate;
+    if (this.period.custom) {
+      req.daysBack = undefined
     }
 
     this.portfolioService.getPerformanceAnalysis(this.tsId, req).subscribe(res => {
       this.par = res
 
       if (res.general != undefined) {
-        this.fromDate = res.general.fromDate
-        this.toDate   = res.general.toDate
+        this.dataFrom = new IntDateTranscoder().transcode(res.general.fromDate,null)
+        this.dataTo   = new IntDateTranscoder().transcode(res.general.toDate,  null)
       }
     })
   }

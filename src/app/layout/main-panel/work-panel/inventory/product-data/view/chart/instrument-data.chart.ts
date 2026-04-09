@@ -27,18 +27,12 @@ import {SelectRequired} from "../../../../../../../component/form/select-require
 import {DatePicker} from "../../../../../../../component/form/date-picker/date-picker";
 import {Observable} from "rxjs";
 import {
-  NgApexchartsModule,
-  ApexAxisChartSeries,
-  ApexStroke,
-  ApexChart,
-  ApexXAxis,
-  ApexYAxis,
-  ApexPlotOptions,
-  ApexDataLabels, ChartComponent,
+  NgApexchartsModule, ChartComponent,
 } from "ng-apexcharts";
 import {ChartOptions} from "../../../../../../../lib/chart-lib";
 import {InstrumentStatusStyler} from "../../../../../../../component/panel/flex-table/icon-sylers";
 import {TimeframeSelector} from "../../../../../../../component/form/timeframe-selector/timeframe-selector";
+import {PeriodSelector, PeriodSelectorInfo} from "../../../../../../../component/form/period-selector/period-selector";
 
 //=============================================================================
 
@@ -46,9 +40,9 @@ import {TimeframeSelector} from "../../../../../../../component/form/timeframe-s
     selector: 'instrumentData-chart',
     templateUrl: './instrument-data.chart.html',
     styleUrls: ['./instrument-data.chart.scss'],
-  imports: [CommonModule, MatButtonModule, MatIconModule, MatInputModule, MatFormFieldModule,
-    RouterModule, FlexTablePanel, MatChipsModule, MatSelectModule, SelectRequired,
-    DatePicker, NgApexchartsModule, TimeframeSelector]
+    imports: [CommonModule, MatButtonModule, MatIconModule, MatInputModule, MatFormFieldModule,
+              RouterModule, FlexTablePanel, MatChipsModule, MatSelectModule, SelectRequired,
+              NgApexchartsModule, TimeframeSelector, PeriodSelector]
 })
 
 //=============================================================================
@@ -63,8 +57,7 @@ export class DataInstrumentChartPanel extends AbstractPanel {
 
   pdId : number = 0
 
-  fromDate      : number|null = null
-  toDate        : number|null = null
+  period        : PeriodSelectorInfo = new PeriodSelectorInfo();
   timeframe     : number = 60
   timezone      : string = "exchange"
   instrumentIds : number[] = [];
@@ -75,7 +68,6 @@ export class DataInstrumentChartPanel extends AbstractPanel {
   service?        : ListService<DataInstrument>;
   serviceResponse?: DataInstrumentDataResponse
 
-  timeframes: any
   timezones : any
 
   // @ts-ignore
@@ -116,8 +108,6 @@ export class DataInstrumentChartPanel extends AbstractPanel {
 
   override init = () : void => {
     this.setupColumns();
-    this.timeframes = this.labelService.getLabel("map.timeframe");
-
     this.pdId    = Number(this.route.snapshot.paramMap.get("id"));
     this.service = this.getInstruments;
 
@@ -163,13 +153,7 @@ export class DataInstrumentChartPanel extends AbstractPanel {
 
   //-------------------------------------------------------------------------
 
-  onFromChange(value:number|null) {
-    this.reload(true)
-  }
-
-  //-------------------------------------------------------------------------
-
-  onToChange(value:number|null) {
+  onPeriodChange(value : PeriodSelectorInfo) {
     this.reload(true)
   }
 
@@ -211,10 +195,13 @@ export class DataInstrumentChartPanel extends AbstractPanel {
       return;
     }
 
+    let daysBack = this.period.custom ? undefined : this.period.daysBack
+
     if (callService) {
       this.collectorService.getDataInstrumentData(this.instrumentIds[0],
-                                                  this.buildDate(this.fromDate, false),
-                                                  this.buildDate(this.toDate, true),
+                                                  daysBack,
+                                                  this.buildDate(this.period.fromDate, false),
+                                                  this.buildDate(this.period.toDate,    true),
                                                   this.timeframe, this.timezone,
                                                   this.reduction).subscribe(
         result => {
@@ -256,9 +243,9 @@ export class DataInstrumentChartPanel extends AbstractPanel {
 
   //-------------------------------------------------------------------------
 
-  private buildDate(value : number|null, isEnd : boolean) : string {
+  private buildDate(value : number|undefined, isEnd : boolean) : string|undefined {
     if (value == undefined) {
-      return ""
+      return undefined
     }
 
     let v=value.toString()
@@ -275,10 +262,12 @@ export class DataInstrumentChartPanel extends AbstractPanel {
   //-------------------------------------------------------------------------
 
   private zoomedHandler = (chart: any, options?: any) => {
-    this.fromDate = this.convertDate(options.xaxis.min)
-    this.toDate = this.convertDate(options.xaxis.max)
+    this.period.custom   = true
+    this.period.fromDate = this.convertDate(options.xaxis.min)
+    this.period.toDate   = this.convertDate(options.xaxis.max)
 
-    this.reload(true)
+    //--- Reload is triggered by writing into period.toDate
+    // this.reload(true)
 
     return {
       xaxis: {
@@ -290,7 +279,7 @@ export class DataInstrumentChartPanel extends AbstractPanel {
 
   //-------------------------------------------------------------------------
 
-  private convertDate(value : number) : number|null {
+  private convertDate(value : number) : number|undefined {
     let s = new Date(value).toISOString()
 
     return Number(s.substring(0,10).replace("-", "").replace("-", ""))

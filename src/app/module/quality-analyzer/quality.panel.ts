@@ -27,6 +27,7 @@ import {BroadcastEvent, BroadcastService, EventType} from "../../service/broadca
 import {ModuleTitlePanel} from "../../component/panel/module-title/module-title.panel";
 import {QualityMarketPanel} from "./market/market.panel";
 import {QualityAnalysisRequest, QualityAnalysisResponse} from "../../model/quality";
+import {PeriodSelector, PeriodSelectorInfo} from "../../component/form/period-selector/period-selector";
 
 //=============================================================================
 
@@ -36,7 +37,7 @@ import {QualityAnalysisRequest, QualityAnalysisResponse} from "../../model/quali
   styleUrls : ['./quality.panel.scss'],
   imports: [MatFormFieldModule, MatOptionModule, MatSelectModule,
     MatInputModule, MatIconModule, MatButtonModule, FormsModule, ReactiveFormsModule,
-    MatDividerModule, MatButtonToggleModule, MatIconModule, SelectRequired, ModuleTitlePanel, QualityMarketPanel,
+    MatDividerModule, MatButtonToggleModule, MatIconModule, SelectRequired, ModuleTitlePanel, QualityMarketPanel, PeriodSelector,
   ]
 })
 
@@ -50,7 +51,7 @@ export class TradingSystemQualityPanel extends AbstractPanel {
   //---
   //-------------------------------------------------------------------------
 
-  selectedPeriod : number = 1825
+  period         : PeriodSelectorInfo = new PeriodSelectorInfo()
   timeframeType  : string = "daily"
   atrLength      : string = "20"
 
@@ -81,6 +82,7 @@ export class TradingSystemQualityPanel extends AbstractPanel {
 
     super(eventBusService, labelService, router, "module.quality", "tradingSystem");
 
+    this.period.daysBack = 365 *5
     broadcastService.onEvent((e : BroadcastEvent)=>{
       if (e.type == EventType.TradingsSystem_Deleted && e.id == this.tsId) {
         window.close()
@@ -99,7 +101,7 @@ export class TradingSystemQualityPanel extends AbstractPanel {
 
     this.periods   = this.labelMap("periods");
     this.timeframes= this.labelMap("timeframes");
-    this.atrLengths= this.labelMap("atrLengths");
+    this.atrLengths= this.labelService.getLabel("map.atrLength");
     this.tsId      = Number(this.route.snapshot.paramMap.get("id"));
 
     //--- Reloading is implicitly triggered by the 2 select-required components
@@ -112,8 +114,8 @@ export class TradingSystemQualityPanel extends AbstractPanel {
   //---
   //-------------------------------------------------------------------------
 
-  onPeriodChange(value: string) {
-    console.log("Analysis period change : ", value)
+  onPeriodChange(period : PeriodSelectorInfo) {
+    console.log("Analysis period change : ", period)
     this.reload();
   }
 
@@ -159,12 +161,18 @@ export class TradingSystemQualityPanel extends AbstractPanel {
       return
     }
 
-    console.log("Reloading with: tsId="+this.tsId+", daysBack="+ this.selectedPeriod)
+    console.log("Reloading with: tsId="+this.tsId+", daysBack="+ this.period.daysBack)
 
     let req : QualityAnalysisRequest = {
-      daysBack     : this.selectedPeriod,
+      daysBack     : this.period.daysBack,
       timeframeType: this.timeframeType,
-      atrLength    : Number(this.atrLength)
+      atrLength    : Number(this.atrLength),
+      fromDate     : this.period.fromDate,
+      toDate       : this.period.toDate,
+    }
+
+    if (this.period.custom) {
+      req.daysBack = undefined
     }
 
     this.portfolioService.getQualityAnalysis(this.tsId, req).subscribe(res => {

@@ -92,10 +92,10 @@ export class TradingPanel extends AbstractPanel {
   //-------------------------------------------------------------------------
 
   private setupSettings = () => {
-    this.selChartType .setValue(this.storageService.getItemWithDefault(Setting.Portfolio_TradSys_ChartType , "time"))
-    this.selRunning   .setValue(this.storageService.getItemWithDefault(Setting.Portfolio_TradSys_Running   , "*"))
-    this.selActive    .setValue(this.storageService.getItemWithDefault(Setting.Portfolio_TradSys_Active    , "*"))
-    this.selActivation.setValue(this.storageService.getItemWithDefault(Setting.Portfolio_TradSys_Activation, "*"))
+    this.selChartType .setValue(this.storageService.getStringItem(Setting.Portfolio_TradSys_ChartType , "time"))
+    this.selRunning   .setValue(this.storageService.getStringItem(Setting.Portfolio_TradSys_Running   , "*"))
+    this.selActive    .setValue(this.storageService.getStringItem(Setting.Portfolio_TradSys_Active    , "*"))
+    this.selActivation.setValue(this.storageService.getStringItem(Setting.Portfolio_TradSys_Activation, "*"))
   }
 
   //-------------------------------------------------------------------------
@@ -136,14 +136,14 @@ export class TradingPanel extends AbstractPanel {
 
   onChartTypeChange() {
     let value = this.selChartType.value
-    this.storageService.setItem(Setting.Portfolio_TradSys_ChartType, value)
+    this.storageService.setStringItem(Setting.Portfolio_TradSys_ChartType, value)
   }
 
   //-------------------------------------------------------------------------
 
   onFlagRunningChange() {
     let value = this.selRunning.value
-    this.storageService.setItem(Setting.Portfolio_TradSys_Running, value)
+    this.storageService.setStringItem(Setting.Portfolio_TradSys_Running, value)
     this.rebuildTSList()
   }
 
@@ -151,7 +151,7 @@ export class TradingPanel extends AbstractPanel {
 
   onFlagActiveChange() {
     let value = this.selActive.value
-    this.storageService.setItem(Setting.Portfolio_TradSys_Active, value)
+    this.storageService.setStringItem(Setting.Portfolio_TradSys_Active, value)
     this.rebuildTSList()
   }
 
@@ -159,7 +159,7 @@ export class TradingPanel extends AbstractPanel {
 
   onFlagActivationChange() {
     let value = this.selActivation.value
-    this.storageService.setItem(Setting.Portfolio_TradSys_Activation, value)
+    this.storageService.setStringItem(Setting.Portfolio_TradSys_Activation, value)
     this.rebuildTSList()
   }
 

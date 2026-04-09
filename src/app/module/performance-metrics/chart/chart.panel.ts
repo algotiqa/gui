@@ -91,11 +91,11 @@ export class PerformanceChartPanel extends AbstractPanel {
   //-------------------------------------------------------------------------
 
   override init = () : void => {
-    this.tradeType .setValue(this.localService.getItemWithDefault(Setting.Portfolio_TradSys_PerfTrade,  "all"))
-    this.profitType.setValue(this.localService.getItemWithDefault(Setting.Portfolio_TradSys_PerfProfit, "all"))
-    this.chartType .setValue(this.localService.getItemWithDefault(Setting.Portfolio_TradSys_PerfChart, "time"))
+    this.tradeType .setValue(this.localService.getStringItem(Setting.Portfolio_TradSys_PerfTrade,  "all"))
+    this.profitType.setValue(this.localService.getStringItem(Setting.Portfolio_TradSys_PerfProfit, "all"))
+    this.chartType .setValue(this.localService.getStringItem(Setting.Portfolio_TradSys_PerfChart, "time"))
 
-    this.showDrawdown = this.localService.getItemWithDefault(Setting.Portfolio_TradSys_PerfDdown, "true") == "true"
+    this.showDrawdown = this.localService.getStringItem(Setting.Portfolio_TradSys_PerfDdown, "true") == "true"
 
     this.updateChartType()
   }
@@ -108,7 +108,7 @@ export class PerformanceChartPanel extends AbstractPanel {
 
   onTradeTypeChange() {
     let value = this.tradeType.value
-    this.localService.setItem(Setting.Portfolio_TradSys_PerfTrade, value)
+    this.localService.setStringItem(Setting.Portfolio_TradSys_PerfTrade, value)
     this.rebuildChart()
   }
 
@@ -116,14 +116,14 @@ export class PerformanceChartPanel extends AbstractPanel {
 
   onProfitTypeChange() {
     let value = this.profitType.value
-    this.localService.setItem(Setting.Portfolio_TradSys_PerfProfit, value)
+    this.localService.setStringItem(Setting.Portfolio_TradSys_PerfProfit, value)
     this.rebuildChart()
   }
 
   //-------------------------------------------------------------------------
 
   onDrawdownChange() {
-    this.localService.setItem(Setting.Portfolio_TradSys_PerfDdown, this.showDrawdown+"")
+    this.localService.setStringItem(Setting.Portfolio_TradSys_PerfDdown, this.showDrawdown+"")
     this.rebuildChart()
   }
 
@@ -131,7 +131,7 @@ export class PerformanceChartPanel extends AbstractPanel {
 
   onChartTypeChange() {
     let value = this.chartType.value
-    this.localService.setItem(Setting.Portfolio_TradSys_PerfChart, value)
+    this.localService.setStringItem(Setting.Portfolio_TradSys_PerfChart, value)
     this.updateChartType()
     this.rebuildChart()
   }

@@ -89,7 +89,7 @@ export class PerformanceDistributionPanel extends AbstractPanel {
   //-------------------------------------------------------------------------
 
   override init = () : void => {
-    this.chartType.setValue(this.localService.getItemWithDefault(Setting.Portfolio_TradSys_PerfDistrib, "daily"))
+    this.chartType.setValue(this.localService.getStringItem(Setting.Portfolio_TradSys_PerfDistrib, "daily"))
     this.rebuildChart()
   }
 
@@ -107,7 +107,7 @@ export class PerformanceDistributionPanel extends AbstractPanel {
 
   onChartTypeChange() {
     let value = this.chartType.value
-    this.localService.setItem(Setting.Portfolio_TradSys_PerfDistrib, value)
+    this.localService.setStringItem(Setting.Portfolio_TradSys_PerfDistrib, value)
     this.rebuildChart()
   }
 

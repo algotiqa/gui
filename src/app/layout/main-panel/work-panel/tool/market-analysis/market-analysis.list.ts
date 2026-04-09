@@ -22,8 +22,10 @@ import {AbstractPanel} from "../../../../../component/abstract.panel";
 import {EventBusService} from "../../../../../service/eventbus.service";
 import {LabelService} from "../../../../../service/label.service";
 import {CollectorService} from "../../../../../service/collector.service";
-import {MarketAnalysisDailyPanel} from "./daily/market-analysis.daily";
-import {DailyResult} from "./model";
+import {MarketAnalysisBarsPanel} from "./daily/market-analysis.bars";
+import {BarResult} from "./model";
+import {TimeframeSelector} from "../../../../../component/form/timeframe-selector/timeframe-selector";
+import {PeriodSelector, PeriodSelectorInfo} from "../../../../../component/form/period-selector/period-selector";
 
 //=============================================================================
 
@@ -33,7 +35,7 @@ import {DailyResult} from "./model";
   styleUrls: [ './market-analysis.list.scss'],
   imports: [MatFormFieldModule, MatOptionModule, MatSelectModule,
     MatInputModule, MatIconModule, MatButtonModule, FormsModule, ReactiveFormsModule,
-    MatDividerModule, SelectRequired, DataProductSelector, MarketAnalysisDailyPanel
+    MatDividerModule, SelectRequired, DataProductSelector, MarketAnalysisBarsPanel, TimeframeSelector, PeriodSelector
   ]
 })
 
@@ -47,11 +49,15 @@ export class MarketAnalysisListPanel extends AbstractPanel {
   //---
   //-------------------------------------------------------------------------
 
-  id?            : number
-  selectedPeriod : number = 0
-  periods        : any
+  id?        : number
+  period     : PeriodSelectorInfo = new PeriodSelectorInfo()
+  atrLength  : string             = "20"
+  timeframe  : number             = 1440
 
-  dailyResults : DailyResult[] = []
+  atrLengths : any
+  timeframes : any
+
+  barResults : BarResult[] = []
 
   @ViewChild("tsDataCtrl") tsDataCtrl? : DataProductSelector
 
@@ -78,7 +84,8 @@ export class MarketAnalysisListPanel extends AbstractPanel {
   override init = () : void => {
     console.log("MarketAnalysisListPanel: Initializing...")
 
-    this.periods = this.labelMap("periods");
+    this.atrLengths = this.labelService.getLabel("map.atrLength");
+    this.timeframes = this.labelService.getLabel("map.timeframe");
   }
 
   //-------------------------------------------------------------------------
@@ -95,8 +102,22 @@ export class MarketAnalysisListPanel extends AbstractPanel {
 
   //-------------------------------------------------------------------------
 
-  onPeriodChange(value: string) {
-    console.log("Analysis period change : ", value)
+  onPeriodChange(period: PeriodSelectorInfo) {
+    console.log("Analysis period change : ", period)
+    this.reload();
+  }
+
+  //-------------------------------------------------------------------------
+
+  onAtrLengthChange(value: number) {
+    console.log("ATR length change : ", value)
+    this.reload();
+  }
+
+  //-------------------------------------------------------------------------
+
+  onTimeframeChange(value: number) {
+    console.log("Timeframe change : ", value)
     this.reload();
   }
 
@@ -108,8 +129,15 @@ export class MarketAnalysisListPanel extends AbstractPanel {
 
   private reload() : void {
     if (this.id) {
-      this.collectorService.analyzeProduct(this.id, this.selectedPeriod).subscribe( res => {
-        this.dailyResults = res.dailyResults
+      let daysBack : number|undefined = this.period.daysBack
+      let fromDate    = this.period.fromDate;
+      let toDate      = this.period.toDate;
+
+      if (this.period.custom) {
+        daysBack = undefined
+      }
+      this.collectorService.analyzeProduct(this.id, daysBack, fromDate, toDate, this.timeframe, 10000).subscribe( res => {
+        this.barResults = res.barResults
       })
     }
   }

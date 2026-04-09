@@ -17,22 +17,25 @@ import {AbstractPanel} from "../../../../../../component/abstract.panel";
 import {FlexTableColumn} from "../../../../../../model/flex-table";
 import {EventBusService} from "../../../../../../service/eventbus.service";
 import {LabelService} from "../../../../../../service/label.service";
-import {DailyResult} from "../model";
-import {IntDateTranscoder, ListLabelTranscoder} from "../../../../../../component/panel/flex-table/transcoders";
+import {BarResult} from "../model";
+import {
+  IsoDateTranscoder,
+  ListLabelTranscoder
+} from "../../../../../../component/panel/flex-table/transcoders";
 
 //=============================================================================
 
 @Component({
-  selector: 'market-analysis-daily',
-  templateUrl: './market-analysis.daily.html',
-  styleUrls: [ './market-analysis.daily.scss'],
+  selector: 'market-analysis-bars',
+  templateUrl: './market-analysis.bars.html',
+  styleUrls: [ './market-analysis.bars.scss'],
   imports: [CommonModule, MatButtonModule, MatCardModule, MatIconModule,
     RouterModule, FlexTablePanel]
 })
 
 //=============================================================================
 
-export class MarketAnalysisDailyPanel extends AbstractPanel {
+export class MarketAnalysisBarsPanel extends AbstractPanel {
 
   //-------------------------------------------------------------------------
   //---
@@ -43,9 +46,9 @@ export class MarketAnalysisDailyPanel extends AbstractPanel {
   columns : FlexTableColumn[] = [];
 
   @Input()
-  dailyResults : DailyResult[]     = [];
+  barResults : BarResult[] = [];
 
-  @ViewChild("table") table : FlexTablePanel<DailyResult>|null = null;
+  @ViewChild("table") table : FlexTablePanel<BarResult>|null = null;
 
   //-------------------------------------------------------------------------
   //---
@@ -77,16 +80,17 @@ export class MarketAnalysisDailyPanel extends AbstractPanel {
   //-------------------------------------------------------------------------
 
   setupColumns = () => {
-    let ts = this.labelService.getLabel("model.dailyResult");
+    let ts = this.labelService.getLabel("model.barResult");
 
     this.columns = [
-      new FlexTableColumn(ts, "date", new IntDateTranscoder()),
-      new FlexTableColumn(ts, "price"),
-      new FlexTableColumn(ts, "percDailyChange"),
+      new FlexTableColumn(ts, "time", new IsoDateTranscoder()),
+      new FlexTableColumn(ts, "close"),
+      new FlexTableColumn(ts, "barChangePerc"),
       new FlexTableColumn(ts, "trueRange"),
       new FlexTableColumn(ts, "sqn100"),
-      new FlexTableColumn(ts, "percAtr20"),
-      new FlexTableColumn(ts, "direction", new ListLabelTranscoder(this.labelService, "list.direction", 2)),
+      new FlexTableColumn(ts, "atr"),
+      new FlexTableColumn(ts, "atrPerc"),
+      new FlexTableColumn(ts, "direction",  new ListLabelTranscoder(this.labelService, "list.direction", 2)),
       new FlexTableColumn(ts, "volatility", new ListLabelTranscoder(this.labelService, "list.volatility")),
     ]
   }

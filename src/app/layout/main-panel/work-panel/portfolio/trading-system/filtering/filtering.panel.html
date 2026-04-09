@@ -87,8 +87,7 @@
 
   <div class="center-layout">
     <div class="buttons-layout">
-      <select-required label="{{loc('period')}}" [(key)]="selectedPeriod" [list]="periods" keyField="id" valueField="name" (keyChange)="onPeriodChange($event)"></select-required>
-      <input-text-optional [label]="loc('startDate')" [value]="startDateDisplayed" [disabled]="true"></input-text-optional>
+      <period-selector [(period)]="period" (periodChange)="onPeriodChange($event)"></period-selector>
       <flat-button label="{{button('run')}}"      (click)="onRunClick()"     ></flat-button>
       <flat-button label="{{button('optimize')}}" (click)="onOptimizeClick()"></flat-button>
       <flat-button label="{{button('save')}}"     (click)="onSaveClick()"    ></flat-button>

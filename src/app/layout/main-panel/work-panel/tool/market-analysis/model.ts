@@ -13,25 +13,30 @@
 //=============================================================================
 
 export class DataProductAnalysisResponse {
-  id?          : number
-  symbol?      : string
-  from?        : number
-  to?          : number
-  days?        : number
-  dailyResults : DailyResult[] = []
+  id?        : number
+  symbol?    : string
+  from?      : number
+  to?        : number
+  bars?      : number
+  timeframe? : number
+  atrLength? : number
+  barResults : BarResult[] = []
 }
 
 //=============================================================================
 
-export class DailyResult {
-  date?            : number
-  price?           : number
-  percDailyChange? : number
-  sqn100?          : number
-  trueRange?       : number
-  percAtr20?       : number
-  direction?       : number
-  volatility?      : number
+export class BarResult {
+  time?          : Date
+  close?         : number
+  barChangePerc? : number
+  sqn100?        : number
+  trueRange?     : number
+  atr?           : number
+  atrPerc?       : number
+  atrMeanPerc?   : number
+  atrStdDevPerc? : number
+  direction?     : number
+  volatility?    : number
 }
 
 //=============================================================================

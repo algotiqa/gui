@@ -17,7 +17,9 @@ import {IntDateTranscoder} from "../component/panel/flex-table/transcoders";
 //=============================================================================
 
 export class SimulationRequest {
-  daysBack       : number = 0
+  daysBack?      : number
+  fromDate?      : number
+  toDate?        : number
   runs           : number = 10000
   width          : number = 0
   height         : number = 0

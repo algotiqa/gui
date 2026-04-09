@@ -47,7 +47,8 @@ export class TimeframeSelector {
 
   matcher = new CustomErrorStateMatcher();
 
-  private _valid : boolean= false
+  private valid     : boolean= false
+  private prevValue : number|undefined
 
   //-------------------------------------------------------------------------
   //---
@@ -79,6 +80,7 @@ export class TimeframeSelector {
   @Input()
   set value(v : number|undefined) {
     this.formControl.setValue(v)
+    this.prevValue = v
   }
 
   //-------------------------------------------------------------------------
@@ -112,7 +114,7 @@ export class TimeframeSelector {
   //-------------------------------------------------------------------------
 
   public isValid = () : boolean => {
-    return this._valid
+    return this.valid
   }
 
   //-------------------------------------------------------------------------
@@ -134,8 +136,16 @@ export class TimeframeSelector {
   //-------------------------------------------------------------------------
 
   private valueChanged = (s : FormControlStatus) => {
-    this._valid = (s == "VALID")
-    this.valueChange.emit(this.formControl.value)
+    this.valid = (s == "VALID")
+    let value = this.formControl.value
+    if (value == null) {
+      value = undefined
+    }
+
+    if (value != this.prevValue) {
+      this.prevValue = value
+      this.valueChange.emit(value)
+    }
   }
   protected readonly JSON = JSON;
 }

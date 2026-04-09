@@ -56,9 +56,29 @@ export class CollectorService {
   //--- Products
   //---------------------------------------------------------------------------
 
-  public analyzeProduct = (id : number, backDays : number): Observable<DataProductAnalysisResponse> => {
-    let params = new HttpParams()
-    params = params.set("backDays", backDays)
+  public analyzeProduct = (id : number, daysBack : number|undefined,
+                           from : number|undefined, to : number|undefined,
+                           timeframe : number, limit : number): Observable<DataProductAnalysisResponse> => {
+    let params = {
+      "daysBack" : "",
+      "from"     : "",
+      "to"       : "",
+      "timeframe": timeframe,
+      "limit"    : limit,
+    }
+
+    if (daysBack) {
+      params.daysBack = String(daysBack)
+    }
+
+    if (from) {
+      params.from = String(from)
+    }
+
+    if (to) {
+      params.to = String(to)
+    }
+
     return this.httpService.get<DataProductAnalysisResponse>('/api/collector/v1/data-products/'+ id +'/analysis', { params: params });
   }
 
@@ -100,15 +120,28 @@ export class CollectorService {
 
   //---------------------------------------------------------------------------
 
-  public getDataInstrumentData = (id: number, from:string, to:string, timeframe:number, timezone:string, reduction:number): Observable<DataInstrumentDataResponse> => {
+  public getDataInstrumentData = (id: number, daysBack:number|undefined, from:string|undefined, to:string|undefined, timeframe:number, timezone:string, reduction:number): Observable<DataInstrumentDataResponse> => {
     let options= {
       params: {
-        from     : from,
-        to       : to,
+        daysBack : "",
+        from     : "",
+        to       : "",
         timeframe: timeframe,
         timezone : timezone,
         reduction: reduction,
       },
+    }
+
+    if (daysBack) {
+      options.params.daysBack = String(daysBack)
+    }
+
+    if (from) {
+      options.params.from = from
+    }
+
+    if (to) {
+      options.params.to = to
     }
 
     return this.httpService.get<DataInstrumentDataResponse>('/api/collector/v1/data-instruments/'+id+'/data', options);

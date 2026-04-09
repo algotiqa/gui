@@ -1,0 +1,11 @@
+<div class="main-layout">
+  <mat-slide-toggle class="period-class" [(ngModel)]="period.custom"></mat-slide-toggle>
+
+  @if (!period.custom) {
+    <select-required [label]="loc('period')" [(key)]="period.daysBack" [list]="periods" (keyChange)="onPeriodChange($event)" [disabled]="disabled" keyField="id" valueField="name"></select-required>
+  }
+  @if (period.custom) {
+    <date-picker [label]="loc('fromDate')" [disabled]="disabled" [(value)]="period.fromDate" (valueChange)="onFromChange($event)"></date-picker>
+    <date-picker [label]="loc('toDate')"   [disabled]="disabled" [(value)]="period.toDate"   (valueChange)="onToChange($event)"></date-picker>
+  }
+</div>
