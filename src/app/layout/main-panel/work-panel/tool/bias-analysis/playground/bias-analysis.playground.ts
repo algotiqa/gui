@@ -40,6 +40,7 @@ import {BiasConfig, BiasSummaryResponse, DataPointDowList, DataPointEntry} from 
 import {ToggleButton} from "../../../../../../component/form/toggle-button/toggle-button";
 import {Lib} from "../../../../../../lib/lib";
 import {MinMax} from "../../../../../../lib/min-max";
+import {PeriodSelector, PeriodSelectorInfo} from "../../../../../../component/form/period-selector/period-selector";
 
 //=============================================================================
 
@@ -50,7 +51,7 @@ import {MinMax} from "../../../../../../lib/min-max";
   imports: [CommonModule, MatButton, MatIcon, NgApexchartsModule,
     ChipSetTextComponent, MatFormField, MatLabel,
     MatIconButton, MatInput, MatSuffix, ReactiveFormsModule, MatTabGroup, MatTab, MatButtonToggle, MatButtonToggleGroup, FlexTablePanel,
-    MatGridListModule, ToggleButton]
+    MatGridListModule, ToggleButton, PeriodSelector]
 })
 
 //=============================================================================
@@ -65,6 +66,7 @@ export class BiasAnalysisPlaygroundPanel extends AbstractPanel {
 
   baId : number = 0
 
+  period    : PeriodSelectorInfo = new PeriodSelectorInfo()
   showLabels: boolean = false
   showProfit: boolean = false
 
@@ -148,7 +150,7 @@ export class BiasAnalysisPlaygroundPanel extends AbstractPanel {
   //-------------------------------------------------------------------------
 
   private reloadBiasAnalysis() {
-    this.collectorService.getBiasSummary(this.baId).subscribe( result => {
+    this.collectorService.getBiasSummary(this.baId, this.period).subscribe( result => {
       this.result = result
       this.options.series = this.setupSeries(this.result, this.selMonths, this.excludedSet)
     })
@@ -158,6 +160,13 @@ export class BiasAnalysisPlaygroundPanel extends AbstractPanel {
   //---
   //--- Event methods
   //---
+  //-------------------------------------------------------------------------
+
+  onPeriodChange(period: PeriodSelectorInfo) {
+    console.log("Analysis period change : ", period)
+    this.reloadBiasAnalysis();
+  }
+
   //-------------------------------------------------------------------------
 
   onLabelsChange() {

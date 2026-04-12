@@ -199,9 +199,7 @@ export class DataInstrumentChartPanel extends AbstractPanel {
 
     if (callService) {
       this.collectorService.getDataInstrumentData(this.instrumentIds[0],
-                                                  daysBack,
-                                                  this.buildDate(this.period.fromDate, false),
-                                                  this.buildDate(this.period.toDate,    true),
+                                                  this.period,
                                                   this.timeframe, this.timezone,
                                                   this.reduction).subscribe(
         result => {
@@ -239,24 +237,6 @@ export class DataInstrumentChartPanel extends AbstractPanel {
     this.minPeriod       = undefined
     this.maxPeriod       = undefined
     this.serviceResponse = undefined
-  }
-
-  //-------------------------------------------------------------------------
-
-  private buildDate(value : number|undefined, isEnd : boolean) : string|undefined {
-    if (value == undefined) {
-      return undefined
-    }
-
-    let v=value.toString()
-
-    let y= v.substring(0,4)
-    let m= v.substring(4,6)
-    let d= v.substring(6)
-
-    let suffix = isEnd ? " 23:59:59" :" 00:00:00"
-
-    return y +"-"+ m +"-"+ d +suffix
   }
 
   //-------------------------------------------------------------------------

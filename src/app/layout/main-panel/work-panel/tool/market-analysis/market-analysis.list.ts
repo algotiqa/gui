@@ -129,14 +129,7 @@ export class MarketAnalysisListPanel extends AbstractPanel {
 
   private reload() : void {
     if (this.id) {
-      let daysBack : number|undefined = this.period.daysBack
-      let fromDate    = this.period.fromDate;
-      let toDate      = this.period.toDate;
-
-      if (this.period.custom) {
-        daysBack = undefined
-      }
-      this.collectorService.analyzeProduct(this.id, daysBack, fromDate, toDate, this.timeframe, 10000).subscribe( res => {
+      this.collectorService.analyzeProduct(this.id, this.period, this.timeframe, 10000).subscribe( res => {
         this.barResults = res.barResults
       })
     }

@@ -32,6 +32,8 @@ import {
   BiasSummaryResponse
 } from "../layout/main-panel/work-panel/tool/bias-analysis/model";
 import {DataProductAnalysisResponse} from "../layout/main-panel/work-panel/tool/market-analysis/model";
+import {PeriodSelectorInfo} from "../component/form/period-selector/period-selector";
+import {Lib} from "../lib/lib";
 
 //=============================================================================
 
@@ -56,30 +58,11 @@ export class CollectorService {
   //--- Products
   //---------------------------------------------------------------------------
 
-  public analyzeProduct = (id : number, daysBack : number|undefined,
-                           from : number|undefined, to : number|undefined,
+  public analyzeProduct = (id : number, period : PeriodSelectorInfo,
                            timeframe : number, limit : number): Observable<DataProductAnalysisResponse> => {
-    let params = {
-      "daysBack" : "",
-      "from"     : "",
-      "to"       : "",
-      "timeframe": timeframe,
-      "limit"    : limit,
-    }
+    let spec = Lib.query.createSpec(period, timeframe, undefined, undefined, limit)
 
-    if (daysBack) {
-      params.daysBack = String(daysBack)
-    }
-
-    if (from) {
-      params.from = String(from)
-    }
-
-    if (to) {
-      params.to = String(to)
-    }
-
-    return this.httpService.get<DataProductAnalysisResponse>('/api/collector/v1/data-products/'+ id +'/analysis', { params: params });
+    return this.httpService.get<DataProductAnalysisResponse>('/api/collector/v1/data-products/'+ id +'/analysis', { params: spec });
   }
 
   //---------------------------------------------------------------------------
@@ -120,31 +103,10 @@ export class CollectorService {
 
   //---------------------------------------------------------------------------
 
-  public getDataInstrumentData = (id: number, daysBack:number|undefined, from:string|undefined, to:string|undefined, timeframe:number, timezone:string, reduction:number): Observable<DataInstrumentDataResponse> => {
-    let options= {
-      params: {
-        daysBack : "",
-        from     : "",
-        to       : "",
-        timeframe: timeframe,
-        timezone : timezone,
-        reduction: reduction,
-      },
-    }
+  public getDataInstrumentData = (id: number, period:PeriodSelectorInfo, timeframe:number, timezone:string, reduction:number): Observable<DataInstrumentDataResponse> => {
+    let spec = Lib.query.createSpec(period, timeframe, timezone, reduction)
 
-    if (daysBack) {
-      options.params.daysBack = String(daysBack)
-    }
-
-    if (from) {
-      options.params.from = from
-    }
-
-    if (to) {
-      options.params.to = to
-    }
-
-    return this.httpService.get<DataInstrumentDataResponse>('/api/collector/v1/data-instruments/'+id+'/data', options);
+    return this.httpService.get<DataInstrumentDataResponse>('/api/collector/v1/data-instruments/'+id+'/data', { params: spec });
   }
 
   //---------------------------------------------------------------------------
@@ -191,8 +153,10 @@ export class CollectorService {
 
   //---------------------------------------------------------------------------
 
-  public getBiasSummary = (id:number): Observable<BiasSummaryResponse> => {
-    return this.httpService.get<BiasSummaryResponse>('/api/collector/v1/bias-analyses/'+ id+'/summary', {});
+  public getBiasSummary = (id:number, period : PeriodSelectorInfo): Observable<BiasSummaryResponse> => {
+    let spec = Lib.query.createSpec(period, undefined, undefined, undefined, undefined)
+
+    return this.httpService.get<BiasSummaryResponse>('/api/collector/v1/bias-analyses/'+ id+'/summary', { params: spec });
   }
 
   //---------------------------------------------------------------------------

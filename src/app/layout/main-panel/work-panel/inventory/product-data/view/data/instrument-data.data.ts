@@ -27,6 +27,7 @@ import {SelectRequired} from "../../../../../../../component/form/select-require
 import {DatePicker} from "../../../../../../../component/form/date-picker/date-picker";
 import {DataPointTimeTranscoder} from "../../../../../../../component/panel/flex-table/transcoders";
 import {TimeframeSelector} from "../../../../../../../component/form/timeframe-selector/timeframe-selector";
+import {PeriodSelector, PeriodSelectorInfo} from "../../../../../../../component/form/period-selector/period-selector";
 
 //=============================================================================
 
@@ -34,9 +35,9 @@ import {TimeframeSelector} from "../../../../../../../component/form/timeframe-s
     selector: 'instrumentData-data',
     templateUrl: './instrument-data.data.html',
     styleUrls: ['./instrument-data.data.scss'],
-    imports: [CommonModule, MatButtonModule, MatIconModule, MatInputModule, MatFormFieldModule,
-        RouterModule, FlexTablePanel, MatChipsModule, MatSelectModule, SelectRequired,
-        DatePicker, TimeframeSelector]
+  imports: [CommonModule, MatButtonModule, MatIconModule, MatInputModule, MatFormFieldModule,
+    RouterModule, FlexTablePanel, MatChipsModule, MatSelectModule, SelectRequired,
+    TimeframeSelector, PeriodSelector]
 })
 
 //=============================================================================
@@ -51,10 +52,9 @@ export class DataInstrumentDataPanel extends AbstractPanel {
 
   id : number = 0
 
-  fromDate?     : number
-  toDate?       : number
-  timeframe     : number = 60
-  timezone      : string = "exchange"
+  period        : PeriodSelectorInfo = new PeriodSelectorInfo()
+  timeframe     : number             = 60
+  timezone      : string             = "exchange"
 
   columns         : FlexTableColumn[] = [];
   dataPoints      : DataPoint[] = []
@@ -105,12 +105,8 @@ export class DataInstrumentDataPanel extends AbstractPanel {
   //---
   //-------------------------------------------------------------------------
 
-  onFromChange(value:number|undefined) {
-  }
-
-  //-------------------------------------------------------------------------
-
-  onToChange(value?:number) {
+  onPeriodChange(period: PeriodSelectorInfo) {
+    this.onReload();
   }
 
   //-------------------------------------------------------------------------
@@ -133,12 +129,7 @@ export class DataInstrumentDataPanel extends AbstractPanel {
       return
     }
 
-    this.collectorService.getDataInstrumentData(this.id,
-      0, //FIXME
-      this.buildDate(this.fromDate, false),
-      this.buildDate(this.toDate, true),
-      this.timeframe, this.timezone,
-      0).subscribe(
+    this.collectorService.getDataInstrumentData(this.id, this.period, this.timeframe, this.timezone, 0).subscribe(
       result => {
         this.serviceResponse = result;
         this.dataPoints      = result.dataPoints
@@ -171,39 +162,28 @@ export class DataInstrumentDataPanel extends AbstractPanel {
 
   //-------------------------------------------------------------------------
 
-  private buildDate(value : number|undefined, isEnd : boolean) : string {
-    if (value == null) {
-      return ""
-    }
-
-    let v=value.toString()
-
-    let y= v.substring(0,4)
-    let m= v.substring(4,6)
-    let d= v.substring(6)
-
-    let suffix = isEnd ? " 23:59:59" :" 00:00:00"
-
-    return y +"-"+ m +"-"+ d +suffix
-  }
-
-  //-------------------------------------------------------------------------
-
   private tooManyDataPoints() : boolean {
-    if (this.fromDate == null || this.toDate == null) {
-      return true
-    }
+    let days         = this.period.daysBack
+    let from = this.period.fromDate
+    let to   = this.period.toDate
 
-    let fromY = this.fromDate / 10000
-    let fromM = (this.fromDate / 100) % 100
-    let fromD = (this.fromDate) % 100
-
-    let toY = this.toDate / 10000
-    let toM = (this.toDate / 100) % 100
-    let toD = (this.toDate) % 100
-
-    let days   = (toY - fromY)*365 + (toM - fromM)*12 + (toD - fromD)
     let pInDay = 1440 / this.timeframe
+
+    if (this.period.custom) {
+      if (from == undefined || to == undefined) {
+        return true
+      }
+
+      let fromY = from / 10000
+      let fromM = (from / 100) % 100
+      let fromD = (from) % 100
+
+      let toY = to / 10000
+      let toM = (to / 100) % 100
+      let toD = (to) % 100
+
+      days = (toY - fromY)*365 + (toM - fromM)*12 + (toD - fromD)
+    }
 
     return (days*pInDay > 10000)
   }

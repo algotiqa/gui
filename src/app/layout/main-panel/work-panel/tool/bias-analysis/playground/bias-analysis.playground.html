@@ -1,5 +1,6 @@
 <div class="main-layout">
   <div class="options-layout">
+      <period-selector [(period)]="period" (periodChange)="onPeriodChange($event)"></period-selector>
       <mat-button-toggle-group [hideMultipleSelectionIndicator]="true" [multiple]="true" [formControl]="monthsControl">
         <mat-button-toggle [value]="0"  (change)="onMonthChange($event)">{{map("months", "jan")}}</mat-button-toggle>
         <mat-button-toggle [value]="1"  (change)="onMonthChange($event)">{{map("months", "feb")}}</mat-button-toggle>
