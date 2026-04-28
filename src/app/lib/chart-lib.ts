@@ -18,6 +18,8 @@ import {
 } from "ng-apexcharts";
 import {MinMax} from "./min-max";
 
+import { deepmerge } from "deepmerge-ts"
+
 //=============================================================================
 
 export type ChartOptions = {
@@ -34,7 +36,95 @@ export type ChartOptions = {
   grid        : ApexGrid
   labels      : string[]
   legend      : ApexLegend
-};
+  tooltip     : ApexTooltip
+}
+
+//-----------------------------------------------------------------------------
+
+const defaultBarOptions : ChartOptions= {
+  title: {
+  },
+  chart: {
+    type: "bar",
+    height: "96%",
+  },
+
+  series: [],
+  legend: {},
+
+  plotOptions: {
+    bar: {
+      columnWidth: "95%",
+    }
+  },
+
+  stroke: {},
+
+  dataLabels: {
+    enabled: false,
+  },
+
+  colors: [ "#008FFB" ],
+  xaxis: {},
+  yaxis: {},
+  annotations: {},
+  labels: [],
+  grid: {},
+  tooltip: {},
+}
+
+//-----------------------------------------------------------------------------
+
+const defaultLineOptions : ChartOptions = {
+  title: {},
+  chart: {
+    type: "line",
+    height: "96%",
+    id: "base",
+    group: "equity",
+    zoom: {
+      enabled: true,
+      autoScaleYaxis: true,
+      allowMouseWheelZoom: false
+    }
+  },
+
+  series: [],
+  legend: {},
+  plotOptions: {},
+
+  stroke: {
+    curve: "stepline",
+    width: 2,
+  },
+
+  dataLabels: {},
+  colors: [],
+  xaxis: {},
+
+  yaxis: {
+    tickAmount: 20,
+    decimalsInFloat: 0,
+    axisBorder: {
+      show: true,
+    },
+    axisTicks: {
+      show: true,
+    }
+  },
+  annotations: {},
+  labels: [],
+  grid: {
+    borderColor: "#B0B0B0",
+    strokeDashArray: 3,
+    xaxis: {
+      lines: {
+        show: true
+      }
+    }
+  },
+  tooltip: {}
+}
 
 //=============================================================================
 
@@ -44,6 +134,18 @@ export class ChartLib {
   //---
   //--- API methods
   //---
+  //-------------------------------------------------------------------------
+
+  public buildLineOptions(overrides: Partial<ChartOptions> = {}) : ChartOptions {
+    return deepmerge(defaultLineOptions, overrides);
+  }
+
+  //-------------------------------------------------------------------------
+
+  public buildBarOptions(overrides: Partial<ChartOptions> = {}) : ChartOptions {
+    return deepmerge(defaultBarOptions, overrides);
+  }
+
   //-------------------------------------------------------------------------
 
   public buildDataset(name: string, times : any[], values : number[], isDrawdown? : boolean, color? : string) : any {

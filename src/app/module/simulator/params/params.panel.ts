@@ -57,9 +57,7 @@ export class SimulationParamsPanel extends AbstractPanel {
 
   @Output() runChange = new EventEmitter<SimulationRequest>();
 
-  @ViewChild("tsRunsCtrl")    tsRunsCtrl?    : InputNumberRequired
-  @ViewChild("tsCapitalCtrl") tsCapitalCtrl? : InputNumberRequired
-  @ViewChild("tsRuinPerCtrl") tsRuinPerCtrl? : InputNumberRequired
+  @ViewChild("tsRunsCtrl") tsRunsCtrl? : InputNumberRequired
 
   //-------------------------------------------------------------------------
   //---
@@ -72,6 +70,9 @@ export class SimulationParamsPanel extends AbstractPanel {
               router           : Router) {
 
     super(eventBusService, labelService, router, "module.simulation.params");
+
+    //--- Set last 5 years of trades
+    this.period.daysBack = 365 * 5
   }
 
   //-------------------------------------------------------------------------
@@ -108,22 +109,8 @@ export class SimulationParamsPanel extends AbstractPanel {
   //---
   //-------------------------------------------------------------------------
 
-  getRuinAmount() : number {
-    let capital = this.req.initialCapital
-    let ruinPerc= this.req.ruinPercentage
-
-    let res = Math.trunc(capital * ruinPerc / 100)
-
-    return Number.isNaN(res) ? 0 : res
-  }
-
-  //-------------------------------------------------------------------------
-
   runEnabled() : boolean {
-    let result =
-          this.tsRunsCtrl?.isValid() &&
-          this.tsCapitalCtrl?.isValid() &&
-          this.tsRuinPerCtrl?.isValid()
+    let result = this.tsRunsCtrl?.isValid()
 
     return result == undefined ? false : result
   }

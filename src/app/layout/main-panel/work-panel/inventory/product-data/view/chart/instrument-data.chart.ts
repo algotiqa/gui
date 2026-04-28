@@ -308,7 +308,8 @@ export class DataInstrumentChartPanel extends AbstractPanel {
       colors: [],
       annotations: {},
       grid: {},
-      labels: []
+      labels: [],
+      tooltip: {}
     };
   }
 
@@ -394,7 +395,8 @@ export class DataInstrumentChartPanel extends AbstractPanel {
       colors: [],
       annotations: {},
       grid: {},
-      labels: []
+      labels: [],
+      tooltip: {}
     };
   }
 

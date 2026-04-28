@@ -6,7 +6,7 @@
 //=== found in the LICENSE file
 //=============================================================================
 
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Inject, Input, Output} from '@angular/core';
 import {Router} from "@angular/router";
 import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatButtonToggle, MatButtonToggleGroup} from "@angular/material/button-toggle";
@@ -20,6 +20,11 @@ import {FlatButton} from "../../../component/form/flat-button/flat-button";
 import {ApexPlotOptions, ChartComponent} from "ng-apexcharts";
 import {ChartOptions} from "../../../lib/chart-lib";
 import {PorTradingSystem} from "../../../model/model";
+import {Lib} from "../../../lib/lib";
+import {DataProductSelectorDialog} from "../../../component/form/data-product-selector/product-selector.dialog";
+import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
+import {DialogData} from "../../../layout/main-panel/work-panel/admin/connection/login/dialog-data";
+import {SimulationInfoDialog} from "./info.dialog";
 
 //=============================================================================
 
@@ -69,9 +74,8 @@ export class SimulationResultsPanel extends AbstractPanel {
   returnType  = new FormControl("net")
   viewType    = new FormControl("equity")
 
-  chartOptions : ChartOptions;
-  maxDDPerc?   : number
-  maxDDRMul?   : string
+  distribOptions : ChartOptions;
+  probabOptions  : ChartOptions;
 
   //---------------------------------------------------------------------------
   //---
@@ -82,10 +86,12 @@ export class SimulationResultsPanel extends AbstractPanel {
   constructor(eventBusService      : EventBusService,
               labelService         : LabelService,
               router               : Router,
-              private localService : LocalService) {
+              private localService : LocalService,
+              public  dialog       : MatDialog) {
     super(eventBusService, labelService, router, "module.simulation.result")
 
-    this.chartOptions  = this.buildChartOptions()
+    this.distribOptions = this.buildDistribChartOptions()
+    this.probabOptions  = this.buildProbabChartOptions()
   }
 
   //-------------------------------------------------------------------------
@@ -138,42 +144,22 @@ export class SimulationResultsPanel extends AbstractPanel {
   }
 
   //-------------------------------------------------------------------------
-
-  viewEquity() : boolean {
-    return this.viewType.value == "equity"
-  }
-
-  //-------------------------------------------------------------------------
-
-  viewDrawdown() : boolean {
-    return this.viewType.value == "drawdown"
-  }
-
-  //-------------------------------------------------------------------------
-
-  maxxDDValue() : string {
-    if (this.maxDDRMul == undefined || this.res?.risk == undefined) {
-      return "";
-    }
-
-    let rValue = Number(this.maxDDRMul.substring(0, this.maxDDRMul.length - 1))
-    return (rValue * this.res.risk) +" "+ this.ts?.currencyCode
-  }
-
-  //-------------------------------------------------------------------------
   //---
   //--- Events
   //---
   //-------------------------------------------------------------------------
 
-  onTradeTypeChange() {
+  onViewChange() {
     this.rebuild()
   }
 
   //-------------------------------------------------------------------------
 
-  onReturnTypeChange() {
-    this.rebuild()
+  onInfoClick() {
+    this.dialog.open(SimulationInfoDialog, {
+      minWidth: "512px",
+      data: this._res
+    })
   }
 
   //-------------------------------------------------------------------------
@@ -183,113 +169,114 @@ export class SimulationResultsPanel extends AbstractPanel {
   }
 
   //-------------------------------------------------------------------------
-
-  onChartInit = () => {
-    this.maxDDPerc = undefined
-  }
-
-  //-------------------------------------------------------------------------
-
-  onChartClick = (e: any, chart?: any, options?: any) => {
-    let index = options.dataPointIndex
-    let distrib = this.details()?.maxDrawdowns
-    let xSerie = distrib?.xAxis
-    let ySerie = distrib?.yAxis
-
-    console.log("Clicked max drawdown distribution. Index="+ index)
-
-    this.maxDDPerc = undefined
-    if (xSerie == undefined || ySerie == undefined || this.res?.runs == undefined) {
-      return
-    }
-
-    let sum = 0
-    for (let i=0; i<=index; i++) {
-      sum += ySerie[i]
-    }
-
-    this.maxDDPerc = Math.round(sum * 100/ this.res.runs)
-    this.maxDDRMul = xSerie[index]
-  }
-
-  //-------------------------------------------------------------------------
   //---
   //--- Private methods
   //---
   //-------------------------------------------------------------------------
 
-  private buildChartOptions() : ChartOptions {
-    return {
+  private buildDistribChartOptions() : ChartOptions {
+    return Lib.chart.buildBarOptions({
       title: {
-        text: this.loc("chartTitle")
+        text: this.loc("distribTitle")
       },
-      chart: {
-        type: "bar",
-        height: "94%",
-        events: {
-          beforeMount: this.onChartInit,
-          dataPointSelection: this.onChartClick,
-        }
-      },
-
-      series: [],
-
-      legend: {},
-
-      plotOptions: {
-        bar: {
-          columnWidth: "95%",
-        }
-      },
-
-      stroke: {},
-
-      dataLabels: {
-        enabled: false,
-      },
-
-      colors: [ "#008FFB" ],
-      xaxis: {
-        title: {
-          text: this.loc("maxDDRMult")
-        }
-      },
-
       yaxis: {
         decimalsInFloat: 0,
         title: {
           text: this.loc("maxDDCount")
         }
       },
-      annotations: {},
-      labels: [],
-      grid: {}
-    }
+    })
   }
 
+  //-------------------------------------------------------------------------
+
+  private buildProbabChartOptions() : ChartOptions {
+    return Lib.chart.buildBarOptions({
+      title: {
+        text: this.loc("probabTitle")
+      },
+      yaxis: {
+        title: {
+          text: this.loc("probabPercent")
+        }
+      },
+      tooltip: {
+        enabled: true,
+        y: {
+          formatter: this.tipFormatter
+        }
+      }
+    })
+  }
+
+  //-------------------------------------------------------------------------
+
+  tipFormatter = (val: any, opts?: any): string => {
+    let msg1 = this.loc("probMsg1")
+    let msg2 = this.loc("probMsg2")
+    let msg3 = this.loc("probMsg3")
+    let perc  = opts.series[0][opts.dataPointIndex]
+    let risk = this.details()?.detectedRisk
+    if (risk == undefined) {
+      risk = 0
+    }
+    let rMult = Number(val.substring(0, val.length - 1))
+    let dd =  (rMult * risk) +" "+ this.ts?.currencyCode
+
+    return `<div>${msg1} <b>${perc}%</b> ${msg2} <br> ${msg3} <b>${val} ( ${dd} )</b></div>`
+  }
+
+  //-------------------------------------------------------------------------
+  //--- Rebuilding
   //-------------------------------------------------------------------------
 
   private rebuild() {
     let details = this.details()
-    this.rebuildChart(details)
+    this.rebuildDistribChart(details)
+    this.rebuildProbabChart (details)
   }
 
   //-------------------------------------------------------------------------
 
-  private rebuildChart(details: Details|undefined) {
-    if (details == undefined || details.maxDrawdowns == undefined) {
-      this.chartOptions.series = []
+  private rebuildDistribChart(details: Details|undefined) {
+    if (details == undefined || details.maxDrawdownDistr == undefined) {
+      this.distribOptions.series = []
       return
     }
 
-    this.chartOptions.series = [{
-      name: this.loc("maxDDCount"),
-      data: details.maxDrawdowns.yAxis,
+    this.distribOptions.series = [{
+      name: this.loc("distribSerie"),
+      data: details.maxDrawdownDistr.yAxis,
     }]
 
-    this.chartOptions.xaxis = {
+    this.distribOptions.xaxis = {
       type: "category",
-      categories: details.maxDrawdowns.xAxis
+      categories: details.maxDrawdownDistr.xAxis,
+      tickAmount: 50,
+    }
+  }
+
+  //-------------------------------------------------------------------------
+
+  private rebuildProbabChart(details: Details|undefined) {
+    if (details == undefined || details.maxDrawdownProb == undefined) {
+      this.probabOptions.series = []
+      return
+    }
+
+    this.probabOptions.series = [{
+      name: this.loc("probabSerie"),
+      data: details.maxDrawdownProb.yAxis,
+    }]
+
+    this.probabOptions.xaxis = {
+      type      : "category",
+      categories: details.maxDrawdownProb.xAxis,
+      tickAmount: 50,
+      tooltip: {
+        enabled: true,
+        formatter: this.tipFormatter
+      }
     }
   }
 }

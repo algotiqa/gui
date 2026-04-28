@@ -17,14 +17,12 @@ import {IntDateTranscoder} from "../component/panel/flex-table/transcoders";
 //=============================================================================
 
 export class SimulationRequest {
-  daysBack?      : number
-  fromDate?      : number
-  toDate?        : number
-  runs           : number = 10000
-  width          : number = 0
-  height         : number = 0
-  initialCapital : number = 100000
-  ruinPercentage : number = 25
+  daysBack? : number
+  fromDate? : number
+  toDate?   : number
+  runs      : number = 5000
+  width     : number = 0
+  height    : number = 0
 }
 
 //=============================================================================
@@ -34,13 +32,12 @@ export class SimulationRequest {
 //=============================================================================
 
 export class SimulationResult {
-  status?         : string
   firstTradeDate? : number
   lastTradeDate?  : number
   runs?           : number
-  initialCapital? : number
-  ruinPercentage? : number
-  risk?           : number
+  costPerOper?    : number
+  currencyCode?   : string
+  status?         : string
   startTime?      : Date
   endTime?        : Date
   step?           : number
@@ -55,8 +52,19 @@ export class SimulationResult {
 //=============================================================================
 
 export class Details {
-  equities      : string   = ""
-  maxDrawdowns? : Distribution
+  detectedRisk?        : number
+  numberOfTrades?      : number
+  equitiesImage        : string   = ""
+  maxDrawdownDistr?    : Distribution
+  maxDrawdownProb?     : Distribution
+  equityReturn?        : number
+  equityMaxDD?         : number
+  equityReturnDDRatio? : number
+  equityAverageTrade?  : number
+  medianReturn?        : number
+  medianMaxDD?         : number
+  medianReturnDDRatio? : number
+  medianAverageTrade?  : number
 }
 
 //=============================================================================

@@ -162,38 +162,7 @@ export class PerformanceChartPanel extends AbstractPanel {
   //-------------------------------------------------------------------------
 
   private buildChartOptions() : ChartOptions {
-    return {
-      title: {
-      },
-      chart: {
-        type: "line",
-        height: "96%",
-        id: "base",
-        group: "equity",
-        zoom: {
-          enabled: true,
-          autoScaleYaxis: true,
-          allowMouseWheelZoom: false
-        }
-      },
-
-      series: [],
-      legend: {},
-      plotOptions: {},
-
-      stroke: {
-        curve: "stepline",
-        width: 2,
-      },
-
-      dataLabels: {
-      },
-
-      colors: [],
-
-      xaxis: {
-      },
-
+    return Lib.chart.buildLineOptions({
       yaxis: {
         tickAmount: 20,
         decimalsInFloat: 0,
@@ -204,8 +173,6 @@ export class PerformanceChartPanel extends AbstractPanel {
           show: true,
         }
       },
-      annotations: {},
-      labels: [],
       grid: {
         borderColor: "#B0B0B0",
         strokeDashArray: 3,
@@ -215,7 +182,7 @@ export class PerformanceChartPanel extends AbstractPanel {
           }
         }
       }
-    }
+    })
   }
 
   //-------------------------------------------------------------------------

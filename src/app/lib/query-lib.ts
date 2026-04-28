@@ -33,11 +33,11 @@ export class QueryLib {
 	public createSpec(psi : PeriodSelectorInfo, timeframe? : number, timezone? : string, reduction? : number, limit? : number) : QuerySpec {
     let spec = new QuerySpec()
 
-    if (spec.timeframe) {
+    if (timeframe) {
       spec.timeframe = timeframe
     }
 
-    if (spec.timezone) {
+    if (timezone) {
       spec.timezone = timezone
     }
 

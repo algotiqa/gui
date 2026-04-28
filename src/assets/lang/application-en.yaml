@@ -701,6 +701,15 @@ page:
       filter      : Filter
       placeholder : Type at least 1 character
 
+    simulationInfo:
+      title      : Simulation info
+      property   : Property
+      value      : Value
+      firstTrade : First trade
+      lastTrade  : Last trade
+      runs       : Runs
+      costPerOper: Cost per operation
+
   # ==============================================================================
 
   module:
@@ -825,22 +834,38 @@ page:
         step      : Step completed
         firstTrade: First trade found
         lastTrade : Last trade found
-        risk      : Risk / stop loss
         stop      : Stop
       result:
-        rerun    : Re-run
-        all      : All
-        long     : Long
-        short    : Short
-        gross    : Gross
-        net      : Net
-        equities : Equities
-        drawdowns: Drawdowns
-        chartTitle: Distribution of max drawdowns vs R-multiples
-        maxDDCount: Count of maximum drawdowns
-        maxDDRMult: R multiples
-        probMsg1  : There is a
-        probMsg2  : probability to get a maximum drawdown bigger than
+        rerun        : Re-run
+        info         : Info
+        all          : All
+        long         : Long
+        short        : Short
+        gross        : Gross
+        net          : Net
+        summary      : Summary
+        equities     : Equities
+        drawdownDistr: Max DD distrib.
+        drawdownProb : Max DD prob.
+        distribTitle : Distribution of max drawdowns vs R-multiples
+        maxDDCount   : Count of maximum drawdowns
+        distribSerie : Max drawdowns
+        probMsg1     : There is a
+        probMsg2     : probability to get
+        probMsg3     : a maximum drawdown bigger than
+        probabTitle  : Probability of getting a max drawdown bigger than X-R
+        probabPercent: Probability percentage
+        probabSerie  : Probability (%)
+        property     : Property
+        value        : Value
+        detectedRisk : Detected risk
+        numOfTrades  : Number of trades
+        equity       : Equity
+        simulation   : Simulation
+        return       : R-Return
+        maxDrawdown  : R-Max drawdown
+        returnDDRatio: R-Return / R-Max drawdown ratio
+        averageTrade : R-Average trade
 
 # ==============================================================================
 # ===

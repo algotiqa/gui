@@ -1,0 +1,30 @@
+<h2 mat-dialog-title>{{loc("title")}}</h2>
+
+<mat-dialog-content class="mat-typography">
+  <table class="main-layout">
+    <tr>
+      <th>{{loc('property')}}</th>
+      <th>{{loc('value')}}</th>
+    </tr>
+    <tr>
+      <td>{{loc('firstTrade')}}</td>
+      <td class="column-style">{{firstTrade()}}</td>
+    </tr>
+    <tr>
+      <td>{{loc('lastTrade')}}</td>
+      <td class="column-style">{{lastTrade()}}</td>
+    </tr>
+    <tr>
+      <td>{{loc('runs')}}</td>
+      <td class="column-style">{{res?.runs}}</td>
+    </tr>
+    <tr>
+      <td>{{loc('costPerOper')}}</td>
+      <td class="column-style">{{res?.costPerOper}} {{res?.currencyCode}}</td>
+    </tr>
+  </table>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onClose()">{{button("close")}}</button>
+</mat-dialog-actions>

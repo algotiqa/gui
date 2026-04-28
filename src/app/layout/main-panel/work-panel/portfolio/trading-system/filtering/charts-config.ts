@@ -8,6 +8,7 @@
 
 import {ApexAnnotations, ApexAxisChartSeries, ApexChart, ApexStroke, ApexTitleSubtitle, ApexXAxis} from "ng-apexcharts";
 import {ChartOptions} from "../../../../../../lib/chart-lib";
+import {Lib} from "../../../../../../lib/lib";
 
 //=============================================================================
 //===
@@ -16,56 +17,27 @@ import {ChartOptions} from "../../../../../../lib/chart-lib";
 //=============================================================================
 
 export function buildEquityChartOptions(title : string, clickFunction: any) : ChartOptions {
-  return {
+  return Lib.chart.buildLineOptions({
     chart: {
       type: "line",
       height: 500,
-      id: "base",
-      group: "equity",
-      zoom: {
-        enabled: true,
-        allowMouseWheelZoom: false,
-        autoScaleYaxis: true
-      },
       events: {
         click: clickFunction,
       }
     },
 
-    series: [],
-    legend: {},
-    plotOptions: {},
-
     stroke: {
-      curve: "stepline",
-      width: 2,
       dashArray: [ 0, 0, 0, 0, 4]
-    },
-
-    dataLabels: {
-      // enabled: true,
     },
 
     title: {
       text: title
     },
 
-//    colors: [ '#008FFB', '#00E396', '#FF0000', '#800000' ],
-
     xaxis: {
       type: "datetime"
     },
-
-    yaxis: {},
-
-    colors: [],
-
-    annotations: {
-      xaxis: [ {} ]
-    },
-    grid: {},
-    labels: []
-  }
+  })
 }
 
 //=============================================================================
@@ -75,39 +47,21 @@ export function buildEquityChartOptions(title : string, clickFunction: any) : Ch
 //=============================================================================
 
 export function buildActivationChartOptions(title : string) : ChartOptions {
-  return <ChartOptions>{
-    chart: <ApexChart>{
+  return Lib.chart.buildLineOptions({
+    chart: {
       type: "line",
       height: 300,
       id: "activ",
-      group: "equity",
-      zoom: {
-        enabled: true,
-        allowMouseWheelZoom: false
-      }
     },
 
-    series: <ApexAxisChartSeries>[],
-
-    plotOptions: {},
-
-    stroke: <ApexStroke>{
-      curve: "stepline",
-      width: 2
-    },
-
-    dataLabels: {
-      // enabled: true,
-    },
-
-    title: <ApexTitleSubtitle>{
+     title: {
       text: title
     },
 
     xaxis: <ApexXAxis>{
       type: "datetime"
     }
-  }
+  })
 }
 
 //=============================================================================

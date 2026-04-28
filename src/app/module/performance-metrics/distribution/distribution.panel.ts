@@ -21,6 +21,7 @@ import {LabelService} from "../../../service/label.service";
 import {LocalService} from "../../../service/local.service";
 import {Setting} from "../../../model/setting";
 import {Distribution, PerformanceAnalysisResponse} from "../../../model/performance";
+import {Lib} from "../../../lib/lib";
 
 //=============================================================================
 
@@ -130,40 +131,14 @@ export class PerformanceDistributionPanel extends AbstractPanel {
   //-------------------------------------------------------------------------
 
   private buildChartOptions() : ChartOptions {
-    return {
-      title: {
-      },
-      chart: {
-        type: "bar",
-        height: "96%",
-      },
-
-      series: [],
-
-      legend: {
-        show: false
-      },
-
-      plotOptions: {
-        bar: {
-          columnWidth: "95%",
-        }
-      },
-
+    return Lib.chart.buildBarOptions({
       stroke: {
         curve: "monotoneCubic",
         width: 2,
         dashArray: [ 0, 4, 0, 4 ]
       },
 
-      dataLabels: {
-        enabled: false,
-//        formatter: this.countFormatter
-      },
-
       colors: [ "#008FFB", "#808080"],
-
-      xaxis: {},
 
       yaxis: {
         decimalsInFloat: 0,
@@ -171,10 +146,7 @@ export class PerformanceDistributionPanel extends AbstractPanel {
           text: this.loc("returnsDistr")
         }
       },
-      annotations: {},
-      labels: [],
-      grid: {}
-    }
+    })
   }
 
   //-------------------------------------------------------------------------

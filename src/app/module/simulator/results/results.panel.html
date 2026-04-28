@@ -1,23 +1,26 @@
 <div class="main-layout">
   <div class="header-layout">
     <mat-button-toggle-group [hideSingleSelectionIndicator]="true" [formControl]="tradeType">
-      <mat-button-toggle value="all"    (change)="onTradeTypeChange()">{{ loc("all") }}</mat-button-toggle>
-      <mat-button-toggle value="long"   (change)="onTradeTypeChange()">{{ loc("long") }}</mat-button-toggle>
-      <mat-button-toggle value="short"  (change)="onTradeTypeChange()">{{ loc("short") }}</mat-button-toggle>
+      <mat-button-toggle value="all"    (change)="onViewChange()">{{ loc("all") }}</mat-button-toggle>
+      <mat-button-toggle value="long"   (change)="onViewChange()">{{ loc("long") }}</mat-button-toggle>
+      <mat-button-toggle value="short"  (change)="onViewChange()">{{ loc("short") }}</mat-button-toggle>
     </mat-button-toggle-group>
 
     <mat-button-toggle-group [hideSingleSelectionIndicator]="true" [formControl]="returnType">
-      <mat-button-toggle value="gross"  (change)="onReturnTypeChange()">{{ loc("gross") }}</mat-button-toggle>
-      <mat-button-toggle value="net"    (change)="onReturnTypeChange()">{{ loc("net") }}</mat-button-toggle>
+      <mat-button-toggle value="gross"  (change)="onViewChange()">{{ loc("gross") }}</mat-button-toggle>
+      <mat-button-toggle value="net"    (change)="onViewChange()">{{ loc("net") }}</mat-button-toggle>
     </mat-button-toggle-group>
 
     <span style="flex:1 0 auto"></span>
 
     <mat-button-toggle-group [hideSingleSelectionIndicator]="true" [formControl]="viewType">
-      <mat-button-toggle value="equity"    (change)="onReturnTypeChange()">{{ loc("equities") }}</mat-button-toggle>
-      <mat-button-toggle value="drawdown"  (change)="onReturnTypeChange()">{{ loc("drawdowns") }}</mat-button-toggle>
+      <mat-button-toggle value="summary"       (change)="onViewChange()">{{ loc("summary") }}</mat-button-toggle>
+      <mat-button-toggle value="equity"        (change)="onViewChange()">{{ loc("equities") }}</mat-button-toggle>
+      <mat-button-toggle value="drawdownDistr" (change)="onViewChange()">{{ loc("drawdownDistr") }}</mat-button-toggle>
+      <mat-button-toggle value="drawdownProb"  (change)="onViewChange()">{{ loc("drawdownProb") }}</mat-button-toggle>
     </mat-button-toggle-group>
 
+    <flat-button icon="info"  label="{{loc('info')}}"  (click)="onInfoClick()"></flat-button>
     <flat-button icon="start" label="{{loc('rerun')}}" (click)="onReRunClick()"></flat-button>
 
   </div>
@@ -25,33 +28,87 @@
   <!-- ============================================================================================================= -->
 
   <div class="panel-layout">
-    @if (viewEquity()) {
-      <img src="data:image/png;base64,{{details()?.equities}}">
+    @if (viewType.value == "summary") {
+      <div class="summary-layout">
+        <table class="table-layout">
+          <tr>
+            <th>{{loc('property')}}</th>
+            <th>{{loc('value')}}</th>
+          </tr>
+          <tr>
+            <td>{{loc('detectedRisk')}}</td>
+            <td class="column-style">{{details()?.detectedRisk}} {{_res?.currencyCode}}</td>
+          </tr>
+          <tr>
+            <td>{{loc('numOfTrades')}}</td>
+            <td class="column-style">{{details()?.numberOfTrades}}</td>
+          </tr>
+        </table>
+
+        <table class="table-layout">
+          <tr>
+            <th>{{loc('property')}}</th>
+            <th>{{loc('equity')}}</th>
+            <th>{{loc('simulation')}}</th>
+          </tr>
+          <tr>
+            <td>{{loc('return')}}</td>
+            <td class="column-style">{{details()?.equityReturn}}</td>
+            <td class="column-style">{{details()?.medianReturn}}</td>
+          </tr>
+          <tr>
+            <td>{{loc('maxDrawdown')}}</td>
+            <td class="column-style">{{details()?.equityMaxDD}}</td>
+            <td class="column-style">{{details()?.medianMaxDD}}</td>
+          </tr>
+          <tr>
+            <td>{{loc('returnDDRatio')}}</td>
+            <td class="column-style">{{details()?.equityReturnDDRatio}}</td>
+            <td class="column-style">{{details()?.medianReturnDDRatio}}</td>
+          </tr>
+          <tr>
+            <td>{{loc('averageTrade')}}</td>
+            <td class="column-style">{{details()?.equityAverageTrade}}</td>
+            <td class="column-style">{{details()?.medianAverageTrade}}</td>
+          </tr>
+        </table>
+      </div>
     }
 
-    @if (viewDrawdown()) {
-      <apx-chart  class="chart-layout"
-                  [title]      = "chartOptions.title"
-                  [chart]      = "chartOptions.chart"
-                  [series]     = "chartOptions.series"
-                  [dataLabels] = "chartOptions.dataLabels"
-                  [plotOptions]= "chartOptions.plotOptions"
-                  [stroke]     = "chartOptions.stroke"
-                  [xaxis]      = "chartOptions.xaxis"
-                  [colors]     = "chartOptions.colors"
-                  [yaxis]      = "chartOptions.yaxis"
-                  [grid]       = "chartOptions.grid"
-                  [legend]     = "chartOptions.legend"
-      ></apx-chart>
+    @if (viewType.value == "equity") {
+      <img src="data:image/png;base64,{{details()?.equitiesImage}}">
+    }
 
-      @if (maxDDPerc != undefined) {
-        <div>
-          {{loc("probMsg1")}}
-          <b>{{maxDDPerc}}%</b>
-          {{loc("probMsg2")}}
-          <b>{{maxDDRMul}} ( {{maxxDDValue()}} )</b>
-        </div>
-      }
+    @if (viewType.value == "drawdownDistr") {
+      <apx-chart  class="chart-layout"
+                  [title]      = "distribOptions.title"
+                  [chart]      = "distribOptions.chart"
+                  [series]     = "distribOptions.series"
+                  [dataLabels] = "distribOptions.dataLabels"
+                  [plotOptions]= "distribOptions.plotOptions"
+                  [stroke]     = "distribOptions.stroke"
+                  [xaxis]      = "distribOptions.xaxis"
+                  [colors]     = "distribOptions.colors"
+                  [yaxis]      = "distribOptions.yaxis"
+                  [grid]       = "distribOptions.grid"
+                  [legend]     = "distribOptions.legend"
+      ></apx-chart>
+    }
+
+    @if (viewType.value == "drawdownProb") {
+      <apx-chart  class="chart-layout"
+                  [title]      = "probabOptions.title"
+                  [chart]      = "probabOptions.chart"
+                  [series]     = "probabOptions.series"
+                  [dataLabels] = "probabOptions.dataLabels"
+                  [plotOptions]= "probabOptions.plotOptions"
+                  [stroke]     = "probabOptions.stroke"
+                  [xaxis]      = "probabOptions.xaxis"
+                  [colors]     = "probabOptions.colors"
+                  [yaxis]      = "probabOptions.yaxis"
+                  [grid]       = "probabOptions.grid"
+                  [legend]     = "probabOptions.legend"
+      ></apx-chart>
     }
   </div>
 </div>
