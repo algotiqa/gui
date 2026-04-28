@@ -4,7 +4,7 @@
       <span class="asm-menu-node__label">{{ menuItem.label }}</span>
     </li>
   }
-  @for (childItem of menuItem.children; track trackByItem($index, childItem)) {
+  @for (childItem of menuItem.children; track childItem) {
     @if (roleService.showItem$(childItem.roles) | async) {
       <li
         asm-menu-item

@@ -14,7 +14,8 @@ import {
   ApexPlotOptions,
   ApexStroke, ApexTitleSubtitle,
   ApexXAxis,
-  ApexYAxis
+  ApexYAxis,
+  ApexTooltip, ApexGrid
 } from "ng-apexcharts";
 import {MinMax} from "./min-max";
 

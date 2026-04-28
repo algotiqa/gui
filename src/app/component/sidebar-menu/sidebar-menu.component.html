@@ -1,7 +1,7 @@
 <div class="asm-menu" [ngClass]="'asm-menu--mode-' + mode" [@.disabled]="disableAnimations">
   <ng-content></ng-content>
   <ul class="asm-menu__node">
-    @for (item of menu; track trackByItem($index, item)) {
+    @for (item of menu; track item) {
       @if (roleService.showItem$(item.roles) | async) {
         <li asm-menu-item
           class="asm-menu-item asm-menu-item--root"

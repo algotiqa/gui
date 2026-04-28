@@ -928,6 +928,7 @@ map:
     MT: Meat
     FX: Currency
     SO: Softs
+    CR: Crypto
 
   product:
     FU: Futures

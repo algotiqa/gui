@@ -27,7 +27,7 @@ export class DragAndDropDirective {
   //-------------------------------------------------------------------------
 
   @Output() onFileDropped = new EventEmitter<any>();
-  @HostBinding('style.opacity') private workspace_opacity = '1';
+  @HostBinding('style.opacity') workspace_opacity = '1';
 
   //-------------------------------------------------------------------------
   // Dragover listener, when files are dragged over our host element

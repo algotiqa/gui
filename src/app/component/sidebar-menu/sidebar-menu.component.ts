@@ -6,7 +6,7 @@
 //=== found in the LICENSE file
 //=============================================================================
 
-import {ChangeDetectionStrategy, Component, importProvidersFrom, Input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 
 import { Menu, SidebarModes, Role, UnAuthorizedVisibility } from './model';
 
@@ -15,7 +15,6 @@ import { NodeService }   from './service/node.service';
 import { RoleService }   from './service/role.service';
 import { SearchService } from './service/search.service';
 import { trackByItem }   from './internal/utils';
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 //=============================================================================
 
