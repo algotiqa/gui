@@ -16,7 +16,7 @@ import {Router} from "@angular/router";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatOptionModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
-import {NgForOf, NgIf} from "@angular/common";
+
 import {MatInputModule} from "@angular/material/input";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
@@ -52,10 +52,7 @@ enum Status {
     selector: "productBroker-create",
     templateUrl: './product-broker.create.html',
     styleUrls: [ './product-broker.create.scss'],
-    imports: [RightTitlePanel, MatFormFieldModule, MatOptionModule, MatSelectModule, NgForOf, //NgModel,
-      MatInputModule, MatIconModule, MatButtonModule, NgIf, FormsModule, ReactiveFormsModule,
-      MatDividerModule, InputTextRequired, SelectRequired, InputNumberRequired, TextSelectorPanel
-    ]
+    imports: [RightTitlePanel, MatFormFieldModule, MatOptionModule, MatSelectModule, MatInputModule, MatIconModule, MatButtonModule, FormsModule, ReactiveFormsModule, MatDividerModule, InputTextRequired, SelectRequired, InputNumberRequired, TextSelectorPanel]
 })
 
 //=============================================================================

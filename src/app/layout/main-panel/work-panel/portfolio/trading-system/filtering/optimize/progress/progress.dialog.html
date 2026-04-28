@@ -14,8 +14,12 @@
         <td class="separator-layout"></td>
         <td>{{loc("taPosProfit")}}</td>
         <td>
-          <mat-icon *ngIf="response?.filter?.posProfit"  fontIcon="done"></mat-icon>
-          <mat-icon *ngIf="!response?.filter?.posProfit" fontIcon="close"></mat-icon>
+          @if (response?.filter?.posProfit) {
+            <mat-icon  fontIcon="done"></mat-icon>
+          }
+          @if (!response?.filter?.posProfit) {
+            <mat-icon fontIcon="close"></mat-icon>
+          }
         </td>
       </tr>
       <tr>
@@ -27,8 +31,12 @@
         <td></td>
         <td>{{loc("taOldVsNew")}}</td>
         <td>
-          <mat-icon *ngIf="response?.filter?.oldVsNew"  fontIcon="done"></mat-icon>
-          <mat-icon *ngIf="!response?.filter?.oldVsNew" fontIcon="close"></mat-icon>
+          @if (response?.filter?.oldVsNew) {
+            <mat-icon  fontIcon="done"></mat-icon>
+          }
+          @if (!response?.filter?.oldVsNew) {
+            <mat-icon fontIcon="close"></mat-icon>
+          }
         </td>
       </tr>
       <tr>
@@ -40,8 +48,12 @@
         <td></td>
         <td>{{loc("taWinPerc")}}</td>
         <td>
-          <mat-icon *ngIf="response?.filter?.winPerc"  fontIcon="done"></mat-icon>
-          <mat-icon *ngIf="!response?.filter?.winPerc" fontIcon="close"></mat-icon>
+          @if (response?.filter?.winPerc) {
+            <mat-icon  fontIcon="done"></mat-icon>
+          }
+          @if (!response?.filter?.winPerc) {
+            <mat-icon fontIcon="close"></mat-icon>
+          }
         </td>
       </tr>
       <tr>
@@ -53,8 +65,12 @@
         <td></td>
         <td>{{loc("taEquVsAvg")}}</td>
         <td>
-          <mat-icon *ngIf="response?.filter?.equVsAvg"  fontIcon="done"></mat-icon>
-          <mat-icon *ngIf="!response?.filter?.equVsAvg" fontIcon="close"></mat-icon>
+          @if (response?.filter?.equVsAvg) {
+            <mat-icon  fontIcon="done"></mat-icon>
+          }
+          @if (!response?.filter?.equVsAvg) {
+            <mat-icon fontIcon="close"></mat-icon>
+          }
         </td>
       </tr>
       <tr>
@@ -66,8 +82,12 @@
         <td></td>
         <td>{{loc("taTrendline")}}</td>
         <td>
-          <mat-icon *ngIf="response?.filter?.trendline"  fontIcon="done"></mat-icon>
-          <mat-icon *ngIf="!response?.filter?.trendline" fontIcon="close"></mat-icon>
+          @if (response?.filter?.trendline) {
+            <mat-icon  fontIcon="done"></mat-icon>
+          }
+          @if (!response?.filter?.trendline) {
+            <mat-icon fontIcon="close"></mat-icon>
+          }
         </td>
       </tr>
       <tr>
@@ -79,8 +99,12 @@
         <td></td>
         <td>{{loc("taDrawdown")}}</td>
         <td>
-          <mat-icon *ngIf="response?.filter?.drawdown"  fontIcon="done"></mat-icon>
-          <mat-icon *ngIf="!response?.filter?.drawdown" fontIcon="close"></mat-icon>
+          @if (response?.filter?.drawdown) {
+            <mat-icon  fontIcon="done"></mat-icon>
+          }
+          @if (!response?.filter?.drawdown) {
+            <mat-icon fontIcon="close"></mat-icon>
+          }
         </td>
       </tr>
     </table>

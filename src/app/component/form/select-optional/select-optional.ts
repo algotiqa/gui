@@ -9,7 +9,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {ErrorStateMatcher, MatOptionModule} from "@angular/material/core";
-import {KeyValuePipe, NgForOf, NgIf} from "@angular/common";
+import { KeyValuePipe } from "@angular/common";
 import {MatIconModule}      from "@angular/material/icon";
 import {
   FormControl,
@@ -31,7 +31,7 @@ import {MatSelectModule} from "@angular/material/select";
     selector: 'select-optional',
     templateUrl: './select-optional.html',
     styleUrls: ['./select-optional.scss'],
-    imports: [MatFormFieldModule, MatOptionModule, NgForOf, MatSelectModule, MatIconModule, FormsModule, ReactiveFormsModule]
+    imports: [MatFormFieldModule, MatOptionModule, MatSelectModule, MatIconModule, FormsModule, ReactiveFormsModule]
 })
 
 //=============================================================================

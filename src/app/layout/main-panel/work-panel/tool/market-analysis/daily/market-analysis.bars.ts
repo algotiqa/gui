@@ -7,7 +7,7 @@
 //=============================================================================
 
 import {Component, Input, ViewChild} from '@angular/core';
-import {CommonModule}         from "@angular/common";
+
 import {MatCardModule}        from "@angular/material/card";
 import {MatIconModule}        from "@angular/material/icon";
 import {MatButtonModule}      from "@angular/material/button";
@@ -29,8 +29,7 @@ import {
   selector: 'market-analysis-bars',
   templateUrl: './market-analysis.bars.html',
   styleUrls: [ './market-analysis.bars.scss'],
-  imports: [CommonModule, MatButtonModule, MatCardModule, MatIconModule,
-    RouterModule, FlexTablePanel]
+  imports: [MatButtonModule, MatCardModule, MatIconModule, RouterModule, FlexTablePanel]
 })
 
 //=============================================================================

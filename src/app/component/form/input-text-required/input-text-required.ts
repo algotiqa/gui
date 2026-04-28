@@ -9,7 +9,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {ErrorStateMatcher, MatOptionModule} from "@angular/material/core";
-import {NgIf}      from "@angular/common";
+
 import {MatInputModule}     from "@angular/material/input";
 import {MatIconModule}      from "@angular/material/icon";
 import {MatButtonModule}    from "@angular/material/button";
@@ -33,8 +33,7 @@ import {CustomErrorStateMatcher} from "../error-state-matcher";
     selector: 'input-text-required',
     templateUrl: './input-text-required.html',
     styleUrls: ['./input-text-required.scss'],
-    imports: [MatFormFieldModule, MatOptionModule, MatInputModule, MatIconModule,
-        MatButtonModule, NgIf, FormsModule, ReactiveFormsModule]
+    imports: [MatFormFieldModule, MatOptionModule, MatInputModule, MatIconModule, MatButtonModule, FormsModule, ReactiveFormsModule]
 })
 
 //=============================================================================

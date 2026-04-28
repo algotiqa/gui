@@ -17,7 +17,7 @@ import {SelectRequired} from "../../../../../../../../component/form/select-requ
 import {MatChipSelectionChange, MatChipsModule} from "@angular/material/chips";
 import {FieldOptimization, FilterOptimizationRequest} from "../../../../../../../../model/model";
 import {MatCheckboxModule} from "@angular/material/checkbox";
-import {NgIf} from "@angular/common";
+
 import {InputNumberRequired} from "../../../../../../../../component/form/input-integer-required/input-number-required";
 import {PortfolioService} from "../../../../../../../../service/portfolio.service";
 import {DialogData} from "../dialog-data";
@@ -29,8 +29,7 @@ import {MatTabsModule} from "@angular/material/tabs";
     selector: 'filter-parameter-dialog',
     templateUrl: 'parameter.dialog.html',
     styleUrls: ['parameter.dialog.scss'],
-    imports: [MatDialogModule, MatButtonModule, SelectRequired, MatChipsModule, MatCheckboxModule,
-        NgIf, InputNumberRequired, MatTabsModule]
+    imports: [MatDialogModule, MatButtonModule, SelectRequired, MatChipsModule, MatCheckboxModule, InputNumberRequired, MatTabsModule]
 })
 
 //=============================================================================

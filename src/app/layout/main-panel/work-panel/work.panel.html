@@ -1,1 +1,3 @@
-<router-outlet *ngIf="labelService.isLoaded"></router-outlet>
+@if (labelService.isLoaded) {
+  <router-outlet></router-outlet>
+}

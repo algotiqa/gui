@@ -7,7 +7,7 @@
 //=============================================================================
 
 import {Component, Input} from '@angular/core';
-import {CommonModule} from "@angular/common";
+
 import {Router, RouterModule} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -31,7 +31,7 @@ import {AppEvent} from "../../../../../../model/event";
     selector: 'archive-panel',
     templateUrl: './archive.panel.html',
     styleUrls: ['./archive.panel.scss'],
-    imports: [CommonModule, RouterModule, MatTabsModule, ReactiveFormsModule, FormsModule, MatFormField, MatIcon, MatIconButton, MatInput, MatLabel, MatSuffix, MatButton, ArchiveCard]
+    imports: [RouterModule, MatTabsModule, ReactiveFormsModule, FormsModule, MatFormField, MatIcon, MatIconButton, MatInput, MatLabel, MatSuffix, MatButton, ArchiveCard]
 })
 
 //=============================================================================

@@ -7,7 +7,7 @@
 //=============================================================================
 
 import {Component, Input} from '@angular/core';
-import {CommonModule} from "@angular/common";
+
 import {MatInputModule} from "@angular/material/input";
 import {MatCardModule} from "@angular/material/card";
 import {MatIconModule} from "@angular/material/icon";
@@ -33,8 +33,7 @@ import {AppEvent} from "../../../../../../model/event";
     selector: 'trading-panel',
     templateUrl: './trading.panel.html',
     styleUrls: ['./trading.panel.scss'],
-    imports: [CommonModule, MatButtonModule, MatCardModule, MatIconModule, MatInputModule,
-        RouterModule, MatTabsModule, ReactiveFormsModule, MatButtonToggle, MatButtonToggleGroup, TradingCard, FormsModule]
+    imports: [MatButtonModule, MatCardModule, MatIconModule, MatInputModule, RouterModule, MatTabsModule, ReactiveFormsModule, MatButtonToggle, MatButtonToggleGroup, TradingCard, FormsModule]
 })
 
 //=============================================================================

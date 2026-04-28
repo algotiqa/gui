@@ -7,7 +7,7 @@
 //=============================================================================
 
 import {Component, OnInit} from '@angular/core';
-import {NgIf}           from "@angular/common";
+
 import {MainPanel}      from "./main-panel/main.panel";
 import {HeaderPanel}    from "./header-panel/header-panel";
 import {SessionService} from "../service/session.service";
@@ -22,7 +22,7 @@ import {RouterOutlet} from "@angular/router";
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
-  imports: [HeaderPanel, MainPanel, NgIf, PortalModule, RouterOutlet]
+  imports: [HeaderPanel, MainPanel, PortalModule, RouterOutlet]
 })
 
 //=============================================================================

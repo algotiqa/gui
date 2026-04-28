@@ -27,6 +27,8 @@
   <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
   <div class="ts-layout">
-    <archive-card *ngFor="let ts of tradingSystems" [tradingSystem]="ts"></archive-card>
+    @for (ts of tradingSystems; track ts) {
+      <archive-card [tradingSystem]="ts"></archive-card>
+    }
   </div>
 </div>

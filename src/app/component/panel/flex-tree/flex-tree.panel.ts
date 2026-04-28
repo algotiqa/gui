@@ -7,7 +7,7 @@
 //=============================================================================
 
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {CommonModule}            from "@angular/common";
+
 import {MatIconModule}           from "@angular/material/icon";
 import {MatButtonModule}         from "@angular/material/button";
 import {MatTreeModule}           from "@angular/material/tree";
@@ -23,7 +23,7 @@ import {TreeNodeProvider}        from "../../../model/flex-tree";
     selector: 'flex-tree',
     templateUrl: './flex-tree.panel.html',
     styleUrls: ['./flex-tree.panel.scss'],
-    imports: [CommonModule, MatButtonModule, MatIconModule, MatTreeModule]
+    imports: [MatButtonModule, MatIconModule, MatTreeModule]
 })
 
 //=============================================================================

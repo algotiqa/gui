@@ -9,7 +9,7 @@
 import {MatButtonModule} from "@angular/material/button";
 import {Component} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
-import {NgIf} from "@angular/common";
+
 import {MatGridListModule} from "@angular/material/grid-list";
 import {MatIconModule} from "@angular/material/icon";
 import {
@@ -60,8 +60,7 @@ const EquityChart     = "equity"
     selector: 'bias-analysis-backtest',
     templateUrl: 'bias-analysis.backtest.html',
     styleUrls: ['bias-analysis.backtest.scss'],
-    imports: [MatButtonModule, NgIf, MatGridListModule, MatIconModule, FlexTreePanel,
-        MatDivider, FlexTablePanel, ChartComponent, MatButtonToggleModule, InputNumberRequired, SelectRequired]
+    imports: [MatButtonModule, MatGridListModule, MatIconModule, FlexTreePanel, MatDivider, FlexTablePanel, ChartComponent, MatButtonToggleModule, InputNumberRequired, SelectRequired]
 })
 
 //=============================================================================

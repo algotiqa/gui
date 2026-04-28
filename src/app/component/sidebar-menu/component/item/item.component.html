@@ -1,13 +1,16 @@
-<ng-container [ngSwitch]="true">
-  <span *ngSwitchCase="!!menuItem.header" class="asm-menu-item__header">{{ menuItem.header }}</span>
-  <asm-menu-anchor
-    *ngSwitchCase="!menuItem.children && !menuItem.header"
-    class="asm-menu-anchor"
-    [menuItem]="menuItem"
-    [disable]="disable || isItemDisabled"
-  ></asm-menu-anchor>
 
-  <ng-container *ngSwitchCase="!!menuItem.children">
+@switch (true) {
+  @case (!!menuItem.header) {
+    <span class="asm-menu-item__header">{{ menuItem.header }}</span>
+  }
+  @case (!menuItem.children && !menuItem.header) {
+    <asm-menu-anchor
+      class="asm-menu-anchor"
+      [menuItem]="menuItem"
+      [disable]="disable || isItemDisabled"
+    ></asm-menu-anchor>
+  }
+  @case (!!menuItem.children) {
     <asm-menu-anchor
       class="asm-menu-anchor"
       [ngClass]="{ 'asm-menu-anchor--open': node.isOpen }"
@@ -25,5 +28,5 @@
       (isActive)="onNodeActive($event)"
       (isFiltered)="onNodeFiltered($event)"
     ></asm-menu-node>
-  </ng-container>
-</ng-container>
+  }
+}

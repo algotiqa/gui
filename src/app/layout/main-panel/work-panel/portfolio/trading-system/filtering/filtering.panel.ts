@@ -7,7 +7,7 @@
 //=============================================================================
 
 import {Component, ViewChild} from '@angular/core';
-import {CommonModule}         from "@angular/common";
+
 import {ActivatedRoute, Router, RouterModule} from "@angular/router";
 import {AbstractPanel} from "../../../../../../component/abstract.panel";
 import {EventBusService} from "../../../../../../service/eventbus.service";
@@ -56,10 +56,7 @@ import {PeriodSelector, PeriodSelectorInfo} from "../../../../../../component/fo
     selector: 'trading-system-filtering',
     templateUrl: './filtering.panel.html',
     styleUrls: ['./filtering.panel.scss'],
-  imports: [CommonModule, RouterModule, MatExpansionModule, MatIconModule, MatFormFieldModule, FormsModule,
-    MatInputModule, MatOptionModule, MatSelectModule, MatSlideToggleModule, MatTabsModule, MatButtonModule,
-    MatDividerModule, MatGridListModule, SimpleTablePanel, MatDialogModule, ChartComponent, MatCardModule,
-    FlatButton, InputNumberRequired, PeriodSelector]
+  imports: [RouterModule, MatExpansionModule, MatIconModule, MatFormFieldModule, FormsModule, MatInputModule, MatOptionModule, MatSelectModule, MatSlideToggleModule, MatTabsModule, MatButtonModule, MatDividerModule, MatGridListModule, SimpleTablePanel, MatDialogModule, ChartComponent, MatCardModule, FlatButton, InputNumberRequired, PeriodSelector]
 })
 
 //=============================================================================

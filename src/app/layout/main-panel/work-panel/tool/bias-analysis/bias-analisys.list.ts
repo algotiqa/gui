@@ -7,7 +7,7 @@
 //=============================================================================
 
 import {Component, ViewChild} from '@angular/core';
-import {CommonModule}         from "@angular/common";
+
 import {MatInputModule}       from "@angular/material/input";
 import {MatCardModule}        from "@angular/material/card";
 import {MatIconModule}        from "@angular/material/icon";
@@ -30,8 +30,7 @@ import {BiasAnalysisFull} from "./model";
     selector: 'bias-analysis',
     templateUrl: './bias-analysis.list.html',
     styleUrls: ['./bias-analysis.list.scss'],
-    imports: [CommonModule, MatButtonModule, MatCardModule, MatIconModule, MatInputModule,
-        RouterModule, FlexTablePanel]
+    imports: [MatButtonModule, MatCardModule, MatIconModule, MatInputModule, RouterModule, FlexTablePanel]
 })
 
 //=============================================================================

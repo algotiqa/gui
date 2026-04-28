@@ -7,7 +7,7 @@
 //=============================================================================
 
 import {Component, ViewChild} from '@angular/core';
-import {CommonModule}         from "@angular/common";
+
 import {MatInputModule}       from "@angular/material/input";
 import {MatCardModule}        from "@angular/material/card";
 import {MatIconModule}        from "@angular/material/icon";
@@ -33,8 +33,7 @@ import {
     selector: 'inventory-product-tool',
     templateUrl: './product-data.list.html',
     styleUrls: ['./product-data.list.scss'],
-    imports: [CommonModule, MatButtonModule, MatCardModule, MatIconModule, MatInputModule,
-        RouterModule, FlexTablePanel]
+    imports: [MatButtonModule, MatCardModule, MatIconModule, MatInputModule, RouterModule, FlexTablePanel]
 })
 
 //=============================================================================

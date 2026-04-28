@@ -7,7 +7,7 @@
 //=============================================================================
 
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {CommonModule}         from "@angular/common";
+
 import {EventBusService} from "../../../service/eventbus.service";
 import {LabelService} from "../../../service/label.service";
 import {MatFormFieldModule} from "@angular/material/form-field";
@@ -27,7 +27,7 @@ import {BrokerProductSelectorDialog} from "./product-selector.dialog";
     selector: 'broker-product-selector',
     templateUrl: './product-selector.panel.html',
     styleUrls: [ './product-selector.panel.scss'],
-    imports: [CommonModule, MatFormFieldModule, MatInput, FormsModule, MatIconButton, MatIcon]
+    imports: [MatFormFieldModule, MatInput, FormsModule, MatIconButton, MatIcon]
 })
 
 //=============================================================================

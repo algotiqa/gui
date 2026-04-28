@@ -50,6 +50,8 @@
   <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
   <div class="ts-layout">
-    <trading-card *ngFor="let ts of tradingSystems" [tradingSystem]="ts" [chartType]="selChartType.value"></trading-card>
+    @for (ts of tradingSystems; track ts) {
+      <trading-card [tradingSystem]="ts" [chartType]="selChartType.value"></trading-card>
+    }
   </div>
 </div>

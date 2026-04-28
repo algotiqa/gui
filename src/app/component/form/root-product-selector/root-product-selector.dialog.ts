@@ -11,7 +11,7 @@ import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from "@angular/material/
 import {Component, Inject,} from "@angular/core";
 import {Router} from "@angular/router";
 import {MatFormField, MatInput, MatLabel} from "@angular/material/input";
-import {NgIf} from "@angular/common";
+
 import {FormControl, FormControlStatus, ReactiveFormsModule, Validators} from "@angular/forms";
 import {FlexTablePanel} from "../../panel/flex-table/flex-table.panel";
 import {AbstractPanel} from "../../abstract.panel";
@@ -28,7 +28,7 @@ import {DialogData} from "./dialog-data";
   selector: 'root-selector-dialog',
   templateUrl: 'root-product-selector.dialog.html',
   styleUrls: [ 'root-product-selector.dialog.scss'],
-  imports: [MatDialogModule, MatButtonModule, FlexTablePanel, MatFormField, MatInput, MatLabel, NgIf, MatFormField, ReactiveFormsModule]
+  imports: [MatDialogModule, MatButtonModule, FlexTablePanel, MatFormField, MatInput, MatLabel, MatFormField, ReactiveFormsModule]
 })
 
 //=============================================================================

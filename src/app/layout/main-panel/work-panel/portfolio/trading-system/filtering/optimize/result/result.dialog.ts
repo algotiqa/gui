@@ -17,7 +17,7 @@ import {SelectRequired} from "../../../../../../../../component/form/select-requ
 import {MatChipsModule} from "@angular/material/chips";
 import {FilterRun} from "../../../../../../../../model/model";
 import {MatCheckboxModule} from "@angular/material/checkbox";
-import {NgIf} from "@angular/common";
+
 import {InputNumberRequired} from "../../../../../../../../component/form/input-integer-required/input-number-required";
 import {PortfolioService} from "../../../../../../../../service/portfolio.service";
 import {DialogData} from "../dialog-data";
@@ -32,8 +32,7 @@ import {PositiveTranscoder} from "../../../../../../../../component/panel/flex-t
     selector: 'filter-result-dialog',
     templateUrl: 'result.dialog.html',
     styleUrls: ['result.dialog.scss'],
-    imports: [MatDialogModule, MatButtonModule, SelectRequired, MatChipsModule, MatCheckboxModule,
-        NgIf, InputNumberRequired, FlexTablePanel, MatIconModule]
+    imports: [MatDialogModule, MatButtonModule, SelectRequired, MatChipsModule, MatCheckboxModule, InputNumberRequired, FlexTablePanel, MatIconModule]
 })
 
 //=============================================================================

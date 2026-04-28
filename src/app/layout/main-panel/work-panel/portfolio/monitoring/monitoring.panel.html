@@ -15,9 +15,9 @@
       <b><span>{{loc("tradingSystems")}}</span></b>
       <mat-divider></mat-divider>
       <flex-table #tsTable class="tsTable-layout"
-                  [columns]       = "columns"
-                  [data]          = "tradingSystems"
-                  (onRowsSelected)="onRowSelected($event)"
+        [columns]       = "columns"
+        [data]          = "tradingSystems"
+        (onRowsSelected)="onRowSelected($event)"
       ></flex-table>
     </div>
 
@@ -28,9 +28,11 @@
       <mat-form-field>
         <mat-label>{{loc("period")}}</mat-label>
         <mat-select [value]="selectedPeriod" (selectionChange)="onPeriodChange($event)">
-          <mat-option *ngFor="let p of periods" [value]="p.id">
-            {{p.name}}
-          </mat-option>
+          @for (p of periods; track p) {
+            <mat-option [value]="p.id">
+              {{p.name}}
+            </mat-option>
+          }
         </mat-select>
       </mat-form-field>
 

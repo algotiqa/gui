@@ -4,7 +4,9 @@
   <button matSuffix mat-icon-button (click)="onSearch()"  [disabled]="disabled">
     <mat-icon>search</mat-icon>
   </button>
-  <mat-error *ngIf="formControl.hasError('required')">
-    {{loc("input.required")}}
-  </mat-error>
+  @if (formControl.hasError('required')) {
+    <mat-error>
+      {{loc("input.required")}}
+    </mat-error>
+  }
 </mat-form-field>

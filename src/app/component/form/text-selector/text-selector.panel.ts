@@ -7,7 +7,7 @@
 //=============================================================================
 
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {CommonModule}         from "@angular/common";
+
 import {EventBusService} from "../../../service/eventbus.service";
 import {LabelService} from "../../../service/label.service";
 import {MatFormFieldModule} from "@angular/material/form-field";
@@ -24,7 +24,7 @@ import {CustomErrorStateMatcher} from "../error-state-matcher";
     selector: 'text-selector',
     templateUrl: './text-selector.panel.html',
     styleUrls: [ './text-selector.panel.scss'],
-  imports: [CommonModule, MatFormFieldModule, MatInput, FormsModule, MatIconButton, MatIcon, ReactiveFormsModule]
+  imports: [MatFormFieldModule, MatInput, FormsModule, MatIconButton, MatIcon, ReactiveFormsModule]
 })
 
 //=============================================================================

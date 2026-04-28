@@ -7,7 +7,7 @@
 //=============================================================================
 
 import {Component, ViewChild} from '@angular/core';
-import {CommonModule}         from "@angular/common";
+
 import {MatInputModule}       from "@angular/material/input";
 import {MatIconModule}        from "@angular/material/icon";
 import {MatButtonModule}      from "@angular/material/button";
@@ -40,9 +40,7 @@ import {PeriodSelector, PeriodSelectorInfo} from "../../../../../../../component
     selector: 'instrumentData-chart',
     templateUrl: './instrument-data.chart.html',
     styleUrls: ['./instrument-data.chart.scss'],
-    imports: [CommonModule, MatButtonModule, MatIconModule, MatInputModule, MatFormFieldModule,
-              RouterModule, FlexTablePanel, MatChipsModule, MatSelectModule, SelectRequired,
-              NgApexchartsModule, TimeframeSelector, PeriodSelector]
+    imports: [MatButtonModule, MatIconModule, MatInputModule, MatFormFieldModule, RouterModule, FlexTablePanel, MatChipsModule, MatSelectModule, SelectRequired, NgApexchartsModule, TimeframeSelector, PeriodSelector]
 })
 
 //=============================================================================

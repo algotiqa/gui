@@ -1,19 +1,20 @@
 <nav class="main-navigation">
-  <asm-angular-sidebar-menu
-    *ngIf="menuService.menu$ | async as menu"
-    [menu]  = "menu"
-    [role]  = "currentRole"
-    [search]= "currentSearch"
-    [mode]  = "currentSidebarMode"
-    [unAuthorizedVisibility]="visibility"
-    toggleIconClasses="expand_more"
-    iconClasses="fiber_manual_record">
-    <div class="input-search" [ngClass]="{ 'input-search--focus': inputSearchFocus }">
-      <input matInput placeholder="Search..." type="text"
-        (keyup)   = "currentSearch = $any($event.target).value"
-        (focusin) = "inputSearchFocus = true"
-        (focusout)= "inputSearchFocus = false"/>
-      <span class="material-symbols-outlined">search</span>
-    </div>
-  </asm-angular-sidebar-menu>
+  @if (menuService.menu$ | async; as menu) {
+    <asm-angular-sidebar-menu
+      [menu]  = "menu"
+      [role]  = "currentRole"
+      [search]= "currentSearch"
+      [mode]  = "currentSidebarMode"
+      [unAuthorizedVisibility]="visibility"
+      toggleIconClasses="expand_more"
+      iconClasses="fiber_manual_record">
+      <div class="input-search" [ngClass]="{ 'input-search--focus': inputSearchFocus }">
+        <input matInput placeholder="Search..." type="text"
+          (keyup)   = "currentSearch = $any($event.target).value"
+          (focusin) = "inputSearchFocus = true"
+          (focusout)= "inputSearchFocus = false"/>
+        <span class="material-symbols-outlined">search</span>
+      </div>
+    </asm-angular-sidebar-menu>
+  }
 </nav>

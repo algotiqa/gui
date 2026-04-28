@@ -7,7 +7,7 @@
 //=============================================================================
 
 import {Component, ViewChild} from '@angular/core';
-import {CommonModule} from "@angular/common";
+
 import {MatIcon} from "@angular/material/icon";
 import {MatButton, MatFabButton, MatIconButton, MatMiniFabButton} from "@angular/material/button";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -48,10 +48,7 @@ import {PeriodSelector, PeriodSelectorInfo} from "../../../../../../component/fo
     selector: 'bias-analysis-playground',
     templateUrl: './bias-analysis.playground.html',
     styleUrls: ['./bias-analysis.playground.scss'],
-  imports: [CommonModule, MatButton, MatIcon, NgApexchartsModule,
-    ChipSetTextComponent, MatFormField, MatLabel,
-    MatIconButton, MatInput, MatSuffix, ReactiveFormsModule, MatTabGroup, MatTab, MatButtonToggle, MatButtonToggleGroup, FlexTablePanel,
-    MatGridListModule, ToggleButton, PeriodSelector]
+  imports: [MatButton, MatIcon, NgApexchartsModule, ChipSetTextComponent, MatFormField, MatLabel, MatIconButton, MatInput, MatSuffix, ReactiveFormsModule, MatTabGroup, MatTab, MatButtonToggle, MatButtonToggleGroup, FlexTablePanel, MatGridListModule, ToggleButton, PeriodSelector]
 })
 
 //=============================================================================

@@ -11,7 +11,7 @@ import {SelectionModel} from '@angular/cdk/collections';
 import {MatTableDataSource, MatTableModule} from "@angular/material/table";
 import {MatSort, MatSortModule} from "@angular/material/sort";
 import {MatIconModule} from "@angular/material/icon";
-import {CommonModule} from "@angular/common";
+
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatCheckboxModule} from "@angular/material/checkbox";
@@ -25,7 +25,7 @@ import {MatButtonModule} from "@angular/material/button";
     selector: 'simple-table',
     templateUrl: './simple-table.panel.html',
     styleUrls: ['./simple-table.panel.scss'],
-    imports: [CommonModule, MatTableModule, MatSortModule, MatFormFieldModule, MatInputModule, MatIconModule]
+    imports: [MatTableModule, MatSortModule, MatFormFieldModule, MatInputModule, MatIconModule]
 })
 
 //=============================================================================

@@ -1,7 +1,11 @@
 <mat-form-field class="main-layout">
   <mat-label>{{label}}</mat-label>
   <mat-select [formControl]="formControl" [disabled]="disabled">
-    <mat-option *ngFor="let item of list" [value]="item[keyField]">{{item[valueField]}}</mat-option>
-    <mat-option *ngFor="let key  of mapKeys()" [value]="key">{{mapValue(key)}}</mat-option>
+    @for (item of list; track item) {
+      <mat-option [value]="item[keyField]">{{item[valueField]}}</mat-option>
+    }
+    @for (key  of mapKeys(); track key ) {
+      <mat-option [value]="key">{{mapValue(key)}}</mat-option>
+    }
   </mat-select>
 </mat-form-field>

@@ -11,7 +11,7 @@ import {SelectionModel} from '@angular/cdk/collections';
 import {MatTableDataSource, MatTableModule} from "@angular/material/table";
 import {MatSort, MatSortModule} from "@angular/material/sort";
 import {MatIconModule} from "@angular/material/icon";
-import {CommonModule} from "@angular/common";
+
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatCheckboxModule} from "@angular/material/checkbox";
@@ -30,7 +30,7 @@ export type FlexTableFilter<T> = (row: T, filter: string) => boolean;
     selector: 'flex-table',
     templateUrl: './flex-table.panel.html',
     styleUrls: ['./flex-table.panel.scss'],
-    imports: [CommonModule, MatTableModule, MatSortModule, MatIconModule, MatFormFieldModule, MatInputModule, MatCheckboxModule, MatButtonModule, MatTooltip]
+    imports: [MatTableModule, MatSortModule, MatIconModule, MatFormFieldModule, MatInputModule, MatCheckboxModule, MatButtonModule, MatTooltip]
 })
 
 //=============================================================================

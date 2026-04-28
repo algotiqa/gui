@@ -7,7 +7,7 @@
 //=============================================================================
 
 import {Component, Input} from '@angular/core';
-import {CommonModule} from "@angular/common";
+
 import {Router, RouterModule} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -36,7 +36,7 @@ import {FlatButton} from "../../../../../../component/form/flat-button/flat-butt
     selector: 'development-panel',
     templateUrl: './development.panel.html',
     styleUrls: ['./development.panel.scss'],
-  imports: [CommonModule, RouterModule, MatTabsModule, ReactiveFormsModule, FormsModule, MatButton, MatFormField, MatIcon, MatIconButton, MatInput, MatLabel, MatSuffix, DevelopmentCard, FlatButton]
+  imports: [RouterModule, MatTabsModule, ReactiveFormsModule, FormsModule, MatButton, MatFormField, MatIcon, MatIconButton, MatInput, MatLabel, MatSuffix, DevelopmentCard, FlatButton]
 })
 
 //=============================================================================

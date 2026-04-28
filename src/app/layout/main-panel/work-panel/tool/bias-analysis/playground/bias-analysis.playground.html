@@ -1,39 +1,39 @@
 <div class="main-layout">
   <div class="options-layout">
-      <period-selector [(period)]="period" (periodChange)="onPeriodChange($event)"></period-selector>
-      <mat-button-toggle-group [hideMultipleSelectionIndicator]="true" [multiple]="true" [formControl]="monthsControl">
-        <mat-button-toggle [value]="0"  (change)="onMonthChange($event)">{{map("months", "jan")}}</mat-button-toggle>
-        <mat-button-toggle [value]="1"  (change)="onMonthChange($event)">{{map("months", "feb")}}</mat-button-toggle>
-        <mat-button-toggle [value]="2"  (change)="onMonthChange($event)">{{map("months", "mar")}}</mat-button-toggle>
-        <mat-button-toggle [value]="3"  (change)="onMonthChange($event)">{{map("months", "apr")}}</mat-button-toggle>
-        <mat-button-toggle [value]="4"  (change)="onMonthChange($event)">{{map("months", "may")}}</mat-button-toggle>
-        <mat-button-toggle [value]="5"  (change)="onMonthChange($event)">{{map("months", "jun")}}</mat-button-toggle>
-        <mat-button-toggle [value]="6"  (change)="onMonthChange($event)">{{map("months", "jul")}}</mat-button-toggle>
-        <mat-button-toggle [value]="7"  (change)="onMonthChange($event)">{{map("months", "aug")}}</mat-button-toggle>
-        <mat-button-toggle [value]="8"  (change)="onMonthChange($event)">{{map("months", "sep")}}</mat-button-toggle>
-        <mat-button-toggle [value]="9"  (change)="onMonthChange($event)">{{map("months", "oct")}}</mat-button-toggle>
-        <mat-button-toggle [value]="10" (change)="onMonthChange($event)">{{map("months", "nov")}}</mat-button-toggle>
-        <mat-button-toggle [value]="11" (change)="onMonthChange($event)">{{map("months", "dec")}}</mat-button-toggle>
-      </mat-button-toggle-group>
+    <period-selector [(period)]="period" (periodChange)="onPeriodChange($event)"></period-selector>
+    <mat-button-toggle-group [hideMultipleSelectionIndicator]="true" [multiple]="true" [formControl]="monthsControl">
+      <mat-button-toggle [value]="0"  (change)="onMonthChange($event)">{{map("months", "jan")}}</mat-button-toggle>
+      <mat-button-toggle [value]="1"  (change)="onMonthChange($event)">{{map("months", "feb")}}</mat-button-toggle>
+      <mat-button-toggle [value]="2"  (change)="onMonthChange($event)">{{map("months", "mar")}}</mat-button-toggle>
+      <mat-button-toggle [value]="3"  (change)="onMonthChange($event)">{{map("months", "apr")}}</mat-button-toggle>
+      <mat-button-toggle [value]="4"  (change)="onMonthChange($event)">{{map("months", "may")}}</mat-button-toggle>
+      <mat-button-toggle [value]="5"  (change)="onMonthChange($event)">{{map("months", "jun")}}</mat-button-toggle>
+      <mat-button-toggle [value]="6"  (change)="onMonthChange($event)">{{map("months", "jul")}}</mat-button-toggle>
+      <mat-button-toggle [value]="7"  (change)="onMonthChange($event)">{{map("months", "aug")}}</mat-button-toggle>
+      <mat-button-toggle [value]="8"  (change)="onMonthChange($event)">{{map("months", "sep")}}</mat-button-toggle>
+      <mat-button-toggle [value]="9"  (change)="onMonthChange($event)">{{map("months", "oct")}}</mat-button-toggle>
+      <mat-button-toggle [value]="10" (change)="onMonthChange($event)">{{map("months", "nov")}}</mat-button-toggle>
+      <mat-button-toggle [value]="11" (change)="onMonthChange($event)">{{map("months", "dec")}}</mat-button-toggle>
+    </mat-button-toggle-group>
 
-      <button mat-icon-button (click)="onMonthLeft()">
-        <mat-icon>keyboard_arrow_left</mat-icon>
-      </button>
+    <button mat-icon-button (click)="onMonthLeft()">
+      <mat-icon>keyboard_arrow_left</mat-icon>
+    </button>
 
-      <button mat-icon-button (click)="onMonthToggle()">
-        <mat-icon>import_export</mat-icon>
-      </button>
+    <button mat-icon-button (click)="onMonthToggle()">
+      <mat-icon>import_export</mat-icon>
+    </button>
 
-      <button mat-icon-button (click)="onMonthRight()">
-        <mat-icon>keyboard_arrow_right</mat-icon>
-      </button>
+    <button mat-icon-button (click)="onMonthRight()">
+      <mat-icon>keyboard_arrow_right</mat-icon>
+    </button>
 
-      <chip-set-text class="chipset-style"
-                     [title]="loc('exclPeriods')"
-                     [label]="loc('periodFormat')"
-                     [validator]="validator"
-                     [(items)]="excludedSet"
-                     (itemsChange)="onExcludedChange($event)"></chip-set-text>
+    <chip-set-text class="chipset-style"
+      [title]="loc('exclPeriods')"
+      [label]="loc('periodFormat')"
+      [validator]="validator"
+      [(items)]="excludedSet"
+    (itemsChange)="onExcludedChange($event)"></chip-set-text>
     <toggle-button label="{{loc('labels')}}" [(checked)]="showLabels" (checkedChange)="onLabelsChange()"></toggle-button>
     <toggle-button label="{{loc('profit')}}" [(checked)]="showProfit" (checkedChange)="onProfitChange()"></toggle-button>
 
@@ -89,26 +89,28 @@
               </button>
             </mat-form-field>
 
-            <table class="range-layout" *ngIf="selRangeProfit">
-              <tr>
-                <th></th>
-                <th class="header-style">{{loc('gross')}}</th>
-                <th class="header-style">{{loc('net')}}</th>
-                <th></th>
-              </tr>
-              <tr>
-                <td class="label-style">{{loc('profit')}}</td>
-                <td class="value-style">{{selRangeProfit.gross}}</td>
-                <td class="value-style">{{selRangeProfit.net}}</td>
-                <td class="money-style"></td>
-              </tr>
-              <tr>
-                <td class="label-style">{{loc('avgTrade')}}</td>
-                <td class="value-style">{{selRangeProfit.avgGross}}</td>
-                <td class="value-style">{{selRangeProfit.avgNet}}</td>
-                <td class="money-style"></td>
-              </tr>
-            </table>
+            @if (selRangeProfit) {
+              <table class="range-layout">
+                <tr>
+                  <th></th>
+                  <th class="header-style">{{loc('gross')}}</th>
+                  <th class="header-style">{{loc('net')}}</th>
+                  <th></th>
+                </tr>
+                <tr>
+                  <td class="label-style">{{loc('profit')}}</td>
+                  <td class="value-style">{{selRangeProfit.gross}}</td>
+                  <td class="value-style">{{selRangeProfit.net}}</td>
+                  <td class="money-style"></td>
+                </tr>
+                <tr>
+                  <td class="label-style">{{loc('avgTrade')}}</td>
+                  <td class="value-style">{{selRangeProfit.avgGross}}</td>
+                  <td class="value-style">{{selRangeProfit.avgNet}}</td>
+                  <td class="money-style"></td>
+                </tr>
+              </table>
+            }
 
           </div>
 
@@ -121,9 +123,9 @@
             </div>
 
             <flex-table #configsTable class="table-panel"
-                        [columns]       = "columns"
-                        [dataProvider]  = "service"
-                        (onRowsSelected)="onConfigSelected($event)"
+              [columns]       = "columns"
+              [dataProvider]  = "service"
+              (onRowsSelected)="onConfigSelected($event)"
             ></flex-table>
           </div>
         </div>

@@ -20,223 +20,322 @@
 
         <!-- Prositive profit: days - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
-        <tr *ngIf="options.filterConfig.enablePosProfit">
-          <td>
-            <mat-checkbox (click)="$event.stopPropagation()"
-                          (change)="$event ? options.filterConfig.posProLen.toggle() : null"
-                          [checked]="options.filterConfig.posProLen.enabled">
-            </mat-checkbox>
-          </td>
-          <td>{{loc("positiveProfit")}}</td>
-          <td>{{loc("length")}}</td>
-          <td>
-            <input-number-required *ngIf="!options.filterConfig.posProLen.enabled" [(value)]="options.filterConfig.posProLen.curValue" [label]="loc('curValue')" [min]="1" [max]="300"></input-number-required>
-
-            <input-number-required class ="value-style" *ngIf="options.filterConfig.posProLen.enabled" [(value)]="options.filterConfig.posProLen.minValue" [label]="loc('minValue')" [min]="1" [max]="300"></input-number-required>
-            <input-number-required class ="value-style" *ngIf="options.filterConfig.posProLen.enabled" [(value)]="options.filterConfig.posProLen.maxValue" [label]="loc('maxValue')" [min]="1" [max]="300"></input-number-required>
-            <input-number-required class ="value-style" *ngIf="options.filterConfig.posProLen.enabled" [(value)]="options.filterConfig.posProLen.step"     [label]="loc('step')"     [min]="1" [max]="300"></input-number-required>
-          </td>
-        </tr>
+        @if (options.filterConfig.enablePosProfit) {
+          <tr>
+            <td>
+              <mat-checkbox (click)="$event.stopPropagation()"
+                (change)="$event ? options.filterConfig.posProLen.toggle() : null"
+                [checked]="options.filterConfig.posProLen.enabled">
+              </mat-checkbox>
+            </td>
+            <td>{{loc("positiveProfit")}}</td>
+            <td>{{loc("length")}}</td>
+            <td>
+              @if (!options.filterConfig.posProLen.enabled) {
+                <input-number-required [(value)]="options.filterConfig.posProLen.curValue" [label]="loc('curValue')" [min]="1" [max]="300"></input-number-required>
+              }
+              @if (options.filterConfig.posProLen.enabled) {
+                <input-number-required class ="value-style" [(value)]="options.filterConfig.posProLen.minValue" [label]="loc('minValue')" [min]="1" [max]="300"></input-number-required>
+              }
+              @if (options.filterConfig.posProLen.enabled) {
+                <input-number-required class ="value-style" [(value)]="options.filterConfig.posProLen.maxValue" [label]="loc('maxValue')" [min]="1" [max]="300"></input-number-required>
+              }
+              @if (options.filterConfig.posProLen.enabled) {
+                <input-number-required class ="value-style" [(value)]="options.filterConfig.posProLen.step"     [label]="loc('step')"     [min]="1" [max]="300"></input-number-required>
+              }
+            </td>
+          </tr>
+        }
 
         <!-- Old vs new period: old len - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
-        <tr *ngIf="options.filterConfig.enableOldNew">
-          <td>
-            <mat-checkbox (click)="$event.stopPropagation()"
-                          (change)="$event ? options.filterConfig.oldNewOldLen.toggle() : null"
-                          [checked]="options.filterConfig.oldNewOldLen.enabled">
-            </mat-checkbox>
-          </td>
-          <td>{{loc("oldVsNewPeriod")}}</td>
-          <td>{{loc("oldLen")}}</td>
-          <td>
-            <input-number-required *ngIf="!options.filterConfig.oldNewOldLen.enabled" [(value)]="options.filterConfig.oldNewOldLen.curValue" [label]="loc('curValue')" [min]="1" [max]="600"></input-number-required>
-
-            <input-number-required class ="value-style" *ngIf="options.filterConfig.oldNewOldLen.enabled" [(value)]="options.filterConfig.oldNewOldLen.minValue" [label]="loc('minValue')" [min]="1" [max]="600"></input-number-required>
-            <input-number-required class ="value-style" *ngIf="options.filterConfig.oldNewOldLen.enabled" [(value)]="options.filterConfig.oldNewOldLen.maxValue" [label]="loc('maxValue')" [min]="1" [max]="600"></input-number-required>
-            <input-number-required class ="value-style" *ngIf="options.filterConfig.oldNewOldLen.enabled" [(value)]="options.filterConfig.oldNewOldLen.step"     [label]="loc('step')"     [min]="1" [max]="600"></input-number-required>
-          </td>
-        </tr>
+        @if (options.filterConfig.enableOldNew) {
+          <tr>
+            <td>
+              <mat-checkbox (click)="$event.stopPropagation()"
+                (change)="$event ? options.filterConfig.oldNewOldLen.toggle() : null"
+                [checked]="options.filterConfig.oldNewOldLen.enabled">
+              </mat-checkbox>
+            </td>
+            <td>{{loc("oldVsNewPeriod")}}</td>
+            <td>{{loc("oldLen")}}</td>
+            <td>
+              @if (!options.filterConfig.oldNewOldLen.enabled) {
+                <input-number-required [(value)]="options.filterConfig.oldNewOldLen.curValue" [label]="loc('curValue')" [min]="1" [max]="600"></input-number-required>
+              }
+              @if (options.filterConfig.oldNewOldLen.enabled) {
+                <input-number-required class ="value-style" [(value)]="options.filterConfig.oldNewOldLen.minValue" [label]="loc('minValue')" [min]="1" [max]="600"></input-number-required>
+              }
+              @if (options.filterConfig.oldNewOldLen.enabled) {
+                <input-number-required class ="value-style" [(value)]="options.filterConfig.oldNewOldLen.maxValue" [label]="loc('maxValue')" [min]="1" [max]="600"></input-number-required>
+              }
+              @if (options.filterConfig.oldNewOldLen.enabled) {
+                <input-number-required class ="value-style" [(value)]="options.filterConfig.oldNewOldLen.step"     [label]="loc('step')"     [min]="1" [max]="600"></input-number-required>
+              }
+            </td>
+          </tr>
+        }
 
         <!-- Old vs new period: new len - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
-        <tr *ngIf="options.filterConfig.enableOldNew">
-          <td>
-            <mat-checkbox (click)="$event.stopPropagation()"
-                          (change)="$event ? options.filterConfig.oldNewNewLen.toggle() : null"
-                          [checked]="options.filterConfig.oldNewNewLen.enabled">
-            </mat-checkbox>
-          </td>
-          <td>{{loc("oldVsNewPeriod")}}</td>
-          <td>{{loc("newLen")}}</td>
-          <td>
-            <input-number-required *ngIf="!options.filterConfig.oldNewNewLen.enabled" [(value)]="options.filterConfig.oldNewNewLen.curValue" [label]="loc('curValue')" [min]="1" [max]="300"></input-number-required>
-
-            <input-number-required class ="value-style" *ngIf="options.filterConfig.oldNewNewLen.enabled" [(value)]="options.filterConfig.oldNewNewLen.minValue" [label]="loc('minValue')" [min]="1" [max]="300"></input-number-required>
-            <input-number-required class ="value-style" *ngIf="options.filterConfig.oldNewNewLen.enabled" [(value)]="options.filterConfig.oldNewNewLen.maxValue" [label]="loc('maxValue')" [min]="1" [max]="300"></input-number-required>
-            <input-number-required class ="value-style" *ngIf="options.filterConfig.oldNewNewLen.enabled" [(value)]="options.filterConfig.oldNewNewLen.step"     [label]="loc('step')"     [min]="1" [max]="300"></input-number-required>
-          </td>
-        </tr>
+        @if (options.filterConfig.enableOldNew) {
+          <tr>
+            <td>
+              <mat-checkbox (click)="$event.stopPropagation()"
+                (change)="$event ? options.filterConfig.oldNewNewLen.toggle() : null"
+                [checked]="options.filterConfig.oldNewNewLen.enabled">
+              </mat-checkbox>
+            </td>
+            <td>{{loc("oldVsNewPeriod")}}</td>
+            <td>{{loc("newLen")}}</td>
+            <td>
+              @if (!options.filterConfig.oldNewNewLen.enabled) {
+                <input-number-required [(value)]="options.filterConfig.oldNewNewLen.curValue" [label]="loc('curValue')" [min]="1" [max]="300"></input-number-required>
+              }
+              @if (options.filterConfig.oldNewNewLen.enabled) {
+                <input-number-required class ="value-style" [(value)]="options.filterConfig.oldNewNewLen.minValue" [label]="loc('minValue')" [min]="1" [max]="300"></input-number-required>
+              }
+              @if (options.filterConfig.oldNewNewLen.enabled) {
+                <input-number-required class ="value-style" [(value)]="options.filterConfig.oldNewNewLen.maxValue" [label]="loc('maxValue')" [min]="1" [max]="300"></input-number-required>
+              }
+              @if (options.filterConfig.oldNewNewLen.enabled) {
+                <input-number-required class ="value-style" [(value)]="options.filterConfig.oldNewNewLen.step"     [label]="loc('step')"     [min]="1" [max]="300"></input-number-required>
+              }
+            </td>
+          </tr>
+        }
 
         <!-- Old vs new period: old percentage - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
-        <tr *ngIf="options.filterConfig.enableOldNew">
-          <td>
-            <mat-checkbox (click)="$event.stopPropagation()"
-                          (change)="$event ? options.filterConfig.oldNewOldPerc.toggle() : null"
-                          [checked]="options.filterConfig.oldNewOldPerc.enabled">
-            </mat-checkbox>
-          </td>
-          <td>{{loc("oldVsNewPeriod")}}</td>
-          <td>{{loc("oldPerc")}}</td>
-          <td>
-            <input-number-required *ngIf="!options.filterConfig.oldNewOldPerc.enabled" [(value)]="options.filterConfig.oldNewOldPerc.curValue" [label]="loc('curValue')" [min]="1" [max]="150"></input-number-required>
-
-            <input-number-required class ="value-style" *ngIf="options.filterConfig.oldNewOldPerc.enabled" [(value)]="options.filterConfig.oldNewOldPerc.minValue" [label]="loc('minValue')" [min]="1" [max]="150"></input-number-required>
-            <input-number-required class ="value-style" *ngIf="options.filterConfig.oldNewOldPerc.enabled" [(value)]="options.filterConfig.oldNewOldPerc.maxValue" [label]="loc('maxValue')" [min]="1" [max]="150"></input-number-required>
-            <input-number-required class ="value-style" *ngIf="options.filterConfig.oldNewOldPerc.enabled" [(value)]="options.filterConfig.oldNewOldPerc.step"     [label]="loc('step')"     [min]="1" [max]="150"></input-number-required>
-          </td>
-        </tr>
+        @if (options.filterConfig.enableOldNew) {
+          <tr>
+            <td>
+              <mat-checkbox (click)="$event.stopPropagation()"
+                (change)="$event ? options.filterConfig.oldNewOldPerc.toggle() : null"
+                [checked]="options.filterConfig.oldNewOldPerc.enabled">
+              </mat-checkbox>
+            </td>
+            <td>{{loc("oldVsNewPeriod")}}</td>
+            <td>{{loc("oldPerc")}}</td>
+            <td>
+              @if (!options.filterConfig.oldNewOldPerc.enabled) {
+                <input-number-required [(value)]="options.filterConfig.oldNewOldPerc.curValue" [label]="loc('curValue')" [min]="1" [max]="150"></input-number-required>
+              }
+              @if (options.filterConfig.oldNewOldPerc.enabled) {
+                <input-number-required class ="value-style" [(value)]="options.filterConfig.oldNewOldPerc.minValue" [label]="loc('minValue')" [min]="1" [max]="150"></input-number-required>
+              }
+              @if (options.filterConfig.oldNewOldPerc.enabled) {
+                <input-number-required class ="value-style" [(value)]="options.filterConfig.oldNewOldPerc.maxValue" [label]="loc('maxValue')" [min]="1" [max]="150"></input-number-required>
+              }
+              @if (options.filterConfig.oldNewOldPerc.enabled) {
+                <input-number-required class ="value-style" [(value)]="options.filterConfig.oldNewOldPerc.step"     [label]="loc('step')"     [min]="1" [max]="150"></input-number-required>
+              }
+            </td>
+          </tr>
+        }
 
         <!-- Winning percentage: len - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
-        <tr *ngIf="options.filterConfig.enableWinPerc">
-          <td>
-            <mat-checkbox (click)="$event.stopPropagation()"
-                          (change)="$event ? options.filterConfig.winPercLen.toggle() : null"
-                          [checked]="options.filterConfig.winPercLen.enabled">
-            </mat-checkbox>
-          </td>
-          <td>{{loc("winningPerc")}}</td>
-          <td>{{loc("length")}}</td>
-          <td>
-            <input-number-required *ngIf="!options.filterConfig.winPercLen.enabled" [(value)]="options.filterConfig.winPercLen.curValue" [label]="loc('curValue')" [min]="1" [max]="300"></input-number-required>
-
-            <input-number-required class ="value-style" *ngIf="options.filterConfig.winPercLen.enabled" [(value)]="options.filterConfig.winPercLen.minValue" [label]="loc('minValue')" [min]="1" [max]="300"></input-number-required>
-            <input-number-required class ="value-style" *ngIf="options.filterConfig.winPercLen.enabled" [(value)]="options.filterConfig.winPercLen.maxValue" [label]="loc('maxValue')" [min]="1" [max]="300"></input-number-required>
-            <input-number-required class ="value-style" *ngIf="options.filterConfig.winPercLen.enabled" [(value)]="options.filterConfig.winPercLen.step"     [label]="loc('step')"     [min]="1" [max]="300"></input-number-required>
-          </td>
-        </tr>
+        @if (options.filterConfig.enableWinPerc) {
+          <tr>
+            <td>
+              <mat-checkbox (click)="$event.stopPropagation()"
+                (change)="$event ? options.filterConfig.winPercLen.toggle() : null"
+                [checked]="options.filterConfig.winPercLen.enabled">
+              </mat-checkbox>
+            </td>
+            <td>{{loc("winningPerc")}}</td>
+            <td>{{loc("length")}}</td>
+            <td>
+              @if (!options.filterConfig.winPercLen.enabled) {
+                <input-number-required [(value)]="options.filterConfig.winPercLen.curValue" [label]="loc('curValue')" [min]="1" [max]="300"></input-number-required>
+              }
+              @if (options.filterConfig.winPercLen.enabled) {
+                <input-number-required class ="value-style" [(value)]="options.filterConfig.winPercLen.minValue" [label]="loc('minValue')" [min]="1" [max]="300"></input-number-required>
+              }
+              @if (options.filterConfig.winPercLen.enabled) {
+                <input-number-required class ="value-style" [(value)]="options.filterConfig.winPercLen.maxValue" [label]="loc('maxValue')" [min]="1" [max]="300"></input-number-required>
+              }
+              @if (options.filterConfig.winPercLen.enabled) {
+                <input-number-required class ="value-style" [(value)]="options.filterConfig.winPercLen.step"     [label]="loc('step')"     [min]="1" [max]="300"></input-number-required>
+              }
+            </td>
+          </tr>
+        }
 
         <!-- Winning percentage: percentage - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
-        <tr *ngIf="options.filterConfig.enableWinPerc">
-          <td>
-            <mat-checkbox (click)="$event.stopPropagation()"
-                          (change)="$event ? options.filterConfig.winPercPerc.toggle() : null"
-                          [checked]="options.filterConfig.winPercPerc.enabled">
-            </mat-checkbox>
-          </td>
-          <td>{{loc("winningPerc")}}</td>
-          <td>{{loc("percentage")}}</td>
-          <td>
-            <input-number-required *ngIf="!options.filterConfig.winPercPerc.enabled" [(value)]="options.filterConfig.winPercPerc.curValue" [label]="loc('curValue')" [min]="1" [max]="100"></input-number-required>
-
-            <input-number-required class ="value-style" *ngIf="options.filterConfig.winPercPerc.enabled" [(value)]="options.filterConfig.winPercPerc.minValue" [label]="loc('minValue')" [min]="1" [max]="100"></input-number-required>
-            <input-number-required class ="value-style" *ngIf="options.filterConfig.winPercPerc.enabled" [(value)]="options.filterConfig.winPercPerc.maxValue" [label]="loc('maxValue')" [min]="1" [max]="100"></input-number-required>
-            <input-number-required class ="value-style" *ngIf="options.filterConfig.winPercPerc.enabled" [(value)]="options.filterConfig.winPercPerc.step"     [label]="loc('step')"     [min]="1" [max]="100"></input-number-required>
-          </td>
-        </tr>
+        @if (options.filterConfig.enableWinPerc) {
+          <tr>
+            <td>
+              <mat-checkbox (click)="$event.stopPropagation()"
+                (change)="$event ? options.filterConfig.winPercPerc.toggle() : null"
+                [checked]="options.filterConfig.winPercPerc.enabled">
+              </mat-checkbox>
+            </td>
+            <td>{{loc("winningPerc")}}</td>
+            <td>{{loc("percentage")}}</td>
+            <td>
+              @if (!options.filterConfig.winPercPerc.enabled) {
+                <input-number-required [(value)]="options.filterConfig.winPercPerc.curValue" [label]="loc('curValue')" [min]="1" [max]="100"></input-number-required>
+              }
+              @if (options.filterConfig.winPercPerc.enabled) {
+                <input-number-required class ="value-style" [(value)]="options.filterConfig.winPercPerc.minValue" [label]="loc('minValue')" [min]="1" [max]="100"></input-number-required>
+              }
+              @if (options.filterConfig.winPercPerc.enabled) {
+                <input-number-required class ="value-style" [(value)]="options.filterConfig.winPercPerc.maxValue" [label]="loc('maxValue')" [min]="1" [max]="100"></input-number-required>
+              }
+              @if (options.filterConfig.winPercPerc.enabled) {
+                <input-number-required class ="value-style" [(value)]="options.filterConfig.winPercPerc.step"     [label]="loc('step')"     [min]="1" [max]="100"></input-number-required>
+              }
+            </td>
+          </tr>
+        }
 
         <!-- Equity vs average: len - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
-        <tr *ngIf="options.filterConfig.enableEquAvg">
-          <td>
-            <mat-checkbox (click)="$event.stopPropagation()"
-                          (change)="$event ? options.filterConfig.equAvgLen.toggle() : null"
-                          [checked]="options.filterConfig.equAvgLen.enabled">
-            </mat-checkbox>
-          </td>
-          <td>{{loc("equityVsAverage")}}</td>
-          <td>{{loc("length")}}</td>
-          <td>
-            <input-number-required *ngIf="!options.filterConfig.equAvgLen.enabled" [(value)]="options.filterConfig.equAvgLen.curValue" [label]="loc('curValue')" [min]="1" [max]="300"></input-number-required>
-
-            <input-number-required class ="value-style" *ngIf="options.filterConfig.equAvgLen.enabled" [(value)]="options.filterConfig.equAvgLen.minValue" [label]="loc('minValue')" [min]="1" [max]="300"></input-number-required>
-            <input-number-required class ="value-style" *ngIf="options.filterConfig.equAvgLen.enabled" [(value)]="options.filterConfig.equAvgLen.maxValue" [label]="loc('maxValue')" [min]="1" [max]="300"></input-number-required>
-            <input-number-required class ="value-style" *ngIf="options.filterConfig.equAvgLen.enabled" [(value)]="options.filterConfig.equAvgLen.step"     [label]="loc('step')"     [min]="1" [max]="300"></input-number-required>
-          </td>
-        </tr>
+        @if (options.filterConfig.enableEquAvg) {
+          <tr>
+            <td>
+              <mat-checkbox (click)="$event.stopPropagation()"
+                (change)="$event ? options.filterConfig.equAvgLen.toggle() : null"
+                [checked]="options.filterConfig.equAvgLen.enabled">
+              </mat-checkbox>
+            </td>
+            <td>{{loc("equityVsAverage")}}</td>
+            <td>{{loc("length")}}</td>
+            <td>
+              @if (!options.filterConfig.equAvgLen.enabled) {
+                <input-number-required [(value)]="options.filterConfig.equAvgLen.curValue" [label]="loc('curValue')" [min]="1" [max]="300"></input-number-required>
+              }
+              @if (options.filterConfig.equAvgLen.enabled) {
+                <input-number-required class ="value-style" [(value)]="options.filterConfig.equAvgLen.minValue" [label]="loc('minValue')" [min]="1" [max]="300"></input-number-required>
+              }
+              @if (options.filterConfig.equAvgLen.enabled) {
+                <input-number-required class ="value-style" [(value)]="options.filterConfig.equAvgLen.maxValue" [label]="loc('maxValue')" [min]="1" [max]="300"></input-number-required>
+              }
+              @if (options.filterConfig.equAvgLen.enabled) {
+                <input-number-required class ="value-style" [(value)]="options.filterConfig.equAvgLen.step"     [label]="loc('step')"     [min]="1" [max]="300"></input-number-required>
+              }
+            </td>
+          </tr>
+        }
 
         <!-- Trendline: len - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
-        <tr *ngIf="options.filterConfig.enableTrendline">
-          <td>
-            <mat-checkbox (click)="$event.stopPropagation()"
-                          (change)="$event ? options.filterConfig.trendlineLen.toggle() : null"
-                          [checked]="options.filterConfig.trendlineLen.enabled">
-            </mat-checkbox>
-          </td>
-          <td>{{loc("trendline")}}</td>
-          <td>{{loc("length")}}</td>
-          <td>
-            <input-number-required *ngIf="!options.filterConfig.trendlineLen.enabled" [(value)]="options.filterConfig.trendlineLen.curValue" [label]="loc('curValue')" [min]="1" [max]="300"></input-number-required>
-
-            <input-number-required class ="value-style" *ngIf="options.filterConfig.trendlineLen.enabled" [(value)]="options.filterConfig.trendlineLen.minValue" [label]="loc('minValue')" [min]="1" [max]="300"></input-number-required>
-            <input-number-required class ="value-style" *ngIf="options.filterConfig.trendlineLen.enabled" [(value)]="options.filterConfig.trendlineLen.maxValue" [label]="loc('maxValue')" [min]="1" [max]="300"></input-number-required>
-            <input-number-required class ="value-style" *ngIf="options.filterConfig.trendlineLen.enabled" [(value)]="options.filterConfig.trendlineLen.step"     [label]="loc('step')"     [min]="1" [max]="300"></input-number-required>
-          </td>
-        </tr>
+        @if (options.filterConfig.enableTrendline) {
+          <tr>
+            <td>
+              <mat-checkbox (click)="$event.stopPropagation()"
+                (change)="$event ? options.filterConfig.trendlineLen.toggle() : null"
+                [checked]="options.filterConfig.trendlineLen.enabled">
+              </mat-checkbox>
+            </td>
+            <td>{{loc("trendline")}}</td>
+            <td>{{loc("length")}}</td>
+            <td>
+              @if (!options.filterConfig.trendlineLen.enabled) {
+                <input-number-required [(value)]="options.filterConfig.trendlineLen.curValue" [label]="loc('curValue')" [min]="1" [max]="300"></input-number-required>
+              }
+              @if (options.filterConfig.trendlineLen.enabled) {
+                <input-number-required class ="value-style" [(value)]="options.filterConfig.trendlineLen.minValue" [label]="loc('minValue')" [min]="1" [max]="300"></input-number-required>
+              }
+              @if (options.filterConfig.trendlineLen.enabled) {
+                <input-number-required class ="value-style" [(value)]="options.filterConfig.trendlineLen.maxValue" [label]="loc('maxValue')" [min]="1" [max]="300"></input-number-required>
+              }
+              @if (options.filterConfig.trendlineLen.enabled) {
+                <input-number-required class ="value-style" [(value)]="options.filterConfig.trendlineLen.step"     [label]="loc('step')"     [min]="1" [max]="300"></input-number-required>
+              }
+            </td>
+          </tr>
+        }
 
         <!-- Trendline: value - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
-        <tr *ngIf="options.filterConfig.enableTrendline">
-          <td>
-            <mat-checkbox (click)="$event.stopPropagation()"
-                          (change)="$event ? options.filterConfig.trendlineValue.toggle() : null"
-                          [checked]="options.filterConfig.trendlineValue.enabled">
-            </mat-checkbox>
-          </td>
-          <td>{{loc("trendline")}}</td>
-          <td>{{loc("value")}}</td>
-          <td>
-            <input-number-required *ngIf="!options.filterConfig.trendlineValue.enabled" [(value)]="options.filterConfig.trendlineValue.curValue" [label]="loc('curValue')" [min]="1" [max]="300"></input-number-required>
-
-            <input-number-required class ="value-style" *ngIf="options.filterConfig.trendlineValue.enabled" [(value)]="options.filterConfig.trendlineValue.minValue" [label]="loc('minValue')" [min]="1" [max]="300"></input-number-required>
-            <input-number-required class ="value-style" *ngIf="options.filterConfig.trendlineValue.enabled" [(value)]="options.filterConfig.trendlineValue.maxValue" [label]="loc('maxValue')" [min]="1" [max]="300"></input-number-required>
-            <input-number-required class ="value-style" *ngIf="options.filterConfig.trendlineValue.enabled" [(value)]="options.filterConfig.trendlineValue.step"     [label]="loc('step')"     [min]="1" [max]="300"></input-number-required>
-          </td>
-        </tr>
+        @if (options.filterConfig.enableTrendline) {
+          <tr>
+            <td>
+              <mat-checkbox (click)="$event.stopPropagation()"
+                (change)="$event ? options.filterConfig.trendlineValue.toggle() : null"
+                [checked]="options.filterConfig.trendlineValue.enabled">
+              </mat-checkbox>
+            </td>
+            <td>{{loc("trendline")}}</td>
+            <td>{{loc("value")}}</td>
+            <td>
+              @if (!options.filterConfig.trendlineValue.enabled) {
+                <input-number-required [(value)]="options.filterConfig.trendlineValue.curValue" [label]="loc('curValue')" [min]="1" [max]="300"></input-number-required>
+              }
+              @if (options.filterConfig.trendlineValue.enabled) {
+                <input-number-required class ="value-style" [(value)]="options.filterConfig.trendlineValue.minValue" [label]="loc('minValue')" [min]="1" [max]="300"></input-number-required>
+              }
+              @if (options.filterConfig.trendlineValue.enabled) {
+                <input-number-required class ="value-style" [(value)]="options.filterConfig.trendlineValue.maxValue" [label]="loc('maxValue')" [min]="1" [max]="300"></input-number-required>
+              }
+              @if (options.filterConfig.trendlineValue.enabled) {
+                <input-number-required class ="value-style" [(value)]="options.filterConfig.trendlineValue.step"     [label]="loc('step')"     [min]="1" [max]="300"></input-number-required>
+              }
+            </td>
+          </tr>
+        }
 
         <!-- Drawdown: min - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
-        <tr *ngIf="options.filterConfig.enableDrawdown">
-          <td>
-            <mat-checkbox (click)="$event.stopPropagation()"
-                          (change)="$event ? options.filterConfig.drawdownMin.toggle() : null"
-                          [checked]="options.filterConfig.drawdownMin.enabled">
-            </mat-checkbox>
-          </td>
-          <td>{{loc("drawdown")}}</td>
-          <td>{{loc("minValue")}}</td>
-          <td>
-            <input-number-required *ngIf="!options.filterConfig.drawdownMin.enabled" [(value)]="options.filterConfig.drawdownMin.curValue" [label]="loc('curValue')" [min]="1" [max]="50000"></input-number-required>
-
-            <input-number-required class ="value-style" *ngIf="options.filterConfig.drawdownMin.enabled" [(value)]="options.filterConfig.drawdownMin.minValue" [label]="loc('minValue')" [min]="1" [max]="50000"></input-number-required>
-            <input-number-required class ="value-style" *ngIf="options.filterConfig.drawdownMin.enabled" [(value)]="options.filterConfig.drawdownMin.maxValue" [label]="loc('maxValue')" [min]="1" [max]="50000"></input-number-required>
-            <input-number-required class ="value-style" *ngIf="options.filterConfig.drawdownMin.enabled" [(value)]="options.filterConfig.drawdownMin.step"     [label]="loc('step')"     [min]="1" [max]="50000"></input-number-required>
-          </td>
-        </tr>
+        @if (options.filterConfig.enableDrawdown) {
+          <tr>
+            <td>
+              <mat-checkbox (click)="$event.stopPropagation()"
+                (change)="$event ? options.filterConfig.drawdownMin.toggle() : null"
+                [checked]="options.filterConfig.drawdownMin.enabled">
+              </mat-checkbox>
+            </td>
+            <td>{{loc("drawdown")}}</td>
+            <td>{{loc("minValue")}}</td>
+            <td>
+              @if (!options.filterConfig.drawdownMin.enabled) {
+                <input-number-required [(value)]="options.filterConfig.drawdownMin.curValue" [label]="loc('curValue')" [min]="1" [max]="50000"></input-number-required>
+              }
+              @if (options.filterConfig.drawdownMin.enabled) {
+                <input-number-required class ="value-style" [(value)]="options.filterConfig.drawdownMin.minValue" [label]="loc('minValue')" [min]="1" [max]="50000"></input-number-required>
+              }
+              @if (options.filterConfig.drawdownMin.enabled) {
+                <input-number-required class ="value-style" [(value)]="options.filterConfig.drawdownMin.maxValue" [label]="loc('maxValue')" [min]="1" [max]="50000"></input-number-required>
+              }
+              @if (options.filterConfig.drawdownMin.enabled) {
+                <input-number-required class ="value-style" [(value)]="options.filterConfig.drawdownMin.step"     [label]="loc('step')"     [min]="1" [max]="50000"></input-number-required>
+              }
+            </td>
+          </tr>
+        }
 
         <!-- Drawdown: max - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
-        <tr *ngIf="options.filterConfig.enableDrawdown">
-          <td>
-            <mat-checkbox (click)="$event.stopPropagation()"
-                          (change)="$event ? options.filterConfig.drawdownMax.toggle() : null"
-                          [checked]="options.filterConfig.drawdownMax.enabled">
-            </mat-checkbox>
-          </td>
-          <td>{{loc("drawdown")}}</td>
-          <td>{{loc("maxValue")}}</td>
-          <td>
-            <input-number-required *ngIf="!options.filterConfig.drawdownMax.enabled" [(value)]="options.filterConfig.drawdownMax.curValue" [label]="loc('curValue')" [min]="1" [max]="50000"></input-number-required>
-
-            <input-number-required class ="value-style" *ngIf="options.filterConfig.drawdownMax.enabled" [(value)]="options.filterConfig.drawdownMax.minValue" [label]="loc('minValue')" [min]="1" [max]="50000"></input-number-required>
-            <input-number-required class ="value-style" *ngIf="options.filterConfig.drawdownMax.enabled" [(value)]="options.filterConfig.drawdownMax.maxValue" [label]="loc('maxValue')" [min]="1" [max]="50000"></input-number-required>
-            <input-number-required class ="value-style" *ngIf="options.filterConfig.drawdownMax.enabled" [(value)]="options.filterConfig.drawdownMax.step"     [label]="loc('step')"     [min]="1" [max]="50000"></input-number-required>
-          </td>
-        </tr>
+        @if (options.filterConfig.enableDrawdown) {
+          <tr>
+            <td>
+              <mat-checkbox (click)="$event.stopPropagation()"
+                (change)="$event ? options.filterConfig.drawdownMax.toggle() : null"
+                [checked]="options.filterConfig.drawdownMax.enabled">
+              </mat-checkbox>
+            </td>
+            <td>{{loc("drawdown")}}</td>
+            <td>{{loc("maxValue")}}</td>
+            <td>
+              @if (!options.filterConfig.drawdownMax.enabled) {
+                <input-number-required [(value)]="options.filterConfig.drawdownMax.curValue" [label]="loc('curValue')" [min]="1" [max]="50000"></input-number-required>
+              }
+              @if (options.filterConfig.drawdownMax.enabled) {
+                <input-number-required class ="value-style" [(value)]="options.filterConfig.drawdownMax.minValue" [label]="loc('minValue')" [min]="1" [max]="50000"></input-number-required>
+              }
+              @if (options.filterConfig.drawdownMax.enabled) {
+                <input-number-required class ="value-style" [(value)]="options.filterConfig.drawdownMax.maxValue" [label]="loc('maxValue')" [min]="1" [max]="50000"></input-number-required>
+              }
+              @if (options.filterConfig.drawdownMax.enabled) {
+                <input-number-required class ="value-style" [(value)]="options.filterConfig.drawdownMax.step"     [label]="loc('step')"     [min]="1" [max]="50000"></input-number-required>
+              }
+            </td>
+          </tr>
+        }
       </table>
     </mat-tab>
 

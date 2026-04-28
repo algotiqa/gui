@@ -7,7 +7,7 @@
 //=============================================================================
 
 import {Component} from '@angular/core';
-import {CommonModule}         from "@angular/common";
+
 import {MatInputModule}       from "@angular/material/input";
 import {MatIconModule}        from "@angular/material/icon";
 import {MatButtonModule}      from "@angular/material/button";
@@ -35,9 +35,7 @@ import {PeriodSelector, PeriodSelectorInfo} from "../../../../../../../component
     selector: 'instrumentData-data',
     templateUrl: './instrument-data.data.html',
     styleUrls: ['./instrument-data.data.scss'],
-  imports: [CommonModule, MatButtonModule, MatIconModule, MatInputModule, MatFormFieldModule,
-    RouterModule, FlexTablePanel, MatChipsModule, MatSelectModule, SelectRequired,
-    TimeframeSelector, PeriodSelector]
+  imports: [MatButtonModule, MatIconModule, MatInputModule, MatFormFieldModule, RouterModule, FlexTablePanel, MatChipsModule, MatSelectModule, SelectRequired, TimeframeSelector, PeriodSelector]
 })
 
 //=============================================================================

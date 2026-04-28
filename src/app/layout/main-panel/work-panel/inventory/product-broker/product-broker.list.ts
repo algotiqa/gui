@@ -7,7 +7,7 @@
 //=============================================================================
 
 import {Component, ViewChild} from '@angular/core';
-import {CommonModule}         from "@angular/common";
+
 import {MatInputModule}       from "@angular/material/input";
 import {MatCardModule}        from "@angular/material/card";
 import {MatIconModule}        from "@angular/material/icon";
@@ -31,8 +31,7 @@ import {BrokerProduct} from "../../../../../model/model";
     selector: 'inventory-product-broker',
     templateUrl: './product-broker.list.html',
     styleUrls: ['./product-broker.list.scss'],
-    imports: [CommonModule, MatButtonModule, MatCardModule, MatIconModule, MatInputModule,
-        RouterModule, FlexTablePanel]
+    imports: [MatButtonModule, MatCardModule, MatIconModule, MatInputModule, RouterModule, FlexTablePanel]
 })
 
 //=============================================================================

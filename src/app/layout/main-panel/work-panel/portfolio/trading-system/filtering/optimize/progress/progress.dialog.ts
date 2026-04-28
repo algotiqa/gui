@@ -13,7 +13,7 @@ import {AbstractPanel} from "../../../../../../../../component/abstract.panel";
 import {EventBusService} from "../../../../../../../../service/eventbus.service";
 import {LabelService} from "../../../../../../../../service/label.service";
 import {Router} from "@angular/router";
-import {NgIf} from "@angular/common";
+
 import {PortfolioService} from "../../../../../../../../service/portfolio.service";
 import {DialogData} from "../dialog-data";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
@@ -28,8 +28,7 @@ import {MatIconModule} from "@angular/material/icon";
     selector: 'filter-progress-dialog',
     templateUrl: 'progress.dialog.html',
     styleUrls: ['progress.dialog.scss'],
-    imports: [MatDialogModule, MatButtonModule, NgIf, MatProgressSpinnerModule, MatGridListModule,
-        MatIconModule]
+    imports: [MatDialogModule, MatButtonModule, MatProgressSpinnerModule, MatGridListModule, MatIconModule]
 })
 
 //=============================================================================

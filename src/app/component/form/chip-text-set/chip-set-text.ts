@@ -8,7 +8,7 @@
 
 import {LiveAnnouncer} from '@angular/cdk/a11y';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {CommonModule} from "@angular/common";
+
 import {ChangeDetectionStrategy, Component, EventEmitter, inject, Input, Output, signal} from "@angular/core";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatChipEditedEvent, MatChipInputEvent, MatChipsModule} from "@angular/material/chips";
@@ -24,7 +24,7 @@ export type Validator = (value : string) => boolean
     selector: 'chip-set-text',
     templateUrl: './chip-set-text.html',
     styleUrls: ['./chip-set-text.scss'],
-    imports: [CommonModule, MatFormFieldModule, MatChipsModule, MatIcon],
+    imports: [MatFormFieldModule, MatChipsModule, MatIcon],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 

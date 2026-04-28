@@ -7,7 +7,7 @@
 //=============================================================================
 
 import {Component, ViewChild} from '@angular/core';
-import {CommonModule}            from "@angular/common";
+
 import {MatIconModule}           from "@angular/material/icon";
 import {MatButtonModule}         from "@angular/material/button";
 import {AbstractPanel}           from "../../../../../component/abstract.panel";
@@ -61,9 +61,7 @@ class PorfolioNodeProvider implements TreeNodeProvider<PortfolioTree> {
     selector: 'portfolio-monitoring',
     templateUrl: './monitoring.panel.html',
     styleUrls: ['./monitoring.panel.scss'],
-    imports: [CommonModule, MatButtonModule, MatIconModule, MatDividerModule, MatFormFieldModule,
-        MatSelectModule, MatSlideToggleModule, RouterModule, MatChipsModule,
-        FlexTreePanel, FlexTablePanel, ChartComponent]
+    imports: [MatButtonModule, MatIconModule, MatDividerModule, MatFormFieldModule, MatSelectModule, MatSlideToggleModule, RouterModule, MatChipsModule, FlexTreePanel, FlexTablePanel, ChartComponent]
 })
 
 //=============================================================================

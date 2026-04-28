@@ -7,7 +7,7 @@
 //=============================================================================
 
 import {Component, ViewChild} from '@angular/core';
-import {CommonModule}         from "@angular/common";
+
 import {MatInputModule}       from "@angular/material/input";
 import {MatCardModule}        from "@angular/material/card";
 import {MatIconModule}        from "@angular/material/icon";
@@ -34,8 +34,7 @@ import {FlagStyler} from "../../../../../component/panel/flex-table/icon-sylers"
     selector: 'connection',
     templateUrl: './connection.panel.html',
     styleUrls: ['./connection.panel.scss'],
-    imports: [CommonModule, MatButtonModule, MatCardModule, MatIconModule, MatInputModule,
-        RouterModule, FlexTablePanel]
+    imports: [MatButtonModule, MatCardModule, MatIconModule, MatInputModule, RouterModule, FlexTablePanel]
 })
 
 //=============================================================================

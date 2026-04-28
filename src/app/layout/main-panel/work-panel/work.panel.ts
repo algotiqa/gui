@@ -8,7 +8,7 @@
 
 import {Component}    from '@angular/core';
 import {RouterModule} from "@angular/router";
-import {NgIf} from "@angular/common";
+
 import {LabelService} from "../../../service/label.service";
 
 //=============================================================================
@@ -17,7 +17,7 @@ import {LabelService} from "../../../service/label.service";
     selector: 'work-panel',
     templateUrl: './work.panel.html',
     styleUrls: ['./work.panel.scss'],
-    imports: [RouterModule, NgIf]
+    imports: [RouterModule]
 })
 
 //=============================================================================
