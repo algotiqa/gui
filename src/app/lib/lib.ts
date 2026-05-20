@@ -9,6 +9,7 @@
 import {StringLib} from "./string-lib";
 import {ChartLib}  from "./chart-lib";
 import {QueryLib} from "./query-lib";
+import {BrowserLib} from "./browser";
 
 //=============================================================================
 
@@ -20,9 +21,10 @@ export class Lib {
 	//---
 	//-------------------------------------------------------------------------
 
-	public static str   = new StringLib();
-  public static chart = new ChartLib();
-  public static query = new QueryLib();
+	public static str      = new StringLib();
+  public static chart    = new ChartLib();
+  public static query    = new QueryLib();
+  public static browser = new BrowserLib()
 }
 
 //=============================================================================

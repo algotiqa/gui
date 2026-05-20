@@ -16,10 +16,15 @@ import {
   BrokerProduct, BrokerProductSpec,
   DataProduct, DataProductExt, DataProductSpec,
   TradingSession, TradingSystemSpec, AgentProfile, FinalizationResponse, DataProductFull,
-  BrokerProductExt, BrokerProductFull, ReloadTradesResponse
+  BrokerProductExt, BrokerProductFull, ReloadTradesResponse,
 } from "../model/model";
-import {HttpService} from "./http.service";
+import {HttpService, UploadEvent} from "./http.service";
 import { HttpParams } from "@angular/common/http";
+import {
+  ImportExecutionSpec,
+  ImportOverviewResponse,
+  ImportOverviewSpec,
+} from "../model/importer";
 
 //=============================================================================
 
@@ -174,6 +179,30 @@ export class InventoryService {
 
   public reloadTrades = (id: number): Observable<ReloadTradesResponse> => {
     return this.httpService.post<ReloadTradesResponse>('/api/inventory/v1/trading-systems/'+ id +'/reload-trades', {});
+  }
+
+  //---------------------------------------------------------------------------
+
+  public exportTradingSystems = (ids : number[]): Observable<ArrayBuffer> => {
+    let params = new HttpParams({
+      fromObject: {
+        id: ids
+      }
+    })
+    return this.httpService.getBytes('/api/inventory/v1/trading-systems/export', { params: params });
+  }
+
+
+  //---------------------------------------------------------------------------
+
+  public importTradingSystemsOverview = (spec : ImportOverviewSpec, file: any) : Observable<UploadEvent<ImportOverviewResponse>> => {
+    return this.httpService.upload<ImportOverviewResponse>('/api/inventory/v1/trading-systems/import/overview', spec, [file])
+  }
+
+  //---------------------------------------------------------------------------
+
+  public importTradingSystemsExecute = (spec : ImportExecutionSpec, file: any) : Observable<UploadEvent<void>> => {
+    return this.httpService.upload<void>('/api/inventory/v1/trading-systems/import/execute', spec, [file])
   }
 
   //---------------------------------------------------------------------------

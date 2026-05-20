@@ -40,10 +40,6 @@
     <ng-container [matColumnDef]="column.column">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column.header}} </th>
       <td mat-cell *matCellDef="let element">
-        <!--      <mat-icon *ngIf="column.iconStyler"-->
-        <!--                fontIcon="{{column.iconStyler.getStyle(element[column.column], element).icon}}"-->
-        <!--                style="color:{{column.iconStyler.getStyle(element[column.column], element).color}}"-->
-      <!--      ></mat-icon>-->
       @if (column.iconStyler) {
         <span matTooltip="{{column.iconStyler.getStyle(element[column.column], element).tooltip}}"
           class="material-symbols-outlined"
@@ -52,7 +48,10 @@
           {{column.iconStyler.getStyle(element[column.column], element).icon}}
         </span>
       }
-      @if (!column.iconStyler) {
+      @else if (column.editor) {
+        <input-text-required [(value)]="element[column.column]" label="" [len]="column.editorLength"></input-text-required>
+      }
+      @else {
         <span style="{{column.cellStyle(element[column.column], element)}}">{{column.transcode(element[column.column], element)}}</span>
       }
     </td>

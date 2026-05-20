@@ -29,13 +29,28 @@ export class FlexTableColumn {
   transcoder? : Transcoder
   iconStyler? : IconStyler
   cellStyler? : CellStyler
+  editor      : boolean = false;
+  editorLength: number  = 32;
 
-  constructor(obj:any, column : string, transCoder? : Transcoder, iconStyler? : IconStyler, cellStyler? : CellStyler) {
+  //---------------------------------------------------------------------------
+
+  constructor(obj:any, column : string, transCoder? : Transcoder, iconStyler? : IconStyler, cellStyler? : CellStyler, editor? : boolean, editorLength? : number) {
     this.column     = column;
     this.header     = obj[column];
     this.transcoder = transCoder;
     this.iconStyler = iconStyler;
     this.cellStyler = cellStyler;
+
+    if (!editor) {
+      editor = false
+    }
+
+    if (!editorLength) {
+      editorLength = 32
+    }
+
+    this.editor       = editor
+    this.editorLength = editorLength
   }
 
   //---------------------------------------------------------------------------

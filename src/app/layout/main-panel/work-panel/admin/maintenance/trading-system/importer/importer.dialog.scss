@@ -1,0 +1,42 @@
+//=============================================================================
+//===
+//=== Copyright (C) 2026 Andrea Carboni
+//===
+//=== Use of this source code is governed by an MIT-style license that can be
+//=== found in the LICENSE file
+//=============================================================================
+
+.main-layout {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  height: 500px;
+  overflow: hidden;
+}
+
+//=============================================================================
+
+.tabs-layout {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  overflow: auto;
+}
+
+//=============================================================================
+
+.table-layout {
+  flex: 1 1 auto;
+  overflow-y: auto;
+}
+
+//=============================================================================
+
+flat-button {
+  margin-left: 4px;
+}
+
+//=============================================================================

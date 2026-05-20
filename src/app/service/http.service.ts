@@ -104,8 +104,16 @@ export class HttpService {
 
     this.showLoader();
 
-    options = {
-      responseType: 'arrayBuffer'
+    if (options) {
+      options = {
+        ...options,
+        responseType: 'arrayBuffer'
+      }
+    }
+    else {
+      options = {
+        responseType: 'arrayBuffer'
+      }
     }
 
     return this.httpClient.get(url, this.setupOptions(options)).pipe(

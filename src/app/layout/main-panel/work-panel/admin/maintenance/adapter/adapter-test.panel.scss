@@ -7,14 +7,27 @@
 //=============================================================================
 
 .main-panel {
-  display: block;
-  height : 100%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 0;
+  height   : 100%;
+  overflow: hidden;
+  margin: 4px;
 }
 
 //=============================================================================
 
-.mode-selector {
-  margin: 16px 0 16px 8px;
+.input-style{
+  width: 100%;
+}
+
+//=============================================================================
+
+.result-style{
+  flex:  1 1 auto;
 }
 
 //=============================================================================

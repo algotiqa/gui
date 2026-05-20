@@ -38,7 +38,7 @@ export class TradingSystemDashboard extends AbstractPanel {
   //---
   //-------------------------------------------------------------------------
 
-  selScope = new FormControl("DV")
+  selMode = new FormControl("DV")
 
   @ViewChild("developPanel") developPanel? : DevelopmentPanel
   @ViewChild("tradingPanel") tradingPanel? : TradingPanel
@@ -65,7 +65,7 @@ export class TradingSystemDashboard extends AbstractPanel {
   //-------------------------------------------------------------------------
 
   override init = () : void => {
-    this.selScope.setValue(this.storageService.getStringItem(Setting.Portfolio_TradSys_Scope, "TR"))
+    this.selMode.setValue(this.storageService.getStringItem(Setting.Portfolio_TradSys_Mode, "TR"))
   }
 
   //-------------------------------------------------------------------------
@@ -74,8 +74,8 @@ export class TradingSystemDashboard extends AbstractPanel {
   //---
   //-------------------------------------------------------------------------
 
-  public scope(code : string) : string {
-    return this.map("scope", code)
+  public mode(code : string) : string {
+    return this.map("mode", code)
   }
 
   //-------------------------------------------------------------------------
@@ -84,9 +84,9 @@ export class TradingSystemDashboard extends AbstractPanel {
   //---
   //-------------------------------------------------------------------------
 
-  onScopeSet() {
-    let value = this.selScope.value
-    this.storageService.setStringItem(Setting.Portfolio_TradSys_Scope, value)
+  onModeSet() {
+    let value = this.selMode.value
+    this.storageService.setStringItem(Setting.Portfolio_TradSys_Mode, value)
   }
 }
 

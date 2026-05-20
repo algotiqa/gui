@@ -1,29 +1,29 @@
-@if (selScope.value=='DV') {
+@if (selMode.value=='DV') {
   <development-panel #developPanel class="main-panel">
-    <mat-button-toggle-group [hideSingleSelectionIndicator]="true" [formControl]="selScope" class="scope-selector">
-      <mat-button-toggle value="DV" (change)="onScopeSet()">{{ scope("DV") }}</mat-button-toggle>
-      <mat-button-toggle value="TR" (change)="onScopeSet()">{{ scope("TR") }}</mat-button-toggle>
-      <mat-button-toggle value="AR" (change)="onScopeSet()">{{ scope("AR") }}</mat-button-toggle>
+    <mat-button-toggle-group [hideSingleSelectionIndicator]="true" [formControl]="selMode" class="mode-selector">
+      <mat-button-toggle value="DV" (change)="onModeSet()">{{ mode("DV") }}</mat-button-toggle>
+      <mat-button-toggle value="TR" (change)="onModeSet()">{{ mode("TR") }}</mat-button-toggle>
+      <mat-button-toggle value="AR" (change)="onModeSet()">{{ mode("AR") }}</mat-button-toggle>
     </mat-button-toggle-group>
   </development-panel>
 }
 
-@if (selScope.value=='TR') {
+@if (selMode.value=='TR') {
   <trading-panel #tradingPanel class="main-panel">
-    <mat-button-toggle-group [hideSingleSelectionIndicator]="true" [formControl]="selScope" class="scope-selector">
-      <mat-button-toggle value="DV" (change)="onScopeSet()">{{ scope("DV") }}</mat-button-toggle>
-      <mat-button-toggle value="TR" (change)="onScopeSet()">{{ scope("TR") }}</mat-button-toggle>
-      <mat-button-toggle value="AR" (change)="onScopeSet()">{{ scope("AR") }}</mat-button-toggle>
+    <mat-button-toggle-group [hideSingleSelectionIndicator]="true" [formControl]="selMode" class="mode-selector">
+      <mat-button-toggle value="DV" (change)="onModeSet()">{{ mode("DV") }}</mat-button-toggle>
+      <mat-button-toggle value="TR" (change)="onModeSet()">{{ mode("TR") }}</mat-button-toggle>
+      <mat-button-toggle value="AR" (change)="onModeSet()">{{ mode("AR") }}</mat-button-toggle>
     </mat-button-toggle-group>
   </trading-panel>
 }
 
-@if (selScope.value=='AR') {
+@if (selMode.value=='AR') {
   <archive-panel #archivePanel class="main-panel">
-    <mat-button-toggle-group [hideSingleSelectionIndicator]="true" [formControl]="selScope" class="scope-selector">
-      <mat-button-toggle value="DV" (change)="onScopeSet()">{{ scope("DV") }}</mat-button-toggle>
-      <mat-button-toggle value="TR" (change)="onScopeSet()">{{ scope("TR") }}</mat-button-toggle>
-      <mat-button-toggle value="AR" (change)="onScopeSet()">{{ scope("AR") }}</mat-button-toggle>
+    <mat-button-toggle-group [hideSingleSelectionIndicator]="true" [formControl]="selMode" class="mode-selector">
+      <mat-button-toggle value="DV" (change)="onModeSet()">{{ mode("DV") }}</mat-button-toggle>
+      <mat-button-toggle value="TR" (change)="onModeSet()">{{ mode("TR") }}</mat-button-toggle>
+      <mat-button-toggle value="AR" (change)="onModeSet()">{{ mode("AR") }}</mat-button-toggle>
     </mat-button-toggle-group>
   </archive-panel>
 }

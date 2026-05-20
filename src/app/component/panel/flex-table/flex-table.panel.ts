@@ -19,6 +19,7 @@ import {LabelService} from "../../../service/label.service";
 import {FlexTableColumn, ListService} from "../../../model/flex-table";
 import {MatButtonModule} from "@angular/material/button";
 import {MatTooltip} from "@angular/material/tooltip";
+import {InputTextRequired} from "../../form/input-text-required/input-text-required";
 
 //=============================================================================
 
@@ -30,7 +31,7 @@ export type FlexTableFilter<T> = (row: T, filter: string) => boolean;
     selector: 'flex-table',
     templateUrl: './flex-table.panel.html',
     styleUrls: ['./flex-table.panel.scss'],
-    imports: [MatTableModule, MatSortModule, MatIconModule, MatFormFieldModule, MatInputModule, MatCheckboxModule, MatButtonModule, MatTooltip]
+  imports: [MatTableModule, MatSortModule, MatIconModule, MatFormFieldModule, MatInputModule, MatCheckboxModule, MatButtonModule, MatTooltip, InputTextRequired]
 })
 
 //=============================================================================

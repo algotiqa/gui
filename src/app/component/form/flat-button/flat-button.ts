@@ -6,7 +6,7 @@
 //=== found in the LICENSE file
 //=============================================================================
 
-import {Component, Input} from "@angular/core";
+import {Component, HostBinding, Input} from "@angular/core";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatButtonModule} from "@angular/material/button";
@@ -43,6 +43,15 @@ export class FlatButton {
   //-------------------------------------------------------------------------
 
   constructor() {}
+
+  //-------------------------------------------------------------------------
+  //--- Disabled click prevention
+  //--- This adds 'pointer-events: none' to the <flat-button> tag when disabled is true
+
+  @HostBinding('style.pointer-events')
+  get pointerEvents() {
+    return this.disabled ? 'none' : 'auto';
+  }
 }
 
 //=============================================================================

@@ -1,0 +1,14 @@
+<div class="main-layout">
+  <div>
+    <flat-button icon="upload"   label="{{button('import')}}" (click)="onImportClick()"></flat-button>
+    <flat-button icon="download" label="{{button('export')}}" (click)="onExportClick()" [disabled]="disExport"></flat-button>
+  </div>
+
+  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+  <flex-table #table class="table-layout"
+              [columns]       = "columns"
+              [dataProvider]  = "service"
+              (onRowsSelected)= "onRowSelected($event)"
+  ></flex-table>
+</div>

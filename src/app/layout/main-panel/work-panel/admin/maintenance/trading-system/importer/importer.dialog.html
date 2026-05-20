@@ -1,0 +1,32 @@
+<h2 mat-dialog-title>{{loc("title")}}</h2>
+
+<mat-dialog-content class="mat-typography">
+  <div class="main-layout">
+    @if (!res) {
+      <file-uploader #fileUpload [acceptedTypes]="'asp'" (onFileChange)="onFileChange($event)" [disabled]="buttonsDisabled" [multiSelection]="false"></file-uploader>
+      <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+    }
+
+    @else {
+      <mat-tab-group class="tabs-layout" [mat-stretch-tabs]="false">
+        <mat-tab label="{{loc('tradingSystems')}}">
+          <flex-table #table class="table-layout"
+                      [columns]       = "columns"
+                      [data]          = "tradingSystems"
+                      (onRowsSelected)= "onRowSelected($event)"
+          ></flex-table>
+        </mat-tab>
+
+        <mat-tab label="{{loc('references')}}">
+          <references-table [data]="references" class="table-layout"></references-table>
+        </mat-tab>
+      </mat-tab-group>
+    }
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <flat-button label="{{button('upload')}}" (click)="onUpload()" [disabled]="uploadDisabled()"></flat-button>
+  <flat-button label="{{button('import')}}" (click)="onImport()" [disabled]="importDisabled()"></flat-button>
+  <flat-button label="{{button('close')}}"  (click)="onClose()"  [disabled]="closeDisabled()" mat-dialog-close></flat-button>
+</mat-dialog-actions>

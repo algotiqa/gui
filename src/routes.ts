@@ -57,13 +57,13 @@ import {
 import {BiasAnalysisViewPanel} from "./app/layout/main-panel/work-panel/tool/bias-analysis/view/bias-analysis.view";
 import {DocEditorComponent} from "./app/module/doc-editor/doc-editor.component";
 import {TradingSystemPerformancePanel} from "./app/module/performance-metrics/performance.panel";
-import {AdapterTestPanel} from "./app/layout/main-panel/work-panel/admin/test/adapter-test.panel";
 import {MarketAnalysisListPanel} from "./app/layout/main-panel/work-panel/tool/market-analysis/market-analysis.list";
 import {TradingSystemQualityPanel} from "./app/module/quality-analyzer/quality.panel";
 import {TradingSystemSimulationPanel} from "./app/module/simulator/simulation.panel";
 import {
   TradingSystemArchiveEditPanel
 } from "./app/layout/main-panel/work-panel/portfolio/trading-system/archive/edit/edit.panel";
+import {MaintenancePanel} from "./app/layout/main-panel/work-panel/admin/maintenance/maintenance.panel";
 
 //=============================================================================
 
@@ -120,7 +120,7 @@ export const routes: Routes = [
   { path: Url.Admin_Connections,                  component: ConnectionPanel                 },
   { path: Url.Right_Connection_Create,            component: ConnectionCreatePanel, outlet : 'right' },
   { path: Url.Right_Connection_Edit,              component: ConnectionEditPanel,   outlet : 'right' },
-  { path: Url.Admin_Test_Adapter,                 component: AdapterTestPanel                },
+  { path: Url.Admin_Maintenance,                  component: MaintenancePanel                },
 
   //--- Modules
 

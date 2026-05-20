@@ -7,16 +7,16 @@
 //=============================================================================
 
 import {Component} from "@angular/core";
-import {AbstractPanel} from "../../../../../component/abstract.panel";
-import {SystemAdapterService} from "../../../../../service/system-adapter.service";
-import {LabelService} from "../../../../../service/label.service";
-import {EventBusService} from "../../../../../service/eventbus.service";
+import {AbstractPanel} from "../../../../../../component/abstract.panel";
+import {SystemAdapterService} from "../../../../../../service/system-adapter.service";
+import {LabelService} from "../../../../../../service/label.service";
+import {EventBusService} from "../../../../../../service/eventbus.service";
 import {Router} from "@angular/router";
-import {InputTextRequired} from "../../../../../component/form/input-text-required/input-text-required";
+import {InputTextRequired} from "../../../../../../component/form/input-text-required/input-text-required";
 import {MatButton} from "@angular/material/button";
 import {MatInput} from "@angular/material/input";
-import {TestAdapterRequest} from "../../../../../model/model";
-import {InputTextOptional} from "../../../../../component/form/input-text-optional/input-text-optional";
+import {TestAdapterRequest} from "../../../../../../model/model";
+import {InputTextOptional} from "../../../../../../component/form/input-text-optional/input-text-optional";
 
 //=============================================================================
 

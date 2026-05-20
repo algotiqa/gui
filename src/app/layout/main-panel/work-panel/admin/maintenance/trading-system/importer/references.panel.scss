@@ -1,23 +1,12 @@
 //=============================================================================
 //===
-//=== Copyright (C) 2023 Andrea Carboni
+//=== Copyright (C) 2026 Andrea Carboni
 //===
 //=== Use of this source code is governed by an MIT-style license that can be
 //=== found in the LICENSE file
 //=============================================================================
 
-.search-panel {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 8px;
-}
-
-//-----------------------------------------------------------------------------
-
-.search-field {
+.table-panel {
   flex: 1 1 auto;
 }
 
@@ -49,8 +38,14 @@
 
 //=============================================================================
 
-input-text-required {
-  width: 100%;
+.select-style {
+  margin-top: 4px;
+}
+
+//=============================================================================
+
+.mat-column-notes {
+  min-width: 400px;
 }
 
 //=============================================================================

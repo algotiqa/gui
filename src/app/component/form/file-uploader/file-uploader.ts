@@ -156,6 +156,10 @@ export class FileUploader {
       }
     }
 
+    if (type.startsWith("x-")) {
+      type = type.substring(2, type.length -1);
+    }
+
     return type
   }
 
