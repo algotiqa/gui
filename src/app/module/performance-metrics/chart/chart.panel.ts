@@ -283,11 +283,42 @@ export class PerformanceChartPanel extends AbstractPanel {
       return {}
     }
 
-    let list = [...this.rebuildInSample(this._par), ...this.rebuildLive(this._par)]
+    let list = [...this.rebuildDevelopment(this._par), ...this.rebuildInSample(this._par), ...this.rebuildLive(this._par)]
 
     return {
       xaxis: list
     }
+  }
+
+  //-------------------------------------------------------------------------
+
+  private rebuildDevelopment(par : PerformanceAnalysisResponse) : XAxisAnnotations[] {
+    let isFrom = par.tradingSystem?.inSampleFrom
+    if (isFrom == undefined || isFrom == 0) {
+      return []
+    }
+
+    let y = new IntDateAdapter().year(isFrom)
+    let m = new IntDateAdapter().month(isFrom)
+    let d = new IntDateAdapter().day(isFrom)
+
+    return [{
+        x : new Date(1980, 1, 1).getTime(),
+        x2: new Date(y, m, d).getTime(),
+        fillColor: "#C0C0C0",
+        opacity: 0.1,
+        strokeDashArray: 0,
+        borderColor: '#808080',
+        label: {
+          borderColor: '#808080',
+          style: {
+            fontSize  : '13px',
+            color     : '#fff',
+            background: '#808080',
+          },
+          text: this.loc("development"),
+        }
+      }]
   }
 
   //-------------------------------------------------------------------------
@@ -303,22 +334,22 @@ export class PerformanceChartPanel extends AbstractPanel {
     let d = new IntDateAdapter().day(isTo)
 
     return [{
-        x : new Date(y, m, d).getTime(),
-        x2: new Date().getTime(),
-        fillColor: "#B3F7CA",
-        opacity: 0.3,
-        strokeDashArray: 0,
+      x : new Date(y, m, d).getTime(),
+      x2: new Date().getTime(),
+      fillColor: "#B3F7CA",
+      opacity: 0.2,
+      strokeDashArray: 0,
+      borderColor: '#775DD0',
+      label: {
         borderColor: '#775DD0',
-        label: {
-          borderColor: '#775DD0',
-          style: {
-            fontSize  : '13px',
-            color     : '#fff',
-            background: '#775DD0',
-          },
-          text: this.loc("outOfSample"),
-        }
-      }]
+        style: {
+          fontSize  : '13px',
+          color     : '#fff',
+          background: '#775DD0',
+        },
+        text: this.loc("outOfSample"),
+      }
+    }]
   }
 
   //-------------------------------------------------------------------------
@@ -342,7 +373,7 @@ export class PerformanceChartPanel extends AbstractPanel {
         x : from,
         x2: to,
         fillColor: "#F3B7CA",
-        opacity: 0.3,
+        opacity: 0.2,
         strokeDashArray: 0,
         borderColor: '#D75D70',
         label: {
