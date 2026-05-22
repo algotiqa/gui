@@ -67,6 +67,10 @@ export class AppEvent<T = any>  {
   static AGENTPROFILE_LIST_RELOAD   : string = "agentProfile.list.reload";
   static AGENTPROFILE_CREATE_START  : string = "agentProfile.create.start";
   static AGENTPROFILE_EDIT_START    : string = "agentProfile.edit.start";
+
+  static TRADINGSESSION_LIST_RELOAD : string = "tradingSession.list.reload";
+  static TRADINGSESSION_CREATE_START: string = "tradingSession.create.start";
+  static TRADINGSESSION_EDIT_START  : string = "tradingSession.edit.start";
 }
 
 //=============================================================================

@@ -65,6 +65,7 @@ import {
 } from "./app/layout/main-panel/work-panel/portfolio/trading-system/archive/edit/edit.panel";
 import {MaintenancePanel} from "./app/layout/main-panel/work-panel/admin/maintenance/maintenance.panel";
 import {AgentProfilePanel} from "./app/layout/main-panel/work-panel/inventory/agent-profile/agent-profile.list";
+import {TradingSessionPanel} from "./app/layout/main-panel/work-panel/inventory/trading-session/trading-session.list";
 
 //=============================================================================
 
@@ -88,6 +89,7 @@ export const routes: Routes = [
   { path: Url.Right_DataProduct_Create,           component: ProductDataCreatePanel,   outlet : 'right' },
   { path: Url.Right_DataProduct_Edit,             component: ProductDataEditPanel,     outlet : 'right' },
   { path: Url.Inventory_BrokerProducts,           component: InvBrokerProductPanel           },
+  { path: Url.Inventory_TradingSessions,          component: TradingSessionPanel             },
   { path: Url.Inventory_AgentProfiles,            component: AgentProfilePanel               },
   { path: Url.Right_BrokerProduct_Create,         component: BrokerProductCreatePanel, outlet : 'right' },
   { path: Url.Right_BrokerProduct_Edit,           component: ProductBrokerEditPanel,   outlet : 'right' },

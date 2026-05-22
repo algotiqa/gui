@@ -81,8 +81,14 @@ export class MenuService extends AbstractSubscriber {
         iconClasses: 'currency_exchange'
       },
       {
+        id: 'menu.inventory.trading-sessions',
+        label: this.get('inventory.tradingSession'),
+        route: Url.Inventory_TradingSessions,
+        iconClasses: 'calendar_month'
+      },
+      {
         id: 'menu.inventory.agent-profiles',
-        label: this.get('inventory.agentProfiles'),
+        label: this.get('inventory.agentProfile'),
         route: Url.Inventory_AgentProfiles,
         iconClasses: 'smart_toy'
       },

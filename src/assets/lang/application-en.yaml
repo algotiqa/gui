@@ -62,9 +62,10 @@ menu:
     home: Home
   inventory:
     _label: Inventory
-    dataProduct  : Data products
-    brokerProduct: Broker products
-    agentProfiles: Agent profiles
+    dataProduct   : Data products
+    brokerProduct : Broker products
+    tradingSession: Trading sessions
+    agentProfile  : Agent profiles
   portfolio:
     _label: Portfolio
     tradingSystem: Trading systems
@@ -344,6 +345,9 @@ model:
     direction     : Direction
     volatility    : Volatility
 
+  tradingSession:
+    name: Name
+
   agentProfile:
     name        : Name
     remoteUrl   : Remote URL
@@ -412,6 +416,10 @@ page:
       marketType:       Market
       productType:      Product
       exchange:         Exchange
+
+    tradingSession:
+
+    agentProfile:
 
   # ==============================================================================
 
@@ -751,10 +759,10 @@ page:
             icon: currency_exchange
             tip : Broker
           2:
-            icon: robot_2
+            icon: smart_toy
             tip : Profile
           3:
-            icon: calendar_clock
+            icon: calendar_month
             tip : Session
         statuses:
           0: Entity will be added
@@ -808,6 +816,7 @@ page:
         grossDrawdown : Gross drawdown
         netDrawdown   : Net drawdown
         stepline      : Stepline
+        development   : Out of development
         outOfSample   : Out of sample
         live          : Live
       distribution:
@@ -1108,6 +1117,8 @@ list:
       name: Last 5 years
     - id: 3650
       name: Last 10 years
+    - id: 5475
+      name: Last 15 years
     - id: 0
       name: All
 
