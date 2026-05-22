@@ -1,0 +1,6 @@
+<h2 mat-dialog-title>{{ loc('title') }}</h2>
+<mat-dialog-content>{{ loc('message') }}</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <flat-button label="{{button('ok')}}"     (click)="onConfirm()" ></flat-button>
+  <flat-button label="{{button('cancel')}}" (click)="onCancel()"  ></flat-button>
+</mat-dialog-actions>

@@ -80,6 +80,12 @@ export class MenuService extends AbstractSubscriber {
         route: Url.Inventory_BrokerProducts,
         iconClasses: 'currency_exchange'
       },
+      {
+        id: 'menu.inventory.agent-profiles',
+        label: this.get('inventory.agentProfiles'),
+        route: Url.Inventory_AgentProfiles,
+        iconClasses: 'smart_toy'
+      },
 
       //-------------------------------------------------------------
 

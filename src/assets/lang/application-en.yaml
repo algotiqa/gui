@@ -33,6 +33,7 @@ button:
   finalize  : Finalize
   document  : Document
   login     : Login
+  yes       : Yes
   import    : Import
   export    : Export
 
@@ -63,7 +64,7 @@ menu:
     _label: Inventory
     dataProduct  : Data products
     brokerProduct: Broker products
-    tradingSystem: Trading systems
+    agentProfiles: Agent profiles
   portfolio:
     _label: Portfolio
     tradingSystem: Trading systems
@@ -342,6 +343,11 @@ model:
     atrPerc       : ATR (%)
     direction     : Direction
     volatility    : Volatility
+
+  agentProfile:
+    name        : Name
+    remoteUrl   : Remote URL
+    scanInterval: Scan interval
 
 # ==============================================================================
 # ===
@@ -755,6 +761,10 @@ page:
           1: Entity found with exact match
           2: No connection found. Create it first
           3: Entity to import differs from stored entity
+
+    deleteTradingSystems:
+      title  : Delete trading system
+      message: Are you sure you want to delete the selected trading system(s)?
 
   # ==============================================================================
 

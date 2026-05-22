@@ -12,6 +12,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {MatCardModule} from "@angular/material/card";
+import {MatDialog} from "@angular/material/dialog";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Router} from "@angular/router";
 import {MatMenuModule} from "@angular/material/menu";
@@ -27,6 +28,8 @@ import {StorageService} from "../../../../../../../service/storage.service";
 import {ModuleService} from "../../../../../../../service/module.service";
 import {FlatButton} from "../../../../../../../component/form/flat-button/flat-button";
 import {BroadcastService} from "../../../../../../../service/broadcast.service";
+import {ConfirmationDialog} from "../../../../../../../component/form/confirmation-dialog/confirmation-dialog.component";
+import {ConfirmationDialogData} from "../../../../../../../component/form/confirmation-dialog/confirmation.data";
 
 //=============================================================================
 
@@ -64,6 +67,7 @@ export class DevelopmentCard extends AbstractPanel {
   constructor(eventBusService          : EventBusService,
               labelService             : LabelService,
               router                   : Router,
+              private dialog           : MatDialog,
               private snackBar         : MatSnackBar,
               private inventoryService : InventoryService,
               private portfolioService : PortfolioService,
@@ -171,9 +175,19 @@ export class DevelopmentCard extends AbstractPanel {
   //-------------------------------------------------------------------------
 
   onMenuDelete() {
-    this.inventoryService.deleteTradingSystem(this.ts.id).subscribe( res => {
-      this.broadcastService.sendTradingSystemDeleted(this.ts.id)
-      this.emitToApp(new AppEvent<any>(AppEvent.TRADINGSYSTEM_DEVELOP_LIST_RELOAD))
+    let data : ConfirmationDialogData = {
+      labels: "deleteTradingSystems"
+    }
+
+    this.dialog.open(ConfirmationDialog, {data}).afterClosed().subscribe(result => {
+      if (!result) {
+        return
+      }
+
+      this.inventoryService.deleteTradingSystem(this.ts.id).subscribe( res => {
+        this.broadcastService.sendTradingSystemDeleted(this.ts.id)
+        this.emitToApp(new AppEvent<any>(AppEvent.TRADINGSYSTEM_DEVELOP_LIST_RELOAD))
+      })
     })
   }
 }

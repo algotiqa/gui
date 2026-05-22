@@ -63,6 +63,10 @@ export class AppEvent<T = any>  {
   static BIASANALYSIS_CREATE_START : string = "biasAnalysis.create.start";
   static BIASANALYSIS_VIEW_START   : string = "biasAnalysis.view.start";
   static BIASANALYSIS_EDIT_START   : string = "biasAnalysis.edit.start";
+
+  static AGENTPROFILE_LIST_RELOAD   : string = "agentProfile.list.reload";
+  static AGENTPROFILE_CREATE_START  : string = "agentProfile.create.start";
+  static AGENTPROFILE_EDIT_START    : string = "agentProfile.edit.start";
 }
 
 //=============================================================================

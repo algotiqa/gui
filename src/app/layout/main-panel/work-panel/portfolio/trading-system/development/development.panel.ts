@@ -18,6 +18,7 @@ import {LabelService} from "../../../../../../service/label.service";
 import {LocalService} from "../../../../../../service/local.service";
 import {InventoryService} from "../../../../../../service/inventory.service";
 import {MatButton, MatIconButton} from "@angular/material/button";
+import {MatDialog} from "@angular/material/dialog";
 import {PorTradingSystem} from "../../../../../../model/model";
 import {AppEvent} from "../../../../../../model/event";
 import {Url} from "../../../../../../model/urls";
@@ -29,6 +30,8 @@ import {ModuleService} from "../../../../../../service/module.service";
 import {DevelopmentCard} from "./card/development.card";
 import {PortfolioService} from "../../../../../../service/portfolio.service";
 import {FlatButton} from "../../../../../../component/form/flat-button/flat-button";
+import {ConfirmationDialog} from "../../../../../../component/form/confirmation-dialog/confirmation-dialog.component";
+import {ConfirmationDialogData} from "../../../../../../component/form/confirmation-dialog/confirmation.data";
 
 //=============================================================================
 
@@ -75,7 +78,8 @@ export class DevelopmentPanel extends AbstractPanel {
               private portfolioService: PortfolioService,
               private storageService  : LocalService,
               private moduleService   : ModuleService,
-              private broadcastService: BroadcastService) {
+              private broadcastService: BroadcastService,
+              private dialog          : MatDialog) {
 
     super(eventBusService, labelService, router, "portfolio.tradingSystem.development");
 
@@ -134,41 +138,6 @@ export class DevelopmentPanel extends AbstractPanel {
 
   onCreateClick() {
     this.openRightPanel(Url.Portfolio_TradingSystems, Url.Right_TradingSystem_DevelopEdit, AppEvent.TRADINGSYSTEM_DEVELOP_EDIT_START);
-  }
-
-  //-------------------------------------------------------------------------
-
-  onViewClick() {
-    // @ts-ignore
-    let selection = this.table.getSelection();
-
-    if (selection.length > 0) {
-      console.log(JSON.stringify(selection))
-    }
-  }
-
-  //-------------------------------------------------------------------------
-
-  onEditClick() {
-    // @ts-ignore
-    let selection = this.table.getSelection();
-    this.openRightPanel(Url.Portfolio_TradingSystems, Url.Right_TradingSystem_DevelopEdit, AppEvent.TRADINGSYSTEM_DEVELOP_EDIT_START, selection[0]);
-  }
-
-  //-------------------------------------------------------------------------
-
-  onDeleteClick() {
-    // @ts-ignore
-    let selection = this.table.getSelection();
-
-    for (let i=0; i<selection.length; i++) {
-      let id = selection[i].id
-      // @ts-ignore
-      this.inventoryService.deleteTradingSystem(id).subscribe( res => {
-        this.broadcastService.sendTradingSystemDeleted(res.id)
-        this.reload()
-      })
-    }
   }
 
   //-------------------------------------------------------------------------

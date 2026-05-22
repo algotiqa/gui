@@ -192,7 +192,6 @@ export class InventoryService {
     return this.httpService.getBytes('/api/inventory/v1/trading-systems/export', { params: params });
   }
 
-
   //---------------------------------------------------------------------------
 
   public importTradingSystemsOverview = (spec : ImportOverviewSpec, file: any) : Observable<UploadEvent<ImportOverviewResponse>> => {

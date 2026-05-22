@@ -69,6 +69,10 @@ export class MainPanel extends AbstractSubscriber {
 			if ( ! this.rightNavig.opened) {
 				this.leftNavig.opened = ! this.leftNavig.opened;
 			}
+
+			//--- Remove focus from the hamburger button so it doesn't stay "pressed"
+
+			(document.activeElement as HTMLElement)?.blur();
 		}
 		else {
       if (event.code == AppEvent.RIGHT_PANEL_OPEN) {
@@ -91,6 +95,9 @@ export class MainPanel extends AbstractSubscriber {
 			if (eventToPropagate) {
 				super.emitToApp(new AppEvent(eventToPropagate, params));
 			}
+
+      //--- Remove focus on close button
+      (document.activeElement as HTMLElement)?.blur();
 		});
 	}
 }

@@ -13,6 +13,7 @@ export enum Url {
   Inventory_DataInstruments    = "inventory/data-instruments",
   Inventory_DataInstruments_Id = "inventory/data-instruments/:id",
   Inventory_BrokerProducts     = "inventory/broker-products",
+  Inventory_AgentProfiles      = "inventory/agent-profiles",
 
   Portfolio_TradingSystems     = "portfolio/trading-systems",
   Portfolio_TradingSystems_Id  = "portfolio/trading-systems/:id",
