@@ -82,9 +82,9 @@ export class TradingSystemDevelEditPanel extends AbstractPanel {
   @ViewChild("tsTimeframeCtrl")    tsTimeframeCtrl?   : InputNumberRequired
   @ViewChild("tsStratTypeCtrl")    tsStratTypeCtrl?   : SelectRequired
   @ViewChild("tsInSampleFromCtrl") tsInSampleFromCtrl?: DatePicker
-  @ViewChild("tsInSampleToCtrl")   tsInSampleToCtrl? : DatePicker
-  @ViewChild("tsProfileCtrl")      tsProfileCtrl?    : SelectRequired
-  @ViewChild("tsExternRefCtrl")    tsExternRefCtrl?  : InputTextRequired
+  @ViewChild("tsInSampleToCtrl")   tsInSampleToCtrl?  : DatePicker
+  @ViewChild("tsProfileCtrl")      tsProfileCtrl?     : SelectRequired
+  @ViewChild("tsExternRefCtrl")    tsExternRefCtrl?   : InputTextRequired
 
   //-------------------------------------------------------------------------
   //---

@@ -42,8 +42,7 @@ export class DatePicker {
   //---
   //-------------------------------------------------------------------------
 
-  @Input() label    : string  = ""
-  @Input() required : boolean = false
+  @Input() label     : string  = ""
 
   @Output() valueChange = new EventEmitter<number|undefined>();
 
@@ -52,6 +51,7 @@ export class DatePicker {
   formControl = new FormControl<number|undefined>(undefined)
   matcher = new CustomErrorStateMatcher();
 
+  private _required = false
   private _valid : boolean = false
   private prevValue : number|undefined
 
@@ -70,6 +70,20 @@ export class DatePicker {
   //---
   //--- Properties
   //---
+  //-------------------------------------------------------------------------
+
+  get required(): boolean {
+    return this._required
+  }
+
+  //-------------------------------------------------------------------------
+
+  @Input()
+  set required(value: boolean) {
+    this._required = value
+    this.formControl.updateValueAndValidity()
+  }
+
   //-------------------------------------------------------------------------
 
   get value() : number|undefined {
@@ -140,7 +154,7 @@ export class DatePicker {
   //-------------------------------------------------------------------------
 
   private validator = (control: AbstractControl<number|null>): ValidationErrors | null => {
-    if (this.required && control.value == null) {
+    if (this._required && control.value == null) {
       return { "required": "-" }
     }
 
