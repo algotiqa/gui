@@ -16,7 +16,7 @@ import {
   BrokerProduct, BrokerProductSpec,
   DataProduct, DataProductExt, DataProductSpec,
   TradingSession, TradingSystemSpec, AgentProfile, FinalizationResponse, DataProductFull,
-  BrokerProductExt, BrokerProductFull, ReloadTradesResponse,
+  BrokerProductExt, BrokerProductFull, ReloadTradesResponse, ConnectionExt, ConnectionDeleteResponse,
 } from "../model/model";
 import {HttpService, UploadEvent} from "./http.service";
 import { HttpParams } from "@angular/common/http";
@@ -65,6 +65,13 @@ export class InventoryService {
 
   //---------------------------------------------------------------------------
 
+  public getConnectionById = (id:number): Observable<ConnectionExt> => {
+    let params = new HttpParams()
+    return this.httpService.get<ConnectionExt>('/api/inventory/v1/connections/'+ id, { params: params });
+  }
+
+  //---------------------------------------------------------------------------
+
   public addConnection = (cs : ConnectionSpec): Observable<Connection> => {
     return this.httpService.post<Connection>('/api/inventory/v1/connections', cs);
   }
@@ -73,6 +80,12 @@ export class InventoryService {
 
   public updateConnection = (cs : ConnectionSpec): Observable<Connection> => {
     return this.httpService.put<Connection>('/api/inventory/v1/connections/'+cs.id, cs);
+  }
+
+  //---------------------------------------------------------------------------
+
+  public deleteConnection = (id : number): Observable<ConnectionDeleteResponse> => {
+    return this.httpService.delete<ConnectionDeleteResponse>('/api/inventory/v1/connections/'+id);
   }
 
   //---------------------------------------------------------------------------

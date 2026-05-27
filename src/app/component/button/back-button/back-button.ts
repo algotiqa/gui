@@ -1,6 +1,6 @@
 //=============================================================================
 //===
-//=== Copyright (C) 2025 Andrea Carboni
+//=== Copyright (C) 2026 Andrea Carboni
 //===
 //=== Use of this source code is governed by an MIT-style license that can be
 //=== found in the LICENSE file
@@ -11,19 +11,25 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
+import {AbstractPanel} from "../../abstract.panel";
+import {FlatButton} from "../../form/flat-button/flat-button";
+import {Url} from "../../../model/urls";
+import {EventBusService} from "../../../service/eventbus.service";
+import {LabelService} from "../../../service/label.service";
+import {Router} from "@angular/router";
 
 //=============================================================================
 
 @Component({
-  selector: 'flat-button',
-  templateUrl: './flat-button.html',
-  styleUrls  :['./flat-button.scss'],
-  imports: [MatFormFieldModule, FormsModule, ReactiveFormsModule, MatButtonModule, MatIconModule]
+  selector: 'back-button',
+  templateUrl: './back-button.html',
+  styleUrls  :['./back-button.scss'],
+  imports: [FlatButton]
 })
 
 //=============================================================================
 
-export class FlatButton {
+export class BackButton extends AbstractPanel {
 
   //-------------------------------------------------------------------------
   //---
@@ -31,8 +37,7 @@ export class FlatButton {
   //---
   //-------------------------------------------------------------------------
 
-  @Input() icon     : string = ""
-  @Input() label?   : string
+  @Input() page     : string  = ""
   @Input() disabled : boolean = false
 
   //-------------------------------------------------------------------------
@@ -41,7 +46,21 @@ export class FlatButton {
   //---
   //-------------------------------------------------------------------------
 
-  constructor() {}
+  constructor(protected override eventBusService : EventBusService,
+              protected override labelService : LabelService,
+              protected override router       : Router) {
+    super(eventBusService, labelService, router, "")
+  }
+
+  //-------------------------------------------------------------------------
+  //---
+  //--- Events
+  //---
+  //-------------------------------------------------------------------------
+
+  onBackClick() {
+    this.navigateTo([ this.page ])
+  }
 
   //-------------------------------------------------------------------------
   //--- Disabled click prevention

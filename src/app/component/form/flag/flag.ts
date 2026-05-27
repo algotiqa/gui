@@ -1,29 +1,25 @@
 //=============================================================================
 //===
-//=== Copyright (C) 2025 Andrea Carboni
+//=== Copyright (C) 2026 Andrea Carboni
 //===
 //=== Use of this source code is governed by an MIT-style license that can be
 //=== found in the LICENSE file
 //=============================================================================
 
-import {Component, HostBinding, Input} from "@angular/core";
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {MatButtonModule} from "@angular/material/button";
-import {MatIconModule} from "@angular/material/icon";
+import {Component, Input} from '@angular/core';
 
 //=============================================================================
 
 @Component({
-  selector: 'flat-button',
-  templateUrl: './flat-button.html',
-  styleUrls  :['./flat-button.scss'],
-  imports: [MatFormFieldModule, FormsModule, ReactiveFormsModule, MatButtonModule, MatIconModule]
+  selector: 'flag',
+  templateUrl: './flag.html',
+  styleUrls: [ './flag.scss'],
+  imports: []
 })
 
 //=============================================================================
 
-export class FlatButton {
+export class Flag {
 
   //-------------------------------------------------------------------------
   //---
@@ -31,9 +27,7 @@ export class FlatButton {
   //---
   //-------------------------------------------------------------------------
 
-  @Input() icon     : string = ""
-  @Input() label?   : string
-  @Input() disabled : boolean = false
+  @Input() value? : boolean
 
   //-------------------------------------------------------------------------
   //---
@@ -41,15 +35,31 @@ export class FlatButton {
   //---
   //-------------------------------------------------------------------------
 
-  constructor() {}
+  constructor() {
+  }
 
   //-------------------------------------------------------------------------
-  //--- Disabled click prevention
-  //--- This adds 'pointer-events: none' to the <flat-button> tag when disabled is true
+  //---
+  //--- Helpers
+  //---
+  //-------------------------------------------------------------------------
 
-  @HostBinding('style.pointer-events')
-  get pointerEvents() {
-    return this.disabled ? 'none' : 'auto';
+  icon() : string {
+    if (this.value == undefined) {
+      return "question_mark"
+    }
+
+    return this.value ? "check" : "close";
+  }
+
+  //-------------------------------------------------------------------------
+
+  style() : string {
+    if (this.value == undefined) {
+      return "#B09000"
+    }
+
+    return this.value ? "#00C000" : "#C00000"
   }
 }
 

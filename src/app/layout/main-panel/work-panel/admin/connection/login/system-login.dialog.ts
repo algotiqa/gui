@@ -22,6 +22,7 @@ import {
   ConnectionResultStatusConnected, ConnectionResultStatusConnecting, ConnectionResultStatusError,
 } from "../../../../../../model/model";
 import {CustomParams} from "../../../../../../component/custom-params/custom-params";
+import {FlatButton} from "../../../../../../component/form/flat-button/flat-button";
 
 //=============================================================================
 
@@ -29,7 +30,7 @@ import {CustomParams} from "../../../../../../component/custom-params/custom-par
   selector: 'system-login-dialog',
   templateUrl: 'system-login.dialog.html',
   styleUrls : ['system-login.dialog.scss'],
-  imports: [MatDialogModule, MatButtonModule, MatTabsModule, CustomParams]
+  imports: [MatDialogModule, MatButtonModule, MatTabsModule, CustomParams, FlatButton]
 })
 
 //=============================================================================

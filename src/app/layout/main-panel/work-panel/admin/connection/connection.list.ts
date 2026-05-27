@@ -27,19 +27,25 @@ import {MatDialog} from "@angular/material/dialog";
 import {SystemLoginDialog} from "./login/system-login.dialog";
 import {DialogData} from "./login/dialog-data";
 import {FlagStyler} from "../../../../../component/panel/flex-table/icon-sylers";
+import {CreateButton} from "../../../../../component/button/create-button/create-button";
+import {ViewButton} from "../../../../../component/button/view-button/view-button";
+import {EditButton} from "../../../../../component/button/edit-button/edit-button";
+import {FlatButton} from "../../../../../component/form/flat-button/flat-button";
+import {ListButtons, ListPanel, ListContent} from "../../../../../component/panel/list-panel/list-panel";
+import {SystemAdapterService} from "../../../../../service/system-adapter.service";
 
 //=============================================================================
 
 @Component({
     selector: 'connection',
-    templateUrl: './connection.panel.html',
-    styleUrls: ['./connection.panel.scss'],
-    imports: [MatButtonModule, MatCardModule, MatIconModule, MatInputModule, RouterModule, FlexTablePanel]
+    templateUrl: './connection.list.html',
+    styleUrls: ['./connection.list.scss'],
+  imports: [MatButtonModule, MatCardModule, MatIconModule, MatInputModule, RouterModule, FlexTablePanel, FlatButton, ListPanel, ListButtons, ListContent, CreateButton, ViewButton, EditButton]
 })
 
 //=============================================================================
 
-export class ConnectionPanel extends AbstractPanel {
+export class ConnectionList extends AbstractPanel {
 
   //-------------------------------------------------------------------------
   //---
@@ -63,11 +69,12 @@ export class ConnectionPanel extends AbstractPanel {
   //---
   //-------------------------------------------------------------------------
 
-  constructor(eventBusService : EventBusService,
-              labelService    : LabelService,
-              router          : Router,
-              inventoryService: InventoryService,
-              public  dialog              : MatDialog
+  constructor(eventBusService      : EventBusService,
+              labelService         : LabelService,
+              router               : Router,
+              inventoryService     : InventoryService,
+              private systemAdapterService : SystemAdapterService,
+              public  dialog               : MatDialog
               ) {
 
     super(eventBusService, labelService, router, "admin.connection");
@@ -107,7 +114,7 @@ export class ConnectionPanel extends AbstractPanel {
     let selection = this.table.getSelection();
 
     if (selection.length > 0) {
-      console.log(JSON.stringify(selection))
+      this.navigateTo([ Url.Admin_Connections, selection[0].id ]);
     }
   }
 
@@ -132,7 +139,7 @@ export class ConnectionPanel extends AbstractPanel {
       let conn = selection[0]
 
       const dialogRef = this.dialog.open(SystemLoginDialog, {
-        minWidth : "400px",
+        minWidth : "500px",
         data: <DialogData>{
           conn : conn
         }
@@ -141,6 +148,7 @@ export class ConnectionPanel extends AbstractPanel {
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
           conn.connected = true
+          this.updateButtons(selection)
         }
       })
     }
@@ -149,6 +157,17 @@ export class ConnectionPanel extends AbstractPanel {
   //-------------------------------------------------------------------------
 
   onDisconnectClick() {
+    // @ts-ignore
+    let selection = this.table.getSelection();
+
+    if (selection.length > 0) {
+      let conn = selection[0]
+
+      this.systemAdapterService.disconnect(conn.code).subscribe( res => {
+        conn.connected = false
+        this.updateButtons(selection)
+      })
+    }
   }
 
   //-------------------------------------------------------------------------
@@ -161,7 +180,6 @@ export class ConnectionPanel extends AbstractPanel {
     let ts = this.labelService.getLabel("model.connection");
 
     this.columns = [
-      new FlexTableColumn(ts, "username"),
       new FlexTableColumn(ts, "code"),
       new FlexTableColumn(ts, "name"),
       new FlexTableColumn(ts, "systemCode"),
@@ -187,7 +205,6 @@ export class ConnectionPanel extends AbstractPanel {
       let conn = selection[0]
       let isLocal = (conn.supportsMultipleData == true)
       let isConnected = (conn.connected != undefined) && conn.connected
-      this.disEdit    = isConnected
       this.disConnect = isConnected  || isLocal
       this.disDisconn = !isConnected || isLocal
     }

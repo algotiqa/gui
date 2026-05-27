@@ -14,7 +14,7 @@ import {ConfigurationPanel} from "./app/layout/main-panel/work-panel/admin/confi
 import {UnknownPanel}       from "./app/layout/main-panel/work-panel/unknown/unknown.panel";
 import {MonitoringPanel}    from "./app/layout/main-panel/work-panel/portfolio/monitoring/monitoring.panel";
 import {FilteringPanel} from "./app/layout/main-panel/work-panel/portfolio/trading-system/filtering/filtering.panel";
-import {ConnectionPanel} from "./app/layout/main-panel/work-panel/admin/connection/connection.panel";
+import {ConnectionList} from "./app/layout/main-panel/work-panel/admin/connection/connection.list";
 import {ConnectionEditPanel} from "./app/layout/main-panel/work-panel/admin/connection/edit/edit.panel";
 import {InvBrokerProductPanel} from "./app/layout/main-panel/work-panel/inventory/product-broker/product-broker.list";
 import {ProductDataEditPanel} from "./app/layout/main-panel/work-panel/inventory/product-data/edit/product-data.edit";
@@ -66,6 +66,7 @@ import {
 import {MaintenancePanel} from "./app/layout/main-panel/work-panel/admin/maintenance/maintenance.panel";
 import {AgentProfilePanel} from "./app/layout/main-panel/work-panel/inventory/agent-profile/agent-profile.list";
 import {TradingSessionPanel} from "./app/layout/main-panel/work-panel/inventory/trading-session/trading-session.list";
+import {ConnectionView} from "./app/layout/main-panel/work-panel/admin/connection/view/connection.view";
 
 //=============================================================================
 
@@ -121,7 +122,8 @@ export const routes: Routes = [
   //--- Admin
 
   { path: Url.Admin_Config,                       component: ConfigurationPanel              },
-  { path: Url.Admin_Connections,                  component: ConnectionPanel                 },
+  { path: Url.Admin_Connections,                  component: ConnectionList },
+  { path: Url.Admin_Connections_Id,               component: ConnectionView },
   { path: Url.Right_Connection_Create,            component: ConnectionCreatePanel, outlet : 'right' },
   { path: Url.Right_Connection_Edit,              component: ConnectionEditPanel,   outlet : 'right' },
   { path: Url.Admin_Maintenance,                  component: MaintenancePanel                },

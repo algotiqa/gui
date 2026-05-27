@@ -1,25 +1,13 @@
 //=============================================================================
 //===
-//=== Copyright (C) 2025 Andrea Carboni
+//=== Copyright (C) 2026 Andrea Carboni
 //===
 //=== Use of this source code is governed by an MIT-style license that can be
 //=== found in the LICENSE file
 //=============================================================================
 
-@import "../../../../../../styles/variables";
-
-//=============================================================================
-
-.main-panel {
-  display: block;
-  height : 100%;
-  background-color: $backgroundColor;
-}
-
-//=============================================================================
-
-.mode-selector {
-  margin: 16px 0 16px 8px;
+.main-style {
+  color: #404040 !important;
   background-color: #FFFFFF;
 }
 

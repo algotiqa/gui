@@ -36,6 +36,7 @@ button:
   yes       : Yes
   import    : Import
   export    : Export
+  back      : Back
 
 menu-button:
   view         : View
@@ -156,7 +157,7 @@ model:
     connected            : Connected
     supportsData         : Data
     supportsBroker       : Broker
-    supportsMultipleData : MData
+    supportsMultipleData : Multiple data
     supportsInventory    : Inventory
     createdAt            : Created at
     updatedAt            : Updated at
@@ -685,13 +686,20 @@ page:
     # ----------------------------------------------------------------------------
 
     connection:
+      title: Connections
       new: New connection
       code: Code
       name: Name
       system: System
       login:
         title: System login to
-
+      dataProductRefs  : Data product refs
+      brokerProductRefs: Broker product refs
+      configuration: Configuration
+      delete:
+        connected     : Before deleting this connection, you have to disconnect from it
+        dataProducts  : There are data products referenced. The connection cannot be deleted
+        brokerProducts: There are broker products referenced. The connection cannot be deleted
     maintenance:
       tradingSystems: Trading systems
       adapters      : Adapters
@@ -770,9 +778,13 @@ page:
           2: No connection found. Create it first
           3: Entity to import differs from stored entity
 
-    deleteTradingSystems:
+    deleteTradingSystem:
       title  : Delete trading system
       message: Are you sure you want to delete the selected trading system(s)?
+
+    deleteConnection:
+      title  : Delete connection
+      message: Are you sure you want to delete this connection?
 
   # ==============================================================================
 

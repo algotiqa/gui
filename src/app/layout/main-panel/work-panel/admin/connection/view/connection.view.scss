@@ -1,32 +1,47 @@
 //=============================================================================
 //===
-//=== Copyright (C) 2025 Andrea Carboni
+//=== Copyright (C) 2026 Andrea Carboni
 //===
 //=== Use of this source code is governed by an MIT-style license that can be
 //=== found in the LICENSE file
 //=============================================================================
 
-.form-layout {
+list-content {
+  flex: 1 1 auto;
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
   justify-content: flex-start;
   align-items: stretch;
-  gap: 0;
+  overflow: hidden;
 }
 
 //=============================================================================
 
-.login-error {
-  color      : red;
-  height     : 24px;
-  font-weight:  bold;
+.data-style {
+  font-weight: bold;
+}
+
+//=============================================================================
+
+.separator-width {
+  width: 20%;
+}
+
+//=============================================================================
+
+.table-panel {
+  flex: 1 1 auto;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 //=============================================================================
 
 flat-button {
-  margin-left : 4px;
+  margin-left: 4px;
+  margin-right: 4px;
 }
 
 //=============================================================================
+

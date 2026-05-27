@@ -26,6 +26,7 @@ import {PortfolioService} from "../../../../../../service/portfolio.service";
 import {LocalService} from "../../../../../../service/local.service";
 import {Setting} from "../../../../../../model/setting";
 import {AppEvent} from "../../../../../../model/event";
+import {RoundBox} from "../../../../../../component/form/round-box/round-box";
 
 //=============================================================================
 
@@ -33,7 +34,7 @@ import {AppEvent} from "../../../../../../model/event";
     selector: 'trading-panel',
     templateUrl: './trading.panel.html',
     styleUrls: ['./trading.panel.scss'],
-    imports: [MatButtonModule, MatCardModule, MatIconModule, MatInputModule, RouterModule, MatTabsModule, ReactiveFormsModule, MatButtonToggle, MatButtonToggleGroup, TradingCard, FormsModule]
+  imports: [MatButtonModule, MatCardModule, MatIconModule, MatInputModule, RouterModule, MatTabsModule, ReactiveFormsModule, MatButtonToggle, MatButtonToggleGroup, TradingCard, FormsModule, RoundBox]
 })
 
 //=============================================================================

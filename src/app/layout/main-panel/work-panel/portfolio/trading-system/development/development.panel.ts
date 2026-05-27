@@ -32,6 +32,7 @@ import {PortfolioService} from "../../../../../../service/portfolio.service";
 import {FlatButton} from "../../../../../../component/form/flat-button/flat-button";
 import {ConfirmationDialog} from "../../../../../../component/form/confirmation-dialog/confirmation-dialog.component";
 import {ConfirmationDialogData} from "../../../../../../component/form/confirmation-dialog/confirmation.data";
+import {RoundBox} from "../../../../../../component/form/round-box/round-box";
 
 //=============================================================================
 
@@ -39,7 +40,7 @@ import {ConfirmationDialogData} from "../../../../../../component/form/confirmat
     selector: 'development-panel',
     templateUrl: './development.panel.html',
     styleUrls: ['./development.panel.scss'],
-  imports: [RouterModule, MatTabsModule, ReactiveFormsModule, FormsModule, MatButton, MatFormField, MatIcon, MatIconButton, MatInput, MatLabel, MatSuffix, DevelopmentCard, FlatButton]
+  imports: [RouterModule, MatTabsModule, ReactiveFormsModule, FormsModule, MatButton, MatFormField, MatIcon, MatIconButton, MatInput, MatLabel, MatSuffix, DevelopmentCard, FlatButton, RoundBox]
 })
 
 //=============================================================================

@@ -19,6 +19,7 @@
   gap: 0;
   height   : 100%;
   overflow: hidden;
+  background-color: $backgroundColor;
 }
 
 //=============================================================================
@@ -26,7 +27,7 @@
 .left-layout {
   width: 340px;
   overflow-y: auto;
-  background-color: $backgroundColor;
+  //background-color: $backgroundColor;
   padding-top: 8px;
 }
 
@@ -63,7 +64,6 @@ mat-accordion input-number-required {
   gap: 8px;
   height   : 100%;
   overflow: hidden;
-  background-color: $backgroundColor;
 }
 
 //=============================================================================
@@ -71,7 +71,6 @@ mat-accordion input-number-required {
 .buttons-layout {
   padding-top: 4px;
   padding-left: 4px;
-  background-color: white;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;

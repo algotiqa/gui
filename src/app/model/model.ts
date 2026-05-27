@@ -129,12 +129,27 @@ export class Connection extends ConnectionSpec {
 
 //=============================================================================
 
+export class ConnectionExt extends Connection {
+  dataProducts   : DataProductFull[] = []
+  brokerProducts : DataProductFull[] = []
+}
+
+//=============================================================================
+
 export class ConnectionRequest {
   systemCode?   : string
   configValues  : any
   connectValues : any
 }
 
+//=============================================================================
+
+export enum ConnectionDeleteResponse {
+  Ok              = "ok",
+  Connected       = "connected",
+  DataProducts    = "dataProducts",
+  BrokerProducts  = "brokerProducts",
+}
 //=============================================================================
 
 export const ConnectionResultStatusError     = -1

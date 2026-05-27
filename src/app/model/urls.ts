@@ -26,6 +26,7 @@ export enum Url {
   Tool_BiasAnalysis_Id         = "tool/bias-analysis/:id",
 
   Admin_Connections            = "admin/connections",
+  Admin_Connections_Id         = "admin/connections/:id",
   Admin_Config                 = "admin/config",
   Admin_Maintenance            = "admin/maintenance",
 

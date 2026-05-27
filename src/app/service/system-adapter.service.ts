@@ -63,6 +63,12 @@ export class SystemAdapterService {
 
   //---------------------------------------------------------------------------
 
+  public disconnect = (connectionCode : string): Observable<void> => {
+    return this.httpService.delete<void>('/api/system/v1/connections/'+ connectionCode);
+  }
+
+  //---------------------------------------------------------------------------
+
   public getRootSymbols = (connectionCode : string, filter : string): Observable<ListResponse<RootSymbol>> => {
     let params = new HttpParams()
     params = params.set("filter", filter)

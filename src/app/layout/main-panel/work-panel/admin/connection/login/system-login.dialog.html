@@ -14,6 +14,6 @@
     </svg>
   </div>
 
-  <button mat-button (click)="onLogin()" [disabled]="loginDisabled || !paramsAreValid()">{{button("login")}}</button>
-  <button mat-button mat-dialog-close>{{button("cancel")}}</button>
+  <flat-button (click)="onLogin()" [disabled]="loginDisabled || !paramsAreValid()" [label]="button('login')"></flat-button>
+  <flat-button mat-dialog-close [label]="button('cancel')"></flat-button>
 </mat-dialog-actions>

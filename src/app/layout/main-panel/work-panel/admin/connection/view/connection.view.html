@@ -1,0 +1,87 @@
+<list-panel [title]="conn.name">
+  <list-buttons>
+    <back-button [page]="Url.Admin_Connections"></back-button>
+    |
+    <delete-button (click)="onDeleteClick()"></delete-button>
+  </list-buttons>
+
+  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+  <list-content>
+    <table>
+      <tr>
+        <td>{{mod("code")}}</td>
+        <td class="data-style">{{conn.code}}</td>
+        <td class="separator-width"></td>
+        <td>{{mod("createdAt")}}</td>
+        <td class="data-style">{{conn.createdAt}}</td>
+        <td class="separator-width"></td>
+        <td>{{mod("supportsData")}}</td>
+        <td class="data-style"><flag [value]="conn.supportsData"></flag></td>
+      </tr>
+
+      <tr>
+        <td>{{mod("systemCode")}}</td>
+        <td class="data-style">{{conn.systemCode}}</td>
+        <td class="separator-width"></td>
+        <td>{{mod("updatedAt")}}</td>
+        <td class="data-style">{{conn.updatedAt}}</td>
+        <td class="separator-width"></td>
+        <td>{{mod("supportsBroker")}}</td>
+        <td class="data-style"><flag [value]="conn.supportsBroker"></flag></td>
+      </tr>
+
+      <tr>
+        <td>{{mod("systemName")}}</td>
+        <td class="data-style">{{conn.systemName}}</td>
+        <td class="separator-width"></td>
+        <td></td>
+        <td></td>
+        <td class="separator-width"></td>
+        <td>{{mod("supportsMultipleData")}}</td>
+        <td class="data-style"><flag [value]="conn.supportsMultipleData"></flag></td>
+      </tr>
+
+      <tr>
+        <td></td>
+        <td></td>
+        <td class="separator-width"></td>
+        <td></td>
+        <td></td>
+        <td class="separator-width"></td>
+        <td>{{mod("supportsInventory")}}</td>
+        <td class="data-style"><flag [value]="conn.supportsInventory"></flag></td>
+      </tr>
+
+      <tr>
+        <td></td>
+        <td></td>
+        <td class="separator-width"></td>
+        <td></td>
+        <td></td>
+        <td class="separator-width"></td>
+        <td>{{mod("connected")}}</td>
+        <td class="data-style"><flag [value]="conn.connected"></flag></td>
+      </tr>
+    </table>
+
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+    <mat-tab-group class="table-panel" [mat-stretch-tabs]="false">
+      <mat-tab label="{{loc('dataProductRefs')}}">
+        <flex-table [columns] = "dataProductCols"
+                    [data]    = "conn.dataProducts"
+        >
+        </flex-table>
+      </mat-tab>
+
+      <mat-tab label="{{loc('brokerProductRefs')}}">
+        <flex-table [columns] = "brokerProductCols"
+                    [data]    = "conn.brokerProducts"
+        >
+        </flex-table>
+      </mat-tab>
+    </mat-tab-group>
+
+  </list-content>
+</list-panel>

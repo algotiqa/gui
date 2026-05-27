@@ -28,12 +28,14 @@
   padding-top: 4px;
   display: flex;
   align-items: baseline;
+  background-color: $backgroundColor;
 
   mat-form-field {
     margin-left: 8px;
   }
   mat-button-toggle-group {
     margin-left: 8px;
+    background-color: #FFFFFF;
   }
 
   button {

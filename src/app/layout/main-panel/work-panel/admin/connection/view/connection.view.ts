@@ -1,0 +1,155 @@
+//=============================================================================
+//===
+//=== Copyright (C) 2026 Andrea Carboni
+//===
+//=== Use of this source code is governed by an MIT-style license that can be
+//=== found in the LICENSE file
+//=============================================================================
+
+import {Component} from '@angular/core';
+
+import {MatInputModule}       from "@angular/material/input";
+import {MatCardModule}        from "@angular/material/card";
+import {MatIconModule}        from "@angular/material/icon";
+import {MatButtonModule}      from "@angular/material/button";
+import {AbstractPanel} from "../../../../../../component/abstract.panel";
+import {EventBusService} from "../../../../../../service/eventbus.service";
+import {LabelService} from "../../../../../../service/label.service";
+import {ActivatedRoute, Router, RouterModule} from "@angular/router";
+import {InventoryService} from "../../../../../../service/inventory.service";
+import {ListButtons, ListContent, ListPanel} from "../../../../../../component/panel/list-panel/list-panel";
+import {ConnectionDeleteResponse, ConnectionExt} from "../../../../../../model/model";
+import {FlexTablePanel} from "../../../../../../component/panel/flex-table/flex-table.panel";
+import {MatTab, MatTabGroup} from "@angular/material/tabs";
+import {Flag} from "../../../../../../component/form/flag/flag";
+import {FlexTableColumn} from "../../../../../../model/flex-table";
+import {LabelTranscoder} from "../../../../../../component/panel/flex-table/transcoders";
+import {FlatButton} from "../../../../../../component/form/flat-button/flat-button";
+import {Url} from "../../../../../../model/urls";
+import {BackButton} from "../../../../../../component/button/back-button/back-button";
+import {DeleteButton} from "../../../../../../component/button/delete-button/delete-button";
+import {MatDialog} from "@angular/material/dialog";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {ConfirmationDialogData} from "../../../../../../component/form/confirmation-dialog/confirmation.data";
+import {ConfirmationDialog} from "../../../../../../component/form/confirmation-dialog/confirmation-dialog.component";
+import {AppEvent} from "../../../../../../model/event";
+
+//=============================================================================
+
+@Component({
+  selector: 'connection-view',
+  templateUrl: './connection.view.html',
+  styleUrls: ['./connection.view.scss'],
+  imports: [MatButtonModule, MatCardModule, MatIconModule, MatInputModule, RouterModule, ListPanel, ListButtons, ListContent, FlexTablePanel, MatTab, MatTabGroup, Flag, FlatButton, BackButton, DeleteButton]
+})
+
+//=============================================================================
+
+export class ConnectionView extends AbstractPanel {
+
+  //-------------------------------------------------------------------------
+  //---
+  //--- Variables
+  //---
+  //-------------------------------------------------------------------------
+
+  connId : number        = 0
+  conn   : ConnectionExt = new ConnectionExt()
+
+  dataProductCols   : FlexTableColumn[] = []
+  brokerProductCols : FlexTableColumn[] = []
+
+  //-------------------------------------------------------------------------
+  //---
+  //--- Constructor
+  //---
+  //-------------------------------------------------------------------------
+
+  constructor(eventBusService      : EventBusService,
+              labelService         : LabelService,
+              router               : Router,
+              private route           : ActivatedRoute,
+              private dialog          : MatDialog,
+              private snackBar        : MatSnackBar,
+              private inventoryService: InventoryService,
+  ) {
+    super(eventBusService, labelService, router, "admin.connection", "connection");
+  }
+
+  //-------------------------------------------------------------------------
+
+  override init = () : void => {
+    this.connId = Number(this.route.snapshot.paramMap.get("id"));
+    this.setupColumns()
+
+    this.inventoryService.getConnectionById(this.connId).subscribe(
+      result => {
+        this.conn = result
+      }
+    )
+  }
+
+  //-------------------------------------------------------------------------
+  //---
+  //--- Events
+  //---
+  //-------------------------------------------------------------------------
+
+  onDeleteClick() {
+    let data : ConfirmationDialogData = {
+      labels: "deleteConnection"
+    }
+
+    this.dialog.open(ConfirmationDialog, {data}).afterClosed().subscribe(result => {
+      if (!result) {
+        return
+      }
+
+      this.inventoryService.deleteConnection(this.connId).subscribe( status => {
+        if (status == ConnectionDeleteResponse.Ok) {
+          this.navigateTo([ Url.Admin_Connections ])
+        }
+        else {
+          let message = this.loc("delete."+status)
+          this.snackBar.open(message, this.button("ok"))
+        }
+      })
+    })
+  }
+
+  //-------------------------------------------------------------------------
+  //---
+  //--- Init methods
+  //---
+  //-------------------------------------------------------------------------
+
+  setupColumns = () => {
+    let dp = this.labelService.getLabel("model.dataProduct");
+
+    this.dataProductCols = [
+      new FlexTableColumn(dp, "symbol"),
+      new FlexTableColumn(dp, "name"),
+      new FlexTableColumn(dp, "marketType", new LabelTranscoder(this.labelService, "map.market")),
+      new FlexTableColumn(dp, "exchangeCode"),
+    ]
+
+    let bp = this.labelService.getLabel("model.brokerProduct");
+
+    this.brokerProductCols = [
+      new FlexTableColumn(dp, "symbol"),
+      new FlexTableColumn(dp, "name"),
+      new FlexTableColumn(dp, "marketType", new LabelTranscoder(this.labelService, "map.market")),
+      new FlexTableColumn(dp, "exchangeCode"),
+    ]
+  }
+
+  //-------------------------------------------------------------------------
+  //---
+  //--- Private methods
+  //---
+  //-------------------------------------------------------------------------
+
+  protected readonly Url = Url;
+}
+
+//=============================================================================

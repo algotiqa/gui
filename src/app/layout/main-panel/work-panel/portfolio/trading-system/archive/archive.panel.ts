@@ -24,6 +24,7 @@ import {PorTradingSystem} from "../../../../../../model/model";
 import {PortfolioService} from "../../../../../../service/portfolio.service";
 import {ArchiveCard} from "./card/archive.card";
 import {AppEvent} from "../../../../../../model/event";
+import {RoundBox} from "../../../../../../component/form/round-box/round-box";
 
 //=============================================================================
 
@@ -31,7 +32,7 @@ import {AppEvent} from "../../../../../../model/event";
     selector: 'archive-panel',
     templateUrl: './archive.panel.html',
     styleUrls: ['./archive.panel.scss'],
-    imports: [RouterModule, MatTabsModule, ReactiveFormsModule, FormsModule, MatFormField, MatIcon, MatIconButton, MatInput, MatLabel, MatSuffix, MatButton, ArchiveCard]
+  imports: [RouterModule, MatTabsModule, ReactiveFormsModule, FormsModule, MatFormField, MatIcon, MatIconButton, MatInput, MatLabel, MatSuffix, MatButton, ArchiveCard, RoundBox]
 })
 
 //=============================================================================

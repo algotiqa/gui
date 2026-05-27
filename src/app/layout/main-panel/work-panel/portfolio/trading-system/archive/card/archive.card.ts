@@ -183,7 +183,7 @@ export class ArchiveCard extends AbstractPanel {
 
   onMenuDelete() {
     let data : ConfirmationDialogData = {
-      labels: "deleteTradingSystems"
+      labels: "deleteTradingSystem"
     }
 
     this.dialog.open(ConfirmationDialog, {data}).afterClosed().subscribe(result => {
