@@ -36,6 +36,7 @@ import {LocalService} from "./app/service/local.service";
 import {StorageService} from "./app/service/storage.service";
 import {ModuleService} from "./app/service/module.service";
 import {BroadcastService} from "./app/service/broadcast.service";
+import {StateService} from "./app/service/state.service";
 
 //=============================================================================
 
@@ -45,7 +46,7 @@ if (environment.production) {
 
 bootstrapApplication(AppComponent, {
 	providers: [
-		importProvidersFrom(BrowserAnimationsModule),
+		// importProvidersFrom(BrowserAnimationsModule),
     importProvidersFrom(MatNativeDateModule),
     provideNativeDateAdapter(), { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
     provideHttpClient(withInterceptorsFromDi()),
@@ -68,6 +69,7 @@ bootstrapApplication(AppComponent, {
     LocalService,
     StorageService,
     SystemAdapterService,
+    StateService,
 	]
 })
 .catch(err => console.error(err));

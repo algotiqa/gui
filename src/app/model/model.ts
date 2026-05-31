@@ -290,8 +290,8 @@ export class BrokerProductSpec {
   costPerOperation? : number
   marginValue?      : number
   increment?        : number
-  marketType?       : string
-  productType?      : string
+  marketType        : string = ""
+  productType       : string = ""
 }
 
 //=============================================================================
@@ -315,8 +315,9 @@ export class BrokerProductFull extends BrokerProduct {
 //=============================================================================
 
 export class BrokerProductExt extends BrokerProduct {
-  connection? : Connection
-  exchange?   : Exchange
+  connection?    : Connection
+  exchange?      : Exchange
+  tradingSystems : InvTradingSystemFull[] = []
 
   public global = (): boolean => {
     if (this.connection != undefined) {
@@ -327,6 +328,13 @@ export class BrokerProductExt extends BrokerProduct {
 
     return false
   };
+}
+
+//=============================================================================
+
+export enum BrokerProductDeleteResponse {
+  Ok              = "ok",
+  TradingSystems  = "tradingSystems",
 }
 
 //=============================================================================

@@ -121,6 +121,18 @@ export abstract class AbstractPanel extends AbstractSubscriber implements OnInit
 
   //---------------------------------------------------------------------------
 
+  public marketType(t : string) : string {
+    return this.map("market", t)
+  }
+
+  //-------------------------------------------------------------------------
+
+  public productType(t : string) : string {
+    return this.map("product", t)
+  }
+
+  //-------------------------------------------------------------------------
+
   public openRightPanel(page : string, rightPanel : string, startEvent?: string, params? : any) {
     console.log("Opening right panel '"+ rightPanel +"' on '"+ page +"'");
 

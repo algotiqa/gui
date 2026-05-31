@@ -1,0 +1,17 @@
+<list-panel [title]="loc('title')">
+  <list-buttons>
+    <create-button (click)="onCreateClick()" [disabled]="disCreate"></create-button>
+    <view-button   (click)="onViewClick()"   [disabled]="disView"></view-button>
+    <edit-button   (click)="onEditClick()"   [disabled]="disEdit"></edit-button>
+  </list-buttons>
+
+  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+  <list-content>
+    <flex-table #table class="form-layout"
+                [columns]     = "columns"
+                [dataProvider]= "service"
+                (onRowsSelected)="onRowSelected($event)"
+    ></flex-table>
+  </list-content>
+</list-panel>

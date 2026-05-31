@@ -253,6 +253,7 @@ model:
     connectionCode  : Connection
     currencyCode    : Currency
     exchangeCode    : Exchange
+    connection      : Connection
 
   presetProduct:
     symbolDefault   : Symbol
@@ -406,17 +407,22 @@ page:
     # ----------------------------------------------------------------------------
 
     brokerProduct:
-      new:              New broker product
-      edit:             Edit broker product
-      connection:       Connection
-      symbol:           Symbol
-      name:             Name
-      pointValue:       Point value
-      costPerOperation: Cost per operation
-      marginValue:      Margin value
-      marketType:       Market
-      productType:      Product
-      exchange:         Exchange
+      title            : Broker products
+      new              : New broker product
+      edit             : Edit broker product
+      connection       : Connection
+      symbol           : Symbol
+      name             : Name
+      pointValue       : Point value
+      costPerOperation : Cost per operation
+      marginValue      : Margin value
+      marketType       : Market
+      productType      : Product
+      exchange         : Exchange
+      tradingSystemRefs: Referencing trading systems
+      delete:
+        ok             : Broker product deleted
+        tradingSystems : There are trading systems referenced. The broker product cannot be deleted
 
     tradingSession:
 
@@ -693,8 +699,8 @@ page:
       system: System
       login:
         title: System login to
-      dataProductRefs  : Data product refs
-      brokerProductRefs: Broker product refs
+      dataProductRefs  : Referencing data products
+      brokerProductRefs: Referencing broker products
       configuration: Configuration
       delete:
         connected     : Before deleting this connection, you have to disconnect from it
@@ -781,6 +787,10 @@ page:
     deleteTradingSystem:
       title  : Delete trading system
       message: Are you sure you want to delete the selected trading system(s)?
+
+    deleteBrokerProduct:
+      title  : Delete broker product
+      message: Are you sure you want to delete this broker product?
 
     deleteConnection:
       title  : Delete connection

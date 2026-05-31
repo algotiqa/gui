@@ -56,8 +56,8 @@ export class BiasConfig {
 //=============================================================================
 
 export class BiasSummaryResponse {
-  biasAnalysis  : BiasAnalysis = {}
-  brokerProduct : BrokerProduct = {}
+  biasAnalysis  : BiasAnalysis       = new BiasAnalysis()
+  brokerProduct : BrokerProduct      = new BrokerProduct()
   result        : DataPointDowList[] = []
 }
 

@@ -17,6 +17,7 @@ import {
   DataProduct, DataProductExt, DataProductSpec,
   TradingSession, TradingSystemSpec, AgentProfile, FinalizationResponse, DataProductFull,
   BrokerProductExt, BrokerProductFull, ReloadTradesResponse, ConnectionExt, ConnectionDeleteResponse,
+  BrokerProductDeleteResponse,
 } from "../model/model";
 import {HttpService, UploadEvent} from "./http.service";
 import { HttpParams } from "@angular/common/http";
@@ -89,7 +90,7 @@ export class InventoryService {
   }
 
   //---------------------------------------------------------------------------
-  //--- Product tool
+  //--- Data Products
   //---------------------------------------------------------------------------
 
   public getDataProducts = (details: boolean): Observable<ListResponse<DataProductFull>> => {
@@ -118,7 +119,7 @@ export class InventoryService {
   }
 
   //---------------------------------------------------------------------------
-  //--- Product brokers
+  //--- Broker Products
   //---------------------------------------------------------------------------
 
   public getBrokerProducts = (details: boolean): Observable<ListResponse<BrokerProductFull>> => {
@@ -144,6 +145,12 @@ export class InventoryService {
 
   public updateBrokerProduct = (pbs : BrokerProductSpec): Observable<BrokerProduct> => {
     return this.httpService.put<BrokerProduct>('/api/inventory/v1/broker-products/'+pbs.id, pbs);
+  }
+
+  //---------------------------------------------------------------------------
+
+  public deleteBrokerProduct = (id : number): Observable<BrokerProductDeleteResponse> => {
+    return this.httpService.delete<BrokerProductDeleteResponse>('/api/inventory/v1/broker-products/'+id);
   }
 
   //---------------------------------------------------------------------------

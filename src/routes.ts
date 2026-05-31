@@ -16,7 +16,6 @@ import {MonitoringPanel}    from "./app/layout/main-panel/work-panel/portfolio/m
 import {FilteringPanel} from "./app/layout/main-panel/work-panel/portfolio/trading-system/filtering/filtering.panel";
 import {ConnectionList} from "./app/layout/main-panel/work-panel/admin/connection/connection.list";
 import {ConnectionEditPanel} from "./app/layout/main-panel/work-panel/admin/connection/edit/edit.panel";
-import {InvBrokerProductPanel} from "./app/layout/main-panel/work-panel/inventory/product-broker/product-broker.list";
 import {ProductDataEditPanel} from "./app/layout/main-panel/work-panel/inventory/product-data/edit/product-data.edit";
 import {
   ProductDataCreatePanel
@@ -67,6 +66,8 @@ import {MaintenancePanel} from "./app/layout/main-panel/work-panel/admin/mainten
 import {AgentProfilePanel} from "./app/layout/main-panel/work-panel/inventory/agent-profile/agent-profile.list";
 import {TradingSessionPanel} from "./app/layout/main-panel/work-panel/inventory/trading-session/trading-session.list";
 import {ConnectionView} from "./app/layout/main-panel/work-panel/admin/connection/view/connection.view";
+import {BrokerProductView} from "./app/layout/main-panel/work-panel/inventory/product-broker/view/broker-product.view";
+import {BrokerProductList} from "./app/layout/main-panel/work-panel/inventory/product-broker/broker-product.list";
 
 //=============================================================================
 
@@ -89,7 +90,8 @@ export const routes: Routes = [
 
   { path: Url.Right_DataProduct_Create,           component: ProductDataCreatePanel,   outlet : 'right' },
   { path: Url.Right_DataProduct_Edit,             component: ProductDataEditPanel,     outlet : 'right' },
-  { path: Url.Inventory_BrokerProducts,           component: InvBrokerProductPanel           },
+  { path: Url.Inventory_BrokerProducts,           component: BrokerProductList               },
+  { path: Url.Inventory_BrokerProducts_Id,        component: BrokerProductView               },
   { path: Url.Inventory_TradingSessions,          component: TradingSessionPanel             },
   { path: Url.Inventory_AgentProfiles,            component: AgentProfilePanel               },
   { path: Url.Right_BrokerProduct_Create,         component: BrokerProductCreatePanel, outlet : 'right' },
