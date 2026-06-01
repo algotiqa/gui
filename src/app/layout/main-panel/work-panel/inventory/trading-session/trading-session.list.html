@@ -1,17 +1,17 @@
-<div class="main-panel">
-  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-
-  <div>
-<!--    <button mat-button (click)="onCreateClick()" [disabled]="disCreate">{{button("create")}}</button>-->
-<!--    <button mat-button (click)="onViewClick()"   [disabled]="disView">{{button("view")}}</button>-->
-<!--    <button mat-button (click)="onEditClick()"   [disabled]="disEdit">{{button("edit")}}</button>-->
-  </div>
+<list-panel [title]="loc('title')">
+  <list-buttons>
+<!--    <create-button (click)="onCreateClick()" [disabled]="disCreate"></create-button>-->
+<!--    <view-button   (click)="onViewClick()"   [disabled]="disView"></view-button>-->
+<!--    <edit-button   (click)="onEditClick()"   [disabled]="disEdit"></edit-button>-->
+  </list-buttons>
 
   <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
-  <flex-table #table class="table-panel"
-              [columns]     = "columns"
-              [dataProvider]= "service"
-              (onRowsSelected)="onRowSelected($event)"
-  ></flex-table>
-</div>
+  <list-content>
+    <flex-table #table class="form-layout"
+                [columns]     = "columns"
+                [dataProvider]= "service"
+                (onRowsSelected)="onRowSelected($event)"
+    ></flex-table>
+  </list-content>
+</list-panel>

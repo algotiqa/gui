@@ -1,0 +1,43 @@
+<list-panel [title]="loc('title')">
+  <list-buttons>
+    <back-button></back-button>
+    <period-selector [(period)]="period" (periodChange)="onPeriodChange($event)"></period-selector>
+    <timeframe-selector #timeframeCtrl [label]="loc('timeframe')" [(value)]="timeframe" (valueChange)="onTimeframeChange($event)"></timeframe-selector>
+    <select-required    #timezoneCtrl [label]="loc('timezone')"  [(key)]  ="timezone"  keyField="timezone" valueField="code" [list]="timezones" (keyChange)="onTimezoneChange($event)"></select-required>
+
+    <span class="spacer"></span>
+    <mat-icon class="reduce-status" style="color:{{drillStyle()}}">candlestick_chart</mat-icon>
+  </list-buttons>
+
+  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+  <list-content>
+    <div class="main-layout">
+      <flex-table #instrTable class="left-layout"
+                  [columns]       = "columns"
+                  [dataProvider]  = "service"
+                  (onRowsSelected)="onRowSelected($event)"
+      ></flex-table>
+
+      <div class="chart-layout">
+        <apx-chart
+          #mainChart
+          [series]     = "mainChartOptions.series"
+          [chart]      = "mainChartOptions.chart"
+          [xaxis]      = "mainChartOptions.xaxis"
+          [plotOptions]= "mainChartOptions.plotOptions"
+        ></apx-chart>
+        <apx-chart
+          #smallChart
+          [series]     = "smallChartOptions.series"
+          [chart]      = "smallChartOptions.chart"
+          [xaxis]      = "smallChartOptions.xaxis"
+          [yaxis]      = "smallChartOptions.yaxis"
+          [dataLabels] = "smallChartOptions.dataLabels"
+          [stroke]     = "smallChartOptions.stroke"
+          [plotOptions]= "smallChartOptions.plotOptions"
+        ></apx-chart>
+      </div>
+    </div>
+  </list-content>
+</list-panel>

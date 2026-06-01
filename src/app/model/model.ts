@@ -144,12 +144,14 @@ export class ConnectionRequest {
 
 //=============================================================================
 
-export enum ConnectionDeleteResponse {
+export enum DeleteResponse {
   Ok              = "ok",
   Connected       = "connected",
   DataProducts    = "dataProducts",
   BrokerProducts  = "brokerProducts",
+  TradingSystems  = "tradingSystems",
 }
+
 //=============================================================================
 
 export const ConnectionResultStatusError     = -1
@@ -328,13 +330,6 @@ export class BrokerProductExt extends BrokerProduct {
 
     return false
   };
-}
-
-//=============================================================================
-
-export enum BrokerProductDeleteResponse {
-  Ok              = "ok",
-  TradingSystems  = "tradingSystems",
 }
 
 //=============================================================================

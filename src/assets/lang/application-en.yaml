@@ -370,6 +370,7 @@ page:
 
   inventory:
     dataProduct:
+      title      : Data products
       new        : New data product
       edit       : Edit data product
       instruments: Instruments
@@ -387,10 +388,12 @@ page:
         parser  : Parser
         continuous: Continuous contract
       chart:
+        title    : Instrument chart
         timeframe: Timeframe
         timezone : Timezone
         exchange : Exchange
       data:
+        title    : Instrument data
         fromDate : From date
         toDate   : To date
         timeframe: Timeframe
@@ -425,8 +428,10 @@ page:
         tradingSystems : There are trading systems referenced. The broker product cannot be deleted
 
     tradingSession:
+      title: Trading sessions
 
     agentProfile:
+      title: Agent profiles
 
   # ==============================================================================
 
@@ -620,6 +625,7 @@ page:
 
   tool:
     marketAnalysis:
+      title    : Market analysis
       timeframe: Timeframe
       atrLength: ATR length
 

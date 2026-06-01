@@ -20,6 +20,16 @@ import {MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle} fr
 @Component({
   selector: 'list-buttons',
   template: `<ng-content></ng-content>`,
+  styles: [`
+    :host {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 8px;
+      margin: 4px;
+    }
+  `]
 })
 export class ListButtons {}
 
@@ -28,6 +38,17 @@ export class ListButtons {}
 @Component({
   selector: 'list-content',
   template: `<ng-content></ng-content>`,
+  styles: [`
+  :host {
+    flex: 1 1 auto;
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: stretch;
+    overflow: hidden;
+  }`]
 })
 export class ListContent {}
 

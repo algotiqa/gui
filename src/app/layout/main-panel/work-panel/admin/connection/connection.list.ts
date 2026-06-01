@@ -27,12 +27,14 @@ import {MatDialog} from "@angular/material/dialog";
 import {SystemLoginDialog} from "./login/system-login.dialog";
 import {DialogData} from "./login/dialog-data";
 import {FlagStyler} from "../../../../../component/panel/flex-table/icon-sylers";
-import {CreateButton} from "../../../../../component/button/create-button/create-button";
-import {ViewButton} from "../../../../../component/button/view-button/view-button";
-import {EditButton} from "../../../../../component/button/edit-button/edit-button";
-import {FlatButton} from "../../../../../component/form/flat-button/flat-button";
+import {CreateButton} from "../../../../../component/button/create/create.button";
+import {ViewButton} from "../../../../../component/button/view/view.button";
+import {EditButton} from "../../../../../component/button/edit/edit.button";
 import {ListButtons, ListPanel, ListContent} from "../../../../../component/panel/list-panel/list-panel";
 import {SystemAdapterService} from "../../../../../service/system-adapter.service";
+import {ConnectButton} from "../../../../../component/button/connect/connect.button";
+import {DisconnectButton} from "../../../../../component/button/disconnect/disconnect.button";
+import {NavigationService} from "../../../../../service/navigation.service";
 
 //=============================================================================
 
@@ -40,7 +42,7 @@ import {SystemAdapterService} from "../../../../../service/system-adapter.servic
     selector: 'connection',
     templateUrl: './connection.list.html',
     styleUrls: ['./connection.list.scss'],
-  imports: [MatButtonModule, MatCardModule, MatIconModule, MatInputModule, RouterModule, FlexTablePanel, FlatButton, ListPanel, ListButtons, ListContent, CreateButton, ViewButton, EditButton]
+  imports: [MatButtonModule, MatCardModule, MatIconModule, MatInputModule, RouterModule, FlexTablePanel, ListPanel, ListButtons, ListContent, CreateButton, ViewButton, EditButton, ConnectButton, DisconnectButton]
 })
 
 //=============================================================================
@@ -69,16 +71,18 @@ export class ConnectionList extends AbstractPanel {
   //---
   //-------------------------------------------------------------------------
 
-  constructor(eventBusService      : EventBusService,
-              labelService         : LabelService,
-              router               : Router,
-              inventoryService     : InventoryService,
+  constructor(eventBusService              : EventBusService,
+              labelService                 : LabelService,
+              router                       : Router,
+              inventoryService             : InventoryService,
+              private navigationService    : NavigationService,
               private systemAdapterService : SystemAdapterService,
               public  dialog               : MatDialog
               ) {
 
     super(eventBusService, labelService, router, "admin.connection");
 
+    this.navigationService.set()
     this.service = inventoryService.getConnections;
 
     eventBusService.subscribeToApp(AppEvent.CONNECTION_LIST_RELOAD, () => {

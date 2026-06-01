@@ -16,23 +16,23 @@ import {MonitoringPanel}    from "./app/layout/main-panel/work-panel/portfolio/m
 import {FilteringPanel} from "./app/layout/main-panel/work-panel/portfolio/trading-system/filtering/filtering.panel";
 import {ConnectionList} from "./app/layout/main-panel/work-panel/admin/connection/connection.list";
 import {ConnectionEditPanel} from "./app/layout/main-panel/work-panel/admin/connection/edit/edit.panel";
-import {ProductDataEditPanel} from "./app/layout/main-panel/work-panel/inventory/product-data/edit/product-data.edit";
+import {ProductDataEditPanel} from "./app/layout/main-panel/work-panel/inventory/data-product/edit/data-product.edit";
 import {
   ProductDataCreatePanel
-} from "./app/layout/main-panel/work-panel/inventory/product-data/create/product-data.create";
+} from "./app/layout/main-panel/work-panel/inventory/data-product/create/data-product.create";
 import {
   BrokerProductCreatePanel
-} from "./app/layout/main-panel/work-panel/inventory/product-broker/create/product-broker.create";
+} from "./app/layout/main-panel/work-panel/inventory/broker-product/create/broker-product.create";
 import {
   ProductBrokerEditPanel
-} from "./app/layout/main-panel/work-panel/inventory/product-broker/edit/product-broker.edit";
+} from "./app/layout/main-panel/work-panel/inventory/broker-product/edit/broker-product.edit";
 import {
-  InvDataProductViewPanel
-} from "./app/layout/main-panel/work-panel/inventory/product-data/view/product-data.view";
+  DataProductView
+} from "./app/layout/main-panel/work-panel/inventory/data-product/view/data-product.view";
 import {
   DataInstrumentChartPanel
-} from "./app/layout/main-panel/work-panel/inventory/product-data/view/chart/instrument-data.chart";
-import {InvDataProductPanel} from "./app/layout/main-panel/work-panel/inventory/product-data/product-data.list";
+} from "./app/layout/main-panel/work-panel/inventory/data-product/view/chart/instrument-data.chart";
+import {DataProductList} from "./app/layout/main-panel/work-panel/inventory/data-product/data-product.list";
 import {BiasAnalisysListPanel} from "./app/layout/main-panel/work-panel/tool/bias-analysis/bias-analisys.list";
 import {
   BiasAnalysisCreatePanel
@@ -42,7 +42,7 @@ import { BiasAnalysisPlaygroundPanel
 } from "./app/layout/main-panel/work-panel/tool/bias-analysis/playground/bias-analysis.playground";
 import {
   DataInstrumentDataPanel
-} from "./app/layout/main-panel/work-panel/inventory/product-data/view/data/instrument-data.data";
+} from "./app/layout/main-panel/work-panel/inventory/data-product/view/data/instrument-data.data";
 import {
   BiasAnalysisBacktestPanel
 } from "./app/layout/main-panel/work-panel/tool/bias-analysis/backtest/bias-analysis.backtest";
@@ -66,8 +66,8 @@ import {MaintenancePanel} from "./app/layout/main-panel/work-panel/admin/mainten
 import {AgentProfilePanel} from "./app/layout/main-panel/work-panel/inventory/agent-profile/agent-profile.list";
 import {TradingSessionPanel} from "./app/layout/main-panel/work-panel/inventory/trading-session/trading-session.list";
 import {ConnectionView} from "./app/layout/main-panel/work-panel/admin/connection/view/connection.view";
-import {BrokerProductView} from "./app/layout/main-panel/work-panel/inventory/product-broker/view/broker-product.view";
-import {BrokerProductList} from "./app/layout/main-panel/work-panel/inventory/product-broker/broker-product.list";
+import {BrokerProductView} from "./app/layout/main-panel/work-panel/inventory/broker-product/view/broker-product.view";
+import {BrokerProductList} from "./app/layout/main-panel/work-panel/inventory/broker-product/broker-product.list";
 
 //=============================================================================
 
@@ -78,8 +78,8 @@ export const routes: Routes = [
 
   //--- Inventory
 
-  { path: Url.Inventory_DataProducts,             component: InvDataProductPanel      },
-  { path: Url.Inventory_DataProducts_Id,          component: InvDataProductViewPanel  },
+  { path: Url.Inventory_DataProducts,             component: DataProductList  },
+  { path: Url.Inventory_DataProducts_Id,          component: DataProductView  },
   { path: Url.Inventory_DataProducts_Id, children : [
       { path: Url.Sub_Chart, component:  DataInstrumentChartPanel }
   ]},

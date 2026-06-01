@@ -8,29 +8,20 @@
 
 import {Component, ViewChild} from "@angular/core";
 import {AbstractPanel} from "../../../../../../component/abstract.panel";
-import {SystemAdapterService} from "../../../../../../service/system-adapter.service";
 import {LabelService} from "../../../../../../service/label.service";
 import {EventBusService} from "../../../../../../service/eventbus.service";
 import {Router} from "@angular/router";
-import {InputTextRequired} from "../../../../../../component/form/input-text-required/input-text-required";
-import {MatButton} from "@angular/material/button";
-import {MatInput} from "@angular/material/input";
-import {Connection, InvTradingSystem, PorTradingSystem, TestAdapterRequest} from "../../../../../../model/model";
-import {InputTextOptional} from "../../../../../../component/form/input-text-optional/input-text-optional";
+import {PorTradingSystem} from "../../../../../../model/model";
 import {FlatButton} from "../../../../../../component/form/flat-button/flat-button";
 import {FlexTablePanel} from "../../../../../../component/panel/flex-table/flex-table.panel";
 import {FlexTableColumn, ListResponse, ListService} from "../../../../../../model/flex-table";
 import {InventoryService} from "../../../../../../service/inventory.service";
-import {Url} from "../../../../../../model/urls";
-import {AppEvent} from "../../../../../../model/event";
 import {FlagStyler} from "../../../../../../component/panel/flex-table/icon-sylers";
-import {IsoDateTranscoder, MapTranscoder} from "../../../../../../component/panel/flex-table/transcoders";
+import {MapTranscoder} from "../../../../../../component/panel/flex-table/transcoders";
 import {Observable} from "rxjs";
-import {BiasConfig} from "../../../tool/bias-analysis/model";
 import {PortfolioService} from "../../../../../../service/portfolio.service";
 import {map} from "rxjs/operators";
 import {Lib} from "../../../../../../lib/lib";
-import {InstrumentUploadDialog} from "../../../inventory/product-data/view/instrument-upload.dialog";
 import {MatDialog} from "@angular/material/dialog";
 import {TradingSystemImporterDialog} from "./importer/importer.dialog";
 

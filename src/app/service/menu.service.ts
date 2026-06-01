@@ -144,16 +144,16 @@ export class MenuService extends AbstractSubscriber {
         iconClasses: 'cable'
       },
       {
-        id: 'menu.admin.config',
-        label: this.get('admin.config'),
-        route: Url.Admin_Config,
-        iconClasses: 'tune'
-      },
-      {
         id: 'menu.admin.maintenance',
         label: this.get('admin.maintenance'),
         route: Url.Admin_Maintenance,
         iconClasses: 'handyman'
+      },
+      {
+        id: 'menu.admin.config',
+        label: this.get('admin.config'),
+        route: Url.Admin_Config,
+        iconClasses: 'tune'
       },
       {
         id: 'menu.link',

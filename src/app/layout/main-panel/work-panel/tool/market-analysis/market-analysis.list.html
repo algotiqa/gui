@@ -1,14 +1,14 @@
-<div class="main-panel">
-  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-
-  <div class="toolbar">
+<list-panel [title]="loc('title')">
+  <list-buttons>
     <data-product-selector #tsDataCtrl class="half-width" [productId]="id" (productIdChange)="onProductChange($event)"></data-product-selector>
     <period-selector [(period)]="period" (periodChange)="onPeriodChange($event)"></period-selector>
     <select-required [label]="loc('atrLength')" [(key)]="atrLength" [map] ="atrLengths" (keyChange)="onAtrLengthChange($event)"></select-required>
     <timeframe-selector #timeframeCtrl [label]="loc('timeframe')" [(value)]="timeframe" (valueChange)  ="onTimeframeChange($event)"></timeframe-selector>
-  </div>
+  </list-buttons>
 
   <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
-  <market-analysis-bars class="inner-panel" [barResults]="barResults"></market-analysis-bars>
-</div>
+  <list-content>
+    <market-analysis-bars class="form-layout" [barResults]="barResults"></market-analysis-bars>
+  </list-content>
+</list-panel>

@@ -1,0 +1,291 @@
+//=============================================================================
+//===
+//=== Copyright (C) 2024 Andrea Carboni
+//===
+//=== Use of this source code is governed by an MIT-style license that can be
+//=== found in the LICENSE file
+//=============================================================================
+
+import {Component, ViewChild} from '@angular/core';
+import {RightTitlePanel} from "../../../../../../component/panel/right-title/right-title.panel";
+import {AbstractPanel}   from "../../../../../../component/abstract.panel";
+import {AppEvent} from "../../../../../../model/event";
+import {LabelService} from "../../../../../../service/label.service";
+import {EventBusService} from "../../../../../../service/eventbus.service";
+import {Router} from "@angular/router";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatOptionModule} from "@angular/material/core";
+import {MatSelectModule} from "@angular/material/select";
+
+import {MatInputModule} from "@angular/material/input";
+import {MatIconModule} from "@angular/material/icon";
+import {MatButtonModule} from "@angular/material/button";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {MatDividerModule} from "@angular/material/divider";
+import {InputTextRequired} from "../../../../../../component/form/input-text-required/input-text-required";
+import {BrokerProductSpec, Connection, Exchange, RootSymbol} from "../../../../../../model/model";
+import {SelectRequired} from "../../../../../../component/form/select-required/select-required";
+import {InventoryService} from "../../../../../../service/inventory.service";
+import {InputNumberRequired} from "../../../../../../component/form/input-integer-required/input-number-required";
+import {
+  PresetProductSelectorDialog
+} from "../../../../../../component/form/preset-product-selector/preset-product-selector.dialog";
+import {PresetProduct, PresetsService} from "../../../../../../service/presets.service";
+import {MatDialog} from "@angular/material/dialog";
+import {TextSelectorPanel} from "../../../../../../component/form/text-selector/text-selector.panel";
+import {
+  RootProductSelectorDialog
+} from "../../../../../../component/form/root-product-selector/root-product-selector.dialog";
+import {DialogData} from "../../../../../../component/form/root-product-selector/dialog-data";
+
+//=============================================================================
+
+enum Status {
+  Selecting = 0,
+  Local     = 1,
+  Inventory = 2
+}
+
+//=============================================================================
+
+@Component({
+    selector: "broker-product-create",
+    templateUrl: './broker-product.create.html',
+    styleUrls: [ './broker-product.create.scss'],
+    imports: [RightTitlePanel, MatFormFieldModule, MatOptionModule, MatSelectModule, MatInputModule, MatIconModule, MatButtonModule, FormsModule, ReactiveFormsModule, MatDividerModule, InputTextRequired, SelectRequired, InputNumberRequired, TextSelectorPanel]
+})
+
+//=============================================================================
+
+export class BrokerProductCreatePanel extends AbstractPanel {
+
+  //-------------------------------------------------------------------------
+  //---
+  //--- Variables
+  //---
+  //-------------------------------------------------------------------------
+
+  pb = new BrokerProductSpec()
+  connections : Connection[] = []
+  markets     : Object[]     = []
+  products    : Object[]     = []
+  exchanges   : Exchange[]   = []
+
+  status = Status.Selecting
+  currConn? : Connection
+
+  @ViewChild("pbConnCtrl")         pbConnCtrl?         : SelectRequired
+
+  @ViewChild("pbSymbolCtrl")       pbSymbolCtrl?       : InputTextRequired
+  @ViewChild("pbNameCtrl")         pbNameCtrl?         : InputTextRequired
+  @ViewChild("pbPointValueCtrl")   pbPointValueCtrl?   : InputNumberRequired
+  @ViewChild("pbCostPerOperCtrl")  pbCostPerOperCtrl?  : InputNumberRequired
+  @ViewChild("pbMarginValueCtrl")  pbMarginValueCtrl?  : InputNumberRequired
+  @ViewChild("pbIncrementCtrl")    pdIncrementCtrl?    : InputNumberRequired
+  @ViewChild("pbMarketCtrl")       pbMarketCtrl?       : SelectRequired
+  @ViewChild("pbProductCtrl")      pbProductCtrl?      : SelectRequired
+  @ViewChild("pbExchangeCtrl")     pbExchangeCtrl?     : SelectRequired
+
+  private connMap = new Map<number, Connection>()
+
+  //-------------------------------------------------------------------------
+
+  readonly Status = Status
+
+  //-------------------------------------------------------------------------
+  //---
+  //--- Constructor
+  //---
+  //-------------------------------------------------------------------------
+
+  constructor(eventBusService          : EventBusService,
+              labelService             : LabelService,
+              router                   : Router,
+              public  dialog           : MatDialog,
+              private inventoryService : InventoryService,
+              private presetsService   : PresetsService) {
+
+    super(eventBusService, labelService, router, "inventory.brokerProduct", "brokerProduct");
+    super.subscribeToApp(AppEvent.BROKERPRODUCT_CREATE_START, (e : AppEvent) => this.onStart(e));
+
+    inventoryService.getConnections().subscribe(
+      result => {
+        this.connections = [];
+        this.connMap     = new Map<number, Connection>()
+
+        result.result.forEach( (c, i, a) => {
+          if (c.id != null) {
+            if (c.supportsBroker) {
+              this.connections = [ ...this.connections, c]
+              this.connMap.set(c.id, c)
+            }
+          }
+        })
+      })
+
+    inventoryService.getExchanges().subscribe(
+      result => {
+        this.exchanges = result.result;
+      })
+  }
+
+  //-------------------------------------------------------------------------
+  //---
+  //--- Events
+  //---
+  //-------------------------------------------------------------------------
+
+  private onStart(event : AppEvent) : void {
+    console.log("ProductBrokerCreatePanel: Starting...");
+
+    this.pb       = new BrokerProductSpec()
+    this.status   = Status.Selecting
+    this.markets  = this.labelService.getLabel("map.market")
+    this.products = this.labelService.getLabel("map.product")
+  }
+
+  //-------------------------------------------------------------------------
+
+  onConnectionChange(key: any) {
+    let conn = this.connMap.get(key)
+
+    if (conn) {
+      if (conn.supportsInventory) {
+        this.status = Status.Inventory
+      }
+      else {
+        this.status = Status.Local
+      }
+    }
+    else {
+      this.status = Status.Selecting
+    }
+
+    this.currConn = conn
+  }
+
+  //-------------------------------------------------------------------------
+
+  public onSearch() {
+    const dialogRef = this.dialog.open(RootProductSelectorDialog, {
+      minWidth : "1200px",
+      data     : <DialogData>{
+        connectionCode: this.currConn?.code
+      }
+    })
+
+    dialogRef.afterClosed().subscribe((rs : RootSymbol) => {
+      if (rs) {
+        this.pb.symbol     = rs.code
+        this.pb.name       = rs.instrument
+        this.pb.exchangeId = this.getExchangeId(rs.exchange)
+        this.pb.productType= "FU"
+        this.pb.pointValue = rs.pointValue
+        this.pb.increment  = rs.increment
+
+        if (this.currConn) {
+          let preset = this.presetsService.getProduct(rs.code, this.currConn?.systemCode)
+          if (preset != undefined) {
+            this.pb.costPerOperation = preset.costPerOperation
+            this.pb.marginValue      = preset.margin
+            this.pb.marketType       = preset.market
+          }
+        }
+      }
+    })
+  }
+
+  //-------------------------------------------------------------------------
+
+  public saveEnabled() : boolean|undefined {
+    let symbolValid = false
+
+    if (this.pbSymbolCtrl) {
+      //--- Symbol is defined when the connection is LOCAL
+      symbolValid = this.pbSymbolCtrl.isValid()
+    }
+    else {
+      //--- Symbol is undefined when the connection is other
+      if (this.pb.symbol) {
+        symbolValid = this.pb.symbol.length > 0
+      }
+    }
+
+    return  this.pbConnCtrl        ?.isValid() &&
+            symbolValid                        &&
+            this.pbNameCtrl        ?.isValid() &&
+            this.pbPointValueCtrl  ?.isValid() &&
+            this.pbCostPerOperCtrl ?.isValid() &&
+            this.pbMarginValueCtrl ?.isValid() &&
+            this.pdIncrementCtrl   ?.isValid() &&
+            this.pbMarketCtrl      ?.isValid() &&
+            this.pbProductCtrl     ?.isValid() &&
+            this.pbExchangeCtrl    ?.isValid()
+  }
+
+  //-------------------------------------------------------------------------
+
+  public onSave() : void {
+
+    console.log("Broker product is : \n"+ JSON.stringify(this.pb));
+
+    this.inventoryService.addBrokerProduct(this.pb).subscribe( c => {
+      this.onClose();
+      this.emitToApp(new AppEvent<any>(AppEvent.BROKERPRODUCT_LIST_RELOAD))
+    })
+  }
+
+  //-------------------------------------------------------------------------
+
+  public onPresets() : void {
+    const dialogRef = this.dialog.open(PresetProductSelectorDialog, {
+      minWidth: "1024px",
+      minHeight: "800px",
+      data: {
+      }
+    })
+
+    dialogRef.afterClosed().subscribe((pp : PresetProduct) => {
+      if (pp) {
+        this.pb.symbol          = pp.symbolDefault
+        this.pb.name            = pp.name
+        this.pb.increment       = pp.increment
+        this.pb.marketType      = pp.market
+        this.pb.productType     = pp.product
+        this.pb.exchangeId      = this.getExchangeId(pp.exchange)
+        this.pb.pointValue      = pp.pointValue
+        this.pb.costPerOperation= pp.costPerOperation
+        this.pb.marginValue     = pp.margin
+      }
+    })
+  }
+
+  //-------------------------------------------------------------------------
+
+  public onClose() : void {
+    let event = new AppEvent(AppEvent.RIGHT_PANEL_CLOSE);
+    super.emitToApp(event);
+  }
+
+  //-------------------------------------------------------------------------
+  //---
+  //--- Private methods
+  //---
+  //-------------------------------------------------------------------------
+
+  private getExchangeId(code : string) : number {
+    let id = 0
+
+    this.exchanges.forEach( ex => {
+      if (ex.code == code) {
+        if (ex.id) {
+          id = ex.id
+        }
+      }
+    })
+
+    return id
+  }
+}
+
+//=============================================================================

@@ -1,21 +1,17 @@
 <div class="main-panel">
   <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
-  <div class="buttons-layout">
-    <ng-content select="list-buttons"></ng-content>
-  </div>
+  <ng-content select="list-buttons"></ng-content>
 
   <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
-  <div class="work-layout">
-    <mat-card class="inner-layout">
-      <mat-card-header>
-        <mat-card-title>{{title}}</mat-card-title>
-      </mat-card-header>
+  <mat-card class="work-layout">
+    <mat-card-header>
+      <mat-card-title>{{title}}</mat-card-title>
+    </mat-card-header>
 
-      <mat-card-content class="content-layout">
-        <ng-content select="list-content"></ng-content>
-      </mat-card-content>
-    </mat-card>
-  </div>
+    <mat-card-content class="content-layout">
+      <ng-content select="list-content"></ng-content>
+    </mat-card-content>
+  </mat-card>
 </div>

@@ -24,30 +24,10 @@
 
 //=============================================================================
 
-.buttons-layout {
-  margin: 4px;
-}
-
-//=============================================================================
-
 .work-layout {
   flex: 1 1 auto;
   margin: 0 12px 12px 12px;
-
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
-  align-items: stretch;
-  overflow: hidden;
-}
-
-//=============================================================================
-
-.inner-layout {
-  flex: 1 1 auto;
   background-color: #FFFFFF;
-  margin: 2px;
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
@@ -60,7 +40,6 @@
 
 .content-layout {
   flex: 1 1 auto;
-  margin-top: 8px;
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;

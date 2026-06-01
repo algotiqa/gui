@@ -1,0 +1,69 @@
+<list-panel [title]="bp.name">
+  <list-buttons>
+    <back-button></back-button>
+    |
+    <delete-button (click)="onDeleteClick()"></delete-button>
+  </list-buttons>
+
+  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+  <list-content>
+    <table>
+      <tr>
+        <td>{{mod("symbol")}}</td>
+        <td class="data-style">{{bp.symbol}}</td>
+        <td class="separator-width"></td>
+        <td>{{mod("pointValue")}}</td>
+        <td class="data-style">{{bp.pointValue}}</td>
+        <td class="separator-width"></td>
+        <td>{{mod("connection")}}</td>
+        <td class="data-style"><a routerLink="/{{Url.Admin_Connections}}/{{bp.connection?.id}}">{{bp.connection?.name}}</a></td>
+      </tr>
+
+      <tr>
+        <td>{{mod("exchangeCode")}}</td>
+        <td class="data-style">{{bp.exchange?.code}}</td>
+        <td class="separator-width"></td>
+        <td>{{mod("increment")}}</td>
+        <td class="data-style">{{bp.increment}}</td>
+        <td class="separator-width"></td>
+        <td></td>
+        <td class="data-style"></td>
+      </tr>
+
+      <tr>
+        <td>{{mod("marketType")}}</td>
+        <td class="data-style">{{marketType(bp.marketType)}}</td>
+        <td class="separator-width"></td>
+        <td>{{mod("marginValue")}}</td>
+        <td class="data-style">{{bp.marginValue}}</td>
+        <td class="separator-width"></td>
+        <td>{{mod("createdAt")}}</td>
+        <td class="data-style">{{bp.createdAt}}</td>
+      </tr>
+
+      <tr>
+        <td>{{mod("productType")}}</td>
+        <td class="data-style">{{productType(bp.productType)}}</td>
+        <td class="separator-width"></td>
+        <td>{{mod("costPerOperation")}}</td>
+        <td class="data-style">{{bp.costPerOperation}}</td>
+        <td class="separator-width"></td>
+        <td>{{mod("updatedAt")}}</td>
+        <td class="data-style">{{bp.updatedAt}}</td>
+      </tr>
+    </table>
+
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+    <mat-tab-group class="table-panel" [mat-stretch-tabs]="false">
+      <mat-tab label="{{loc('tradingSystemRefs')}}">
+        <flex-table [columns] = "tradingSystemCols"
+                    [data]    = "bp.tradingSystems"
+        >
+        </flex-table>
+      </mat-tab>
+    </mat-tab-group>
+
+  </list-content>
+</list-panel>

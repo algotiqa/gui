@@ -6,18 +6,6 @@
 //=== found in the LICENSE file
 //=============================================================================
 
-list-content {
-  flex: 1 1 auto;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
-  align-items: stretch;
-  overflow: hidden;
-}
-
-//=============================================================================
-
 .data-style {
   font-weight: bold;
 }
@@ -37,11 +25,3 @@ list-content {
 }
 
 //=============================================================================
-
-flat-button {
-  margin-left: 4px;
-  margin-right: 4px;
-}
-
-//=============================================================================
-

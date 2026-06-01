@@ -4,8 +4,8 @@
     <view-button   (click)="onViewClick()"   [disabled]="disView"></view-button>
     <edit-button   (click)="onEditClick()"   [disabled]="disEdit"></edit-button>
     |
-    <flat-button (click)="onConnectClick()"    [disabled]="disConnect" icon="power"     [label]="button('connect')"></flat-button>
-    <flat-button (click)="onDisconnectClick()" [disabled]="disDisconn" icon="power_off" [label]="button('disconnect')"></flat-button>
+    <connect-button    (click)="onConnectClick()"    [disabled]="disConnect"></connect-button>
+    <disconnect-button (click)="onDisconnectClick()" [disabled]="disDisconn" ></disconnect-button>
   </list-buttons>
 
   <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->

@@ -26,6 +26,13 @@ import {MarketAnalysisBarsPanel} from "./daily/market-analysis.bars";
 import {BarResult} from "./model";
 import {TimeframeSelector} from "../../../../../component/form/timeframe-selector/timeframe-selector";
 import {PeriodSelector, PeriodSelectorInfo} from "../../../../../component/form/period-selector/period-selector";
+import {ConnectButton} from "../../../../../component/button/connect/connect.button";
+import {CreateButton} from "../../../../../component/button/create/create.button";
+import {DisconnectButton} from "../../../../../component/button/disconnect/disconnect.button";
+import {EditButton} from "../../../../../component/button/edit/edit.button";
+import {FlexTablePanel} from "../../../../../component/panel/flex-table/flex-table.panel";
+import {ListButtons, ListContent, ListPanel} from "../../../../../component/panel/list-panel/list-panel";
+import {ViewButton} from "../../../../../component/button/view/view.button";
 
 //=============================================================================
 
@@ -35,7 +42,7 @@ import {PeriodSelector, PeriodSelectorInfo} from "../../../../../component/form/
   styleUrls: [ './market-analysis.list.scss'],
   imports: [MatFormFieldModule, MatOptionModule, MatSelectModule,
     MatInputModule, MatIconModule, MatButtonModule, FormsModule, ReactiveFormsModule,
-    MatDividerModule, SelectRequired, DataProductSelector, MarketAnalysisBarsPanel, TimeframeSelector, PeriodSelector
+    MatDividerModule, SelectRequired, DataProductSelector, MarketAnalysisBarsPanel, TimeframeSelector, PeriodSelector, ConnectButton, CreateButton, DisconnectButton, EditButton, FlexTablePanel, ListButtons, ListContent, ListPanel, ViewButton
   ]
 })
 

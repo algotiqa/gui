@@ -22,6 +22,13 @@ import {Router, RouterModule} from "@angular/router";
 import {AppEvent} from "../../../../../model/event";
 import {Observable} from "rxjs";
 import {InventoryService} from "../../../../../service/inventory.service";
+import {ConnectButton} from "../../../../../component/button/connect/connect.button";
+import {CreateButton} from "../../../../../component/button/create/create.button";
+import {DisconnectButton} from "../../../../../component/button/disconnect/disconnect.button";
+import {EditButton} from "../../../../../component/button/edit/edit.button";
+import {ListButtons, ListContent, ListPanel} from "../../../../../component/panel/list-panel/list-panel";
+import {ViewButton} from "../../../../../component/button/view/view.button";
+import {NavigationService} from "../../../../../service/navigation.service";
 
 //=============================================================================
 
@@ -29,7 +36,7 @@ import {InventoryService} from "../../../../../service/inventory.service";
   selector: 'inventory-agent-profile',
   templateUrl: './agent-profile.list.html',
   styleUrls: [ './agent-profile.list.scss'],
-  imports: [MatButtonModule, MatCardModule, MatIconModule, MatInputModule, RouterModule, FlexTablePanel]
+  imports: [MatButtonModule, MatCardModule, MatIconModule, MatInputModule, RouterModule, FlexTablePanel, ConnectButton, CreateButton, DisconnectButton, EditButton, ListButtons, ListContent, ListPanel, ViewButton]
 })
 
 //=============================================================================
@@ -56,13 +63,15 @@ export class AgentProfilePanel extends AbstractPanel {
   //---
   //-------------------------------------------------------------------------
 
-  constructor(eventBusService         : EventBusService,
-              labelService            : LabelService,
-              router                  : Router,
-              private inventoryService: InventoryService) {
+  constructor(eventBusService          : EventBusService,
+              labelService             : LabelService,
+              router                   : Router,
+              private navigationService: NavigationService,
+              private inventoryService : InventoryService) {
 
     super(eventBusService, labelService, router, "inventory.agentProfile");
 
+    this.navigationService.set();
     this.service = this.getAgentProfiles;
 
     eventBusService.subscribeToApp(AppEvent.AGENTPROFILE_LIST_RELOAD, () => {

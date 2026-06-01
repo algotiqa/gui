@@ -1,0 +1,381 @@
+//=============================================================================
+//===
+//=== Copyright (C) 2024 Andrea Carboni
+//===
+//=== Use of this source code is governed by an MIT-style license that can be
+//=== found in the LICENSE file
+//=============================================================================
+
+import {Component, ViewChild} from '@angular/core';
+import {RightTitlePanel} from "../../../../../../component/panel/right-title/right-title.panel";
+import {AbstractPanel}   from "../../../../../../component/abstract.panel";
+import {AppEvent} from "../../../../../../model/event";
+import {LabelService} from "../../../../../../service/label.service";
+import {EventBusService} from "../../../../../../service/eventbus.service";
+import {Router} from "@angular/router";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatOptionModule} from "@angular/material/core";
+import {MatSelectModule} from "@angular/material/select";
+import {MatInputModule} from "@angular/material/input";
+import {MatIconModule} from "@angular/material/icon";
+import {MatButtonModule} from "@angular/material/button";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {MatDividerModule} from "@angular/material/divider";
+import {InputTextRequired} from "../../../../../../component/form/input-text-required/input-text-required";
+import {Connection, DataProductSpec, Exchange, RootSymbol, TradingSession} from "../../../../../../model/model";
+import {SelectRequired} from "../../../../../../component/form/select-required/select-required";
+import {InventoryService} from "../../../../../../service/inventory.service";
+import {MatDialog} from "@angular/material/dialog";
+import {
+  PresetProductSelectorDialog
+} from "../../../../../../component/form/preset-product-selector/preset-product-selector.dialog";
+import {PresetProduct, PresetsService} from "../../../../../../service/presets.service";
+import {TextSelectorPanel} from "../../../../../../component/form/text-selector/text-selector.panel";
+import {
+  RootProductSelectorDialog
+} from "../../../../../../component/form/root-product-selector/root-product-selector.dialog";
+import {DialogData} from "../../../../../../component/form/root-product-selector/dialog-data";
+import {MatCheckbox} from "@angular/material/checkbox";
+
+//=============================================================================
+
+enum Status {
+  Selecting = 0,
+  Local     = 1,
+  Inventory = 2
+}
+
+//=============================================================================
+
+@Component({
+    selector: "data-product-create",
+    templateUrl: './data-product.create.html',
+    styleUrls: [ './data-product.create.scss'],
+    imports: [RightTitlePanel, MatFormFieldModule, MatOptionModule, MatSelectModule,
+      MatInputModule, MatIconModule, MatButtonModule, FormsModule, ReactiveFormsModule,
+      MatDividerModule, InputTextRequired, SelectRequired, TextSelectorPanel, MatCheckbox,
+    ]
+})
+
+//=============================================================================
+
+export class ProductDataCreatePanel extends AbstractPanel {
+
+  //-------------------------------------------------------------------------
+  //---
+  //--- Variables
+  //---
+  //-------------------------------------------------------------------------
+
+  pd = new DataProductSpec()
+  connections : Connection[] = []
+  markets     : Object = {}
+  products    : Object = {}
+  exchanges   : Exchange[] = []
+  sessions    : TradingSession[] = []
+  rollTriggers: Object = {}
+
+  status = Status.Selecting
+  currConn? : Connection
+
+  monthJan : boolean = false
+  monthFeb : boolean = false
+  monthMar : boolean = false
+  monthApr : boolean = false
+  monthMay : boolean = false
+  monthJun : boolean = false
+  monthJul : boolean = false
+  monthAug : boolean = false
+  monthSep : boolean = false
+  monthOct : boolean = false
+  monthNov : boolean = false
+  monthDec : boolean = false
+
+  //-------------------------------------------------------------------------
+
+  @ViewChild("pdConnCtrl")     pdConnCtrl?       : SelectRequired
+
+  @ViewChild("pdSymbolCtrl")   pdSymbolCtrl?     : InputTextRequired
+  @ViewChild("pdNameCtrl")     pdNameCtrl?       : InputTextRequired
+  @ViewChild("pdMarketCtrl")   pdMarketCtrl?     : SelectRequired
+  @ViewChild("pdProductCtrl")  pdProductCtrl?    : SelectRequired
+  @ViewChild("pdExchangeCtrl") pdExchangeCtrl?   : SelectRequired
+  @ViewChild("pdRollTypeCtrl") pdRollTypeCtrl?   : SelectRequired
+  @ViewChild("pdSessionCtrl")  pdSessionCtrl?    : SelectRequired
+
+  //-------------------------------------------------------------------------
+
+  private connMap = new Map<number, Connection>()
+
+  //-------------------------------------------------------------------------
+
+  readonly Status = Status
+
+  //-------------------------------------------------------------------------
+  //---
+  //--- Constructor
+  //---
+  //-------------------------------------------------------------------------
+
+  constructor(eventBusService          : EventBusService,
+              labelService             : LabelService,
+              router                   : Router,
+              public  dialog           : MatDialog,
+              private inventoryService : InventoryService,
+              private presetsService   : PresetsService) {
+
+    super(eventBusService, labelService, router, "inventory.dataProduct", "dataProduct");
+    super.subscribeToApp(AppEvent.DATAPRODUCT_CREATE_START, (e : AppEvent) => this.onStart(e));
+
+    inventoryService.getConnections().subscribe(
+      result => {
+        this.connections = [];
+        this.connMap     = new Map<number, Connection>()
+
+        result.result.forEach( (c, i, a) => {
+          if (c.id != null) {
+            if (c.supportsData) {
+              this.connections = [ ...this.connections, c]
+              this.connMap.set(c.id, c)
+            }
+          }
+        })
+      })
+
+    inventoryService.getExchanges().subscribe(
+      result => {
+        this.exchanges = result.result;
+      })
+
+    inventoryService.getTradingSessions().subscribe(
+      result => {
+        this.sessions = result.result;
+      })
+  }
+
+  //-------------------------------------------------------------------------
+  //---
+  //--- Events
+  //---
+  //-------------------------------------------------------------------------
+
+  private onStart(event : AppEvent) : void {
+    console.log("ProductDataCreatePanel: Starting...");
+
+    this.pd           = new DataProductSpec()
+    this.status       = Status.Selecting
+    this.markets      = this.labelService.getLabel("map.market")
+    this.products     = this.labelService.getLabel("map.product")
+    this.rollTriggers = this.labelService.getLabel("map.rolloverTrigger")
+  }
+
+  //-------------------------------------------------------------------------
+
+  onConnectionChange(key: any) {
+    let conn = this.connMap.get(key)
+
+    if (conn) {
+      if (conn.supportsInventory) {
+        this.status = Status.Inventory
+      }
+      else {
+        this.status = Status.Local
+      }
+    }
+    else {
+      this.status = Status.Selecting
+    }
+
+    this.currConn        = conn
+    this.pd              = new DataProductSpec()
+    this.pd.connectionId = conn?.id
+  }
+
+  //-------------------------------------------------------------------------
+
+  public onSearch() {
+    const dialogRef = this.dialog.open(RootProductSelectorDialog, {
+      minWidth : "1200px",
+      data     : <DialogData>{
+        connectionCode: this.currConn?.code,
+      }
+    })
+
+    dialogRef.afterClosed().subscribe((rs : RootSymbol) => {
+      if (rs) {
+        this.pd.symbol          = rs.code
+        this.pd.name            = rs.instrument
+        this.pd.exchangeId      = this.getExchangeId(rs.exchange)
+        this.pd.productType     = "FU"
+        this.pd.marketType      = undefined
+        this.pd.months          = "fghjkmnquvxz"
+        this.pd.rolloverTrigger = undefined
+
+        if (this.currConn) {
+          let preset = this.presetsService.getProduct(rs.code, this.currConn?.systemCode)
+          if (preset != undefined) {
+            this.pd.marketType      = preset.market
+            this.pd.months          = preset.months
+            this.pd.rolloverTrigger = preset.rollover
+            this.pd.sessionId       = preset.sessionId
+          }
+        }
+
+        this.setupContractMonths(this.pd.months)
+      }
+    })
+  }
+
+  //-------------------------------------------------------------------------
+
+  public saveEnabled() : boolean|undefined {
+    //--- Validate symbol
+
+    let symbolValid = false
+    let rollValid   = true
+
+    if (this.pdSymbolCtrl) {
+      //--- Symbol is defined when the connection is LOCAL
+      symbolValid = this.pdSymbolCtrl.isValid()
+    }
+    else {
+      //--- Symbol is undefined when the connection is other
+      if (this.pd.symbol) {
+        symbolValid = this.pd.symbol.length > 0
+      }
+
+      if (this.pdRollTypeCtrl) {
+        rollValid = this.pdRollTypeCtrl.isValid()
+      }
+    }
+
+    //--- Overall
+
+    return  this.pdConnCtrl    ?.isValid() &&
+            symbolValid                    &&
+            rollValid                      &&
+            this.pdNameCtrl    ?.isValid() &&
+            this.pdMarketCtrl  ?.isValid() &&
+            this.pdProductCtrl ?.isValid() &&
+            this.pdExchangeCtrl?.isValid() &&
+            this.pdSessionCtrl ?.isValid()
+  }
+
+  //-------------------------------------------------------------------------
+
+  public onSave() : void {
+
+    console.log("Data product is : \n"+ JSON.stringify(this.pd));
+    this.pd.months = this.buildMonths()
+
+    this.inventoryService.addDataProduct(this.pd).subscribe( c => {
+      this.onClose();
+      this.emitToApp(new AppEvent<any>(AppEvent.DATAPRODUCT_LIST_RELOAD))
+    })
+  }
+
+  //-------------------------------------------------------------------------
+
+  public onPresets() : void {
+    const dialogRef = this.dialog.open(PresetProductSelectorDialog, {
+      minWidth: "1024px",
+      minHeight: "700px",
+      data: {
+      }
+    })
+
+    dialogRef.afterClosed().subscribe((pp : PresetProduct) => {
+      if (pp) {
+        this.pd.symbol      = pp.symbolDefault
+        this.pd.name        = pp.name
+        this.pd.marketType  = pp.market
+        this.pd.productType = pp.product
+        this.pd.sessionId   = pp.sessionId
+        this.pd.exchangeId  = this.getExchangeId(pp.exchange)
+      }
+    })
+  }
+
+  //-------------------------------------------------------------------------
+
+  public onClose() : void {
+    let event = new AppEvent(AppEvent.RIGHT_PANEL_CLOSE);
+    super.emitToApp(event);
+  }
+
+  //-------------------------------------------------------------------------
+
+  monthExists(code:string) : boolean {
+    if (this.pd.months) {
+      return this.pd.months.toLowerCase().indexOf(code.toLowerCase()) != -1
+    }
+
+    return false
+  }
+
+  //-------------------------------------------------------------------------
+  //---
+  //--- Private methods
+  //---
+  //-------------------------------------------------------------------------
+
+  private getExchangeId(code : string) : number {
+  let id = 0
+
+    this.exchanges.forEach( ex => {
+      if (ex.code == code) {
+        if (ex.id) {
+          id = ex.id
+        }
+      }
+    })
+
+    return id
+  }
+
+  //-------------------------------------------------------------------------
+
+  private setupContractMonths(months : string) {
+    this.monthJan = this.monthTraded(months, "F")
+    this.monthFeb = this.monthTraded(months, "G")
+    this.monthMar = this.monthTraded(months, "H")
+    this.monthApr = this.monthTraded(months, "J")
+    this.monthMay = this.monthTraded(months, "K")
+    this.monthJun = this.monthTraded(months, "M")
+    this.monthJul = this.monthTraded(months, "N")
+    this.monthAug = this.monthTraded(months, "Q")
+    this.monthSep = this.monthTraded(months, "U")
+    this.monthOct = this.monthTraded(months, "V")
+    this.monthNov = this.monthTraded(months, "X")
+    this.monthDec = this.monthTraded(months, "Z")
+  }
+
+  //-------------------------------------------------------------------------
+
+  private buildMonths() : string {
+    let res = ""
+
+    if (this.monthJan) res = res +"F"
+    if (this.monthFeb) res = res +"G"
+    if (this.monthMar) res = res +"H"
+    if (this.monthApr) res = res +"J"
+    if (this.monthMay) res = res +"K"
+    if (this.monthJun) res = res +"M"
+    if (this.monthJul) res = res +"N"
+    if (this.monthAug) res = res +"Q"
+    if (this.monthSep) res = res +"U"
+    if (this.monthOct) res = res +"V"
+    if (this.monthNov) res = res +"X"
+    if (this.monthDec) res = res +"Z"
+
+    return res
+  }
+
+  //-------------------------------------------------------------------------
+
+  private monthTraded(months : string, code : string) : boolean {
+    return months.indexOf(code) != -1
+  }
+}
+
+//=============================================================================

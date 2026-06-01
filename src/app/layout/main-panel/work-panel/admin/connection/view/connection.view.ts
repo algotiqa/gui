@@ -18,21 +18,20 @@ import {LabelService} from "../../../../../../service/label.service";
 import {ActivatedRoute, Router, RouterModule} from "@angular/router";
 import {InventoryService} from "../../../../../../service/inventory.service";
 import {ListButtons, ListContent, ListPanel} from "../../../../../../component/panel/list-panel/list-panel";
-import {ConnectionDeleteResponse, ConnectionExt} from "../../../../../../model/model";
+import {DeleteResponse, ConnectionExt} from "../../../../../../model/model";
 import {FlexTablePanel} from "../../../../../../component/panel/flex-table/flex-table.panel";
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
 import {Flag} from "../../../../../../component/form/flag/flag";
 import {FlexTableColumn} from "../../../../../../model/flex-table";
 import {LabelTranscoder} from "../../../../../../component/panel/flex-table/transcoders";
-import {FlatButton} from "../../../../../../component/form/flat-button/flat-button";
 import {Url} from "../../../../../../model/urls";
-import {BackButton} from "../../../../../../component/button/back-button/back-button";
-import {DeleteButton} from "../../../../../../component/button/delete-button/delete-button";
+import {BackButton} from "../../../../../../component/button/back/back.button";
+import {DeleteButton} from "../../../../../../component/button/delete/delete.button";
 import {MatDialog} from "@angular/material/dialog";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {ConfirmationDialogData} from "../../../../../../component/form/confirmation-dialog/confirmation.data";
 import {ConfirmationDialog} from "../../../../../../component/form/confirmation-dialog/confirmation-dialog.component";
-import {AppEvent} from "../../../../../../model/event";
+import {NavigationService} from "../../../../../../service/navigation.service";
 
 //=============================================================================
 
@@ -40,7 +39,7 @@ import {AppEvent} from "../../../../../../model/event";
   selector: 'connection-view',
   templateUrl: './connection.view.html',
   styleUrls: ['./connection.view.scss'],
-  imports: [MatButtonModule, MatCardModule, MatIconModule, MatInputModule, RouterModule, ListPanel, ListButtons, ListContent, FlexTablePanel, MatTab, MatTabGroup, Flag, FlatButton, BackButton, DeleteButton]
+  imports: [MatButtonModule, MatCardModule, MatIconModule, MatInputModule, RouterModule, ListPanel, ListButtons, ListContent, FlexTablePanel, MatTab, MatTabGroup, Flag, BackButton, DeleteButton]
 })
 
 //=============================================================================
@@ -65,15 +64,17 @@ export class ConnectionView extends AbstractPanel {
   //---
   //-------------------------------------------------------------------------
 
-  constructor(eventBusService      : EventBusService,
-              labelService         : LabelService,
-              router               : Router,
-              private route           : ActivatedRoute,
-              private dialog          : MatDialog,
-              private snackBar        : MatSnackBar,
-              private inventoryService: InventoryService,
+  constructor(eventBusService          : EventBusService,
+              labelService             : LabelService,
+              router                   : Router,
+              private route            : ActivatedRoute,
+              private dialog           : MatDialog,
+              private snackBar         : MatSnackBar,
+              private inventoryService : InventoryService,
+              private navigationService: NavigationService,
   ) {
     super(eventBusService, labelService, router, "admin.connection", "connection");
+    this.navigationService.push()
   }
 
   //-------------------------------------------------------------------------
@@ -106,7 +107,7 @@ export class ConnectionView extends AbstractPanel {
       }
 
       this.inventoryService.deleteConnection(this.connId).subscribe( status => {
-        if (status == ConnectionDeleteResponse.Ok) {
+        if (status == DeleteResponse.Ok) {
           this.navigateTo([ Url.Admin_Connections ])
         }
         else {

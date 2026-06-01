@@ -16,8 +16,7 @@ import {
   BrokerProduct, BrokerProductSpec,
   DataProduct, DataProductExt, DataProductSpec,
   TradingSession, TradingSystemSpec, AgentProfile, FinalizationResponse, DataProductFull,
-  BrokerProductExt, BrokerProductFull, ReloadTradesResponse, ConnectionExt, ConnectionDeleteResponse,
-  BrokerProductDeleteResponse,
+  BrokerProductExt, BrokerProductFull, ReloadTradesResponse, ConnectionExt, DeleteResponse,
 } from "../model/model";
 import {HttpService, UploadEvent} from "./http.service";
 import { HttpParams } from "@angular/common/http";
@@ -85,8 +84,8 @@ export class InventoryService {
 
   //---------------------------------------------------------------------------
 
-  public deleteConnection = (id : number): Observable<ConnectionDeleteResponse> => {
-    return this.httpService.delete<ConnectionDeleteResponse>('/api/inventory/v1/connections/'+id);
+  public deleteConnection = (id : number): Observable<DeleteResponse> => {
+    return this.httpService.delete<DeleteResponse>('/api/inventory/v1/connections/'+id);
   }
 
   //---------------------------------------------------------------------------
@@ -116,6 +115,12 @@ export class InventoryService {
 
   public updateDataProduct = (pds : DataProductSpec): Observable<DataProduct> => {
     return this.httpService.put<DataProduct>('/api/inventory/v1/data-products/'+pds.id, pds);
+  }
+
+  //---------------------------------------------------------------------------
+
+  public deleteDataProduct = (id : number): Observable<DeleteResponse> => {
+    return this.httpService.delete<DeleteResponse>('/api/inventory/v1/data-products/'+id);
   }
 
   //---------------------------------------------------------------------------
@@ -149,8 +154,8 @@ export class InventoryService {
 
   //---------------------------------------------------------------------------
 
-  public deleteBrokerProduct = (id : number): Observable<BrokerProductDeleteResponse> => {
-    return this.httpService.delete<BrokerProductDeleteResponse>('/api/inventory/v1/broker-products/'+id);
+  public deleteBrokerProduct = (id : number): Observable<DeleteResponse> => {
+    return this.httpService.delete<DeleteResponse>('/api/inventory/v1/broker-products/'+id);
   }
 
   //---------------------------------------------------------------------------

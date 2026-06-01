@@ -1,0 +1,21 @@
+<list-panel [title]="title()">
+  <list-buttons>
+    <back-button></back-button> |
+    <period-selector [(period)]="period" (periodChange)="onPeriodChange($event)"></period-selector>
+    <timeframe-selector #timeframeCtrl [label]="loc('timeframe')" [(value)]="timeframe" (valueChange)="onTimeframeChange($event)"></timeframe-selector>
+    <select-required    #timezoneCtrl    [label]="loc('timezone')"  [(key)]  ="timezone"  keyField="timezone" valueField="code" [list]="timezones" (keyChange)="onTimezoneChange($event)"></select-required>
+
+    <button mat-icon-button (click)="onReload()">
+      <mat-icon>restart_alt</mat-icon>
+    </button>
+  </list-buttons>
+
+  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+  <list-content>
+    <flex-table #table class="form-layout"
+                [columns]     = "columns"
+                [data]    = "dataPoints"
+    ></flex-table>
+  </list-content>
+</list-panel>

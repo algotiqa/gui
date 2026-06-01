@@ -17,6 +17,9 @@ import {AbstractPanel} from "../../../../../component/abstract.panel";
 import {EventBusService} from "../../../../../service/eventbus.service";
 import {MatButtonModule} from "@angular/material/button";
 import {Router, RouterModule} from "@angular/router";
+import {FlexTablePanel} from "../../../../../component/panel/flex-table/flex-table.panel";
+import {ListButtons, ListContent, ListPanel} from "../../../../../component/panel/list-panel/list-panel";
+import {SaveButton} from "../../../../../component/button/save/save.button";
 
 //=============================================================================
 
@@ -24,7 +27,7 @@ import {Router, RouterModule} from "@angular/router";
     selector: 'configuration-panel',
     templateUrl: './configuration.panel.html',
     styleUrls: ['./configuration.panel.scss'],
-    imports: [MatCardModule, MatIconModule, MatDividerModule, MatButtonModule, RouterModule]
+  imports: [MatCardModule, MatIconModule, MatDividerModule, MatButtonModule, RouterModule, FlexTablePanel, ListButtons, ListContent, ListPanel, SaveButton]
 })
 
 //=============================================================================
@@ -71,7 +74,7 @@ export class ConfigurationPanel extends AbstractPanel {
 	//---
 	//-------------------------------------------------------------------------
 
-// 	onSave() {
+	onSaveClick() {
 //
 // 		console.log("Configuration : \n"+ JSON.stringify(this.config));
 //
@@ -83,7 +86,7 @@ export class ConfigurationPanel extends AbstractPanel {
 // 		this.notificationService.showSuccess("Success",           "The system settings have been updated");
 //
 // 		this.labelService.setLanguage(this.config.language);
-// 	}
+	}
 }
 
 //=============================================================================
