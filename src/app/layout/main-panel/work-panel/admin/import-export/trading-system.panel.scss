@@ -6,22 +6,16 @@
 //=== found in the LICENSE file
 //=============================================================================
 
-.main-panel {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
-  align-items: stretch;
-  gap: 0;
-  height   : 100%;
-  overflow: hidden;
+.table-layout {
+  flex: 1 1 auto;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 //=============================================================================
 
-.tabs-layout {
-  flex: 1 1 auto;
-  overflow: auto;
+flat-button {
+  margin: 4px;
 }
 
 //=============================================================================

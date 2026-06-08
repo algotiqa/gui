@@ -7,34 +7,38 @@
 //=============================================================================
 
 import {Component} from "@angular/core";
-import {AbstractPanel} from "../../../../../../component/abstract.panel";
-import {SystemAdapterService} from "../../../../../../service/system-adapter.service";
-import {LabelService} from "../../../../../../service/label.service";
-import {EventBusService} from "../../../../../../service/eventbus.service";
 import {Router} from "@angular/router";
-import {InputTextRequired} from "../../../../../../component/form/input-text-required/input-text-required";
 import {MatButton} from "@angular/material/button";
 import {MatInput} from "@angular/material/input";
-import {TestAdapterRequest} from "../../../../../../model/model";
-import {InputTextOptional} from "../../../../../../component/form/input-text-optional/input-text-optional";
+import {InputTextRequired} from "../../../../../component/form/input-text-required/input-text-required";
+import {InputTextOptional} from "../../../../../component/form/input-text-optional/input-text-optional";
+import {AbstractPanel} from "../../../../../component/abstract.panel";
+import {EventBusService} from "../../../../../service/eventbus.service";
+import {LabelService} from "../../../../../service/label.service";
+import {SystemAdapterService} from "../../../../../service/system-adapter.service";
+import {TestAdapterRequest} from "../../../../../model/model";
+import {ListButtons, ListContent, ListPanel} from "../../../../../component/panel/list-panel/list-panel";
 
 //=============================================================================
 
 @Component({
   selector: 'service-test',
-  templateUrl: './adapter-test.panel.html',
-  styleUrls:  ['./adapter-test.panel.scss'],
+  templateUrl: './adapter-playground.panel.html',
+  styleUrls:  ['./adapter-playground.panel.scss'],
   imports: [
     InputTextRequired,
     MatButton,
     MatInput,
-    InputTextOptional
+    InputTextOptional,
+    ListButtons,
+    ListPanel,
+    ListContent
   ]
 })
 
 //=============================================================================
 
-export class AdapterTestPanel extends AbstractPanel {
+export class AdapterPlaygroundPanel extends AbstractPanel {
 
   //-------------------------------------------------------------------------
   //---
@@ -58,7 +62,7 @@ export class AdapterTestPanel extends AbstractPanel {
               router               : Router,
               private systemService: SystemAdapterService) {
 
-    super(eventBusService, labelService, router, "admin.test");
+    super(eventBusService, labelService, router, "admin.adapterPlayground");
   }
 
   //-------------------------------------------------------------------------

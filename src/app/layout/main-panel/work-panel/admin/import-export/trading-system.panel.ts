@@ -7,23 +7,29 @@
 //=============================================================================
 
 import {Component, ViewChild} from "@angular/core";
-import {AbstractPanel} from "../../../../../../component/abstract.panel";
-import {LabelService} from "../../../../../../service/label.service";
-import {EventBusService} from "../../../../../../service/eventbus.service";
-import {Router} from "@angular/router";
-import {PorTradingSystem} from "../../../../../../model/model";
-import {FlatButton} from "../../../../../../component/form/flat-button/flat-button";
-import {FlexTablePanel} from "../../../../../../component/panel/flex-table/flex-table.panel";
-import {FlexTableColumn, ListResponse, ListService} from "../../../../../../model/flex-table";
-import {InventoryService} from "../../../../../../service/inventory.service";
-import {FlagStyler} from "../../../../../../component/panel/flex-table/icon-sylers";
-import {MapTranscoder} from "../../../../../../component/panel/flex-table/transcoders";
-import {Observable} from "rxjs";
-import {PortfolioService} from "../../../../../../service/portfolio.service";
-import {map} from "rxjs/operators";
-import {Lib} from "../../../../../../lib/lib";
 import {MatDialog} from "@angular/material/dialog";
 import {TradingSystemImporterDialog} from "./importer/importer.dialog";
+import {FlatButton} from "../../../../../component/form/flat-button/flat-button";
+import {FlexTablePanel} from "../../../../../component/panel/flex-table/flex-table.panel";
+import {AbstractPanel} from "../../../../../component/abstract.panel";
+import {FlexTableColumn, ListResponse, ListService} from "../../../../../model/flex-table";
+import {PorTradingSystem} from "../../../../../model/model";
+import {EventBusService} from "../../../../../service/eventbus.service";
+import {LabelService} from "../../../../../service/label.service";
+import {Router} from "@angular/router";
+import {InventoryService} from "../../../../../service/inventory.service";
+import {PortfolioService} from "../../../../../service/portfolio.service";
+import {Observable} from "rxjs";
+import {map} from "rxjs/operators";
+import {Lib} from "../../../../../lib/lib";
+import {MapTranscoder} from "../../../../../component/panel/flex-table/transcoders";
+import {FlagStyler} from "../../../../../component/panel/flex-table/icon-sylers";
+import {ConnectButton} from "../../../../../component/button/connect/connect.button";
+import {CreateButton} from "../../../../../component/button/create/create.button";
+import {DisconnectButton} from "../../../../../component/button/disconnect/disconnect.button";
+import {EditButton} from "../../../../../component/button/edit/edit.button";
+import {ListButtons, ListContent, ListPanel} from "../../../../../component/panel/list-panel/list-panel";
+import {ViewButton} from "../../../../../component/button/view/view.button";
 
 //=============================================================================
 
@@ -33,7 +39,10 @@ import {TradingSystemImporterDialog} from "./importer/importer.dialog";
   styleUrls:  ['./trading-system.panel.scss'],
   imports: [
     FlatButton,
-    FlexTablePanel
+    FlexTablePanel,
+    ListButtons,
+    ListContent,
+    ListPanel,
   ]
 })
 
@@ -67,7 +76,7 @@ export class TradingSystemPanel extends AbstractPanel {
               private inventoryService: InventoryService,
               private portfolioService: PortfolioService) {
 
-    super(eventBusService, labelService, router, "admin.maintenance.tradingSystem");
+    super(eventBusService, labelService, router, "admin.importExport");
     this.service = this.getTradingSystems
   }
 

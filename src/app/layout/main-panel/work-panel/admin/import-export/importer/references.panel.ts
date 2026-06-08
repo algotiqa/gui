@@ -16,9 +16,9 @@ import {MatInputModule} from "@angular/material/input";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatButtonModule} from "@angular/material/button";
 import {MatTooltip} from "@angular/material/tooltip";
-import {ReferencedItem} from "../../../../../../../model/importer";
-import {LabelService} from "../../../../../../../service/label.service";
-import {SelectRequired} from "../../../../../../../component/form/select-required/select-required";
+import {ReferencedItem} from "../../../../../../model/importer";
+import {LabelService} from "../../../../../../service/label.service";
+import {SelectRequired} from "../../../../../../component/form/select-required/select-required";
 
 //=============================================================================
 

@@ -234,22 +234,25 @@ export class TradingCard extends AbstractPanel {
   //---
   //-------------------------------------------------------------------------
 
-  onMenuToArchive() {
-    this.portfolioService.setTradingSystemTrading(this.ts.id, false).subscribe( res => {
-      if (res.status == TspResponseStatus.OK) {
-        this.emitToApp(new AppEvent<any>(AppEvent.TRADINGSYSTEM_TRADING_LIST_RELOAD))
-      }
-      else if (res.status == TspResponseStatus.ERROR) {
-        let message = this.loc("error.toArchive")+" : "+ res.message
-        this.snackBar.open(message, this.button("ok"))
-      }
-    })
+  onMenuView() {
   }
 
   //-------------------------------------------------------------------------
 
-  onMenuDocumentation() {
-    this.moduleService.openDocEditor(this.ts.id)
+  onMenuEdit() {
+    this.openRightPanel(Url.Portfolio_TradingSystems, Url.Right_TradingSystem_DevelopEdit, AppEvent.TRADINGSYSTEM_DEVELOP_EDIT_START, this.ts);
+  }
+
+  //-------------------------------------------------------------------------
+
+  onMenuFilter() {
+    this.navigateTo([ Url.Portfolio_TradingSystems, this.ts.id, Url.Sub_Filtering ]);
+  }
+
+  //-------------------------------------------------------------------------
+
+  onMenuPositionSizing() {
+    this.navigateTo([ Url.Portfolio_TradingSystems, this.ts.id, Url.Sub_PositionSizing ]);
   }
 
   //-------------------------------------------------------------------------
@@ -262,6 +265,26 @@ export class TradingCard extends AbstractPanel {
 
   onMenuSimulation() {
     this.moduleService.openSimulator(this.ts.id)
+  }
+
+  //-------------------------------------------------------------------------
+
+  onMenuDocumentation() {
+    this.moduleService.openDocEditor(this.ts.id)
+  }
+
+  //-------------------------------------------------------------------------
+
+  onMenuToArchive() {
+    this.portfolioService.setTradingSystemTrading(this.ts.id, false).subscribe( res => {
+      if (res.status == TspResponseStatus.OK) {
+        this.emitToApp(new AppEvent<any>(AppEvent.TRADINGSYSTEM_TRADING_LIST_RELOAD))
+      }
+      else if (res.status == TspResponseStatus.ERROR) {
+        let message = this.loc("error.toArchive")+" : "+ res.message
+        this.snackBar.open(message, this.button("ok"))
+      }
+    })
   }
 
   //-------------------------------------------------------------------------

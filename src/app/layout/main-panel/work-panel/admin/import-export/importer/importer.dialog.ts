@@ -16,22 +16,22 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatChipsModule} from "@angular/material/chips";
-import {FileUploader} from "../../../../../../../component/form/file-uploader/file-uploader";
-import {AbstractPanel} from "../../../../../../../component/abstract.panel";
-import {EventBusService} from "../../../../../../../service/eventbus.service";
-import {LabelService} from "../../../../../../../service/label.service";
-import {InventoryService} from "../../../../../../../service/inventory.service";
+import {FileUploader} from "../../../../../../component/form/file-uploader/file-uploader";
+import {AbstractPanel} from "../../../../../../component/abstract.panel";
+import {EventBusService} from "../../../../../../service/eventbus.service";
+import {LabelService} from "../../../../../../service/label.service";
+import {InventoryService} from "../../../../../../service/inventory.service";
 import {
   ImportExecutionSpec,
   ImportOverviewResponse, ImportOverviewSpec, ImportPlan,
   ReferencedItem, SelectedReference, SelectedTradingSystem,
   TradingSystemItem
-} from "../../../../../../../model/importer";
-import {FlexTablePanel} from "../../../../../../../component/panel/flex-table/flex-table.panel";
+} from "../../../../../../model/importer";
+import {FlexTablePanel} from "../../../../../../component/panel/flex-table/flex-table.panel";
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
-import {FlexTableColumn} from "../../../../../../../model/flex-table";
+import {FlexTableColumn} from "../../../../../../model/flex-table";
 import {ReferencesPanel} from "./references.panel";
-import {FlatButton} from "../../../../../../../component/form/flat-button/flat-button";
+import {FlatButton} from "../../../../../../component/form/flat-button/flat-button";
 
 //=============================================================================
 

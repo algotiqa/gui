@@ -183,7 +183,7 @@ export class DataProductView extends AbstractPanel {
     }
 
     //--- In case of a local connection, we cannot enable the reload button
-    
+
     if (this.dp.connection?.supportsMultipleData) {
       this.disReload = true
     }
@@ -254,9 +254,7 @@ export class DataProductView extends AbstractPanel {
 
       this.inventoryService.deleteDataProduct(this.id).subscribe( status => {
         if (status == DeleteResponse.Ok) {
-          let message = this.loc("delete."+status)
-          this.snackBar.open(message, this.button("ok"))
-          this.navigateTo([ Url.Inventory_BrokerProducts ])
+          this.navigateTo([ Url.Inventory_DataProducts ])
         }
         else {
           let message = this.loc("delete."+status)

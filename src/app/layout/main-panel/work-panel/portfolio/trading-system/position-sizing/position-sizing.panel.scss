@@ -6,28 +6,11 @@
 //=== found in the LICENSE file
 //=============================================================================
 
-.main-layout {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
-  align-items: stretch;
-  gap: 4px;
-  height  : 100%;
-  overflow: hidden;
-}
+@import "../../../../../../../styles/variables";
 
 //=============================================================================
 
-.table-layout {
-  flex: 1 1 auto;
-  overflow: auto;
-}
-
-//=============================================================================
-
-flat-button {
-  margin: 4px;
+.main-panel {
 }
 
 //=============================================================================

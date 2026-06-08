@@ -39,17 +39,18 @@ button:
   back      : Back
 
 menu-button:
-  view         : View
-  edit         : Edit
-  filter       : Filter
-  finalize     : Finalize
-  documentation: Documentation
-  toTrading    : Move to trading
-  toArchive    : Archive this system
-  delete       : Delete
-  reloadTrades : Reload trades from agent
-  quality      : Quality
-  simulation   : Simulation
+  view          : View
+  edit          : Edit
+  filtering     : Filtering
+  finalize      : Finalize
+  documentation : Documentation
+  toTrading     : Move to trading
+  toArchive     : Archive this system
+  delete        : Delete
+  reloadTrades  : Reload trades from agent
+  quality       : Quality
+  simulation    : Simulation
+  positionSizing: Position sizing
 
 # ==============================================================================
 # ===
@@ -80,7 +81,8 @@ menu:
     _label: Administration
     connections  : Connections
     config       : Configuration
-    maintenance  : Maintenance
+    importExport : Import / export
+    adapterPlay  : Adapter playground
     link         : GitHub
 
 # ==============================================================================
@@ -406,6 +408,8 @@ page:
         continuous: Continuous
         stored    : Stored
         bad       : Bad
+      delete:
+        tradingSystems : There are trading systems referenced. The data product cannot be deleted
 
     # ----------------------------------------------------------------------------
 
@@ -424,7 +428,6 @@ page:
       exchange         : Exchange
       tradingSystemRefs: Referencing trading systems
       delete:
-        ok             : Broker product deleted
         tradingSystems : There are trading systems referenced. The broker product cannot be deleted
 
     tradingSession:
@@ -630,9 +633,10 @@ page:
       atrLength: ATR length
 
     biasAnalysis:
-      new         :   New bias analysis
-      view        :  View bias analysis
-      edit        :  Edit bias analysis
+      title       : Bias Analysis
+      new         : New bias analysis
+      view        : View bias analysis
+      edit        : Edit bias analysis
       delta       : Delta
       pointValue  : Point value
 
@@ -692,11 +696,6 @@ page:
   # ==============================================================================
 
   admin:
-    config:
-      title: Configuration
-
-    # ----------------------------------------------------------------------------
-
     connection:
       title: Connections
       new: New connection
@@ -712,9 +711,21 @@ page:
         connected     : Before deleting this connection, you have to disconnect from it
         dataProducts  : There are data products referenced. The connection cannot be deleted
         brokerProducts: There are broker products referenced. The connection cannot be deleted
-    maintenance:
-      tradingSystems: Trading systems
-      adapters      : Adapters
+
+    # ----------------------------------------------------------------------------
+
+    importExport:
+      title: Trading systems import/export
+
+    # ----------------------------------------------------------------------------
+
+    adapterPlayground:
+      title: Adapter playground
+
+    # ----------------------------------------------------------------------------
+
+    config:
+      title: Configuration
 
   # ==============================================================================
 
@@ -801,6 +812,14 @@ page:
     deleteConnection:
       title  : Delete connection
       message: Are you sure you want to delete this connection?
+
+    deleteDataProduct:
+      title  : Delete data product
+      message: Are you sure you want to delete this data product and all its instruments?
+
+    deleteBiasAnalysis:
+      title  : Delete bias analysis
+      message: Are you sure you want to delete this bias analysis?
 
   # ==============================================================================
 

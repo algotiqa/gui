@@ -57,7 +57,7 @@ export class ProductDataEditPanel extends AbstractPanel {
 
   @ViewChild("pdNameCtrl")     pdNameCtrl?     : InputTextRequired
   @ViewChild("pdMarketCtrl")   pdMarketCtrl?   : SelectRequired
-  @ViewChild("pdProductCtrl")  pdProductCtrl?  : SelectRequired
+  // @ViewChild("pdProductCtrl")  pdProductCtrl?  : SelectRequired
 
   //-------------------------------------------------------------------------
   //---
@@ -92,8 +92,8 @@ export class ProductDataEditPanel extends AbstractPanel {
 
   public saveEnabled() : boolean|undefined {
     return  this.pdNameCtrl    ?.isValid() &&
-            this.pdMarketCtrl  ?.isValid() &&
-            this.pdProductCtrl ?.isValid()
+            this.pdMarketCtrl  ?.isValid()
+            // this.pdProductCtrl ?.isValid()
   }
 
   //-------------------------------------------------------------------------

@@ -106,8 +106,6 @@ export class BrokerProductView extends AbstractPanel {
 
       this.inventoryService.deleteBrokerProduct(this.id).subscribe( status => {
         if (status == DeleteResponse.Ok) {
-          let message = this.loc("delete."+status)
-          this.snackBar.open(message, this.button("ok"))
           this.navigateTo([ Url.Inventory_BrokerProducts ])
         }
         else {

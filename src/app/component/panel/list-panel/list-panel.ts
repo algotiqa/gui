@@ -36,19 +36,38 @@ export class ListButtons {}
 //=============================================================================
 
 @Component({
-  selector: 'list-content',
+  selector: 'list-left',
   template: `<ng-content></ng-content>`,
   styles: [`
   :host {
-    flex: 1 1 auto;
     margin-top: 8px;
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
     justify-content: flex-start;
     align-items: stretch;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
   }`]
+})
+export class ListLeft {}
+
+//=============================================================================
+
+@Component({
+  selector: 'list-content',
+  template: `<ng-content></ng-content>`,
+  styles: [`
+    :host {
+      flex: 1 1 auto;
+      margin-top: 8px;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      align-items: stretch;
+      overflow: hidden;
+    }`]
 })
 export class ListContent {}
 

@@ -23,6 +23,18 @@ import {AppEvent} from "../../../../../model/event";
 import {Observable} from "rxjs";
 import {CollectorService} from "../../../../../service/collector.service";
 import {BiasAnalysisFull} from "./model";
+import {ConnectButton} from "../../../../../component/button/connect/connect.button";
+import {CreateButton} from "../../../../../component/button/create/create.button";
+import {DisconnectButton} from "../../../../../component/button/disconnect/disconnect.button";
+import {EditButton} from "../../../../../component/button/edit/edit.button";
+import {ListButtons, ListContent, ListPanel} from "../../../../../component/panel/list-panel/list-panel";
+import {ViewButton} from "../../../../../component/button/view/view.button";
+import {DeleteButton} from "../../../../../component/button/delete/delete.button";
+import {PlaygroundButton} from "../../../../../component/button/playground/playground.button";
+import {MatDialog} from "@angular/material/dialog";
+import {ConfirmationDialogData} from "../../../../../component/form/confirmation-dialog/confirmation.data";
+import {ConfirmationDialog} from "../../../../../component/form/confirmation-dialog/confirmation-dialog.component";
+import {DeleteResponse} from "../../../../../model/model";
 
 //=============================================================================
 
@@ -30,7 +42,7 @@ import {BiasAnalysisFull} from "./model";
     selector: 'bias-analysis',
     templateUrl: './bias-analysis.list.html',
     styleUrls: ['./bias-analysis.list.scss'],
-    imports: [MatButtonModule, MatCardModule, MatIconModule, MatInputModule, RouterModule, FlexTablePanel]
+  imports: [MatButtonModule, MatCardModule, MatIconModule, MatInputModule, RouterModule, FlexTablePanel, ConnectButton, CreateButton, DisconnectButton, EditButton, ListButtons, ListContent, ListPanel, ViewButton, DeleteButton, PlaygroundButton]
 })
 
 //=============================================================================
@@ -62,6 +74,7 @@ export class BiasAnalisysListPanel extends AbstractPanel {
   constructor(eventBusService         : EventBusService,
               labelService            : LabelService,
               router                  : Router,
+              private dialog          : MatDialog,
               private collectorService: CollectorService) {
 
     super(eventBusService, labelService, router, "tool.biasAnalysis");
@@ -129,16 +142,26 @@ export class BiasAnalisysListPanel extends AbstractPanel {
   //-------------------------------------------------------------------------
 
   onDeleteClick() {
-    // @ts-ignore
-    let selection = this.table.getSelection();
-
-    for (let i=0; i<selection.length; i++) {
-      let id = selection[i].id
-      // @ts-ignore
-      this.collectorService.deleteBiasAnalysis(id).subscribe( res => {
-        this.reload()
-      })
+    let data : ConfirmationDialogData = {
+      labels: "deleteBiasAnalysis"
     }
+
+    this.dialog.open(ConfirmationDialog, {data}).afterClosed().subscribe(result => {
+      if (!result) {
+        return
+      }
+
+      // @ts-ignore
+      let selection = this.table.getSelection();
+
+      for (let i=0; i<selection.length; i++) {
+        let id = selection[i].id
+        // @ts-ignore
+        this.collectorService.deleteBiasAnalysis(id).subscribe( res => {
+          this.reload()
+        })
+      }
+    })
   }
 
   //-------------------------------------------------------------------------

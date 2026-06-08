@@ -144,17 +144,23 @@ export class MenuService extends AbstractSubscriber {
         iconClasses: 'cable'
       },
       {
-        id: 'menu.admin.maintenance',
-        label: this.get('admin.maintenance'),
-        route: Url.Admin_Maintenance,
-        iconClasses: 'handyman'
+        id: 'menu.admin.importExport',
+        label: this.get('admin.importExport'),
+        route: Url.Admin_ImportExport,
+        iconClasses: 'drive_folder_upload'
       },
       {
-        id: 'menu.admin.config',
-        label: this.get('admin.config'),
-        route: Url.Admin_Config,
-        iconClasses: 'tune'
+        id: 'menu.admin.adapterPlayground',
+        label: this.get('admin.adapterPlay'),
+        route: Url.Admin_AdapterPlayground,
+        iconClasses: 'gamepad_left'
       },
+      // {
+      //   id: 'menu.admin.config',
+      //   label: this.get('admin.config'),
+      //   route: Url.Admin_Config,
+      //   iconClasses: 'tune'
+      // },
       {
         id: 'menu.link',
         label: this.get('admin.link'),

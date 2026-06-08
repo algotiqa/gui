@@ -5,13 +5,17 @@
 
   <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
-  <mat-card class="work-layout">
-    <mat-card-header>
-      <mat-card-title>{{title}}</mat-card-title>
-    </mat-card-header>
+  <div class="central-layout">
+    <ng-content select="list-left"></ng-content>
 
-    <mat-card-content class="content-layout">
-      <ng-content select="list-content"></ng-content>
-    </mat-card-content>
-  </mat-card>
+    <mat-card class="work-layout">
+      <mat-card-header>
+        <mat-card-title>{{title}}</mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content class="content-layout">
+        <ng-content select="list-content"></ng-content>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>

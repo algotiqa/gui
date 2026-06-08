@@ -6,20 +6,6 @@
 //=== found in the LICENSE file
 //=============================================================================
 
-.main-panel {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
-  align-items: stretch;
-  gap: 0;
-  height   : 100%;
-  overflow: hidden;
-  margin: 4px;
-}
-
-//=============================================================================
-
 .input-style{
   width: 100%;
 }

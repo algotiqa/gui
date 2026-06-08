@@ -149,16 +149,7 @@ export class ArchiveCard extends AbstractPanel {
   //---
   //-------------------------------------------------------------------------
 
-  onMenuToTrading() {
-    this.portfolioService.setTradingSystemTrading(this.ts.id, true).subscribe( res => {
-      if (res.status == TspResponseStatus.OK) {
-        this.emitToApp(new AppEvent<any>(AppEvent.TRADINGSYSTEM_ARCHIVE_LIST_RELOAD))
-      }
-      else if (res.status == TspResponseStatus.ERROR) {
-        let message = this.loc("error.toTrading")+" : "+ res.message
-        this.snackBar.open(message, this.button("ok"))
-      }
-    })
+  onMenuView() {
   }
 
   //-------------------------------------------------------------------------
@@ -175,8 +166,40 @@ export class ArchiveCard extends AbstractPanel {
 
   //-------------------------------------------------------------------------
 
+  onMenuPositionSizing() {
+    this.navigateTo([ Url.Portfolio_TradingSystems, this.ts.id, Url.Sub_PositionSizing ]);
+  }
+
+  //-------------------------------------------------------------------------
+
+  onMenuQuality() {
+    this.moduleService.openQualityAnalyzer(this.ts.id)
+  }
+
+  //-------------------------------------------------------------------------
+
+  onMenuSimulation() {
+    this.moduleService.openSimulator(this.ts.id)
+  }
+
+  //-------------------------------------------------------------------------
+
   onMenuDocumentation() {
     this.moduleService.openDocEditor(this.ts.id)
+  }
+
+  //-------------------------------------------------------------------------
+
+  onMenuToTrading() {
+    this.portfolioService.setTradingSystemTrading(this.ts.id, true).subscribe( res => {
+      if (res.status == TspResponseStatus.OK) {
+        this.emitToApp(new AppEvent<any>(AppEvent.TRADINGSYSTEM_ARCHIVE_LIST_RELOAD))
+      }
+      else if (res.status == TspResponseStatus.ERROR) {
+        let message = this.loc("error.toTrading")+" : "+ res.message
+        this.snackBar.open(message, this.button("ok"))
+      }
+    })
   }
 
   //-------------------------------------------------------------------------

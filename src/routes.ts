@@ -62,12 +62,18 @@ import {TradingSystemSimulationPanel} from "./app/module/simulator/simulation.pa
 import {
   TradingSystemArchiveEditPanel
 } from "./app/layout/main-panel/work-panel/portfolio/trading-system/archive/edit/edit.panel";
-import {MaintenancePanel} from "./app/layout/main-panel/work-panel/admin/maintenance/maintenance.panel";
 import {AgentProfilePanel} from "./app/layout/main-panel/work-panel/inventory/agent-profile/agent-profile.list";
 import {TradingSessionPanel} from "./app/layout/main-panel/work-panel/inventory/trading-session/trading-session.list";
 import {ConnectionView} from "./app/layout/main-panel/work-panel/admin/connection/view/connection.view";
 import {BrokerProductView} from "./app/layout/main-panel/work-panel/inventory/broker-product/view/broker-product.view";
 import {BrokerProductList} from "./app/layout/main-panel/work-panel/inventory/broker-product/broker-product.list";
+import {TradingSystemPanel} from "./app/layout/main-panel/work-panel/admin/import-export/trading-system.panel";
+import {
+  AdapterPlaygroundPanel
+} from "./app/layout/main-panel/work-panel/admin/adapter-playground/adapter-playground.panel";
+import {
+  PositionSizingPanel
+} from "./app/layout/main-panel/work-panel/portfolio/trading-system/position-sizing/position-sizing.panel";
 
 //=============================================================================
 
@@ -104,7 +110,8 @@ export const routes: Routes = [
   { path: Url.Right_TradingSystem_ArchiveEdit,    component: TradingSystemArchiveEditPanel, outlet : 'right' },
 
   { path: Url.Portfolio_TradingSystems_Id, children : [
-      { path: Url.Sub_Filtering, component:  FilteringPanel }
+      { path: Url.Sub_Filtering,      component:  FilteringPanel },
+      { path: Url.Sub_PositionSizing, component:  PositionSizingPanel }
   ]},
 
   { path: Url.Portfolio_Monitoring,               component: MonitoringPanel                 },
@@ -128,7 +135,8 @@ export const routes: Routes = [
   { path: Url.Admin_Connections_Id,               component: ConnectionView },
   { path: Url.Right_Connection_Create,            component: ConnectionCreatePanel, outlet : 'right' },
   { path: Url.Right_Connection_Edit,              component: ConnectionEditPanel,   outlet : 'right' },
-  { path: Url.Admin_Maintenance,                  component: MaintenancePanel                },
+  { path: Url.Admin_ImportExport,                 component: TradingSystemPanel                      },
+  { path: Url.Admin_AdapterPlayground,            component: AdapterPlaygroundPanel                  },
 
   //--- Modules
 

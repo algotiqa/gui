@@ -29,15 +29,17 @@ export enum Url {
   Admin_Connections            = "admin/connections",
   Admin_Connections_Id         = "admin/connections/:id",
   Admin_Config                 = "admin/config",
-  Admin_Maintenance            = "admin/maintenance",
+  Admin_ImportExport           = "admin/import-export",
+  Admin_AdapterPlayground      = "admin/adapter-playground",
 
   //--- Sub paths -------------------------------------------------------------
-  Sub_Filtering   = "filtering",
-  Sub_Chart       = "chart",
-  Sub_Playground  = "playground",
-  Sub_Backtest    = "backtest",
-  Sub_Data        = "data",
-  Sub_Performance = "performance",
+
+  Sub_Filtering      = "filtering",
+  Sub_PositionSizing = "position-sizing",
+  Sub_Chart          = "chart",
+  Sub_Playground     = "playground",
+  Sub_Backtest       = "backtest",
+  Sub_Data           = "data",
 
   //--- Right panels ----------------------------------------------------------
 

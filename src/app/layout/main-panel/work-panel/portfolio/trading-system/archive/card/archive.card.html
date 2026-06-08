@@ -47,9 +47,13 @@
 </mat-card>
 
 <mat-menu #dropMenu="matMenu">
-  <button mat-menu-item (click)="onMenuToTrading()"     >{{menu('toTrading')}}</button>
+  <button mat-menu-item (click)="onMenuView()"          >{{menu('view')}}</button>
   <button mat-menu-item (click)="onMenuEdit()"          >{{menu('edit')}}</button>
-  <button mat-menu-item (click)="onMenuFilter()"        >{{menu('filter')}}</button>
+  <button mat-menu-item (click)="onMenuFilter()"        >{{menu('filtering')}}</button>
+  <button mat-menu-item (click)="onMenuPositionSizing()">{{menu('positionSizing')}}</button>
+  <button mat-menu-item (click)="onMenuQuality()"       >{{menu('quality')}}...</button>
+  <button mat-menu-item (click)="onMenuSimulation()"    >{{menu('simulation')}}...</button>
   <button mat-menu-item (click)="onMenuDocumentation()" >{{menu('documentation')}}</button>
+  <button mat-menu-item (click)="onMenuToTrading()"     >{{menu('toTrading')}}</button>
   <button mat-menu-item (click)="onMenuDelete()"        >{{menu('delete')}}</button>
 </mat-menu>
