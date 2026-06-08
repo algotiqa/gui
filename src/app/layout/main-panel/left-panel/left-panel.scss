@@ -24,6 +24,7 @@
     }
 
     input {
+      flex: 1;
       padding: 10px;
       background-color: #374850;
       border: none;
@@ -34,11 +35,11 @@
       background-color: #fff;
     }
 
-    i, input::placeholder {
+    input::placeholder, .material-symbols-outlined {
       color: #999;
     }
 
-    i {
+    .material-symbols-outlined {
       margin: 0 10px;
     }
   }
