@@ -18,6 +18,7 @@ import {Setting} from "../../../../../model/setting";
 import {TradingPanel} from "./trading/trading.panel";
 import {DevelopmentPanel} from "./development/development.panel";
 import {ArchivePanel} from "./archive/archive.panel";
+import {NavigationService} from "../../../../../service/navigation.service";
 
 //=============================================================================
 
@@ -53,9 +54,11 @@ export class TradingSystemDashboard extends AbstractPanel {
   constructor(eventBusService : EventBusService,
               labelService    : LabelService,
               router          : Router,
-              private storageService  : LocalService) {
+              private navigationService: NavigationService,
+              private storageService   : LocalService) {
 
     super(eventBusService, labelService, router, "portfolio.tradingSystem");
+    this.navigationService.set()
   }
 
   //-------------------------------------------------------------------------
