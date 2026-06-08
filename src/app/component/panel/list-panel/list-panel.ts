@@ -40,7 +40,6 @@ export class ListButtons {}
   template: `<ng-content></ng-content>`,
   styles: [`
   :host {
-    margin-top: 8px;
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
