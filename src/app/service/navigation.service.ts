@@ -47,7 +47,14 @@ export class NavigationService {
 
   public push() {
     let currAddress = this.router.url
+    let idx = currAddress.indexOf("(")
+
+    if (idx > -1) {
+      currAddress = currAddress.substring(0, idx)
+    }
+    
     this.callStack.push(currAddress);
+    console.log("Pushed: "+ currAddress)
   }
 
   //-------------------------------------------------------------------------

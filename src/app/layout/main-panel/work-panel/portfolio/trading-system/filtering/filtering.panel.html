@@ -1,137 +1,131 @@
-<div class="main-layout">
+<list-panel [title]="tradingSystem.name">
+  <list-buttons>
+    <back-button></back-button>
+    |
+    <period-selector [(period)]="period" (periodChange)="onPeriodChange($event)"></period-selector>
+    <run-button      (click)="onRunClick()"     ></run-button>
+    <optimize-button (click)="onOptimizeClick()"></optimize-button>
+    <save-button     (click)="onSaveClick()"    ></save-button>
+    <reload-button   (click)="onReloadClick()"  ></reload-button>
+  </list-buttons>
 
-  <mat-accordion class="left-layout" multi>
-    <mat-expansion-panel [expanded]="filter.posProEnabled" hideToggle class="expansion-layout">
-      <mat-expansion-panel-header>
-        <mat-panel-title><mat-icon>functions</mat-icon> {{loc("positiveProfit")}}
-          <span class="filler"> </span>
-          <mat-slide-toggle (change)="onPositiveProfitChange($event)" [checked]="filter.posProEnabled" (click)="$event.stopPropagation()"></mat-slide-toggle>
-        </mat-panel-title>
-      </mat-expansion-panel-header>
+  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
-      <input-number-required [(value)]="filter.posProLen" [label]="loc('length')" [min]="1" [max]="300"></input-number-required>
-    </mat-expansion-panel>
+  <list-left>
+    <mat-accordion class="left-layout" multi>
+      <mat-expansion-panel [expanded]="filter.posProEnabled" hideToggle class="expansion-layout">
+        <mat-expansion-panel-header>
+          <mat-panel-title><mat-icon>functions</mat-icon> {{loc("positiveProfit")}}
+            <span class="filler"> </span>
+            <mat-slide-toggle (change)="onPositiveProfitChange($event)" [checked]="filter.posProEnabled" (click)="$event.stopPropagation()"></mat-slide-toggle>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
 
-    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <input-number-required [(value)]="filter.posProLen" [label]="loc('length')" [min]="1" [max]="300"></input-number-required>
+      </mat-expansion-panel>
 
-    <mat-expansion-panel [expanded]="filter.oldNewEnabled" hideToggle class="expansion-layout">
-      <mat-expansion-panel-header>
-        <mat-panel-title><mat-icon>date_range</mat-icon> {{loc("oldVsNew")}}
-          <span class="filler"></span>
-          <mat-slide-toggle (change)="onOldVsNewChange($event)" [checked]="filter.oldNewEnabled" (click)="$event.stopPropagation()"></mat-slide-toggle>
-        </mat-panel-title>
-      </mat-expansion-panel-header>
+      <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
-      <input-number-required [(value)]="filter.oldNewOldLen"  [label]="loc('oldLen')"        [min]="1" [max]="600"></input-number-required>
-      <input-number-required [(value)]="filter.oldNewNewLen"  [label]="loc('newLen')"        [min]="1" [max]="300"></input-number-required>
-      <input-number-required [(value)]="filter.oldNewOldPerc" [label]="loc('oldPercentage')" [min]="1" [max]="150"></input-number-required>
-    </mat-expansion-panel>
+      <mat-expansion-panel [expanded]="filter.oldNewEnabled" hideToggle class="expansion-layout">
+        <mat-expansion-panel-header>
+          <mat-panel-title><mat-icon>date_range</mat-icon> {{loc("oldVsNew")}}
+            <span class="filler"></span>
+            <mat-slide-toggle (change)="onOldVsNewChange($event)" [checked]="filter.oldNewEnabled" (click)="$event.stopPropagation()"></mat-slide-toggle>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
 
-    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <input-number-required [(value)]="filter.oldNewOldLen"  [label]="loc('oldLen')"        [min]="1" [max]="600"></input-number-required>
+        <input-number-required [(value)]="filter.oldNewNewLen"  [label]="loc('newLen')"        [min]="1" [max]="300"></input-number-required>
+        <input-number-required [(value)]="filter.oldNewOldPerc" [label]="loc('oldPercentage')" [min]="1" [max]="150"></input-number-required>
+      </mat-expansion-panel>
 
-    <mat-expansion-panel [expanded]="filter.winPerEnabled" hideToggle class="expansion-layout">
-      <mat-expansion-panel-header>
-        <mat-panel-title><mat-icon>percent</mat-icon> {{loc("winningPercentage")}}
-          <span class="filler"></span>
-          <mat-slide-toggle (change)="onWinningPercentageChange($event)" [checked]="filter.winPerEnabled" (click)="$event.stopPropagation()"></mat-slide-toggle>
-        </mat-panel-title>
-      </mat-expansion-panel-header>
+      <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
-      <input-number-required [(value)]="filter.winPerLen"   [label]="loc('length')"           [min]="1" [max]="300"></input-number-required>
-      <input-number-required [(value)]="filter.winPerValue" [label]="loc('winningPercValue')" [min]="1" [max]="100"></input-number-required>
-    </mat-expansion-panel>
+      <mat-expansion-panel [expanded]="filter.winPerEnabled" hideToggle class="expansion-layout">
+        <mat-expansion-panel-header>
+          <mat-panel-title><mat-icon>percent</mat-icon> {{loc("winningPercentage")}}
+            <span class="filler"></span>
+            <mat-slide-toggle (change)="onWinningPercentageChange($event)" [checked]="filter.winPerEnabled" (click)="$event.stopPropagation()"></mat-slide-toggle>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
 
-    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <input-number-required [(value)]="filter.winPerLen"   [label]="loc('length')"           [min]="1" [max]="300"></input-number-required>
+        <input-number-required [(value)]="filter.winPerValue" [label]="loc('winningPercValue')" [min]="1" [max]="100"></input-number-required>
+      </mat-expansion-panel>
 
-    <mat-expansion-panel [expanded]="filter.equAvgEnabled" hideToggle class="expansion-layout">
-      <mat-expansion-panel-header>
-        <mat-panel-title><mat-icon>ssid_chart</mat-icon> {{loc("equityAverage")}}
-          <span class="filler"></span>
-          <mat-slide-toggle (change)="onEquityAverageChange($event)" [checked]="filter.equAvgEnabled" (click)="$event.stopPropagation()"></mat-slide-toggle>
-        </mat-panel-title>
-      </mat-expansion-panel-header>
+      <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
-      <input-number-required [(value)]="filter.equAvgLen" [label]="loc('equityLen')" [min]="1" [max]="300"></input-number-required>
-    </mat-expansion-panel>
+      <mat-expansion-panel [expanded]="filter.equAvgEnabled" hideToggle class="expansion-layout">
+        <mat-expansion-panel-header>
+          <mat-panel-title><mat-icon>ssid_chart</mat-icon> {{loc("equityAverage")}}
+            <span class="filler"></span>
+            <mat-slide-toggle (change)="onEquityAverageChange($event)" [checked]="filter.equAvgEnabled" (click)="$event.stopPropagation()"></mat-slide-toggle>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
 
-    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <input-number-required [(value)]="filter.equAvgLen" [label]="loc('equityLen')" [min]="1" [max]="300"></input-number-required>
+      </mat-expansion-panel>
 
-    <mat-expansion-panel [expanded]="filter.trendlineEnabled" hideToggle class="expansion-layout">
-      <mat-expansion-panel-header>
-        <mat-panel-title><mat-icon>trending_up</mat-icon> {{loc("trendline")}}
-          <span class="filler"></span>
-          <mat-slide-toggle (change)="onTrendlineChange($event)" [checked]="filter.trendlineEnabled" (click)="$event.stopPropagation()"></mat-slide-toggle>
-        </mat-panel-title>
-      </mat-expansion-panel-header>
+      <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
-      <input-number-required [(value)]="filter.trendlineLen"   [label]="loc('length')"         [min]="1" [max]="300"></input-number-required>
-      <input-number-required [(value)]="filter.trendlineValue" [label]="loc('trendlineValue')" [min]="1" [max]="200"></input-number-required>
-    </mat-expansion-panel>
+      <mat-expansion-panel [expanded]="filter.trendlineEnabled" hideToggle class="expansion-layout">
+        <mat-expansion-panel-header>
+          <mat-panel-title><mat-icon>trending_up</mat-icon> {{loc("trendline")}}
+            <span class="filler"></span>
+            <mat-slide-toggle (change)="onTrendlineChange($event)" [checked]="filter.trendlineEnabled" (click)="$event.stopPropagation()"></mat-slide-toggle>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
 
-    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <input-number-required [(value)]="filter.trendlineLen"   [label]="loc('length')"         [min]="1" [max]="300"></input-number-required>
+        <input-number-required [(value)]="filter.trendlineValue" [label]="loc('trendlineValue')" [min]="1" [max]="200"></input-number-required>
+      </mat-expansion-panel>
 
-    <mat-expansion-panel [expanded]="filter.drawdownEnabled" hideToggle class="expansion-layout">
-      <mat-expansion-panel-header>
-        <mat-panel-title><mat-icon>support</mat-icon> {{loc("drawdown")}}
-          <span class="filler"></span>
-          <mat-slide-toggle (change)="onDrawdownChange($event)" [checked]="filter.drawdownEnabled" (click)="$event.stopPropagation()"></mat-slide-toggle>
-        </mat-panel-title>
-      </mat-expansion-panel-header>
+      <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
-      <input-number-required [(value)]="filter.drawdownMin" [label]="loc('drawdownMin')" [min]="1" [max]="50000"></input-number-required>
-      <input-number-required [(value)]="filter.drawdownMax" [label]="loc('drawdownMax')" [min]="1" [max]="50000"></input-number-required>
-    </mat-expansion-panel>
-  </mat-accordion>
+      <mat-expansion-panel [expanded]="filter.drawdownEnabled" hideToggle class="expansion-layout">
+        <mat-expansion-panel-header>
+          <mat-panel-title><mat-icon>support</mat-icon> {{loc("drawdown")}}
+            <span class="filler"></span>
+            <mat-slide-toggle (change)="onDrawdownChange($event)" [checked]="filter.drawdownEnabled" (click)="$event.stopPropagation()"></mat-slide-toggle>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
 
-  <!-- ====================================================================== -->
+        <input-number-required [(value)]="filter.drawdownMin" [label]="loc('drawdownMin')" [min]="1" [max]="50000"></input-number-required>
+        <input-number-required [(value)]="filter.drawdownMax" [label]="loc('drawdownMax')" [min]="1" [max]="50000"></input-number-required>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </list-left>
 
-  <div class="center-layout">
-    <div class="buttons-layout">
-      <period-selector [(period)]="period" (periodChange)="onPeriodChange($event)"></period-selector>
-      <flat-button label="{{button('run')}}"      (click)="onRunClick()"     ></flat-button>
-      <flat-button label="{{button('optimize')}}" (click)="onOptimizeClick()"></flat-button>
-      <flat-button label="{{button('save')}}"     (click)="onSaveClick()"    ></flat-button>
-      <flat-button label="{{button('reload')}}"   (click)="onReloadClick()"  ></flat-button>
-    </div>
+  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
+  <list-content>
     <div class="chart-layout">
-      <mat-card>
-        <mat-card-header>
-          <mat-card-title>{{tradingSystem.name}}"</mat-card-title>
-        </mat-card-header>
-
-        <mat-card-content>
-          <simple-table #table class="table-panel"
-                        [columns]    = "summaryColumns"
-                        [data]       = "summaryData"
-                        [searchPanel]= "false"
-          ></simple-table>
-          <p></p>
-          <apx-chart
-            [title]      = "equityChartOptions.title"
-            [chart]      = "equityChartOptions.chart"
-            [series]     = "equityChartOptions.series"
-            [dataLabels] = "equityChartOptions.dataLabels"
-            [plotOptions]= "equityChartOptions.plotOptions"
-            [stroke]     = "equityChartOptions.stroke"
-            [colors]     = "equityChartOptions.colors"
-            [xaxis]      = "equityChartOptions.xaxis"
-            [annotations]= "equityChartOptions.annotations"
-          ></apx-chart>
-          <apx-chart
-            [title]      = "activChartOptions.title"
-            [chart]      = "activChartOptions.chart"
-            [series]     = "activChartOptions.series"
-            [dataLabels] = "activChartOptions.dataLabels"
-            [plotOptions]= "activChartOptions.plotOptions"
-            [stroke]     = "activChartOptions.stroke"
-            [xaxis]      = "activChartOptions.xaxis"
-          ></apx-chart>
-        </mat-card-content>
-      </mat-card>
+      <simple-table #table
+                    [columns]    = "summaryColumns"
+                    [data]       = "summaryData"
+                    [searchPanel]= "false"
+      ></simple-table>
+      <p></p>
+      <apx-chart
+        [title]      = "equityChartOptions.title"
+        [chart]      = "equityChartOptions.chart"
+        [series]     = "equityChartOptions.series"
+        [dataLabels] = "equityChartOptions.dataLabels"
+        [plotOptions]= "equityChartOptions.plotOptions"
+        [stroke]     = "equityChartOptions.stroke"
+        [colors]     = "equityChartOptions.colors"
+        [xaxis]      = "equityChartOptions.xaxis"
+        [annotations]= "equityChartOptions.annotations"
+      ></apx-chart>
+      <apx-chart
+        [title]      = "activChartOptions.title"
+        [chart]      = "activChartOptions.chart"
+        [series]     = "activChartOptions.series"
+        [dataLabels] = "activChartOptions.dataLabels"
+        [plotOptions]= "activChartOptions.plotOptions"
+        [stroke]     = "activChartOptions.stroke"
+        [xaxis]      = "activChartOptions.xaxis"
+      ></apx-chart>
     </div>
-  </div>
-
-  <!-- ====================================================================== -->
-
-</div>
+  </list-content>
+</list-panel>

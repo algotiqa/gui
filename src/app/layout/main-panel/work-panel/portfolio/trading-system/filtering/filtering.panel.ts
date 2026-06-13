@@ -49,6 +49,13 @@ import {ChartOptions} from "../../../../../../lib/chart-lib";
 import {InputTextOptional} from "../../../../../../component/form/input-text-optional/input-text-optional";
 import {InputNumberRequired} from "../../../../../../component/form/input-integer-required/input-number-required";
 import {PeriodSelector, PeriodSelectorInfo} from "../../../../../../component/form/period-selector/period-selector";
+import {ListButtons, ListContent, ListLeft, ListPanel} from "../../../../../../component/panel/list-panel/list-panel";
+import {BackButton} from "../../../../../../component/button/back/back.button";
+import {SaveButton} from "../../../../../../component/button/save/save.button";
+import {ReloadButton} from "../../../../../../component/button/reload/reload.button";
+import {RunButton} from "../../../../../../component/button/run/run.button";
+import {OptimizeButton} from "../../../../../../component/button/optimize/optimize.button";
+import {NavigationService} from "../../../../../../service/navigation.service";
 
 //=============================================================================
 
@@ -56,7 +63,7 @@ import {PeriodSelector, PeriodSelectorInfo} from "../../../../../../component/fo
     selector: 'trading-system-filtering',
     templateUrl: './filtering.panel.html',
     styleUrls: ['./filtering.panel.scss'],
-  imports: [RouterModule, MatExpansionModule, MatIconModule, MatFormFieldModule, FormsModule, MatInputModule, MatOptionModule, MatSelectModule, MatSlideToggleModule, MatTabsModule, MatButtonModule, MatDividerModule, MatGridListModule, SimpleTablePanel, MatDialogModule, ChartComponent, MatCardModule, FlatButton, InputNumberRequired, PeriodSelector]
+  imports: [RouterModule, MatExpansionModule, MatIconModule, MatFormFieldModule, FormsModule, MatInputModule, MatOptionModule, MatSelectModule, MatSlideToggleModule, MatTabsModule, MatButtonModule, MatDividerModule, MatGridListModule, SimpleTablePanel, MatDialogModule, ChartComponent, MatCardModule, FlatButton, InputNumberRequired, PeriodSelector, ListButtons, ListContent, ListPanel, ListLeft, BackButton, SaveButton, ReloadButton, RunButton, OptimizeButton]
 })
 
 //=============================================================================
@@ -94,15 +101,17 @@ export class FilteringPanel extends AbstractPanel {
   //---
   //-------------------------------------------------------------------------
 
-  constructor(eventBusService         : EventBusService,
-              labelService            : LabelService,
-              router                  : Router,
-              private route           : ActivatedRoute,
-              private snackBar        : MatSnackBar,
-              private portfolioService: PortfolioService,
-              public  dialog          : MatDialog) {
+  constructor(eventBusService          : EventBusService,
+              labelService             : LabelService,
+              router                   : Router,
+              private route            : ActivatedRoute,
+              private snackBar         : MatSnackBar,
+              private portfolioService : PortfolioService,
+              private navigationService: NavigationService,
+              public  dialog           : MatDialog) {
 
     super(eventBusService, labelService, router, "portfolio.filtering");
+    this.navigationService.push()
 
     let ts = this.labelService.getLabel("page.portfolio.filtering.summ");
 

@@ -394,6 +394,8 @@ export class PorTradingSystem {
   inSampleFrom?    : number
   inSampleTo?      : number
   engineCode?      : string
+  positionModel?   : string
+  positionConfig?  : string
 }
 
 //=============================================================================

@@ -10,25 +10,9 @@
 
 //=============================================================================
 
-.main-layout {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
-  align-items: stretch;
-  gap: 0;
-  height   : 100%;
-  overflow: hidden;
-  background-color: $backgroundColor;
-}
-
-//=============================================================================
-
 .left-layout {
   width: 340px;
   overflow-y: auto;
-  //background-color: $backgroundColor;
-  padding-top: 8px;
 }
 
 //-----------------------------------------------------------------------------
@@ -40,9 +24,9 @@
 
 //-----------------------------------------------------------------------------
 
-.expansion-layout .mat-expansion-panel-header-title {
+ .expansion-layout .mat-expansion-panel-header-title {
   justify-content: space-between;
-  align-items: center;
+  margin-right: 0;
 }
 
 //-----------------------------------------------------------------------------
@@ -68,19 +52,6 @@ mat-accordion input-number-required {
 
 //=============================================================================
 
-.buttons-layout {
-  padding-top: 4px;
-  padding-left: 4px;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 8px;
-}
-
-//=============================================================================
-
 .filler {
   flex: 1 0 auto;
 }
@@ -89,6 +60,7 @@ mat-accordion input-number-required {
 
 .chart-layout {
   flex: 1 1 auto;
+  overflow-x: hidden;
   overflow-y: auto;
 }
 

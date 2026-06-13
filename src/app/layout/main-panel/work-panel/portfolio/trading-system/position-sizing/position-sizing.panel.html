@@ -1,6 +1,37 @@
 <list-panel [title]="loc('title')">
   <list-buttons>
+    <back-button></back-button>
+    |
+    <period-selector [(period)]="period" (periodChange)="onPeriodChange($event)"></period-selector>
+    <run-button      (click)="onRunClick()"     ></run-button>
+    <optimize-button (click)="onOptimizeClick()"></optimize-button>
+    <save-button     (click)="onSaveClick()"    ></save-button>
+    <reload-button   (click)="onReloadClick()"  ></reload-button>
   </list-buttons>
+
+  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+  <list-left>
+    <mat-accordion>
+      <mat-expansion-panel [expanded]="ts.positionModel=='FU'" hideToggle class="expansion-layout">
+        <mat-expansion-panel-header>
+          <mat-panel-title><mat-icon>functions</mat-icon> {{loc("models.fixedUnit")}}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <input-number-required [(value)]="ts.timeframe" [label]="loc('length')" [min]="1" [max]="300"></input-number-required>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel [expanded]="ts.positionModel=='MM'" hideToggle class="expansion-layout">
+        <mat-expansion-panel-header>
+          <mat-panel-title><mat-icon>functions</mat-icon> {{loc("models.percentRisk")}}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <input-number-required [(value)]="ts.timeframe" [label]="loc('length')" [min]="1" [max]="300"></input-number-required>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </list-left>
 
   <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
