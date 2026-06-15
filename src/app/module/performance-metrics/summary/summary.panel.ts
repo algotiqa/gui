@@ -73,9 +73,9 @@ export class PerformanceSummaryPanel extends AbstractPanel {
 
   private buildSummary(par : PerformanceAnalysisResponse) {
     this.summary = <SummaryRow[]>[
-      new SummaryRow( this.loc('profit'),
-                      par.gross?.profit?.total, par.gross?.profit?.long, par.gross?.profit?.short,
-                      par.net  ?.profit?.total, par.net  ?.profit?.long, par.net  ?.profit?.short),
+      new SummaryRow( this.loc('return'),
+                      par.gross?.return?.total, par.gross?.return?.long, par.gross?.return?.short,
+                      par.net  ?.return?.total, par.net  ?.return?.long, par.net  ?.return?.short),
 
       new SummaryRow( this.loc('maxDD'),
                       par.gross?.maxDrawdown?.total, par.gross?.maxDrawdown?.long, par.gross?.maxDrawdown?.short,

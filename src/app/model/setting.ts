@@ -19,7 +19,6 @@ export enum Setting {
   Portfolio_TradSys_PerfProfit = "port.ts.perfProfit",
   Portfolio_TradSys_PerfDdown  = "port.ts.perfDdown",
   Portfolio_TradSys_PerfChart  = "port.ts.perfChart",
-  Portfolio_TradSys_PerfDistrib= "port.ts.perfDistrib",
   Portfolio_TradSys_ChartType  = "port.ts.chartType",
 }
 

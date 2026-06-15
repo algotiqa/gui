@@ -95,8 +95,8 @@ export class PerformanceTradePanel extends AbstractPanel {
       new FlexTableColumn(ts, "exitPrice"),
       new FlexTableColumn(ts, "exitLabel"),
       new FlexTableColumn(ts, "tradeType"),
-      new FlexTableColumn(ts, "grossProfit"),
-      new FlexTableColumn(ts, "contracts"),
+      new FlexTableColumn(ts, "grossReturn"),
+      new FlexTableColumn(ts, "maxContracts"),
     ]
   }
 

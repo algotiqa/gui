@@ -1,17 +1,12 @@
 <div class="main-layout">
   <div class="header-layout">
-    <mat-button-toggle-group [hideSingleSelectionIndicator]="true" [formControl]="chartType" class="toggle-layout">
-      <mat-button-toggle value="trades" (change)="onChartTypeChange()">{{ loc("trades") }}</mat-button-toggle>
-      <mat-button-toggle value="daily"  (change)="onChartTypeChange()">{{ loc("daily") }}</mat-button-toggle>
-    </mat-button-toggle-group>
-
-    <mat-button-toggle-group [hideSingleSelectionIndicator]="true" [formControl]="tradeType" class="toggle-layout" [disabled]="isDaily()">
+    <mat-button-toggle-group [hideSingleSelectionIndicator]="true" [formControl]="tradeType" class="toggle-layout">
       <mat-button-toggle value="all"    (change)="onTradeTypeChange()">{{ loc("all") }}</mat-button-toggle>
       <mat-button-toggle value="long"   (change)="onTradeTypeChange()">{{ loc("long") }}</mat-button-toggle>
       <mat-button-toggle value="short"  (change)="onTradeTypeChange()">{{ loc("short") }}</mat-button-toggle>
     </mat-button-toggle-group>
 
-    <mat-button-toggle-group [hideSingleSelectionIndicator]="true" [formControl]="profitType" class="toggle-layout" [disabled]="isDaily()">
+    <mat-button-toggle-group [hideSingleSelectionIndicator]="true" [formControl]="profitType" class="toggle-layout">
       <mat-button-toggle value="gross"  (change)="onProfitTypeChange()">{{ loc("gross") }}</mat-button-toggle>
       <mat-button-toggle value="net"    (change)="onProfitTypeChange()">{{ loc("net") }}</mat-button-toggle>
     </mat-button-toggle-group>
@@ -24,14 +19,6 @@
       <table>
         <tbody>
           <tr><td></td><td></td></tr>
-          <tr>
-            <td class="metric-style">{{loc('annualStdDev')}}</td>
-            <td class="value-style">{{par?.distributions?.annualStandardDev}}</td>
-          </tr>
-            <tr>
-            <td class="metric-style">{{loc('annualSharpe')}}</td>
-            <td class="value-style">{{par?.distributions?.annualSharpeRatio}}</td>
-          </tr>
           <tr><td></td><td></td></tr>
           <tr>
             <td class="metric-style">{{loc('mean')}}</td>

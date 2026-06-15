@@ -61,9 +61,9 @@ export class PerformanceChartPanel extends AbstractPanel {
 
   //---------------------------------------------------------------------------
 
-  tradeType   = new FormControl("all")
-  profitType  = new FormControl("all")
-  chartType   = new FormControl("time")
+  tradeType    = new FormControl("all")
+  profitType   = new FormControl("all")
+  chartType    = new FormControl("time")
   showDrawdown = true
   showSteps    = true
 
@@ -195,11 +195,11 @@ export class PerformanceChartPanel extends AbstractPanel {
       let xAxis = this.getXAxis(equs.time)
 
       if (this.shouldShowGrossEquity()) {
-        datasets = [...datasets, Lib.chart.buildDataset(this.loc("grossEquity"), xAxis, equs.grossProfit, false, "#808080")]
+        datasets = [...datasets, Lib.chart.buildDataset(this.loc("grossEquity"), xAxis, equs.grossEquity, false, "#808080")]
       }
 
       if (this.shouldShowNetEquity()) {
-        datasets = [...datasets, Lib.chart.buildDataset(this.loc("netEquity"), xAxis, equs.netProfit, false, "#008FFB")]
+        datasets = [...datasets, Lib.chart.buildDataset(this.loc("netEquity"), xAxis, equs.netEquity, false, "#008FFB")]
       }
 
       if (this.showDrawdown) {

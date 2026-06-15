@@ -42,8 +42,6 @@ export class PerformanceAnalysisResponse {
 export class General {
   fromDate?              : number
   toDate?                : number
-  sharpeRatioAnnualized? : number
-  standardDevAnnualized? : number
   lowerTail?             : number
   upperTail?             : number
 }
@@ -51,7 +49,7 @@ export class General {
 //=============================================================================
 
 export class Performance {
-  profit?        : Value;
+  return?        : Value;
   maxDrawdown?   : Value;
   averageTrade?  : Value;
   percentProfit? : Value;
@@ -69,8 +67,8 @@ export class Value {
 
 export class PerfEquities {
   time         : Date[]   = [];
-  grossProfit  : number[] = [];
-  netProfit    : number[] = [];
+  grossEquity  : number[] = [];
+  netEquity    : number[] = [];
   grossDrawdown: number[] = [];
   netDrawdown  : number[] = [];
   trades?      : number;
@@ -86,10 +84,10 @@ export class Aggregates {
 
 export class AnnualAggregate {
   year          : number = 0
-  grossProfit   : number = 0
+  grossReturn   : number = 0
   grossAvgTrade : number = 0
   grossWinPerc  : number = 0
-  netProfit     : number = 0
+  netReturn     : number = 0
   netAvgTrade   : number = 0
   netWinPerc    : number = 0
   trades        : number = 0
@@ -98,15 +96,12 @@ export class AnnualAggregate {
 //=============================================================================
 
 export class Distributions {
-  daily?             : Distribution
   tradesAllGross?    : Distribution
   tradesAllNet?      : Distribution
   tradesLongGross?   : Distribution
   tradesLongNet?     : Distribution
   tradesShortGross?  : Distribution
   tradesShortNet?    : Distribution
-  annualSharpeRatio? : number
-  annualStandardDev? : number
 }
 
 //=============================================================================

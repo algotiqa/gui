@@ -61,7 +61,6 @@ export class PerformanceDistributionPanel extends AbstractPanel {
 
   //---------------------------------------------------------------------------
 
-  chartType   = new FormControl("trades")
   tradeType   = new FormControl("all")
   profitType  = new FormControl("net")
 
@@ -90,28 +89,13 @@ export class PerformanceDistributionPanel extends AbstractPanel {
   //-------------------------------------------------------------------------
 
   override init = () : void => {
-    this.chartType.setValue(this.localService.getStringItem(Setting.Portfolio_TradSys_PerfDistrib, "daily"))
     this.rebuildChart()
-  }
-
-  //-------------------------------------------------------------------------
-
-  isDaily() : boolean {
-    return this.chartType.value == "daily"
   }
 
   //-------------------------------------------------------------------------
   //---
   //--- Events
   //---
-  //-------------------------------------------------------------------------
-
-  onChartTypeChange() {
-    let value = this.chartType.value
-    this.localService.setStringItem(Setting.Portfolio_TradSys_PerfDistrib, value)
-    this.rebuildChart()
-  }
-
   //-------------------------------------------------------------------------
 
   onTradeTypeChange() {
@@ -194,10 +178,6 @@ export class PerformanceDistributionPanel extends AbstractPanel {
 
   private selectDistribution() : Distribution|undefined {
     if (this._par) {
-      if (this.chartType.value == "daily") {
-        return this._par.distributions?.daily
-      }
-
       if (this.tradeType.value == "all") {
         if (this.profitType.value == "gross") {
           return this._par.distributions?.tradesAllGross

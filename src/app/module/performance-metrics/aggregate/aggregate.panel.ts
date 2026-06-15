@@ -80,8 +80,6 @@ export class PerformanceAggregatePanel extends AbstractPanel {
   }
 
   //---------------------------------------------------------------------------
-
-  //---------------------------------------------------------------------------
   //---
   //--- Private methods
   //---
@@ -93,8 +91,8 @@ export class PerformanceAggregatePanel extends AbstractPanel {
     this.annualColumns = [
       new FlexTableColumn(ts, "year"),
       new FlexTableColumn(ts, "trades"),
-      new FlexTableColumn(ts, "grossProfit",   undefined, undefined, new NumericClassStyler()),
-      new FlexTableColumn(ts, "netProfit",     undefined, undefined, new NumericClassStyler()),
+      new FlexTableColumn(ts, "grossReturn",   undefined, undefined, new NumericClassStyler()),
+      new FlexTableColumn(ts, "netReturn",     undefined, undefined, new NumericClassStyler()),
       new FlexTableColumn(ts, "grossAvgTrade", undefined, undefined, new NumericClassStyler()),
       new FlexTableColumn(ts, "netAvgTrade",   undefined, undefined, new NumericClassStyler()),
       new FlexTableColumn(ts, "grossWinPerc"),

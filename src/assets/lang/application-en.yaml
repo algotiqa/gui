@@ -313,8 +313,8 @@ model:
     exitDate           : Exit date
     exitPrice          : Exit price
     exitLabel          : Exit label
-    grossProfit        : Gross profit
-    contracts          : Contracts
+    grossReturn        : Gross return
+    maxContracts       : Max contracts
     entryDateAtBroker  : Entry date at broker
     entryPriceAtBroker : Entry price at broker
     exitDateAtBroker   : Exit date at broker
@@ -322,10 +322,10 @@ model:
 
   annualAggregate:
       year         : Year
-      grossProfit  : Gross profit
+      grossReturn  : Gross Return
       grossAvgTrade: Gross Avg Trade
       grossWinPerc : Gross win (%)
-      netProfit    : Net profit
+      netReturn    : Net return
       netAvgTrade  : Net Avg Trade
       netWinPerc   : Net win (%)
       trades       : Trades
@@ -853,7 +853,7 @@ page:
         short   : Short
         gross   : Gross
         net     : Net
-        profit  : Profit
+        return  : Return
         maxDD   : Max drawdown
         avgTrade: Average trade
         trades  : Trades
