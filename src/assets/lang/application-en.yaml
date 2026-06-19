@@ -51,6 +51,7 @@ menu-button:
   quality       : Quality
   simulation    : Simulation
   positionSizing: Position sizing
+  tradeAnalysis : Trade analysis
 
 # ==============================================================================
 # ===
@@ -914,7 +915,7 @@ page:
         daily: Daily
       atrLength: ATR length
       tab:
-        market    : Market
+        market: Market
       noData: Instrument doesn't have enough data to calculate the SQN
       market:
         all  : All
@@ -986,6 +987,30 @@ page:
         maxDrawdown  : R-Max drawdown
         returnDDRatio: R-Return / R-Max drawdown ratio
         averageTrade : R-Average trade
+
+    trade:
+      title: Trade analysis for
+      tab:
+        equity: Equities
+        runup : Run-ups
+      equity:
+        all       : All
+        long      : Long
+        short     : Short
+        gross     : Gross
+        net       : Net
+        winners   : Winners
+        loosers   : Loosers
+        breakEvens: Break evens
+      runup:
+        all       : All
+        long      : Long
+        short     : Short
+        gross     : Gross
+        net       : Net
+        winners   : Winners
+        loosers   : Loosers
+        breakEvens: Break evens
 
 # ==============================================================================
 # ===

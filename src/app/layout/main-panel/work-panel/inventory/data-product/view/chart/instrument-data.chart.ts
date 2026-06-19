@@ -24,7 +24,6 @@ import {DataPoint, DataInstrument, DataInstrumentDataResponse} from "../../../..
 import {FlexTableColumn, ListResponse, ListService} from "../../../../../../../model/flex-table";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {SelectRequired} from "../../../../../../../component/form/select-required/select-required";
-import {DatePicker} from "../../../../../../../component/form/date-picker/date-picker";
 import {Observable} from "rxjs";
 import {
   NgApexchartsModule, ChartComponent,
@@ -46,7 +45,7 @@ import {BackButton} from "../../../../../../../component/button/back/back.button
     selector: 'instrumentData-chart',
     templateUrl: './instrument-data.chart.html',
     styleUrls: ['./instrument-data.chart.scss'],
-  imports: [MatButtonModule, MatIconModule, MatInputModule, MatFormFieldModule, RouterModule, FlexTablePanel, MatChipsModule, MatSelectModule, SelectRequired, NgApexchartsModule, TimeframeSelector, PeriodSelector, CreateButton, EditButton, ListButtons, ListContent, ListPanel, ViewButton, BackButton]
+  imports: [MatButtonModule, MatIconModule, MatInputModule, MatFormFieldModule, RouterModule, FlexTablePanel, MatChipsModule, MatSelectModule, SelectRequired, NgApexchartsModule, TimeframeSelector, PeriodSelector, ListButtons, ListContent, ListPanel, BackButton]
 })
 
 //=============================================================================
@@ -315,7 +314,12 @@ export class DataInstrumentChartPanel extends AbstractPanel {
       annotations: {},
       grid: {},
       labels: [],
-      tooltip: {}
+      tooltip: {},
+      subtitle: {},
+      fill: {},
+      markers: {},
+      states: {},
+      theme: {}
     };
   }
 
@@ -402,7 +406,12 @@ export class DataInstrumentChartPanel extends AbstractPanel {
       annotations: {},
       grid: {},
       labels: [],
-      tooltip: {}
+      tooltip: {},
+      subtitle: {},
+      fill: {},
+      markers: {},
+      states: {},
+      theme: {}
     };
   }
 

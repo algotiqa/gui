@@ -74,6 +74,7 @@ import {
 import {
   PositionSizingPanel
 } from "./app/layout/main-panel/work-panel/portfolio/trading-system/position-sizing/position-sizing.panel";
+import {TradeAnalyzerPanel} from "./app/module/trade-analyzer/trade-analyzer.panel";
 
 //=============================================================================
 
@@ -144,6 +145,7 @@ export const routes: Routes = [
   { path: Url.Module_PerformanceAnalysis,         component: TradingSystemPerformancePanel },
   { path: Url.Module_QualityAnalysis,             component: TradingSystemQualityPanel     },
   { path: Url.Module_Simulator,                   component: TradingSystemSimulationPanel  },
+  { path: Url.Module_TradeAnalysis,               component: TradeAnalyzerPanel            },
 
   { path:'**',                                    component: UnknownPanel },
 ];

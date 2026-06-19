@@ -15,7 +15,13 @@ import {
   ApexStroke, ApexTitleSubtitle,
   ApexXAxis,
   ApexYAxis,
-  ApexTooltip, ApexGrid
+  ApexTooltip, ApexGrid,
+  ApexNonAxisChartSeries,
+  ApexFill,
+  ApexMarkers,
+  ApexResponsive,
+  ApexStates,
+  ApexTheme
 } from "ng-apexcharts";
 import {MinMax} from "./min-max";
 
@@ -24,20 +30,25 @@ import { deepmerge } from "deepmerge-ts"
 //=============================================================================
 
 export type ChartOptions = {
-  title       : ApexTitleSubtitle
-  series      : ApexAxisChartSeries
-  chart       : ApexChart
-  xaxis       : ApexXAxis
-  yaxis       : ApexYAxis
-  plotOptions : ApexPlotOptions
-  dataLabels  : ApexDataLabels
-  stroke      : ApexStroke
-  colors      : string[]
-  annotations : ApexAnnotations
-  grid        : ApexGrid
-  labels      : string[]
-  legend      : ApexLegend
-  tooltip     : ApexTooltip
+  series      : ApexAxisChartSeries | ApexNonAxisChartSeries;
+  chart       : ApexChart;
+  xaxis       : ApexXAxis;
+  yaxis       : ApexYAxis | ApexYAxis[];
+  title       : ApexTitleSubtitle;
+  subtitle    : ApexTitleSubtitle;
+  dataLabels  : ApexDataLabels;
+  stroke      : ApexStroke;
+  fill        : ApexFill;
+  legend      : ApexLegend;
+  tooltip     : ApexTooltip;
+  markers     : ApexMarkers;
+  plotOptions : ApexPlotOptions;
+  grid        : ApexGrid;
+  annotations : ApexAnnotations;
+  states      : ApexStates;
+  theme       : ApexTheme;
+  colors      : string[];
+  labels      : any;
 }
 
 //-----------------------------------------------------------------------------
@@ -72,6 +83,11 @@ const defaultBarOptions : ChartOptions= {
   labels: [],
   grid: {},
   tooltip: {},
+  subtitle: {},
+  fill: {},
+  markers: {},
+  states: {},
+  theme: {}
 }
 
 //-----------------------------------------------------------------------------
@@ -124,7 +140,12 @@ const defaultLineOptions : ChartOptions = {
       }
     }
   },
-  tooltip: {}
+  tooltip: {},
+  subtitle: {},
+  fill: {},
+  markers: {},
+  states: {},
+  theme: {}
 }
 
 //=============================================================================

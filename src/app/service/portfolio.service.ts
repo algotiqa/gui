@@ -26,6 +26,7 @@ import {ListResponse} from "../model/flex-table";
 import {PerformanceAnalysisRequest, PerformanceAnalysisResponse} from "../model/performance";
 import {QualityAnalysisRequest, QualityAnalysisResponse} from "../model/quality";
 import {SimulationRequest, SimulationResult} from "../model/simulation";
+import {TradeAnalysisRequest, TradeAnalysisResponse} from "../model/trade-analysis";
 
 //=============================================================================
 
@@ -70,6 +71,12 @@ export class PortfolioService {
 
   public getQualityAnalysis = (id:number, req : QualityAnalysisRequest): Observable<QualityAnalysisResponse> => {
     return this.httpService.post<QualityAnalysisResponse>('/api/portfolio/v1/trading-systems/'+ id +'/quality-analysis', req);
+  }
+
+  //---------------------------------------------------------------------------
+
+  public getTradeAnalysis = (id:number, req : TradeAnalysisRequest): Observable<TradeAnalysisResponse> => {
+    return this.httpService.post<TradeAnalysisResponse>('/api/portfolio/v1/trading-systems/'+ id +'/trade-analysis', req);
   }
 
   //---------------------------------------------------------------------------

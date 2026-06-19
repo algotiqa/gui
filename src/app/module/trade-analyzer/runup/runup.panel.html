@@ -1,0 +1,40 @@
+<div class="main-layout">
+  <div>
+    <mat-button-toggle-group [hideSingleSelectionIndicator]="true" [formControl]="tradeType">
+      <mat-button-toggle value="all"    (change)="onTradeTypeChange()">{{ loc("all") }}</mat-button-toggle>
+      <mat-button-toggle value="long"   (change)="onTradeTypeChange()">{{ loc("long") }}</mat-button-toggle>
+      <mat-button-toggle value="short"  (change)="onTradeTypeChange()">{{ loc("short") }}</mat-button-toggle>
+    </mat-button-toggle-group>
+
+    <mat-button-toggle-group [hideSingleSelectionIndicator]="true" [formControl]="returnType">
+      <mat-button-toggle value="gross"  (change)="onReturnTypeChange()">{{ loc("gross") }}</mat-button-toggle>
+      <mat-button-toggle value="net"    (change)="onReturnTypeChange()">{{ loc("net") }}</mat-button-toggle>
+    </mat-button-toggle-group>
+
+    <span style="flex:1 0 auto"></span>
+
+    <mat-button-toggle-group [hideSingleSelectionIndicator]="true" [formControl]="successType">
+      <mat-button-toggle value="all"     (change)="onSuccessTypeChange()">{{ loc("all") }}</mat-button-toggle>
+      <mat-button-toggle value="winners" (change)="onSuccessTypeChange()">{{ loc("winners") }}</mat-button-toggle>
+      <mat-button-toggle value="loosers" (change)="onSuccessTypeChange()">{{ loc("loosers") }}</mat-button-toggle>
+      <mat-button-toggle value="breaks"  (change)="onSuccessTypeChange()">{{ loc("breakEvens") }}</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+
+  <!-- ============================================================================================================= -->
+
+  <apx-chart  class="chart-layout"
+              [title]      = "chartOptions.title"
+              [chart]      = "chartOptions.chart"
+              [series]     = "chartOptions.series"
+              [dataLabels] = "chartOptions.dataLabels"
+              [plotOptions]= "chartOptions.plotOptions"
+              [stroke]     = "chartOptions.stroke"
+              [xaxis]      = "chartOptions.xaxis"
+              [colors]     = "chartOptions.colors"
+              [yaxis]      = "chartOptions.yaxis"
+              [grid]       = "chartOptions.grid"
+              [annotations]= "chartOptions.annotations"
+              [legend]     = "chartOptions.legend"
+  ></apx-chart>
+</div>

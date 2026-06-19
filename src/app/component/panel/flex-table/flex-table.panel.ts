@@ -26,6 +26,10 @@ import {RoundBox} from "../../form/round-box/round-box";
 
 export type FlexTableFilter<T> = (row: T, filter: string) => boolean;
 
+export type FlexTableUpdateListener<T> = (data : T[], selection : SelectionModel<T>) => void
+
+//=============================================================================
+
 //=============================================================================
 
 @Component({
@@ -45,9 +49,9 @@ export class FlexTablePanel<T = any> implements AfterViewInit {
   //---
   //-------------------------------------------------------------------------
 
-  @Input() dataProvider? : ListService<T>;
-  @Input() searchPanel    = true
-
+  @Input()  dataProvider? : ListService<T>;
+  @Input()  searchPanel    = true
+  @Input()  updateListener : FlexTableUpdateListener<T>|undefined = undefined
   @Output() onRowsSelected : EventEmitter<T[]> = new EventEmitter<T[]>();
   @Output() onRefresh      : EventEmitter<any> = new EventEmitter<any>();
 
@@ -105,8 +109,8 @@ export class FlexTablePanel<T = any> implements AfterViewInit {
     this.rawData        = value
     this.tableData.data = value
     this.rowCount       = value.length
-    this.clearSelection()
     this.applyFilter()
+    this.handleUpdateListener()
   }
 
   //-------------------------------------------------------------------------
@@ -128,8 +132,8 @@ export class FlexTablePanel<T = any> implements AfterViewInit {
         result => {
           this.tableData.data = result.result;
           this.rowCount       = result.result.length
-          this.clearSelection();
           this.applyFilter()
+          this.handleUpdateListener()
         }
       )
     }
@@ -162,7 +166,7 @@ export class FlexTablePanel<T = any> implements AfterViewInit {
 
   isAllSelected() {
     const numSelected = this.selection.selected.length;
-    const numRows = this.tableData.data.length;
+    const numRows     = this.tableData.data.length;
     return numSelected === numRows;
   }
 
@@ -246,6 +250,18 @@ export class FlexTablePanel<T = any> implements AfterViewInit {
 
   private filterPredicate = (row: T, filter: string) : boolean => {
     return this.filter(row, this.textToFilter)
+  }
+
+  //-------------------------------------------------------------------------
+
+  private handleUpdateListener() {
+    this.selection = new SelectionModel<T>(true, []);
+
+    if (this.updateListener) {
+      this.updateListener(this.tableData.data, this.selection)
+    }
+
+    this.onRowsSelected.emit(this.selection.selected)
   }
 }
 

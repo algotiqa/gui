@@ -69,6 +69,16 @@ export class ModuleService {
       console.log("Simulator's window is null")
     }
   }
+
+  //-------------------------------------------------------------------------
+
+  public openTradeAnalyzer(tsId:number) {
+    let extWindow = window.open('module/trade-analysis/'+tsId, '', 'popup,width=1500,height=950,left=100,top=100');
+
+    if (extWindow == null) {
+      console.log("Trade analyzer's window is null")
+    }
+  }
 }
 
 //=============================================================================

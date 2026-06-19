@@ -856,7 +856,7 @@ export class Trade {
   exitDate?           : Date
   exitPrice?          : number
   exitLabel?          : string
-  grossReturn?        : number
+  grossReturn         : number = 0
   maxContracts?       : number
   entryDateAtBroker?  : Date
   entryPriceAtBroker? : number

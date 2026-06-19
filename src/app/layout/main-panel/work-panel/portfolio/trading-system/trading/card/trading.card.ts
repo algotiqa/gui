@@ -269,6 +269,12 @@ export class TradingCard extends AbstractPanel {
 
   //-------------------------------------------------------------------------
 
+  onMenuTradeAnalysis() {
+    this.moduleService.openTradeAnalyzer(this.ts.id)
+  }
+
+  //-------------------------------------------------------------------------
+
   onMenuDocumentation() {
     this.moduleService.openDocEditor(this.ts.id)
   }

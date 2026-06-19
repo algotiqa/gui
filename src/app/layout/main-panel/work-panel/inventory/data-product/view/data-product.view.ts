@@ -502,7 +502,12 @@ export class DataProductView extends AbstractPanel {
       colors: ['#A0A0A0', '#0080FF', '#A040A0', '#A0A000', '#C04010', '#00A000','#A00000'],
       annotations: {},
       grid: {},
-      tooltip: {}
+      tooltip: {},
+      subtitle: {},
+      fill: {},
+      markers: {},
+      states: {},
+      theme: {}
     };
   }
 

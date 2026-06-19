@@ -1,0 +1,44 @@
+<div class="main-layout">
+  <module-title-panel icon="query_stats" title="{{loc('title') + ' '+tar.tradingSystem?.name}}" (onClose)="onClose()"></module-title-panel>
+
+  <!-- ============================================================================================================= -->
+
+  <div class="header-layout">
+    <period-selector [(period)]="period"  (periodChange)="onPeriodChange($event)"></period-selector>
+
+    <span style="flex:1 0 auto"></span>
+
+    <mat-button-toggle-group [hideSingleSelectionIndicator]="true" [formControl]="selTab">
+      <mat-button-toggle value="equity">{{ loc("tab.equity") }}</mat-button-toggle>
+      <mat-button-toggle value="runup" >{{ loc("tab.runup") }}</mat-button-toggle>
+    </mat-button-toggle-group>
+
+    <div>
+      <button mat-icon-button (click)="onReloadClick()">
+        <span class="material-symbols-outlined">refresh</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+  @if (goodData) {
+    @if (selTab.value=='equity') {
+      <trade-equity-panel class="panel-layout" [tar]="tar"></trade-equity-panel>
+    }
+
+    @if (selTab.value=='runup') {
+      <trade-runup-panel class="panel-layout" [tar]="tar"></trade-runup-panel>
+    }
+  }
+
+  @if (!goodData) {
+    <div class="no-data">
+      <mat-icon class="material-symbols-outlined">info</mat-icon>
+      <span>{{loc("noData")}}</span>
+    </div>
+  }
+
+  <!-- ============================================================================================================= -->
+
+</div>
