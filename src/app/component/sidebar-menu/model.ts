@@ -1,10 +1,12 @@
 //=============================================================================
 //===
-//=== Copyright (C) 2022 Andrea Carboni
+//=== Copyright (C) 2022-present Andrea Carboni
 //===
-//=== Use of this source code is governed by an MIT-style license that can be
-//=== found in the LICENSE file
+//=== This source code is licensed under the Elastic License 2.0 (ELv2) available at:
+//=== https://github.com/algotiqa/gui/blob/main/LICENSE.md
+//=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
+
 
 export type Role = string | number;
 

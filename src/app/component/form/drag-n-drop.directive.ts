@@ -3,8 +3,7 @@
 //=== Copyright (C) 2024 Andrea Carboni
 //=== Original code by Mariem Chaabeni
 //===
-//=== Use of this source code is governed by an MIT-style license that can be
-//=== found in the LICENSE file
+//=== Use of this source code is governed by an MIT-style license
 //=============================================================================
 
 import { Directive, EventEmitter, HostBinding, HostListener, Output } from '@angular/core';
