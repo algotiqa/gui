@@ -14,18 +14,15 @@ import {AbstractPanel} from "../../../../../../../../component/abstract.panel";
 import {EventBusService} from "../../../../../../../../service/eventbus.service";
 import {LabelService} from "../../../../../../../../service/label.service";
 import {Router} from "@angular/router";
-import {SelectRequired} from "../../../../../../../../component/form/select-required/select-required";
 import {MatChipsModule} from "@angular/material/chips";
-import {FilterRun} from "../../../../../../../../model/model";
+import {FilterRun} from "../../../../../../../../model/filtering";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 
-import {InputNumberRequired} from "../../../../../../../../component/form/input-integer-required/input-number-required";
 import {PortfolioService} from "../../../../../../../../service/portfolio.service";
 import {DialogData} from "../dialog-data";
 import {FlexTablePanel} from "../../../../../../../../component/panel/flex-table/flex-table.panel";
 import {FlexTableColumn} from "../../../../../../../../model/flex-table";
 import {MatIconModule} from "@angular/material/icon";
-import {PositiveTranscoder} from "../../../../../../../../component/panel/flex-table/transcoders";
 
 //=============================================================================
 
@@ -33,7 +30,7 @@ import {PositiveTranscoder} from "../../../../../../../../component/panel/flex-t
     selector: 'filter-result-dialog',
     templateUrl: 'result.dialog.html',
     styleUrls: ['result.dialog.scss'],
-    imports: [MatDialogModule, MatButtonModule, SelectRequired, MatChipsModule, MatCheckboxModule, InputNumberRequired, FlexTablePanel, MatIconModule]
+    imports: [MatDialogModule, MatButtonModule, MatChipsModule, MatCheckboxModule, FlexTablePanel, MatIconModule]
 })
 
 //=============================================================================

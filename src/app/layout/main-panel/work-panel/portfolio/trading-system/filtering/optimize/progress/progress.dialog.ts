@@ -20,7 +20,7 @@ import {DialogData} from "../dialog-data";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatGridListModule} from "@angular/material/grid-list";
 import {Subscription, timer} from "rxjs";
-import {FilterOptimizationResponse} from "../../../../../../../../model/model";
+import {FilterOptimizationResponse} from "../../../../../../../../model/filtering";
 import {MatIconModule} from "@angular/material/icon";
 
 //=============================================================================

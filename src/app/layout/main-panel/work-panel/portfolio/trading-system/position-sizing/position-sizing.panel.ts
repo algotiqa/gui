@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component, ViewChild} from '@angular/core';
+import {Component} from '@angular/core';
 
 import {MatInputModule}       from "@angular/material/input";
 import {MatCardModule}        from "@angular/material/card";
@@ -19,7 +19,6 @@ import {ListButtons, ListContent, ListLeft, ListPanel} from "../../../../../../c
 import {AbstractPanel} from "../../../../../../component/abstract.panel";
 import {EventBusService} from "../../../../../../service/eventbus.service";
 import {LabelService} from "../../../../../../service/label.service";
-import {InventoryService} from "../../../../../../service/inventory.service";
 import {NavigationService} from "../../../../../../service/navigation.service";
 import {BackButton} from "../../../../../../component/button/back/back.button";
 import {OptimizeButton} from "../../../../../../component/button/optimize/optimize.button";
@@ -27,16 +26,14 @@ import {PeriodSelector, PeriodSelectorInfo} from "../../../../../../component/fo
 import {ReloadButton} from "../../../../../../component/button/reload/reload.button";
 import {RunButton} from "../../../../../../component/button/run/run.button";
 import {SaveButton} from "../../../../../../component/button/save/save.button";
-import {
-  MatAccordion,
-  MatExpansionPanel,
-  MatExpansionPanelHeader,
-  MatExpansionPanelTitle
-} from "@angular/material/expansion";
-import {InputNumberRequired} from "../../../../../../component/form/input-integer-required/input-number-required";
-import {MatSlideToggle} from "@angular/material/slide-toggle";
-import {FilterAnalysisRequest, PorTradingSystem} from "../../../../../../model/model";
+import {InputNumber} from "../../../../../../component/form/input-number/input-number";
 import {PortfolioService} from "../../../../../../service/portfolio.service";
+import {
+  AnalysisResult, Model,
+  PositionAnalysisRequest, PositionAnalysisResponse, PositionParameters, TradingPosition
+} from "../../../../../../model/position-sizing";
+import {SelectRequired} from "../../../../../../component/form/select-required/select-required";
+import {ParamSpec} from "../../../../../../model/model";
 
 //=============================================================================
 
@@ -44,7 +41,9 @@ import {PortfolioService} from "../../../../../../service/portfolio.service";
   selector: 'position-sizing',
   templateUrl: './position-sizing.panel.html',
   styleUrls: [ './position-sizing.panel.scss'],
-  imports: [MatButtonModule, MatCardModule, MatIconModule, MatInputModule, RouterModule, ListPanel, ListButtons, ListContent, BackButton, OptimizeButton, PeriodSelector, ReloadButton, RunButton, SaveButton, ListLeft, MatAccordion, InputNumberRequired, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatSlideToggle]
+  imports: [MatButtonModule, MatCardModule, MatIconModule, MatInputModule, RouterModule, ListPanel, ListButtons,
+            ListContent, BackButton, OptimizeButton, PeriodSelector, ReloadButton, RunButton, SaveButton, ListLeft,
+            InputNumber, SelectRequired]
 })
 
 //=============================================================================
@@ -57,9 +56,18 @@ export class PositionSizingPanel extends AbstractPanel {
   //---
   //-------------------------------------------------------------------------
 
-  period : PeriodSelectorInfo = new PeriodSelectorInfo()
+  tsId     : number = 0
+  period   : PeriodSelectorInfo = new PeriodSelectorInfo()
+  params   : PositionParameters = new PositionParameters()
+  curModel : Model = new Model()
+  selModel : Model = new Model()
+  specs    : {[name:string]:ParamSpec} = {}
 
-  ts : PorTradingSystem = new PorTradingSystem()
+  positionModels         : Object = {}
+  positionRiskPerUnits   : Object = {}
+  positionMoneyConversion: Object = {}
+
+  par : PositionAnalysisResponse = new PositionAnalysisResponse()
 
   //-------------------------------------------------------------------------
   //---
@@ -83,8 +91,48 @@ export class PositionSizingPanel extends AbstractPanel {
   //-------------------------------------------------------------------------
 
   override init = () : void => {
-    // this.tsId = Number(this.route.snapshot.paramMap.get("id"));
-    // this.callService(new FilterAnalysisRequest())
+    this.tsId = Number(this.route.snapshot.paramMap.get("id"));
+    this.positionModels         = this.labelService.getLabel("map.positionModel")
+    this.positionRiskPerUnits   = this.labelService.getLabel("map.positionRiskPerUnit")
+    this.positionMoneyConversion= this.labelService.getLabel("map.positionMoneyConversion")
+
+    this.callService(this.buildDefaultRequest())
+  }
+
+  //-------------------------------------------------------------------------
+  //---
+  //--- Public
+  //---
+  //-------------------------------------------------------------------------
+
+  curName() : any {
+    // @ts-ignore
+    return this.positionModels[this.curModel.name]
+  }
+
+  //-------------------------------------------------------------------------
+
+  curMoneyConversion() : any {
+    // @ts-ignore
+    return this.positionMoneyConversion[this.curModel.config['moneyConversion']]
+  }
+
+  //-------------------------------------------------------------------------
+
+  min(name:string) : number {
+    return this.specs[name].minValue
+  }
+
+  //-------------------------------------------------------------------------
+
+  max(name:string) : number {
+    return this.specs[name].maxValue
+  }
+
+  //-------------------------------------------------------------------------
+
+  opt(name:string) : boolean {
+    return !this.specs[name].required
   }
 
   //-------------------------------------------------------------------------
@@ -98,8 +146,15 @@ export class PositionSizingPanel extends AbstractPanel {
   }
 
   //-------------------------------------------------------------------------
+
   onRunClick() {
-    // this.callService(this.buildRequest(this.filter))
+    let req = <PositionAnalysisRequest>{
+      params : this.params,
+      model  : this.selModel,
+      period : this.period.getSelectedPeriod()
+    }
+
+    this.callService(req)
   }
 
   //-------------------------------------------------------------------------
@@ -133,16 +188,8 @@ export class PositionSizingPanel extends AbstractPanel {
   //-------------------------------------------------------------------------
 
   onReloadClick() {
-    // this.period = new PeriodSelectorInfo()
-    // this.callService(this.buildRequest())
+    this.callService(this.buildDefaultRequest())
   }
-
-  //-------------------------------------------------------------------------
-  //---
-  //--- Init methods
-  //---
-  //-------------------------------------------------------------------------
-
 
   //-------------------------------------------------------------------------
   //---
@@ -150,6 +197,29 @@ export class PositionSizingPanel extends AbstractPanel {
   //---
   //-------------------------------------------------------------------------
 
+  private buildDefaultRequest() : PositionAnalysisRequest {
+    let req = new PositionAnalysisRequest();
+    req.period = this.period.getSelectedPeriod()
+
+    return req
+  }
+
+  //-------------------------------------------------------------------------
+
+  private callService(req : PositionAnalysisRequest) {
+    console.log("Calling service")
+    this.portfolioService.runPositionAnalysis(this.tsId, req).subscribe(
+      res => {
+        this.par      = res
+        this.params   = res.params
+        this.curModel = res.current.model
+
+        if (res.paramSpecs) {
+          this.specs = res.paramSpecs
+        }
+      }
+    )
+  }
 }
 
 //=============================================================================

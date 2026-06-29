@@ -21,7 +21,7 @@ import {MatSlideToggle} from "@angular/material/slide-toggle";
 import {RightTitlePanel} from "../../../../../../../component/panel/right-title/right-title.panel";
 import {InputTextRequired} from "../../../../../../../component/form/input-text-required/input-text-required";
 import {SelectRequired} from "../../../../../../../component/form/select-required/select-required";
-import {InputNumberRequired} from "../../../../../../../component/form/input-integer-required/input-number-required";
+import {InputNumber} from "../../../../../../../component/form/input-number/input-number";
 import {ChipSetTextComponent} from "../../../../../../../component/form/chip-text-set/chip-set-text";
 import {SelectTextRequired} from "../../../../../../../component/form/select-optional/select-optional";
 import {AbstractPanel} from "../../../../../../../component/abstract.panel";
@@ -50,7 +50,7 @@ import {DatePicker} from "../../../../../../../component/form/date-picker/date-p
     styleUrls: ['./edit.panel.scss'],
   imports: [RightTitlePanel, MatFormFieldModule, MatOptionModule, MatSelectModule,
     MatInputModule, MatIconModule, MatButtonModule, FormsModule, ReactiveFormsModule,
-    MatDividerModule, InputTextRequired, SelectRequired, InputNumberRequired, ChipSetTextComponent, SelectTextRequired, MatSlideToggle, DataProductSelector, BrokerProductSelector, DatePicker
+    MatDividerModule, InputTextRequired, SelectRequired, InputNumber, ChipSetTextComponent, SelectTextRequired, MatSlideToggle, DataProductSelector, BrokerProductSelector, DatePicker
   ]
 })
 
@@ -80,7 +80,7 @@ export class TradingSystemDevelEditPanel extends AbstractPanel {
   @ViewChild("tsDataCtrl")         tsDataCtrl?        : DataProductSelector
   @ViewChild("tsBrokerCtrl")       tsBrokerCtrl?      : SelectRequired
   @ViewChild("tsSessionCtrl")      tsSessionCtrl?     : SelectRequired
-  @ViewChild("tsTimeframeCtrl")    tsTimeframeCtrl?   : InputNumberRequired
+  @ViewChild("tsTimeframeCtrl")    tsTimeframeCtrl?   : InputNumber
   @ViewChild("tsStratTypeCtrl")    tsStratTypeCtrl?   : SelectRequired
   @ViewChild("tsInSampleFromCtrl") tsInSampleFromCtrl?: DatePicker
   @ViewChild("tsInSampleToCtrl")   tsInSampleToCtrl?  : DatePicker

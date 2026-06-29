@@ -1,5 +1,6 @@
-# Gui
-Frontend to the Algotiqa ecosystem
+# Algotiqa User Interface
+
+This is the frontend to the Algotiqa ecosystem.
 
 ## Development server
 

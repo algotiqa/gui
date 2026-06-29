@@ -30,15 +30,15 @@ import {CustomErrorStateMatcher} from "../error-state-matcher";
 //=============================================================================
 
 @Component({
-    selector: 'input-number-required',
-    templateUrl: './input-number-required.html',
-    styleUrls: ['./input-number-required.scss'],
+    selector: 'input-number',
+    templateUrl: './input-number.html',
+    styleUrls: ['./input-number.scss'],
     imports: [MatFormFieldModule, MatOptionModule, MatInputModule, FormsModule, ReactiveFormsModule, MatButtonModule, MatIconModule]
 })
 
 //=============================================================================
 
-export class InputNumberRequired extends AbstractSubscriber {
+export class InputNumber extends AbstractSubscriber {
 
   //-------------------------------------------------------------------------
   //---
@@ -46,18 +46,19 @@ export class InputNumberRequired extends AbstractSubscriber {
   //---
   //-------------------------------------------------------------------------
 
-  @Input() label : string = ""
+  @Input() label : string  = ""
 
-  @Output() valueChange = new EventEmitter<any>();
+  @Output() valueChange = new EventEmitter<number|undefined>();
 
   //-------------------------------------------------------------------------
 
   formControl = new FormControl<number|undefined>(undefined, [Validators.required])
-  matcher    = new CustomErrorStateMatcher();
+  matcher     = new CustomErrorStateMatcher();
 
-  private _min?  : number
-  private _max?  : number
-  private _valid : boolean= false
+  private _min?     : number
+  private _max?     : number
+  private _valid    : boolean= false
+  private _optional : boolean = false;
 
   //-------------------------------------------------------------------------
   //---
@@ -88,6 +89,10 @@ export class InputNumberRequired extends AbstractSubscriber {
 
   @Input()
   set value(v : number|undefined) {
+    if (v == null) {
+      v = undefined
+    }
+
     this.formControl.setValue(v)
   }
 
@@ -138,6 +143,20 @@ export class InputNumberRequired extends AbstractSubscriber {
   }
 
   //-------------------------------------------------------------------------
+
+  get optional() : boolean {
+    return this.formControl.disabled
+  }
+
+  //-------------------------------------------------------------------------
+
+  @Input()
+  set optional(v : boolean) {
+    this._optional = v;
+    this.updateValidators()
+  }
+
+  //-------------------------------------------------------------------------
   //---
   //--- Public methods
   //---
@@ -167,20 +186,29 @@ export class InputNumberRequired extends AbstractSubscriber {
 
   private valueChanged = (s : FormControlStatus) => {
     this._valid = (s == "VALID")
-    this.valueChange.emit(this.formControl.value)
+    let value = this.formControl.value
+    if (value == null) {
+      value = undefined
+    }
+
+    this.valueChange.emit(value)
   }
 
   //-------------------------------------------------------------------------
 
   private updateValidators() {
-    let validators = [ Validators.required ]
+    let validators = [ ]
+
+    if (!this._optional) {
+      validators.push(Validators.required)
+    }
 
     if (this._min) {
-      validators = [ ...validators, Validators.min(this._min) ]
+      validators.push(Validators.min(this._min))
     }
 
     if (this._max) {
-      validators = [ ...validators, Validators.max(this._max) ]
+      validators.push(Validators.max(this._max))
     }
 
     this.formControl.setValidators(validators)

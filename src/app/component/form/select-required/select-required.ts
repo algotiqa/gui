@@ -57,7 +57,7 @@ export class SelectRequired extends AbstractSubscriber {
 	formControl = new FormControl<any>('', [Validators.required])
 	matcher = new CustomErrorStateMatcher();
 
-  private _valid : boolean= false
+  private _valid    : boolean = false
   private prevValue : any
 
 	//-------------------------------------------------------------------------

@@ -626,12 +626,31 @@ page:
         taStartDate:  Start date
 
     positionSizing:
-      title: Position sizing
-      models:
-        fixedUnit   : Fixed unit
-        percentRisk : Percent risk
-        percentVolat: Percent volatility
-        marketMoney : Market money
+      title   : Position sizing for
+      params  : General parameters
+      current : Current model
+      selected: Selected model
+      model   : Model
+      initialCapital: Initial capital
+      ruinPercentage: Ruin (%)
+      marginOverride: Margin override
+      maxUnits      : Max units
+      riskPerUnit   : Risk per unit
+      riskValue     : Risk value
+      fu:
+        units: Units
+      pr:
+        riskPerTrade: Risk per trade (%)
+        riskPerUnit : Risk per unit
+        riskValue   : Risk value
+      pv:
+        averageLength: Average length (days)
+        maxVolatility: Max volatility
+      mm:
+        riskPerTradeOnCap  : Risk per trade on capital (%)
+        riskPerTradeOnEarn : Risk per trade on earnings (%)
+        moneyConversion    : Money conversion
+        percentageOnCapital: Percentage on capital
 
   # ==============================================================================
 
@@ -1173,6 +1192,21 @@ map:
     40: 40 bars
     45: 45 bars
     50: 50 bars
+
+  positionModel:
+    FU : Fixed unit
+    PR : Percent risk
+    PV : Percent volatility
+    MM : Market money
+
+  positionRiskPerUnit:
+    stopLoss  : Stop loss
+    maxLoss   : Max encountered loss
+    avgLoss   : Average loss
+    fixedValue: Fixed value
+
+  positionMoneyConversion:
+    percOnCapital: Percentage on capital
 
 # ==============================================================================
 

@@ -10,14 +10,9 @@
 import {Injectable}      from "@angular/core";
 import {Observable}      from "rxjs";
 import {
-  FilterAnalysisRequest,
-  FilterAnalysisResponse,
-  FilterOptimizationResponse,
-  FilterOptimizationRequest,
   PortfolioMonitoringResponse,
   PorTradingSystem,
   StatusResponse,
-  TradingFilter,
   TradingSystemPropertyResponse,
   Portfolio,
   PortfolioTree,
@@ -28,6 +23,13 @@ import {PerformanceAnalysisRequest, PerformanceAnalysisResponse} from "../model/
 import {QualityAnalysisRequest, QualityAnalysisResponse} from "../model/quality";
 import {SimulationRequest, SimulationResult} from "../model/simulation";
 import {TradeAnalysisRequest, TradeAnalysisResponse} from "../model/trade-analysis";
+import {
+  FilterAnalysisRequest,
+  FilterAnalysisResponse,
+  FilterOptimizationRequest, FilterOptimizationResponse,
+  TradingFilter
+} from "../model/filtering";
+import {PositionAnalysisRequest, PositionAnalysisResponse} from "../model/position-sizing";
 
 //=============================================================================
 
@@ -146,6 +148,14 @@ export class PortfolioService {
 
   public getFilterOptimizationInfo = (tsId : number): Observable<FilterOptimizationResponse> => {
     return this.httpService.get<FilterOptimizationResponse>('/api/portfolio/v1/trading-systems/'+ tsId +'/filter-optimization');
+  }
+
+  //---------------------------------------------------------------------------
+  //--- Position sizing
+  //---------------------------------------------------------------------------
+
+  public runPositionAnalysis = (tsId : number, req : PositionAnalysisRequest): Observable<PositionAnalysisResponse> => {
+    return this.httpService.post<PositionAnalysisResponse>('/api/portfolio/v1/trading-systems/'+ tsId +'/position-analysis', req);
   }
 
   //---------------------------------------------------------------------------

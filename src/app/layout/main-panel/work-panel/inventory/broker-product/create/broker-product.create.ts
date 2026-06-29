@@ -28,7 +28,7 @@ import {InputTextRequired} from "../../../../../../component/form/input-text-req
 import {BrokerProductSpec, Connection, Exchange, RootSymbol} from "../../../../../../model/model";
 import {SelectRequired} from "../../../../../../component/form/select-required/select-required";
 import {InventoryService} from "../../../../../../service/inventory.service";
-import {InputNumberRequired} from "../../../../../../component/form/input-integer-required/input-number-required";
+import {InputNumber} from "../../../../../../component/form/input-number/input-number";
 import {
   PresetProductSelectorDialog
 } from "../../../../../../component/form/preset-product-selector/preset-product-selector.dialog";
@@ -54,7 +54,7 @@ enum Status {
     selector: "broker-product-create",
     templateUrl: './broker-product.create.html',
     styleUrls: [ './broker-product.create.scss'],
-    imports: [RightTitlePanel, MatFormFieldModule, MatOptionModule, MatSelectModule, MatInputModule, MatIconModule, MatButtonModule, FormsModule, ReactiveFormsModule, MatDividerModule, InputTextRequired, SelectRequired, InputNumberRequired, TextSelectorPanel]
+    imports: [RightTitlePanel, MatFormFieldModule, MatOptionModule, MatSelectModule, MatInputModule, MatIconModule, MatButtonModule, FormsModule, ReactiveFormsModule, MatDividerModule, InputTextRequired, SelectRequired, InputNumber, TextSelectorPanel]
 })
 
 //=============================================================================
@@ -80,10 +80,10 @@ export class BrokerProductCreatePanel extends AbstractPanel {
 
   @ViewChild("pbSymbolCtrl")       pbSymbolCtrl?       : InputTextRequired
   @ViewChild("pbNameCtrl")         pbNameCtrl?         : InputTextRequired
-  @ViewChild("pbPointValueCtrl")   pbPointValueCtrl?   : InputNumberRequired
-  @ViewChild("pbCostPerOperCtrl")  pbCostPerOperCtrl?  : InputNumberRequired
-  @ViewChild("pbMarginValueCtrl")  pbMarginValueCtrl?  : InputNumberRequired
-  @ViewChild("pbIncrementCtrl")    pdIncrementCtrl?    : InputNumberRequired
+  @ViewChild("pbPointValueCtrl")   pbPointValueCtrl?   : InputNumber
+  @ViewChild("pbCostPerOperCtrl")  pbCostPerOperCtrl?  : InputNumber
+  @ViewChild("pbMarginValueCtrl")  pbMarginValueCtrl?  : InputNumber
+  @ViewChild("pbIncrementCtrl")    pdIncrementCtrl?    : InputNumber
   @ViewChild("pbMarketCtrl")       pbMarketCtrl?       : SelectRequired
   @ViewChild("pbProductCtrl")      pbProductCtrl?      : SelectRequired
   @ViewChild("pbExchangeCtrl")     pbExchangeCtrl?     : SelectRequired

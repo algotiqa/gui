@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {TradingFilter} from "../../../../../../../model/model";
+import {TradingFilter} from "../../../../../../../model/filtering";
 
 //=============================================================================
 

@@ -24,7 +24,7 @@ import {SimulationRequest} from "../../../model/simulation";
 import {EventBusService} from "../../../service/eventbus.service";
 import {LabelService} from "../../../service/label.service";
 import {FlatButton} from "../../../component/form/flat-button/flat-button";
-import {InputNumberRequired} from "../../../component/form/input-integer-required/input-number-required";
+import {InputNumber} from "../../../component/form/input-number/input-number";
 import {MatCardModule} from "@angular/material/card";
 import {PorTradingSystem} from "../../../model/model";
 import {PeriodSelector, PeriodSelectorInfo} from "../../../component/form/period-selector/period-selector";
@@ -38,7 +38,7 @@ import {PerformanceAnalysisRequest} from "../../../model/performance";
   styleUrls : ['./params.panel.scss'],
   imports: [MatFormFieldModule, MatOptionModule, MatSelectModule,
     MatInputModule, MatIconModule, MatButtonModule, FormsModule, ReactiveFormsModule,
-    MatDividerModule, MatButtonToggleModule, MatIconModule, FlatButton, InputNumberRequired, MatCardModule, PeriodSelector]
+    MatDividerModule, MatButtonToggleModule, MatIconModule, FlatButton, InputNumber, MatCardModule, PeriodSelector]
 })
 
 //=============================================================================
@@ -58,7 +58,7 @@ export class SimulationParamsPanel extends AbstractPanel {
 
   @Output() runChange = new EventEmitter<SimulationRequest>();
 
-  @ViewChild("tsRunsCtrl") tsRunsCtrl? : InputNumberRequired
+  @ViewChild("tsRunsCtrl") tsRunsCtrl? : InputNumber
 
   //-------------------------------------------------------------------------
   //---

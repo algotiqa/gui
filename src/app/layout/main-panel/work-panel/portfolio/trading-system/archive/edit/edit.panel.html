@@ -10,7 +10,7 @@
     <br/>
     <select-required #tsSessionCtrl    [(key)]="ts.tradingSessionId" [label]="mod('tradingSession')"  keyField="id" valueField="name" [list]="sessions" [disabled]="disabled">></select-required>
     <br/>
-    <input-number-required #tsTimeframeCtrl [(value)]="ts.timeframe"      [label]="mod('timeframe')" [min]="1" [max]="1440" [disabled]="disabled">></input-number-required>
+    <input-number #tsTimeframeCtrl [(value)]="ts.timeframe"      [label]="mod('timeframe')" [min]="1" [max]="1440" [disabled]="disabled">></input-number>
     <br/>
     <select-required #tsStratTypeCtrl  [(key)]="ts.strategyType"     [label]="mod('strategyType')"   [map]="strategyTypes"></select-required>
     <br/>

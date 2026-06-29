@@ -27,7 +27,7 @@ import {MatDividerModule} from "@angular/material/divider";
 import {InputTextRequired} from "../../../../../../component/form/input-text-required/input-text-required";
 import {SelectRequired} from "../../../../../../component/form/select-required/select-required";
 import {InventoryService} from "../../../../../../service/inventory.service";
-import {InputNumberRequired} from "../../../../../../component/form/input-integer-required/input-number-required";
+import {InputNumber} from "../../../../../../component/form/input-number/input-number";
 import {DataProductSpec} from "../../../../../../model/model";
 
 //=============================================================================
@@ -36,7 +36,7 @@ import {DataProductSpec} from "../../../../../../model/model";
     selector: "data-product-edit",
     templateUrl: './data-product.edit.html',
     styleUrls: ['./data-product.edit.scss'],
-    imports: [RightTitlePanel, MatFormFieldModule, MatOptionModule, MatSelectModule, MatInputModule, MatIconModule, MatButtonModule, FormsModule, ReactiveFormsModule, MatDividerModule, InputTextRequired, SelectRequired, InputNumberRequired]
+    imports: [RightTitlePanel, MatFormFieldModule, MatOptionModule, MatSelectModule, MatInputModule, MatIconModule, MatButtonModule, FormsModule, ReactiveFormsModule, MatDividerModule, InputTextRequired, SelectRequired, InputNumber]
 })
 
 //=============================================================================

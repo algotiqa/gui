@@ -30,7 +30,7 @@ import {
 } from "../../../../../../model/model";
 import {SelectRequired} from "../../../../../../component/form/select-required/select-required";
 import {InventoryService} from "../../../../../../service/inventory.service";
-import {InputNumberRequired} from "../../../../../../component/form/input-integer-required/input-number-required";
+import {InputNumber} from "../../../../../../component/form/input-number/input-number";
 import {MatDialog} from "@angular/material/dialog";
 import {CollectorService} from "../../../../../../service/collector.service";
 import {InstrumentSelectorPanel} from "../../../../../../component/form/instrument-selector/instrument-selector.panel";
@@ -42,7 +42,7 @@ import {BiasAnalysis} from "../model";
     selector: "biasAnalysis-create",
     templateUrl: './bias-analysis.create.html',
     styleUrls: ['./bias-analysis.create.scss'],
-    imports: [RightTitlePanel, MatFormFieldModule, MatOptionModule, MatSelectModule, MatInputModule, MatIconModule, MatButtonModule, FormsModule, ReactiveFormsModule, MatDividerModule, InputTextRequired, SelectRequired, InputNumberRequired, InstrumentSelectorPanel]
+    imports: [RightTitlePanel, MatFormFieldModule, MatOptionModule, MatSelectModule, MatInputModule, MatIconModule, MatButtonModule, FormsModule, ReactiveFormsModule, MatDividerModule, InputTextRequired, SelectRequired, InputNumber, InstrumentSelectorPanel]
 })
 
 //=============================================================================

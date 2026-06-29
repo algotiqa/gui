@@ -7,7 +7,6 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-
 import {Component, ViewChild} from '@angular/core';
 
 import {ActivatedRoute, Router, RouterModule} from "@angular/router";
@@ -21,11 +20,13 @@ import {MatInputModule} from "@angular/material/input";
 import {MatOptionModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
 import {MatSlideToggleChange, MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {TradingSystemSmall,
+} from "../../../../../../model/model";
 import {
   FilterAnalysisRequest,
   FilterAnalysisResponse, FilterRun, Serie, Summary,
-  TradingFilter, TradingSystemSmall,
-} from "../../../../../../model/model";
+  TradingFilter,
+} from "../../../../../../model/filtering";
 import {MatTabsModule} from "@angular/material/tabs";
 import {MatButtonModule} from "@angular/material/button";
 import {Lib} from "../../../../../../lib/lib";
@@ -46,10 +47,8 @@ import {ChartComponent} from "ng-apexcharts";
 import {buildActivationChartOptions, buildEquityChartOptions} from "./charts-config";
 import {DialogData} from "./optimize/dialog-data";
 import {MatCardModule} from "@angular/material/card";
-import {FlatButton} from "../../../../../../component/form/flat-button/flat-button";
 import {ChartOptions} from "../../../../../../lib/chart-lib";
-import {InputTextOptional} from "../../../../../../component/form/input-text-optional/input-text-optional";
-import {InputNumberRequired} from "../../../../../../component/form/input-integer-required/input-number-required";
+import {InputNumber} from "../../../../../../component/form/input-number/input-number";
 import {PeriodSelector, PeriodSelectorInfo} from "../../../../../../component/form/period-selector/period-selector";
 import {ListButtons, ListContent, ListLeft, ListPanel} from "../../../../../../component/panel/list-panel/list-panel";
 import {BackButton} from "../../../../../../component/button/back/back.button";
@@ -65,7 +64,7 @@ import {NavigationService} from "../../../../../../service/navigation.service";
     selector: 'trading-system-filtering',
     templateUrl: './filtering.panel.html',
     styleUrls: ['./filtering.panel.scss'],
-  imports: [RouterModule, MatExpansionModule, MatIconModule, MatFormFieldModule, FormsModule, MatInputModule, MatOptionModule, MatSelectModule, MatSlideToggleModule, MatTabsModule, MatButtonModule, MatDividerModule, MatGridListModule, SimpleTablePanel, MatDialogModule, ChartComponent, MatCardModule, FlatButton, InputNumberRequired, PeriodSelector, ListButtons, ListContent, ListPanel, ListLeft, BackButton, SaveButton, ReloadButton, RunButton, OptimizeButton]
+  imports: [RouterModule, MatExpansionModule, MatIconModule, MatFormFieldModule, FormsModule, MatInputModule, MatOptionModule, MatSelectModule, MatSlideToggleModule, MatTabsModule, MatButtonModule, MatDividerModule, MatGridListModule, SimpleTablePanel, MatDialogModule, ChartComponent, MatCardModule, InputNumber, PeriodSelector, ListButtons, ListContent, ListPanel, ListLeft, BackButton, SaveButton, ReloadButton, RunButton, OptimizeButton]
 })
 
 //=============================================================================
@@ -80,9 +79,9 @@ export class FilteringPanel extends AbstractPanel {
 
   period : PeriodSelectorInfo = new PeriodSelectorInfo()
 
-  filter             = new TradingFilter()
+  filter       = new TradingFilter()
   tradingSystem= new TradingSystemSmall()
-  summary              = new Summary()
+  summary      = new Summary()
 
   equityChartOptions : ChartOptions
   activChartOptions  : ChartOptions
@@ -135,7 +134,7 @@ export class FilteringPanel extends AbstractPanel {
 
   override init = () : void => {
     this.tsId = Number(this.route.snapshot.paramMap.get("id"));
-    this.callService(new FilterAnalysisRequest())
+//    this.callService(new FilterAnalysisRequest())
   }
 
   //-------------------------------------------------------------------------
@@ -146,6 +145,7 @@ export class FilteringPanel extends AbstractPanel {
 
   onPeriodChange(period : PeriodSelectorInfo) {
     console.log("On period change")
+    this.onRunClick()
   }
 
   //-------------------------------------------------------------------------
@@ -461,14 +461,7 @@ export class FilteringPanel extends AbstractPanel {
   private buildRequest(filter? : TradingFilter) : FilterAnalysisRequest {
     let req = new FilterAnalysisRequest()
     req.filter = filter
-
-    req.daysBack = this.period.daysBack
-    req.fromDate = this.period.fromDate
-    req.toDate   = this.period.toDate
-
-    if (this.period.custom) {
-      req.daysBack = undefined
-    }
+    req.period = this.period.getSelectedPeriod()
 
     return req
   }

@@ -1,4 +1,4 @@
-<list-panel [title]="loc('title')">
+<list-panel title="{{loc('title') +' '+ par.tradingSystem.name}}">
   <list-buttons>
     <back-button></back-button>
     |
@@ -9,31 +9,102 @@
     <reload-button   (click)="onReloadClick()"  ></reload-button>
   </list-buttons>
 
-  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!-- =================================================================================== -->
 
   <list-left>
-    <mat-accordion>
-      <mat-expansion-panel [expanded]="ts.positionModel=='FU'" hideToggle class="expansion-layout">
-        <mat-expansion-panel-header>
-          <mat-panel-title><mat-icon>functions</mat-icon> {{loc("models.fixedUnit")}}
-          </mat-panel-title>
-        </mat-expansion-panel-header>
+    <mat-card class="card-layout">
+      <mat-card-content class="models-layout">
+        <span>{{loc("params")}}</span>
+        <input-number    [(value)]="params.initialCapital" [label]="loc('initialCapital')" [min]="min('initialCapital')" [max]="max('initialCapital')" [optional]="opt('initialCapital')"></input-number>
+        <input-number    [(value)]="params.ruinPercentage" [label]="loc('ruinPercentage')" [min]="min('ruinPercentage')" [max]="max('ruinPercentage')" [optional]="opt('ruinPercentage')"></input-number>
+        <input-number    [(value)]="params.marginOverride" [label]="loc('marginOverride')" [min]="min('marginOverride')" [max]="max('marginOverride')" [optional]="opt('marginOverride')"></input-number>
+        <input-number    [(value)]="params.maxUnits"       [label]="loc('maxUnits')"       [min]="min('maxUnits')" [max]="max('maxUnits')" [optional]="opt('maxUnits')"></input-number>
+        <select-required [(key)]  ="params.riskPerUnit"    [label]="loc('riskPerUnit')"    [map]="positionRiskPerUnits"></select-required><br/>
+        <input-number    [(value)]="params.riskValue"      [label]="loc('riskValue')"      [min]="min('riskValue')" [max]="max('riskValue')" [optional]="opt('riskValue')" [disabled]="params.riskPerUnit != 'fixedValue'"></input-number>
+      </mat-card-content>
+    </mat-card>
 
-        <input-number-required [(value)]="ts.timeframe" [label]="loc('length')" [min]="1" [max]="300"></input-number-required>
-      </mat-expansion-panel>
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
-      <mat-expansion-panel [expanded]="ts.positionModel=='MM'" hideToggle class="expansion-layout">
-        <mat-expansion-panel-header>
-          <mat-panel-title><mat-icon>functions</mat-icon> {{loc("models.percentRisk")}}
-          </mat-panel-title>
-        </mat-expansion-panel-header>
+    <mat-card class="card-layout">
+      <mat-card-content class="models-layout">
+        <span>{{loc("current")}}</span>
+        <table>
+          <tr>
+            <td>{{loc('model')}}</td><td>{{curName()}}</td>
+          </tr>
 
-        <input-number-required [(value)]="ts.timeframe" [label]="loc('length')" [min]="1" [max]="300"></input-number-required>
-      </mat-expansion-panel>
-    </mat-accordion>
+          @if (curModel.name == "FU") {
+            <tr>
+              <td>{{loc('fu.units')}}</td><td>{{curModel.config['units']}}</td>
+            </tr>
+          }
+
+          @if (curModel.name == "PR") {
+            <tr>
+              <td>{{loc('pr.riskPerTrade')}}</td><td>{{curModel.config['riskPerTrade']}}</td>
+            </tr>
+          }
+
+          @if (curModel.name == "PV") {
+            <tr>
+              <td>{{loc('pv.averageLength')}}</td><td>{{curModel.config['averageLength']}}</td>
+            </tr>
+            <tr>
+              <td>{{loc('pv.maxVolatility')}}</td><td>{{curModel.config['maxVolatility']}}</td>
+            </tr>
+          }
+
+          @if (curModel.name == "MM") {
+            <tr>
+              <td>{{loc('mm.riskPerTradeOnCap')}}</td><td>{{curModel.config['riskPerTradeOnCap']}}</td>
+            </tr>
+            <tr>
+              <td>{{loc('mm.riskPerTradeOnEarn')}}</td><td>{{curModel.config['riskPerTradeOnEarn']}}</td>
+            </tr>
+            <tr>
+              <td>{{loc('mm.moneyConversion')}}</td><td>{{curMoneyConversion()}}</td>
+            </tr>
+            <tr>
+              <td>{{loc('mm.percentageOnCapital')}}</td><td>{{curModel.config['percentageOnCapital']}}</td>
+            </tr>
+          }
+        </table>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+    <mat-card class="card-layout">
+      <mat-card-content class="models-layout">
+        <span>{{loc("selected")}}</span>
+        <select-required [label]="loc('model')" [(key)]="selModel.name" [map]="positionModels"></select-required><br/>
+
+        @if (selModel.name == "FU") {
+          <input-number [(value)]="selModel.config['units']" [label]="loc('fu.units')" [min]="1" [max]="1000"></input-number>
+        }
+
+        @if (selModel.name == "PR") {
+          <input-number [(value)]="selModel.config['riskPerTrade']" [label]="loc('pr.riskPerTrade')" [min]="0.1" [max]="50"></input-number>
+        }
+
+        @if (selModel.name == "PV") {
+          <input-number [(value)]="selModel.config['averageLength']" [label]="loc('pv.averageLength')" [min]="1" [max]="200"></input-number>
+          <input-number [(value)]="selModel.config['maxVolatility']" [label]="loc('pv.maxVolatility')" [min]="0.1" [max]="50"></input-number>
+        }
+
+        @if (selModel.name == "MM") {
+          <input-number    [(value)]="selModel.config['riskPerTradeOnCap']"   [label]="loc('mm.riskPerTradeOnCap')"   [min]="0.1" [max]="50"></input-number>
+          <input-number    [(value)]="selModel.config['riskPerTradeOnEarn']"  [label]="loc('mm.riskPerTradeOnEarn')"  [min]="0.1" [max]="50"></input-number>
+          <select-required [(key)]  ="selModel.config['moneyConversion']"     [label]="loc('mm.moneyConversion')"     [map]="positionMoneyConversion"></select-required><br/>
+          <input-number    [(value)]="selModel.config['percentageOnCapital']" [label]="loc('mm.percentageOnCapital')" [min]="1" [max]="100" [disabled]="selModel.config['moneyConversion'] != 'percOnCapital'"></input-number>
+        }
+
+      </mat-card-content>
+    </mat-card>
   </list-left>
 
-  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!-- =================================================================================== -->
 
   <list-content>
   </list-content>

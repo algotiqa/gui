@@ -93,6 +93,27 @@ export class PeriodSelectorInfo {
   daysBack : number  = 180
   fromDate?: number
   toDate?  : number
+
+  public getSelectedPeriod() : SelectedPeriod {
+    let sp = new SelectedPeriod()
+    sp.daysBack = this.daysBack
+    sp.fromDate = this.fromDate
+    sp.toDate   = this.toDate
+
+    if (this.custom) {
+      sp.daysBack = undefined
+    }
+
+    return sp
+  }
+}
+
+//=============================================================================
+
+export class SelectedPeriod {
+  daysBack? : number
+  fromDate? : number
+  toDate?   : number
 }
 
 //=============================================================================

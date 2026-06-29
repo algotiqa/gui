@@ -11,7 +11,28 @@
 
 //=============================================================================
 
-.main-panel {
+.card-layout {
+  margin-left: 8px;
+  margin-bottom: 8px;
+  background-color: #FFFFFF;
+}
+
+//=============================================================================
+
+.models-layout {
+  width: 270px;
+
+  span {
+    font-size: larger;
+  }
+
+  table, select-required {
+    width: 100%;
+  }
+
+  input-number {
+    width: 100%;
+  }
 }
 
 //=============================================================================

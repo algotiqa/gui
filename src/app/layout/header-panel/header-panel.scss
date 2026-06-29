@@ -9,13 +9,15 @@
 
 
 .toolbar {
-//  background-color: #FFF8F4;
-//  background-color: #F4F8FF;
-  //  border-bottom: solid #F37C40;
-
   background-color: #FFFFFF;
   border-bottom: solid #505AC2;
+
+  background-image: url('/assets/image/header.png');
+  background-position: right center;
+  background-repeat: no-repeat;
+  background-size: contain;
 }
+
 //=============================================================================
 
 .spacer {

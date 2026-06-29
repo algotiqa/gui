@@ -16,10 +16,10 @@ import {LabelService} from "../../../../../../../../service/label.service";
 import {Router} from "@angular/router";
 import {SelectRequired} from "../../../../../../../../component/form/select-required/select-required";
 import {MatChipSelectionChange, MatChipsModule} from "@angular/material/chips";
-import {FieldOptimization, FilterOptimizationRequest} from "../../../../../../../../model/model";
+import {FilterOptimizationRequest} from "../../../../../../../../model/filtering";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 
-import {InputNumberRequired} from "../../../../../../../../component/form/input-integer-required/input-number-required";
+import {InputNumber} from "../../../../../../../../component/form/input-number/input-number";
 import {PortfolioService} from "../../../../../../../../service/portfolio.service";
 import {DialogData} from "../dialog-data";
 import {MatTabsModule} from "@angular/material/tabs";
@@ -30,7 +30,7 @@ import {MatTabsModule} from "@angular/material/tabs";
     selector: 'filter-parameter-dialog',
     templateUrl: 'parameter.dialog.html',
     styleUrls: ['parameter.dialog.scss'],
-    imports: [MatDialogModule, MatButtonModule, SelectRequired, MatChipsModule, MatCheckboxModule, InputNumberRequired, MatTabsModule]
+    imports: [MatDialogModule, MatButtonModule, SelectRequired, MatChipsModule, MatCheckboxModule, InputNumber, MatTabsModule]
 })
 
 //=============================================================================

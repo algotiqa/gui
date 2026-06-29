@@ -38,7 +38,7 @@ import {SelectRequired} from "../../../../../../component/form/select-required/s
 import {Url} from "../../../../../../model/urls";
 import {PortfolioService} from "../../../../../../service/portfolio.service";
 import {InventoryService} from "../../../../../../service/inventory.service";
-import {InputNumberRequired} from "../../../../../../component/form/input-integer-required/input-number-required";
+import {InputNumber} from "../../../../../../component/form/input-number/input-number";
 
 //=============================================================================
 
@@ -46,7 +46,7 @@ import {InputNumberRequired} from "../../../../../../component/form/input-intege
     selector: "broker-product-edit",
     templateUrl: './broker-product.edit.html',
     styleUrls: ['./broker-product.edit.scss'],
-    imports: [RightTitlePanel, MatFormFieldModule, MatOptionModule, MatSelectModule, MatInputModule, MatIconModule, MatButtonModule, FormsModule, ReactiveFormsModule, MatDividerModule, InputTextRequired, SelectRequired, InputNumberRequired]
+    imports: [RightTitlePanel, MatFormFieldModule, MatOptionModule, MatSelectModule, MatInputModule, MatIconModule, MatButtonModule, FormsModule, ReactiveFormsModule, MatDividerModule, InputTextRequired, SelectRequired, InputNumber]
 })
 
 //=============================================================================
@@ -67,10 +67,10 @@ export class ProductBrokerEditPanel extends AbstractPanel {
   //---  The symbol cannot be changed because it is the root used to retrieve instruments from the broker
 
   @ViewChild("pbNameCtrl")         pbNameCtrl?         : InputTextRequired
-  @ViewChild("pbPointValueCtrl")   pbPointValueCtrl?   : InputNumberRequired
-  @ViewChild("pbCostPerOperCtrl")  pbCostPerOperCtrl?  : InputNumberRequired
-  @ViewChild("pbMarginValueCtrl")  pbMarginValueCtrl?  : InputNumberRequired
-  @ViewChild("pbIncrementCtrl")    pbIncrementCtrl?    : InputNumberRequired
+  @ViewChild("pbPointValueCtrl")   pbPointValueCtrl?   : InputNumber
+  @ViewChild("pbCostPerOperCtrl")  pbCostPerOperCtrl?  : InputNumber
+  @ViewChild("pbMarginValueCtrl")  pbMarginValueCtrl?  : InputNumber
+  @ViewChild("pbIncrementCtrl")    pbIncrementCtrl?    : InputNumber
   @ViewChild("pbMarketCtrl")       pbMarketCtrl?       : SelectRequired
   @ViewChild("pbProductCtrl")      pbProductCtrl?      : SelectRequired
   @ViewChild("pbExchangeCtrl")     pbExchangeCtrl?     : SelectRequired

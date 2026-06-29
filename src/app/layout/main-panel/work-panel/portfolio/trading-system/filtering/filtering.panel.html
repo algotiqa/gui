@@ -21,7 +21,7 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
 
-        <input-number-required [(value)]="filter.posProLen" [label]="loc('length')" [min]="1" [max]="300"></input-number-required>
+        <input-number [(value)]="filter.posProLen" [label]="loc('length')" [min]="1" [max]="300"></input-number>
       </mat-expansion-panel>
 
       <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
@@ -34,9 +34,9 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
 
-        <input-number-required [(value)]="filter.oldNewOldLen"  [label]="loc('oldLen')"        [min]="1" [max]="600"></input-number-required>
-        <input-number-required [(value)]="filter.oldNewNewLen"  [label]="loc('newLen')"        [min]="1" [max]="300"></input-number-required>
-        <input-number-required [(value)]="filter.oldNewOldPerc" [label]="loc('oldPercentage')" [min]="1" [max]="150"></input-number-required>
+        <input-number [(value)]="filter.oldNewOldLen"  [label]="loc('oldLen')"        [min]="1" [max]="600"></input-number>
+        <input-number [(value)]="filter.oldNewNewLen"  [label]="loc('newLen')"        [min]="1" [max]="300"></input-number>
+        <input-number [(value)]="filter.oldNewOldPerc" [label]="loc('oldPercentage')" [min]="1" [max]="150"></input-number>
       </mat-expansion-panel>
 
       <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
@@ -49,8 +49,8 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
 
-        <input-number-required [(value)]="filter.winPerLen"   [label]="loc('length')"           [min]="1" [max]="300"></input-number-required>
-        <input-number-required [(value)]="filter.winPerValue" [label]="loc('winningPercValue')" [min]="1" [max]="100"></input-number-required>
+        <input-number [(value)]="filter.winPerLen"   [label]="loc('length')"           [min]="1" [max]="300"></input-number>
+        <input-number [(value)]="filter.winPerValue" [label]="loc('winningPercValue')" [min]="1" [max]="100"></input-number>
       </mat-expansion-panel>
 
       <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
@@ -63,7 +63,7 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
 
-        <input-number-required [(value)]="filter.equAvgLen" [label]="loc('equityLen')" [min]="1" [max]="300"></input-number-required>
+        <input-number [(value)]="filter.equAvgLen" [label]="loc('equityLen')" [min]="1" [max]="300"></input-number>
       </mat-expansion-panel>
 
       <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
@@ -76,8 +76,8 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
 
-        <input-number-required [(value)]="filter.trendlineLen"   [label]="loc('length')"         [min]="1" [max]="300"></input-number-required>
-        <input-number-required [(value)]="filter.trendlineValue" [label]="loc('trendlineValue')" [min]="1" [max]="200"></input-number-required>
+        <input-number [(value)]="filter.trendlineLen"   [label]="loc('length')"         [min]="1" [max]="300"></input-number>
+        <input-number [(value)]="filter.trendlineValue" [label]="loc('trendlineValue')" [min]="1" [max]="200"></input-number>
       </mat-expansion-panel>
 
       <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
@@ -90,8 +90,8 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
 
-        <input-number-required [(value)]="filter.drawdownMin" [label]="loc('drawdownMin')" [min]="1" [max]="50000"></input-number-required>
-        <input-number-required [(value)]="filter.drawdownMax" [label]="loc('drawdownMax')" [min]="1" [max]="50000"></input-number-required>
+        <input-number [(value)]="filter.drawdownMin" [label]="loc('drawdownMin')" [min]="1" [max]="50000"></input-number>
+        <input-number [(value)]="filter.drawdownMax" [label]="loc('drawdownMax')" [min]="1" [max]="50000"></input-number>
       </mat-expansion-panel>
     </mat-accordion>
   </list-left>
