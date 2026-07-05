@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 
 import {MatInputModule}       from "@angular/material/input";
 import {MatCardModule}        from "@angular/material/card";
@@ -34,6 +34,8 @@ import {
 } from "../../../../../../model/position-sizing";
 import {SelectRequired} from "../../../../../../component/form/select-required/select-required";
 import {ParamSpec} from "../../../../../../model/model";
+import {InputTextRequired} from "../../../../../../component/form/input-text-required/input-text-required";
+import {DataProductSelector} from "../../../../../../component/form/data-product-selector/product-selector.panel";
 
 //=============================================================================
 
@@ -56,18 +58,35 @@ export class PositionSizingPanel extends AbstractPanel {
   //---
   //-------------------------------------------------------------------------
 
-  tsId     : number = 0
-  period   : PeriodSelectorInfo = new PeriodSelectorInfo()
-  params   : PositionParameters = new PositionParameters()
-  curModel : Model = new Model()
-  selModel : Model = new Model()
-  specs    : {[name:string]:ParamSpec} = {}
+  tsId      : number = 0
+  period    : PeriodSelectorInfo = new PeriodSelectorInfo()
+  params    : PositionParameters = new PositionParameters()
+  curModel  : Model = new Model()
+  selModel  : Model = new Model()
+  paramSpecs: {[name:string]:ParamSpec} = {}
+  modelSpecs: {[name:string]:ParamSpec} = {}
 
   positionModels         : Object = {}
   positionRiskPerUnits   : Object = {}
   positionMoneyConversion: Object = {}
 
   par : PositionAnalysisResponse = new PositionAnalysisResponse()
+
+  @ViewChild("inInitCap")    inInitCapComp?   : InputNumber
+  @ViewChild("inRuinPer")    inRuinPerComp?   : InputNumber
+  @ViewChild("inMargOver")   inMargOverComp?  : InputNumber
+  @ViewChild("inMaxUnits")   inMaxUnitsComp?  : InputNumber
+  @ViewChild("srRiskPerU")   srRiskPerU?      : SelectRequired
+  @ViewChild("inRiskVal")    inRiskValComp?   : InputNumber
+
+  @ViewChild("inUnits")      inUnits?         : InputNumber
+  @ViewChild("inRiskPerTr")  inRiskPerTr?     : InputNumber
+  @ViewChild("inAvgLen")     inAvgLenComp?    : InputNumber
+  @ViewChild("inMaxVol")     inMaxVolComp?    : InputNumber
+  @ViewChild("inRiskOnCap")  inRiskOnCapComp? : InputNumber
+  @ViewChild("inRiskOnEar")  inRiskOnEarComp? : InputNumber
+  @ViewChild("srMonConv")    srMoneyConv?     : SelectRequired
+  @ViewChild("inPercOnCap")  inPercOnCapComp? : InputNumber
 
   //-------------------------------------------------------------------------
   //---
@@ -118,21 +137,43 @@ export class PositionSizingPanel extends AbstractPanel {
   }
 
   //-------------------------------------------------------------------------
+  //--- Param spec
+  //-------------------------------------------------------------------------
 
-  min(name:string) : number {
-    return this.specs[name]?.minValue
+  minP(name:string) : number {
+    return this.paramSpecs[name]?.minValue
   }
 
   //-------------------------------------------------------------------------
 
-  max(name:string) : number {
-    return this.specs[name]?.maxValue
+  maxP(name:string) : number {
+    return this.paramSpecs[name]?.maxValue
   }
 
   //-------------------------------------------------------------------------
 
-  opt(name:string) : boolean {
-    return !this.specs[name]?.required
+  optP(name:string) : boolean {
+    return !this.paramSpecs[name]?.required
+  }
+
+  //-------------------------------------------------------------------------
+  //--- Model spec
+  //-------------------------------------------------------------------------
+
+  minM(name:string) : number {
+    return this.modelSpecs[name]?.minValue
+  }
+
+  //-------------------------------------------------------------------------
+
+  maxM(name:string) : number {
+    return this.modelSpecs[name]?.maxValue
+  }
+
+  //-------------------------------------------------------------------------
+
+  optM(name:string) : boolean {
+    return !this.modelSpecs[name]?.required
   }
 
   //-------------------------------------------------------------------------
@@ -215,10 +256,20 @@ export class PositionSizingPanel extends AbstractPanel {
         this.curModel = res.current.model
 
         if (res.paramSpecs) {
-          this.specs = res.paramSpecs
+          this.paramSpecs = res.paramSpecs
+          this.modelSpecs = res.modelSpecs
+          this.setupModelDefaults()
         }
       }
     )
+  }
+
+  //-------------------------------------------------------------------------
+
+  private setupModelDefaults() {
+    for (let key in this.modelSpecs) {
+      this.selModel.config[key] = this.modelSpecs[key].defValue
+    }
   }
 }
 

@@ -203,11 +203,11 @@ export class InputNumber extends AbstractSubscriber {
       validators.push(Validators.required)
     }
 
-    if (this._min) {
+    if (this._min !== undefined && this._min !== null) {
       validators.push(Validators.min(this._min))
     }
 
-    if (this._max) {
+    if (this._max !== undefined && this._max !== null) {
       validators.push(Validators.max(this._max))
     }
 

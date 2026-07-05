@@ -60,6 +60,7 @@ export class PositionAnalysisResponse {
   current         : AnalysisResult    = new AnalysisResult()
   selected        : AnalysisResult    = new AnalysisResult()
   paramSpecs      : { [name:string]:ParamSpec } = {}
+  modelSpecs      : { [name:string]:ParamSpec } = {}
   usedMargin      : number = 0
   grossRisk       : number = 0
   netRisk         : number = 0

@@ -626,17 +626,22 @@ page:
         taStartDate:  Start date
 
     positionSizing:
-      title   : Position sizing for
-      params  : General parameters
-      current : Current model
-      selected: Selected model
-      model   : Model
+      title         : Position sizing for
+      params        : General parameters
+      current       : Current model
+      selected      : Selected model
+      model         : Model
       initialCapital: Initial capital
       ruinPercentage: Ruin (%)
       marginOverride: Margin override
       maxUnits      : Max units
       riskPerUnit   : Risk per unit
       riskValue     : Risk value
+      usedMargin    : Used margin
+      grossRisk     : Risk (gross)
+      netRisk       : Risk (net)
+      ruinCapital   : Ruin capital
+      costPerOper   : Cost per operation
       fu:
         units: Units
       pr:
