@@ -120,19 +120,19 @@ export class PositionSizingPanel extends AbstractPanel {
   //-------------------------------------------------------------------------
 
   min(name:string) : number {
-    return this.specs[name].minValue
+    return this.specs[name]?.minValue
   }
 
   //-------------------------------------------------------------------------
 
   max(name:string) : number {
-    return this.specs[name].maxValue
+    return this.specs[name]?.maxValue
   }
 
   //-------------------------------------------------------------------------
 
   opt(name:string) : boolean {
-    return !this.specs[name].required
+    return !this.specs[name]?.required
   }
 
   //-------------------------------------------------------------------------

@@ -57,7 +57,7 @@ export class InputNumber extends AbstractSubscriber {
 
   private _min?     : number
   private _max?     : number
-  private _valid    : boolean= false
+  private _valid    : boolean = false
   private _optional : boolean = false;
 
   //-------------------------------------------------------------------------

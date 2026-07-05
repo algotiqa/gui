@@ -2,7 +2,8 @@
   <mat-label>{{label}}</mat-label>
   <input matInput type="number" [formControl]="formControl" [errorStateMatcher]="matcher">
 
-@if (formControl.value && !disabled) {
+<!--@if (formControl.value && !disabled) {-->
+@if (!disabled) {
   <button matSuffix mat-icon-button (click)="onClear()" [disabled]="disabled">
     <mat-icon>close</mat-icon>
   </button>

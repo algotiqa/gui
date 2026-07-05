@@ -31,42 +31,50 @@
         <span>{{loc("current")}}</span>
         <table>
           <tr>
-            <td>{{loc('model')}}</td><td>{{curName()}}</td>
+            <td>{{loc('model')}}</td><td class="cell-style">{{curName()}}</td>
           </tr>
 
           @if (curModel.name == "FU") {
             <tr>
-              <td>{{loc('fu.units')}}</td><td>{{curModel.config['units']}}</td>
+              <td>{{loc('fu.units')}}</td><td class="cell-style">{{curModel.config['units']}}</td>
             </tr>
+            <tr>&nbsp;<td></td><td></td></tr>
+            <tr>&nbsp;<td></td><td></td></tr>
+            <tr>&nbsp;<td></td><td></td></tr>
           }
 
           @if (curModel.name == "PR") {
             <tr>
-              <td>{{loc('pr.riskPerTrade')}}</td><td>{{curModel.config['riskPerTrade']}}</td>
+              <td>{{loc('pr.riskPerTrade')}}</td><td class="cell-style">{{curModel.config['riskPerTrade']}}</td>
             </tr>
+            <tr>&nbsp;<td></td><td></td></tr>
+            <tr>&nbsp;<td></td><td></td></tr>
+            <tr>&nbsp;<td></td><td></td></tr>
           }
 
           @if (curModel.name == "PV") {
             <tr>
-              <td>{{loc('pv.averageLength')}}</td><td>{{curModel.config['averageLength']}}</td>
+              <td>{{loc('pv.averageLength')}}</td><td class="cell-style">{{curModel.config['averageLength']}}</td>
             </tr>
             <tr>
-              <td>{{loc('pv.maxVolatility')}}</td><td>{{curModel.config['maxVolatility']}}</td>
+              <td>{{loc('pv.maxVolatility')}}</td><td class="cell-style">{{curModel.config['maxVolatility']}}</td>
             </tr>
+            <tr>&nbsp;<td></td><td></td></tr>
+            <tr>&nbsp;<td></td><td></td></tr>
           }
 
           @if (curModel.name == "MM") {
             <tr>
-              <td>{{loc('mm.riskPerTradeOnCap')}}</td><td>{{curModel.config['riskPerTradeOnCap']}}</td>
+              <td>{{loc('mm.riskPerTradeOnCap')}}</td><td class="cell-style">{{curModel.config['riskPerTradeOnCap']}}</td>
             </tr>
             <tr>
-              <td>{{loc('mm.riskPerTradeOnEarn')}}</td><td>{{curModel.config['riskPerTradeOnEarn']}}</td>
+              <td>{{loc('mm.riskPerTradeOnEarn')}}</td><td class="cell-style">{{curModel.config['riskPerTradeOnEarn']}}</td>
             </tr>
             <tr>
-              <td>{{loc('mm.moneyConversion')}}</td><td>{{curMoneyConversion()}}</td>
+              <td>{{loc('mm.moneyConversion')}}</td><td class="cell-style">{{curMoneyConversion()}}</td>
             </tr>
             <tr>
-              <td>{{loc('mm.percentageOnCapital')}}</td><td>{{curModel.config['percentageOnCapital']}}</td>
+              <td>{{loc('mm.percentageOnCapital')}}</td><td class="cell-style">{{curModel.config['percentageOnCapital']}}</td>
             </tr>
           }
         </table>
