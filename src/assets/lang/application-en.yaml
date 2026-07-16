@@ -358,6 +358,12 @@ model:
     remoteUrl   : Remote URL
     scanInterval: Scan interval
 
+  positionOptimiz:
+    modelName    : Model
+    params       : Parameters
+    probOfSuccess: Prob of success
+    probOfFailure: Prob of failure
+
 # ==============================================================================
 # ===
 # === Pages
@@ -626,22 +632,54 @@ page:
         taStartDate:  Start date
 
     positionSizing:
-      title         : Position sizing for
-      params        : General parameters
-      current       : Current model
-      selected      : Selected model
-      model         : Model
-      initialCapital: Initial capital
-      ruinPercentage: Ruin (%)
-      marginOverride: Margin override
-      maxUnits      : Max units
-      riskPerUnit   : Risk per unit
-      riskValue     : Risk value
-      usedMargin    : Used margin
-      grossRisk     : Risk (gross)
-      netRisk       : Risk (net)
-      ruinCapital   : Ruin capital
-      costPerOper   : Cost per operation
+      title          : Position sizing for
+      params         : General parameters
+      current        : Current model
+      selected       : Selected model
+      model          : Model
+      initialCapital : Initial capital
+      maxTolDrawdPerc: Max tolerated drawdown (%)
+      marginOverride : Margin override
+      maxUnits       : Max units
+      riskPerUnit    : Risk per unit
+      riskValue      : Risk value
+      usedMargin     : Used margin
+      grossRisk      : Risk (gross)
+      netRisk        : Risk (net)
+      costPerOper    : Cost per operation
+      positionSaved  : Position saved
+      noLosses       : There are no losses in the selected period. It is not possible to detect the risk.
+      gross          : Gross
+      net            : Net
+      summary        : Summary
+      equity         : Equity
+      drawdown       : Drawdown
+      position       : Position
+      time           : Time
+      number         : Number
+      grossEquity    : Equity (gross)
+      netEquity      : Equity (net)
+      grossDrawdown  : Drawdown percentage (gross)
+      netDrawdown    : Drawdown percentage (net)
+      grossPosition  : Position (gross)
+      netPosition    : Position (net)
+      baselineChart  : Baseline
+      currentChart   : Current
+      selectedChart  : Selected
+      ruinCapital    : Ruin capital ( = margin)
+      maxTolDD       : Max tolerated drawdown
+      summ:
+        name            : Metric
+        baseline        : Baseline
+        current         : Current
+        selected        : Selected
+        return          : Return
+        maxDrawdown     : Max drawdown
+        maxDrawdownPerc : Max drawdown (percentage)
+        returnDrawdRatio: Return / Max drawdown
+        returnOnAccount : Return on account
+        ruined          : Ruined
+
       fu:
         units: Units
       pr:
@@ -833,6 +871,79 @@ page:
           1: Entity found with exact match
           2: No connection found. Create it first
           3: Entity to import differs from stored entity
+
+    positionOptimization:
+      title           : Position optimization for
+      tabParameters   : Parameters
+      general         : General
+      runs            : Runs
+      targets         : Targets
+      initialCapital  : Initial capital
+      marginOverride  : Margin orverride
+      maxUnits        : Max units
+      riskPerUnit     : Risk per unit
+      riskValue       : RiskValue
+      runsPerSimul    : Runs per simulation
+      tradesPerYear   : Trades per year
+      projYears       : Projection (years)
+      desReturnOnAcc  : Desired return on account (%)
+      maxTolDrawdPerc : Max tolerated drawdown (%)
+      minRetDrawdRatio: Min (return on account / max drawdown)
+
+      tabModels          : Models
+      fixedUnit          : Fixed unit
+      percentRisk        : Percent risk
+      percentVol         : Percent volatility
+      selected           : Selected
+      model              : Model
+      parameter          : Parameter
+      options            : Options
+      marketMoney        : Market money
+      minValue           : Min value
+      maxValue           : Max value
+      step               : Step
+      curValue           : Value
+      units              : Units
+      riskPerTrade       : Risk per trade
+      averageLength      : Average length
+      maxVolatility      : Max volatility (%)
+      riskPerTradeOnCap  : Risk per trade (on capital)
+      riskPerTradeOnEarn : Risk per trade (on earnings)
+      percentageOnCapital: Percentage on capital
+
+      taCurrStep         : Current step
+      taTotalSteps       : Total steps
+      taPercentage       : Percentage
+      taDuration         : Duration
+      taDesReturnOnAcc   : Desired return on account
+      taMaxTolDrawdPerc  : Max tolerated drawdown
+      taMinRetDrawdRatio : Min (return on account / max drawdown)
+
+      bestCandidate      : Best candidate (median values)
+      bcReturnOnAccount  : Return on account
+      bcMaxDrawdownPerc  : Max drawdown
+      bcRetDrawdRatio    : Return on account / max drawdown
+      bcProbOfSuccess    : Probability of success
+      bcProbOfFailure    : Probability of failure
+      bcFinalCapital     : Final capital
+      bcFinalReturn      : Final return
+
+      taBestProbOfSucc   : Best prob. of success
+      taBestRetOnAcc     : Best return on account
+      taBestProbOfFail   : Best risk of failure
+      taBestMaxDD        : Best max drawdown
+
+      projection:
+        - id: 1
+          name: 1 year
+        - id: 2
+          name: 2 years
+        - id: 3
+          name: 3 years
+        - id: 4
+          name: 4 years
+        - id: 5
+          name: 5 years
 
     deleteTradingSystem:
       title  : Delete trading system

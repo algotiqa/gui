@@ -3,10 +3,27 @@
     <back-button></back-button>
     |
     <period-selector [(period)]="period" (periodChange)="onPeriodChange($event)"></period-selector>
-    <run-button      (click)="onRunClick()"     ></run-button>
+    <run-button      (click)="onRunClick()"      [disabled]="!runEnabled()"></run-button>
     <optimize-button (click)="onOptimizeClick()"></optimize-button>
-    <save-button     (click)="onSaveClick()"    ></save-button>
+    <save-button     (click)="onSaveClick()"    [disabled]="!runEnabled()"></save-button>
     <reload-button   (click)="onReloadClick()"  ></reload-button>
+
+    <mat-button-toggle-group [hideSingleSelectionIndicator]="true" [formControl]="chartType">
+      <mat-button-toggle value="summary"  (change)="onChartTypeChange()">{{ loc("summary") }}</mat-button-toggle>
+      <mat-button-toggle value="equity"   (change)="onChartTypeChange()">{{ loc("equity") }}</mat-button-toggle>
+      <mat-button-toggle value="drawdown" (change)="onChartTypeChange()">{{ loc("drawdown") }}</mat-button-toggle>
+      <mat-button-toggle value="position" (change)="onChartTypeChange()">{{ loc("position") }}</mat-button-toggle>
+    </mat-button-toggle-group>
+
+    <mat-button-toggle-group [hideSingleSelectionIndicator]="true" [formControl]="profitType">
+      <mat-button-toggle value="gross"  (change)="onProfitTypeChange()">{{ loc("gross") }}</mat-button-toggle>
+      <mat-button-toggle value="net"    (change)="onProfitTypeChange()">{{ loc("net") }}</mat-button-toggle>
+    </mat-button-toggle-group>
+
+    <mat-button-toggle-group [hideSingleSelectionIndicator]="true" [formControl]="axisType">
+      <mat-button-toggle value="time"   (change)="onAxisTypeChange()">{{ loc("time") }}</mat-button-toggle>
+      <mat-button-toggle value="number" (change)="onAxisTypeChange()">{{ loc("number") }}</mat-button-toggle>
+    </mat-button-toggle-group>
   </list-buttons>
 
   <!-- =================================================================================== -->
@@ -15,12 +32,12 @@
     <mat-card class="card-layout">
       <mat-card-content class="models-layout">
         <span>{{loc("params")}}</span>
-        <input-number    #inInitCap  [(value)]="params.initialCapital" [label]="loc('initialCapital')" [min]="minP('initialCapital')" [max]="maxP('initialCapital')" [optional]="optP('initialCapital')"></input-number>
-        <input-number    #inRuinPer  [(value)]="params.ruinPercentage" [label]="loc('ruinPercentage')" [min]="minP('ruinPercentage')" [max]="maxP('ruinPercentage')" [optional]="optP('ruinPercentage')"></input-number>
-        <input-number    #inMargOver [(value)]="params.marginOverride" [label]="loc('marginOverride')" [min]="minP('marginOverride')" [max]="maxP('marginOverride')" [optional]="optP('marginOverride')"></input-number>
-        <input-number    #inMaxUnits [(value)]="params.maxUnits"       [label]="loc('maxUnits')"       [min]="minP('maxUnits')" [max]="maxP('maxUnits')" [optional]="optP('maxUnits')"></input-number>
-        <select-required #srRiskPerU [(key)]  ="params.riskPerUnit"    [label]="loc('riskPerUnit')"    [map]="positionRiskPerUnits"></select-required><br/>
-        <input-number    #inRiskVal  [(value)]="params.riskValue"      [label]="loc('riskValue')"      [min]="minP('riskValue')" [max]="maxP('riskValue')" [optional]="optP('riskValue')" [disabled]="params.riskPerUnit != 'fixedValue'"></input-number>
+        <input-number    #inInitCap   [(value)]="params.initialCapital"  [label]="loc('initialCapital')"  [min]="minP('initialCapital')"  [max]="maxP('initialCapital')"  [optional]="optP('initialCapital')"></input-number>
+        <input-number    #inMaxTolDDP [(value)]="params.maxTolDrawdPerc" [label]="loc('maxTolDrawdPerc')" [min]="minP('maxTolDrawdPerc')" [max]="maxP('maxTolDrawdPerc')" [optional]="optP('maxTolDrawdPerc')"></input-number>
+        <input-number    #inMargOver  [(value)]="params.marginOverride"  [label]="loc('marginOverride')"  [min]="minP('marginOverride')"  [max]="maxP('marginOverride')"  [optional]="optP('marginOverride')"></input-number>
+        <input-number    #inMaxUnits  [(value)]="params.maxUnits"        [label]="loc('maxUnits')"        [min]="minP('maxUnits')"        [max]="maxP('maxUnits')"        [optional]="optP('maxUnits')"></input-number>
+        <select-required #srRiskPerU  [(key)]  ="params.riskPerUnit"     [label]="loc('riskPerUnit')"     [map]="positionRiskPerUnits"></select-required><br/>
+        <input-number    #inRiskVal   [(value)]="params.riskValue"       [label]="loc('riskValue')"       [min]="minP('riskValue')" [max]="maxP('riskValue')" [optional]="optP('riskValue')" [disabled]="params.riskPerUnit != 'fixedValue'"></input-number>
       </mat-card-content>
     </mat-card>
 
@@ -81,7 +98,6 @@
           <tr><td>{{loc('usedMargin')}}</td> <td class="cell-style">{{par.usedMargin}}</td></tr>
           <tr><td>{{loc('grossRisk')}}</td>  <td class="cell-style">{{par.grossRisk}}</td></tr>
           <tr><td>{{loc('netRisk')}}</td>    <td class="cell-style">{{par.netRisk}}</td></tr>
-          <tr><td>{{loc('ruinCapital')}}</td><td class="cell-style">{{par.ruinCapital}}</td></tr>
           <tr><td>{{loc('costPerOper')}}</td><td class="cell-style">{{par.costPerOperation}}</td></tr>
         </table>
       </mat-card-content>
@@ -121,5 +137,60 @@
   <!-- =================================================================================== -->
 
   <list-content>
+    @if (chartType.value == "summary") {
+      <simple-table #table
+                    [columns]    = "summaryColumns"
+                    [data]       = "summaryData"
+                    [searchPanel]= "false"
+      ></simple-table>
+    }
+
+    @if (chartType.value == "equity") {
+      <apx-chart  class="chart-layout"
+                  [title]      = "chartEquity.title"
+                  [chart]      = "chartEquity.chart"
+                  [series]     = "chartEquity.series"
+                  [dataLabels] = "chartEquity.dataLabels"
+                  [plotOptions]= "chartEquity.plotOptions"
+                  [stroke]     = "chartEquity.stroke"
+                  [xaxis]      = "chartEquity.xaxis"
+                  [colors]     = "chartEquity.colors"
+                  [yaxis]      = "chartEquity.yaxis"
+                  [grid]       = "chartEquity.grid"
+                  [annotations]= "chartEquity.annotations"
+      ></apx-chart>
+    }
+
+    @if (chartType.value == "drawdown") {
+      <apx-chart  class="chart-layout"
+                  [title]      = "chartDrawdown.title"
+                  [chart]      = "chartDrawdown.chart"
+                  [series]     = "chartDrawdown.series"
+                  [dataLabels] = "chartDrawdown.dataLabels"
+                  [plotOptions]= "chartDrawdown.plotOptions"
+                  [stroke]     = "chartDrawdown.stroke"
+                  [xaxis]      = "chartDrawdown.xaxis"
+                  [colors]     = "chartDrawdown.colors"
+                  [yaxis]      = "chartDrawdown.yaxis"
+                  [grid]       = "chartDrawdown.grid"
+                  [annotations]= "chartDrawdown.annotations"
+      ></apx-chart>
+    }
+
+    @if (chartType.value == "position") {
+      <apx-chart  class="chart-layout"
+                  [title]      = "chartPosition.title"
+                  [chart]      = "chartPosition.chart"
+                  [series]     = "chartPosition.series"
+                  [dataLabels] = "chartPosition.dataLabels"
+                  [plotOptions]= "chartPosition.plotOptions"
+                  [stroke]     = "chartPosition.stroke"
+                  [xaxis]      = "chartPosition.xaxis"
+                  [colors]     = "chartPosition.colors"
+                  [yaxis]      = "chartPosition.yaxis"
+                  [grid]       = "chartPosition.grid"
+                  [annotations]= "chartPosition.annotations"
+      ></apx-chart>
+    }
   </list-content>
 </list-panel>

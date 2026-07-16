@@ -29,7 +29,12 @@ import {
   FilterOptimizationRequest, FilterOptimizationResponse,
   TradingFilter
 } from "../model/filtering";
-import {PositionAnalysisRequest, PositionAnalysisResponse} from "../model/position-sizing";
+import {
+  PositionAnalysisRequest,
+  PositionAnalysisResponse,
+  PositionOptimizationRequest, PositionOptimizationResponse,
+  TradingPosition
+} from "../model/position-sizing";
 
 //=============================================================================
 
@@ -154,8 +159,32 @@ export class PortfolioService {
   //--- Position sizing
   //---------------------------------------------------------------------------
 
+  public setTradingPosition = (tsId : number, req : TradingPosition): Observable<void> => {
+    return this.httpService.post<void>('/api/portfolio/v1/trading-systems/'+ tsId +'/position', req);
+  }
+
+  //---------------------------------------------------------------------------
+
   public runPositionAnalysis = (tsId : number, req : PositionAnalysisRequest): Observable<PositionAnalysisResponse> => {
     return this.httpService.post<PositionAnalysisResponse>('/api/portfolio/v1/trading-systems/'+ tsId +'/position-analysis', req);
+  }
+
+  //---------------------------------------------------------------------------
+
+  public startPositionOptimization = (tsId : number, req : PositionOptimizationRequest): Observable<StatusResponse> => {
+    return this.httpService.post<StatusResponse>('/api/portfolio/v1/trading-systems/'+ tsId +'/position-optimization', req);
+  }
+
+  //---------------------------------------------------------------------------
+
+  public stopPositionOptimization = (tsId : number): Observable<StatusResponse> => {
+    return this.httpService.delete<StatusResponse>('/api/portfolio/v1/trading-systems/'+ tsId +'/position-optimization');
+  }
+
+  //---------------------------------------------------------------------------
+
+  public getPositionOptimizationInfo = (tsId : number): Observable<PositionOptimizationResponse> => {
+    return this.httpService.get<PositionOptimizationResponse>('/api/portfolio/v1/trading-systems/'+ tsId +'/position-optimization');
   }
 
   //---------------------------------------------------------------------------

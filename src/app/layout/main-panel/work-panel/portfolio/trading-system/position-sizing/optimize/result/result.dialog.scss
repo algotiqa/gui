@@ -7,45 +7,21 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-@import "../../../../../../../styles/variables";
-
-//=============================================================================
-
-.card-layout {
-  margin-left: 8px;
-  margin-bottom: 8px;
-  background-color: #FFFFFF;
+table {
+  width: 100%;
 }
 
 //=============================================================================
 
-.models-layout {
-  width: 300px;
-
-  span {
-    font-size: larger;
-  }
-
-  table, select-required {
-    width: 100%;
-  }
-
-  input-number {
-    width: 100%;
-  }
+.separator-layout {
+  width: 250px;
 }
 
 //=============================================================================
 
-.cell-style {
-  font-weight: bolder;
+.data-style {
   text-align: right;
-}
-
-//=============================================================================
-
-.chart-layout {
-  height: 100%;
+  font-weight: bold;
 }
 
 //=============================================================================

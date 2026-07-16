@@ -1,0 +1,37 @@
+<h2 mat-dialog-title>{{loc("title")}} : {{data.tsName}}</h2>
+<mat-dialog-content class="mat-typography">
+  <table>
+    <tr>
+      <td>{{loc("taTotalSteps")}}</td>
+      <td class="data-style">{{res?.totalSteps}}</td>
+      <td class="separator-layout"></td>
+      <td>{{loc("taBestProbOfSucc")}}</td>
+      <td class="data-style">{{res?.bestRun?.probOfSuccess}} %</td>
+      <td class="separator-layout"></td>
+      <td>{{loc("taBestRetOnAcc")}}</td>
+      <td class="data-style">{{res?.bestRun?.medianReturnOnAcc}} %</td>
+    </tr>
+    <tr>
+      <td>{{loc("taDuration")}}</td>
+      <td class="data-style">{{res?.duration}} secs</td>
+      <td></td>
+      <td>{{loc("taBestProbOfFail")}}</td>
+      <td class="data-style">{{res?.bestRun?.probOfFailure}} %</td>
+      <td></td>
+      <td>{{loc("taBestMaxDD")}}</td>
+      <td class="data-style">{{res?.bestRun?.medianMaxDrawdownPerc}} %</td>
+    </tr>
+  </table>
+
+  <flex-table #table class="table-panel"
+              [columns]       = "columns"
+              [data]          = "results"
+              (onRowsSelected)="onRowSelected($event)"
+  ></flex-table>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onRestart()">{{button("restart")}}</button>
+  <button mat-button (click)="onUse()" [disabled]="disUse">{{button("use")}}</button>
+  <button mat-button mat-dialog-close>{{button("close")}}</button>
+</mat-dialog-actions>

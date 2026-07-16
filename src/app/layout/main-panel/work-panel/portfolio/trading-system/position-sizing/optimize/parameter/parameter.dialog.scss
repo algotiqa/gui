@@ -7,45 +7,44 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-@import "../../../../../../../styles/variables";
+.dialog-style {
+  min-height: 690px;
+}
+
+//=============================================================================
+//=== Parameters
+//=============================================================================
+
+.params-layout {
+  width: 100%;
+  text-align: center;
+}
 
 //=============================================================================
 
-.card-layout {
-  margin-left: 8px;
-  margin-bottom: 8px;
-  background-color: #FFFFFF;
+.params-layout td > input-number,select-required {
+  width: 368px;
+}
+
+//=============================================================================
+//=== Models
+//=============================================================================
+
+mat-chip-option {
+  margin-right: 8px;
 }
 
 //=============================================================================
 
 .models-layout {
-  width: 300px;
-
-  span {
-    font-size: larger;
-  }
-
-  table, select-required {
-    width: 100%;
-  }
-
-  input-number {
-    width: 100%;
-  }
+  width: 100%;
+  text-align: center;
 }
 
 //=============================================================================
 
-.cell-style {
-  font-weight: bolder;
-  text-align: right;
-}
-
-//=============================================================================
-
-.chart-layout {
-  height: 100%;
+.models-layout td > input-number {
+  margin-left: 8px;
 }
 
 //=============================================================================

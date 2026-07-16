@@ -22,6 +22,7 @@ export const authConfig : PassedInitialConfig = {
     responseType: 'code',
     silentRenew: true,
     useRefreshToken: true,
+    renewTimeBeforeTokenExpiresInSeconds: 30,
     ignoreNonceAfterRefresh: true,
     triggerRefreshWhenIdTokenExpired: false,
     logLevel: LogLevel.Debug,

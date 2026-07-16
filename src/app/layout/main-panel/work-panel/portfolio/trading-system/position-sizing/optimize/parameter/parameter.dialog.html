@@ -1,0 +1,250 @@
+<h2 mat-dialog-title>{{loc("title")}} : {{data.tsName}}</h2>
+<mat-dialog-content class="dialog-style">
+  <mat-tab-group>
+    <mat-tab label="{{loc('tabParameters')}}">
+      <br/>
+      <table class="params-layout">
+        <tr>
+          <th>{{loc("general")}}</th><th>{{loc("runs")}}</th><th>{{loc("targets")}}</th>
+        </tr>
+        <tr>
+          <td><input-number    #inInitCap  [(value)]="req.params.initialCapital" [label]="loc('initialCapital')" [min]="minP('initialCapital')" [max]="maxP('initialCapital')" [optional]="optP('initialCapital')"></input-number></td>
+          <td><period-selector [(period)]="period"></period-selector></td>
+          <td><input-number    #taRetOnAcc  [(value)]="req.targets.desReturnOnAccount"   [label]="loc('desReturnOnAcc')"    [min]="0" [max]="10000"></input-number></td>
+        </tr>
+        <tr>
+          <td><input-number    #inMargOver  [(value)]="req.params.marginOverride"   [label]="loc('marginOverride')"  [min]="minP('marginOverride')" [max]="maxP('marginOverride')" [optional]="optP('marginOverride')"></input-number></td>
+          <td><input-number    #ruRuns      [(value)]="req.runConfig.runsPerSimul"  [label]="loc('runsPerSimul')"    [min]="10" [max]="50000"></input-number></td>
+          <td><input-number    #taMaxDDPerc [(value)]="req.params.maxTolDrawdPerc"  [label]="loc('maxTolDrawdPerc')" [min]="minP('maxTolDrawdPerc')" [max]="maxP('maxTolDrawdPerc')"></input-number></td>
+        </tr>
+
+        <tr>
+          <td><input-number    #inMaxUnits  [(value)]="req.params.maxUnits"              [label]="loc('maxUnits')"         [min]="minP('maxUnits')" [max]="maxP('maxUnits')" [optional]="optP('maxUnits')"></input-number></td>
+          <td><input-number    #ruTrYear    [(value)]="req.runConfig.tradesPerYear"      [label]="loc('tradesPerYear')"    [min]="1" [max]="1000" [optional]="true"></input-number></td>
+          <td><input-number    #taRetMaxDD  [(value)]="req.targets.minRetMaxDrawdRatio"  [label]="loc('minRetDrawdRatio')" [min]="0" [max]="1000"></input-number></td>
+        </tr>
+
+        <tr>
+          <td><select-required #srRiskPerU [(key)]  ="req.params.riskPerUnit"        [label]="loc('riskPerUnit')"    [map]="positionRiskPerUnits"></select-required></td>
+          <td><select-required #srProjYear [(key)]  ="req.runConfig.projectionYears" [label]="loc('projYears')" keyField="id" valueField="name" [list]="labelMap('projection')" class="field-to-optimize"></select-required></td>
+          <td></td>
+        </tr>
+
+        <tr>
+          <td><input-number    #inRiskVal  [(value)]="req.params.riskValue"      [label]="loc('riskValue')"      [min]="minP('riskValue')" [max]="maxP('riskValue')" [optional]="optP('riskValue')" [disabled]="req.params.riskPerUnit != 'fixedValue'"></input-number></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </table>
+    </mat-tab>
+
+    <!-- ========================================================================================================================================== -->
+
+    <mat-tab label="{{loc('tabModels')}}">
+      <br/>
+      <mat-chip-option (selectionChange)="onFixedUnitChange  ($event)" [selected]="req.modelConfig.enableFixedUnit"  >{{loc("fixedUnit")}}</mat-chip-option>
+      <mat-chip-option (selectionChange)="onPercentRiskChange($event)" [selected]="req.modelConfig.enablePercentRisk">{{loc("percentRisk")}}</mat-chip-option>
+      <mat-chip-option (selectionChange)="onPercentVolChange ($event)" [selected]="req.modelConfig.enablePercentVol" >{{loc("percentVol")}}</mat-chip-option>
+      <mat-chip-option (selectionChange)="onMarketMoneyChange($event)" [selected]="req.modelConfig.enableMarketMoney">{{loc("marketMoney")}}</mat-chip-option>
+      <br/>
+
+      <table class="models-layout">
+        <tr>
+          <th>{{loc("selected")}}</th>
+          <th>{{loc("model")}}</th>
+          <th>{{loc("parameter")}}</th>
+          <th>{{loc("options")}}</th>
+        </tr>
+
+        <!-- Fixed Unit: units - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+        @if (req.modelConfig.enableFixedUnit) {
+          <tr>
+            <td>
+              <mat-checkbox (click)="$event.stopPropagation()" (change)="req.modelConfig.units.toggle()" [checked]="req.modelConfig.units.enabled"></mat-checkbox>
+            </td>
+            <td>{{loc("fixedUnit")}}</td>
+            <td>{{loc("units")}}</td>
+            <td>
+              @if (!req.modelConfig.units.enabled) {
+                <input-number [(value)]="req.modelConfig.units.curValue" [label]="loc('curValue')" [min]="minM('units')" [max]="maxM('units')"></input-number>
+              }
+              @if (req.modelConfig.units.enabled) {
+                <input-number [(value)]="req.modelConfig.units.minValue" [label]="loc('minValue')" [min]="minM('units')" [max]="maxM('units')"></input-number>
+              }
+              @if (req.modelConfig.units.enabled) {
+                <input-number [(value)]="req.modelConfig.units.maxValue" [label]="loc('maxValue')" [min]="minM('units')" [max]="maxM('units')"></input-number>
+              }
+              @if (req.modelConfig.units.enabled) {
+                <input-number [(value)]="req.modelConfig.units.step"     [label]="loc('step')"     [min]="minM('units')" [max]="maxM('units')"></input-number>
+              }
+            </td>
+          </tr>
+        }
+
+        <!-- Percent risk: riskPerTrade - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+        @if (req.modelConfig.enablePercentRisk) {
+          <tr>
+            <td>
+              <mat-checkbox (click)="$event.stopPropagation()" (change)="req.modelConfig.riskPerTrade.toggle()" [checked]="req.modelConfig.riskPerTrade.enabled"></mat-checkbox>
+            </td>
+            <td>{{loc("percentRisk")}}</td>
+            <td>{{loc("riskPerTrade")}}</td>
+            <td>
+              @if (!req.modelConfig.riskPerTrade.enabled) {
+                <input-number [(value)]="req.modelConfig.riskPerTrade.curValue" [label]="loc('curValue')" [min]="minM('riskPerTrade')" [max]="maxM('riskPerTrade')"></input-number>
+              }
+              @if (req.modelConfig.riskPerTrade.enabled) {
+                <input-number [(value)]="req.modelConfig.riskPerTrade.minValue" [label]="loc('minValue')" [min]="minM('riskPerTrade')" [max]="maxM('riskPerTrade')"></input-number>
+              }
+              @if (req.modelConfig.riskPerTrade.enabled) {
+                <input-number [(value)]="req.modelConfig.riskPerTrade.maxValue" [label]="loc('maxValue')" [min]="minM('riskPerTrade')" [max]="maxM('riskPerTrade')"></input-number>
+              }
+              @if (req.modelConfig.riskPerTrade.enabled) {
+                <input-number [(value)]="req.modelConfig.riskPerTrade.step"     [label]="loc('step')"     [min]="minM('riskPerTrade')" [max]="maxM('riskPerTrade')"></input-number>
+              }
+            </td>
+          </tr>
+        }
+
+        <!-- Percent volatility: averageLength - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+        @if (req.modelConfig.enablePercentVol) {
+          <tr>
+            <td>
+              <mat-checkbox (click)="$event.stopPropagation()" (change)="req.modelConfig.averageLength.toggle()" [checked]="req.modelConfig.averageLength.enabled"></mat-checkbox>
+            </td>
+            <td>{{loc("percentVol")}}</td>
+            <td>{{loc("averageLength")}}</td>
+            <td>
+              @if (!req.modelConfig.averageLength.enabled) {
+                <input-number [(value)]="req.modelConfig.averageLength.curValue" [label]="loc('curValue')" [min]="minM('averageLength')" [max]="maxM('averageLength')"></input-number>
+              }
+              @if (req.modelConfig.averageLength.enabled) {
+                <input-number [(value)]="req.modelConfig.averageLength.minValue" [label]="loc('minValue')" [min]="minM('averageLength')" [max]="maxM('averageLength')"></input-number>
+              }
+              @if (req.modelConfig.averageLength.enabled) {
+                <input-number [(value)]="req.modelConfig.averageLength.maxValue" [label]="loc('maxValue')" [min]="minM('averageLength')" [max]="maxM('averageLength')"></input-number>
+              }
+              @if (req.modelConfig.averageLength.enabled) {
+                <input-number [(value)]="req.modelConfig.averageLength.step"     [label]="loc('step')"     [min]="minM('averageLength')" [max]="maxM('averageLength')"></input-number>
+              }
+            </td>
+          </tr>
+        }
+
+        <!-- Percent volatility: maxVolatility - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+        @if (req.modelConfig.enablePercentVol) {
+          <tr>
+            <td>
+              <mat-checkbox (click)="$event.stopPropagation()" (change)="req.modelConfig.maxVolatility.toggle()" [checked]="req.modelConfig.maxVolatility.enabled"></mat-checkbox>
+            </td>
+            <td>{{loc("percentVol")}}</td>
+            <td>{{loc("maxVolatility")}}</td>
+            <td>
+              @if (!req.modelConfig.maxVolatility.enabled) {
+                <input-number [(value)]="req.modelConfig.maxVolatility.curValue" [label]="loc('curValue')" [min]="minM('maxVolatility')" [max]="maxM('maxVolatility')"></input-number>
+              }
+              @if (req.modelConfig.maxVolatility.enabled) {
+                <input-number [(value)]="req.modelConfig.maxVolatility.minValue" [label]="loc('minValue')" [min]="minM('maxVolatility')" [max]="maxM('maxVolatility')"></input-number>
+              }
+              @if (req.modelConfig.maxVolatility.enabled) {
+                <input-number [(value)]="req.modelConfig.maxVolatility.maxValue" [label]="loc('maxValue')" [min]="minM('maxVolatility')" [max]="maxM('maxVolatility')"></input-number>
+              }
+              @if (req.modelConfig.maxVolatility.enabled) {
+                <input-number [(value)]="req.modelConfig.maxVolatility.step"     [label]="loc('step')"     [min]="minM('maxVolatility')" [max]="maxM('maxVolatility')"></input-number>
+              }
+            </td>
+          </tr>
+        }
+
+        <!-- Market money: riskPerTradeOnCap - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+        @if (req.modelConfig.enableMarketMoney) {
+          <tr>
+            <td>
+              <mat-checkbox (click)="$event.stopPropagation()" (change)="req.modelConfig.riskPerTradeOnCap.toggle()" [checked]="req.modelConfig.riskPerTradeOnCap.enabled"></mat-checkbox>
+            </td>
+            <td>{{loc("marketMoney")}}</td>
+            <td>{{loc("riskPerTradeOnCap")}}</td>
+            <td>
+              @if (!req.modelConfig.riskPerTradeOnCap.enabled) {
+                <input-number [(value)]="req.modelConfig.riskPerTradeOnCap.curValue" [label]="loc('curValue')" [min]="minM('riskPerTradeOnCap')" [max]="maxM('riskPerTradeOnCap')"></input-number>
+              }
+              @if (req.modelConfig.riskPerTradeOnCap.enabled) {
+                <input-number [(value)]="req.modelConfig.riskPerTradeOnCap.minValue" [label]="loc('minValue')" [min]="minM('riskPerTradeOnCap')" [max]="maxM('riskPerTradeOnCap')"></input-number>
+              }
+              @if (req.modelConfig.riskPerTradeOnCap.enabled) {
+                <input-number [(value)]="req.modelConfig.riskPerTradeOnCap.maxValue" [label]="loc('maxValue')" [min]="minM('riskPerTradeOnCap')" [max]="maxM('riskPerTradeOnCap')"></input-number>
+              }
+              @if (req.modelConfig.riskPerTradeOnCap.enabled) {
+                <input-number [(value)]="req.modelConfig.riskPerTradeOnCap.step"     [label]="loc('step')"     [min]="minM('riskPerTradeOnCap')" [max]="maxM('riskPerTradeOnCap')"></input-number>
+              }
+            </td>
+          </tr>
+        }
+
+        <!-- Market money: riskPerTradeOnEarn - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+        @if (req.modelConfig.enableMarketMoney) {
+          <tr>
+            <td>
+              <mat-checkbox (click)="$event.stopPropagation()" (change)="req.modelConfig.riskPerTradeOnEarn.toggle()" [checked]="req.modelConfig.riskPerTradeOnEarn.enabled"></mat-checkbox>
+            </td>
+            <td>{{loc("marketMoney")}}</td>
+            <td>{{loc("riskPerTradeOnEarn")}}</td>
+            <td>
+              @if (!req.modelConfig.riskPerTradeOnEarn.enabled) {
+                <input-number [(value)]="req.modelConfig.riskPerTradeOnEarn.curValue" [label]="loc('curValue')" [min]="minM('riskPerTradeOnEarn')" [max]="maxM('riskPerTradeOnEarn')"></input-number>
+              }
+              @if (req.modelConfig.riskPerTradeOnEarn.enabled) {
+                <input-number [(value)]="req.modelConfig.riskPerTradeOnEarn.minValue" [label]="loc('minValue')" [min]="minM('riskPerTradeOnEarn')" [max]="maxM('riskPerTradeOnEarn')"></input-number>
+              }
+              @if (req.modelConfig.riskPerTradeOnEarn.enabled) {
+                <input-number [(value)]="req.modelConfig.riskPerTradeOnEarn.maxValue" [label]="loc('maxValue')" [min]="minM('riskPerTradeOnEarn')" [max]="maxM('riskPerTradeOnEarn')"></input-number>
+              }
+              @if (req.modelConfig.riskPerTradeOnEarn.enabled) {
+                <input-number [(value)]="req.modelConfig.riskPerTradeOnEarn.step"     [label]="loc('step')"     [min]="minM('riskPerTradeOnEarn')" [max]="maxM('riskPerTradeOnEarn')"></input-number>
+              }
+            </td>
+          </tr>
+        }
+
+        <!-- Market money: percentageOnCapital - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+        @if (req.modelConfig.enableMarketMoney) {
+          <tr>
+            <td>
+              <mat-checkbox (click)="$event.stopPropagation()" (change)="req.modelConfig.percentageOnCapital.toggle()" [checked]="req.modelConfig.percentageOnCapital.enabled"></mat-checkbox>
+            </td>
+            <td>{{loc("marketMoney")}}</td>
+            <td>{{loc("percentageOnCapital")}}</td>
+            <td>
+              @if (!req.modelConfig.percentageOnCapital.enabled) {
+                <input-number [(value)]="req.modelConfig.percentageOnCapital.curValue" [label]="loc('curValue')" [min]="minM('percentageOnCapital')" [max]="maxM('percentageOnCapital')"></input-number>
+              }
+              @if (req.modelConfig.percentageOnCapital.enabled) {
+                <input-number [(value)]="req.modelConfig.percentageOnCapital.minValue" [label]="loc('minValue')" [min]="minM('percentageOnCapital')" [max]="maxM('percentageOnCapital')"></input-number>
+              }
+              @if (req.modelConfig.percentageOnCapital.enabled) {
+                <input-number [(value)]="req.modelConfig.percentageOnCapital.maxValue" [label]="loc('maxValue')" [min]="minM('percentageOnCapital')" [max]="maxM('percentageOnCapital')"></input-number>
+              }
+              @if (req.modelConfig.percentageOnCapital.enabled) {
+                <input-number [(value)]="req.modelConfig.percentageOnCapital.step"     [label]="loc('step')"     [min]="minM('percentageOnCapital')" [max]="maxM('percentageOnCapital')"></input-number>
+              }
+            </td>
+          </tr>
+        }
+      </table>
+    </mat-tab>
+
+  </mat-tab-group>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onReset()">{{button("reset")}}</button>
+  <button mat-button (click)="onRun()" [disabled]="!runEnabled()">{{button("run")}}</button>
+  <button mat-button mat-dialog-close>{{button("cancel")}}</button>
+</mat-dialog-actions>

@@ -94,6 +94,19 @@ export class PeriodSelectorInfo {
   fromDate?: number
   toDate?  : number
 
+  //---------------------------------------------------------------------------
+
+  public constructor(psi? : PeriodSelectorInfo) {
+    if (psi != undefined) {
+      this.custom   = psi.custom
+      this.daysBack = psi.daysBack
+      this.fromDate = psi.fromDate
+      this.toDate   = psi.toDate
+    }
+  }
+
+  //---------------------------------------------------------------------------
+
   public getSelectedPeriod() : SelectedPeriod {
     let sp = new SelectedPeriod()
     sp.daysBack = this.daysBack

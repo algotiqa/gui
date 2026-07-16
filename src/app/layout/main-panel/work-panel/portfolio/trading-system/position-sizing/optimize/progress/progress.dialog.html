@@ -1,0 +1,98 @@
+<h2 mat-dialog-title>{{loc("title")}} : {{data.tsName}}</h2>
+<mat-dialog-content class="mat-typography">
+  <div class="main-layout">
+    <mat-progress-spinner [value]="percentage">
+    </mat-progress-spinner>
+
+    <div class="summary-layout">
+      <table>
+        <tr>
+          <td>{{loc("taCurrStep")}}</td>
+          <td class="data-style">{{res?.currStep}}</td>
+          <td class="separator-layout"></td>
+          <td>{{loc("taDesReturnOnAcc")}}</td>
+          <td class="data-style">{{res?.targets?.desReturnOnAccount}} %</td>
+          <td class="separator-layout"></td>
+          <td>{{model["FU"]}}</td>
+          <td><mat-icon  [fontIcon]="res?.models?.fixedUnit ? 'done' : 'close'"></mat-icon></td>
+        </tr>
+
+        <tr>
+          <td>{{loc("taTotalSteps")}}</td>
+          <td class="data-style">{{res?.totalSteps}}</td>
+          <td></td>
+          <td>{{loc("taMaxTolDrawdPerc")}}</td>
+          <td class="data-style">{{res?.targets?.maxTolDrawdPerc}} %</td>
+          <td></td>
+          <td>{{model["PR"]}}</td>
+          <td><mat-icon [fontIcon]="res?.models?.percentRisk ? 'done' : 'close'"></mat-icon></td>
+        </tr>
+
+        <tr>
+          <td>{{loc("taPercentage")}}</td>
+          <td class="data-style">{{percentage}} %</td>
+          <td></td>
+          <td>{{loc("taMinRetDrawdRatio")}}</td>
+          <td class="data-style">{{res?.targets?.minRetMaxDrawdRatio}}</td>
+          <td></td>
+          <td>{{model["PV"]}}</td>
+          <td><mat-icon [fontIcon]="res?.models?.percentVol ? 'done' : 'close'"></mat-icon></td>
+        </tr>
+
+        <tr>
+          <td>{{loc("taDuration")}}</td>
+          <td class="data-style">{{res?.duration}} secs</td>
+          <td></td>
+          <td></td>
+          <td class="data-style"></td>
+          <td></td>
+          <td>{{model["MM"]}}</td>
+          <td><mat-icon [fontIcon]="res?.models?.marketMoney ? 'done' : 'close'"></mat-icon></td>
+        </tr>
+      </table>
+
+      <br/>
+      <h4>{{loc("bestCandidate")}}</h4>
+
+      <table>
+        <tr>
+          <td>{{loc("initialCapital")}}</td>
+          <td class="data-style">{{res?.bestRun?.initialCapital}}</td>
+          <td class="separator-layout"></td>
+          <td>{{loc("bcReturnOnAccount")}}</td>
+          <td class="data-style">{{res?.bestRun?.medianReturnOnAcc}} %</td>
+          <td class="separator-layout"></td>
+          <td>{{loc("bcProbOfSuccess")}}</td>
+          <td class="data-style">{{res?.bestRun?.probOfSuccess}} %</td>
+        </tr>
+
+        <tr>
+          <td>{{loc("bcFinalCapital")}}</td>
+          <td class="data-style">{{res?.bestRun?.medianFinalCapital}}</td>
+          <td></td>
+          <td>{{loc("bcMaxDrawdownPerc")}}</td>
+          <td class="data-style">{{res?.bestRun?.medianMaxDrawdownPerc}} %</td>
+          <td></td>
+          <td>{{loc("bcProbOfFailure")}}</td>
+          <td class="data-style">{{res?.bestRun?.probOfFailure}} %</td>
+        </tr>
+
+        <tr>
+          <td>{{loc("bcFinalReturn")}}</td>
+          <td class="data-style">{{res?.bestRun?.medianReturn}}</td>
+          <td></td>
+          <td>{{loc("bcRetDrawdRatio")}}</td>
+          <td class="data-style">{{res?.bestRun?.medianRetDrawdRatio}}</td>
+          <td></td>
+          <td></td>
+          <td class="data-style"></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onAbort()">{{button("abort")}}</button>
+  <button mat-button mat-dialog-close>{{button("close")}}</button>
+</mat-dialog-actions>
