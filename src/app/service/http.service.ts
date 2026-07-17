@@ -218,7 +218,7 @@ export class HttpService {
 	//-------------------------------------------------------------------------
 
   private setupOptions(options : any) : any {
-    if ( ! this.sessionService.isAuthenticated) {
+    if ( ! this.sessionService.user) {
       return options;
     }
 

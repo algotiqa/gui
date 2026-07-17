@@ -12,7 +12,6 @@ import { Injectable }         from '@angular/core';
 import { BehaviorSubject }    from 'rxjs';
 
 import { AppEvent }           from "../model/event";
-import { Roles }              from '../model/user/roles';
 import { Menu }               from '../component/sidebar-menu/model';
 import { AbstractSubscriber } from "./abstract-subscriber";
 import { LabelService }       from "./label.service";

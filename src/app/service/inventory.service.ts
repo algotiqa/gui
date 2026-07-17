@@ -18,6 +18,7 @@ import {
   DataProduct, DataProductExt, DataProductSpec,
   TradingSession, TradingSystemSpec, AgentProfile, FinalizationResponse, DataProductFull,
   BrokerProductExt, BrokerProductFull, ReloadTradesResponse, ConnectionExt, DeleteResponse,
+  PlatformInfo,
 } from "../model/model";
 import {HttpService, UploadEvent} from "./http.service";
 import { HttpParams } from "@angular/common/http";
@@ -44,6 +45,15 @@ export class InventoryService {
   //---
   //--- API methods
   //---
+  //---------------------------------------------------------------------------
+
+  //--- API methods
+  //---------------------------------------------------------------------------
+
+  public getPlatformInfo = (): Observable<PlatformInfo> => {
+    return this.httpService.get<PlatformInfo>('/api/inventory/v1/platform/info');
+  }
+
   //---------------------------------------------------------------------------
 
   public getCurrencies = (): Observable<ListResponse<Currency>> => {

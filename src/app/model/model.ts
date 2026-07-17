@@ -21,6 +21,12 @@ export class StatusResponse {
 
 //=============================================================================
 
+export class PlatformInfo {
+  version? : string;
+}
+
+//=============================================================================
+
 export class Currency {
   id?       : number;
   code?     : string;

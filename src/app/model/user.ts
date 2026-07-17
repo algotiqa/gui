@@ -7,10 +7,20 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-
 export enum Roles {
   ADMIN,
   EDITOR,
+}
+
+//=============================================================================
+
+export class UserInfo {
+  uuid        : string = ""
+  username    : string = ""
+  name        : string = ""
+  surname     : string = ""
+  email       : string = ""
+  displayName : string = ""
 }
 
 //=============================================================================

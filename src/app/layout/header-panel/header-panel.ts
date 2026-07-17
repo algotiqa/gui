@@ -12,13 +12,18 @@ import {Component}         from "@angular/core";
 import {MatIconModule}     from "@angular/material/icon";
 import {MatToolbarModule}  from "@angular/material/toolbar";
 import {MatButtonModule}   from "@angular/material/button";
+import {MatMenuModule}     from "@angular/material/menu";
+import {MatDividerModule}  from "@angular/material/divider";
 import {AppEvent, ErrorEvent} from "../../model/event";
 import {EventBusService}   from "../../service/eventbus.service";
 import {LabelService}      from "../../service/label.service";
+import {SessionService}    from "../../service/session.service";
+import {InventoryService}  from "../../service/inventory.service";
 import {AbstractPanel} from "../../component/abstract.panel";
 import {Router, RouterModule} from "@angular/router";
 import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {Subscription} from "rxjs";
 
 //=============================================================================
 
@@ -26,7 +31,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     selector: 'header-panel',
     templateUrl: './header-panel.html',
     styleUrls: ['./header-panel.scss'],
-  imports: [MatButtonModule, MatIconModule, MatToolbarModule, RouterModule, MatSnackBarModule, MatProgressSpinnerModule],
+    imports: [MatButtonModule, MatIconModule, MatToolbarModule, MatMenuModule, MatDividerModule, RouterModule, MatSnackBarModule, MatProgressSpinnerModule],
     providers: []
 })
 
@@ -34,7 +39,8 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 export class HeaderPanel extends AbstractPanel {
 
-  spinnerHidden = true
+  spinnerHidden   = true
+  platformVersion = '???';
 
 	//-------------------------------------------------------------------------
 	//---
@@ -42,28 +48,32 @@ export class HeaderPanel extends AbstractPanel {
 	//---
 	//-------------------------------------------------------------------------
 
-	constructor(eventBusService : EventBusService,
-	            labelService    : LabelService,
-              router          : Router,
-              private _snackBar: MatSnackBar) {
+	constructor(eventBusService  : EventBusService,
+	            labelService     : LabelService,
+              router           : Router,
+              private _snackBar: MatSnackBar,
+              public  sessionService   : SessionService,
+              private inventoryService : InventoryService) {
 		super(eventBusService, labelService, router, "header");
 
     eventBusService.subscribeToError(this.onError)
     eventBusService.subscribeToApp(AppEvent.SUBMIT_START, this.onSubmitStart)
     eventBusService.subscribeToApp(AppEvent.SUBMIT_END,   this.onSubmitEnd)
-	}
 
-	//-------------------------------------------------------------------------
-	//---
-	//--- API methods
-	//---
-	//-------------------------------------------------------------------------
+    this.loadPlatformVersion()
+	}
 
 	//-------------------------------------------------------------------------
 	//---
 	//--- Events
 	//---
 	//-------------------------------------------------------------------------
+
+  onLogout = (): void => {
+    this.sessionService.logout();
+  };
+
+  //-------------------------------------------------------------------------
 
 	onMenuClick() {
 		let event : AppEvent = new AppEvent(AppEvent.MENU_BUTTON_CLICK);
@@ -87,6 +97,24 @@ export class HeaderPanel extends AbstractPanel {
   private onSubmitEnd = (event : AppEvent) => {
     this.spinnerHidden = true
   }
+
+  //-------------------------------------------------------------------------
+  //---
+  //--- Private methods
+  //---
+  //-------------------------------------------------------------------------
+
+  private loadPlatformVersion() {
+    this.inventoryService.getPlatformInfo().subscribe({
+      next: (info) => {
+        this.platformVersion = info?.version ? info.version : '-';
+      },
+      error: (err) => {
+        console.log('Cannot load platform version: ' + JSON.stringify(err));
+        this.platformVersion = 'error';
+      }
+    });
+  };
 }
 
 //=============================================================================

@@ -15,7 +15,24 @@
     </svg>
   </div>
 
-  <button mat-icon-button class="example-icon">
+  <button mat-icon-button [matMenuTriggerFor]="userMenu">
     <span class="material-symbols-outlined">account_circle</span>
   </button>
+
+  <mat-menu #userMenu="matMenu" class="user-menu">
+    <div class="user-info">
+      <div class="user-name">{{sessionService.user?.username}}</div>
+      <div class="user-sub">{{sessionService.user?.displayName}}<span></span></div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="platform-info">
+      <span>{{loc('platform')}}</span>
+      <span class="version">{{platformVersion}}</span>
+    </div>
+    <mat-divider></mat-divider>
+    <button mat-menu-item (click)="onLogout()">
+      <mat-icon>logout</mat-icon>
+      <span>{{button('logout')}}</span>
+    </button>
+  </mat-menu>
 </mat-toolbar>

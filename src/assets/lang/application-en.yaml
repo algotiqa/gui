@@ -33,6 +33,7 @@ button:
   finalize  : Finalize
   document  : Document
   login     : Login
+  logout    : Logout
   yes       : Yes
   import    : Import
   export    : Export
@@ -372,6 +373,7 @@ model:
 
 page:
   header:
+    platform : Platform
   unknown:
     message: Unknown page
 

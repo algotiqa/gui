@@ -14,9 +14,16 @@ import {AppEvent}           from "../model/event";
 import {AbstractSubscriber} from "./abstract-subscriber";
 import {EventBusService}    from "./eventbus.service";
 import {HttpService}        from "./http.service";
-import {EventTypes, OidcSecurityService, PublicEventsService, UserDataResult} from "angular-auth-oidc-client";
+import {
+  EventTypes,
+  LoginResponse,
+  OidcSecurityService,
+  PublicEventsService,
+  UserDataResult
+} from "angular-auth-oidc-client";
 import {Observable} from "rxjs";
-import {filter} from "rxjs/operators";
+import {filter, map} from "rxjs/operators";
+import {UserInfo} from "../model/user";
 
 //=============================================================================
 
@@ -29,11 +36,11 @@ export class SessionService extends AbstractSubscriber {
 	//---
 	//-------------------------------------------------------------------------
 
-	// public session     : Session;
 	// public permissions : Map<string, boolean>;
-  isAuthenticated = false;
-  accessToken : string|null = null;
-  userData    : UserDataResult|null = null;
+
+  accessToken     : string|null = null;
+
+  user? : UserInfo
 
 	//-------------------------------------------------------------------------
 	//---
@@ -64,15 +71,22 @@ export class SessionService extends AbstractSubscriber {
   public checkAuthentication() {
     console.log("Checking authentication...")
 
-    this.oidcSecurityService.checkAuth().subscribe((res) => {
-      this.isAuthenticated = res.isAuthenticated;
-      this.userData        = res.userData;
-      this.accessToken     = res.accessToken;
+    this.oidcSecurityService.checkAuth().subscribe((res : LoginResponse) => {
+      if (res.isAuthenticated && res.userData) {
+        console.log('User is authenticated');
 
-      console.log('Authenticated : '+ this.isAuthenticated);
+        let u = new UserInfo()
+        u.uuid       = res.userData.sub
+        u.username   = res.userData.preferred_username;
+        u.name       = res.userData.given_name;
+        u.surname    = res.userData.family_name;
+        u.email      = res.userData.email;
+        u.displayName= res.userData.name;
 
-      if ( ! this.isAuthenticated) {
-        console.log("User not authenticated.");
+        this.user = u
+      }
+      else {
+        console.log("User not authenticated. Redirecting to login page...");
         this.login();
       }
     });
@@ -81,6 +95,9 @@ export class SessionService extends AbstractSubscriber {
   //-------------------------------------------------------------------------
 
   login() {
+    this.accessToken = null
+    this.user        = undefined
+
     console.log('Calling login...');
     this.oidcSecurityService.authorize();
   }
@@ -91,32 +108,10 @@ export class SessionService extends AbstractSubscriber {
     console.log('Calling logout...');
     this.oidcSecurityService.logoffAndRevokeTokens().subscribe((result) => {
       console.log(result)
-      this.isAuthenticated = false;
-      this.userData        = null;
-      this.accessToken     = null;
+      this.accessToken = null;
+      this.user        = undefined
     });
   }
-
-  //-------------------------------------------------------------------------
-
-	// public clearSession() : void {
-  //
-	// 	console.log("SessionService.clearSession: Resetting session...");
-  //
-	// 	this.session     = null;
-	// 	this.user        = null;
-	// 	this.profile     = null;
-	// 	this.permissions = new Map();
-	// }
-
-	//-------------------------------------------------------------------------
-
-	// public get homePage() : string {
-  //
-	// 	return (this.profile)
-	// 				? this.profile.homePage
-	// 				: null;
-	// }
 
 	//-------------------------------------------------------------------------
 

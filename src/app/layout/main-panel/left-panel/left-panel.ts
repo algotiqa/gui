@@ -10,7 +10,7 @@
 
 import {Component} from '@angular/core';
 import {MenuService} from "../../../service/menu.service";
-import {Roles} from "../../../model/user/roles";
+import {Roles} from "../../../model/user";
 import { SidebarModes, UnAuthorizedVisibility } from '../../../component/sidebar-menu/model';
 import {MatIconModule} from "@angular/material/icon";
 import {CommonModule} from "@angular/common";
