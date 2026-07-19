@@ -58,9 +58,9 @@ export class TradingCard extends AbstractPanel {
   statusStyler = new TradingSystemStatusStyler()
   suggActions : Object[] = []
 
-  powerConfig = new CheckButtonConfig("mode_off_on",                 "off",      "#A0A0A0", "mode_off_on", "on",     "#00A000", LABEL_ROOT)
-  activConfig = new CheckButtonConfig("airline_seat_recline_normal", "manual",   "#A00080", "mode_off_on", "auto",   "#0080C0", LABEL_ROOT)
-  enablConfig = new CheckButtonConfig("toggle_off",                  "inactive", "#A0A0A0", "toggle_on",   "active", "#00A000", LABEL_ROOT)
+  powerConfig = new CheckButtonConfig("mode_off_on",                 "off",    "#A0A0A0", "mode_off_on", "on",     "#00A000", LABEL_ROOT)
+  activConfig = new CheckButtonConfig("airline_seat_recline_normal", "manual", "#A00080", "mode_off_on", "auto",   "#0080C0", LABEL_ROOT)
+  enablConfig = new CheckButtonConfig("toggle_off",                  "paused", "#A0A0A0", "toggle_on",   "active", "#00A000", LABEL_ROOT)
 
   ts : PorTradingSystem = new PorTradingSystem()
 

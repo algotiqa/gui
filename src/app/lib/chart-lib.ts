@@ -150,6 +150,34 @@ const defaultLineOptions : ChartOptions = {
   theme: {}
 }
 
+//-----------------------------------------------------------------------------
+
+const defaultDonutOptions : ChartOptions = {
+  title: {},
+  series: [],
+  chart: {
+    type: "donut",
+  },
+  labels: "",
+  legend: {},
+  plotOptions: {},
+  dataLabels: {},
+  stroke: {
+    width: 0
+  },
+  xaxis: {},
+  yaxis: {},
+  colors: [],
+  annotations: {},
+  grid: {},
+  tooltip: {},
+  subtitle: {},
+  fill: {},
+  markers: {},
+  states: {},
+  theme: {}
+}
+
 //=============================================================================
 
 export class ChartLib {
@@ -168,6 +196,12 @@ export class ChartLib {
 
   public buildBarOptions(overrides: Partial<ChartOptions> = {}) : ChartOptions {
     return deepmerge(defaultBarOptions, overrides);
+  }
+
+  //-------------------------------------------------------------------------
+
+  public buildDonutOptions(overrides: Partial<ChartOptions> = {}) : ChartOptions {
+    return deepmerge(defaultDonutOptions, overrides);
   }
 
   //-------------------------------------------------------------------------

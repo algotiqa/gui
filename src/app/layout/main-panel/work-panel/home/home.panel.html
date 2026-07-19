@@ -1,14 +1,154 @@
-HOME
+<div class="dashboard">
 
-<!--<hpe-trading-system-panel-->
-<!--	rowId            = "id"-->
-<!--	icon             = "fa-users"-->
-<!--	[title]          = "loc('userList')"-->
-<!--	labelGroup       = "user"-->
-<!--	[columns]        = "userAllCols"-->
-<!--	[visibleColumns] = "userVisCols"-->
-<!--	[service]        = "allUsersService"-->
-<!--	[contextMenu]    = "userPopupMenu"-->
-<!--	[multiSelection] = "true">-->
-<!--</hpe-trading-system-panel>-->
+  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!-- Welcome banner                                                        -->
+  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
+  <mat-card class="welcome-banner">
+    <mat-icon class="welcome-icon">account_circle</mat-icon>
+    <div class="welcome-text">
+      <div class="welcome-title"><b>{{sessionService.user?.displayName}}</b></div>
+      <div class="welcome-sub"> &middot; {{today}}</div>
+    </div>
+  </mat-card>
+
+  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!-- KPI cards                                                             -->
+  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+<!--  <mat-grid-list [cols]="kpiCols" rowHeight="100px" class="kpi-grid">-->
+<!--    <mat-grid-tile>-->
+<!--      <div class="kpi-card">-->
+<!--        <mat-icon class="kpi-icon" style="color:#505AF8">inventory</mat-icon>-->
+<!--        <div class="kpi-content">-->
+<!--          <div class="kpi-label">{{loc('kpi.tradingSystems')}}</div>-->
+<!--          <div class="kpi-value">{{summary?.tradingSystemCount ?? '-'}}</div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </mat-grid-tile>-->
+
+<!--    <mat-grid-tile>-->
+<!--      <div class="kpi-card">-->
+<!--        <mat-icon class="kpi-icon" style="color:#10A010">play_circle</mat-icon>-->
+<!--        <div class="kpi-content">-->
+<!--          <div class="kpi-label">{{loc('kpi.running')}}</div>-->
+<!--          <div class="kpi-value">{{summary?.runningCount ?? '-'}}</div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </mat-grid-tile>-->
+
+<!--    <mat-grid-tile>-->
+<!--      <div class="kpi-card">-->
+<!--        <mat-icon class="kpi-icon" style="color:#FF8800">bolt</mat-icon>-->
+<!--        <div class="kpi-content">-->
+<!--          <div class="kpi-label">{{loc('kpi.active')}}</div>-->
+<!--          <div class="kpi-value">{{summary?.activeCount ?? '-'}}</div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </mat-grid-tile>-->
+
+<!--    <mat-grid-tile>-->
+<!--      <div class="kpi-card">-->
+<!--        <mat-icon class="kpi-icon" style="color:#8060C0">payments</mat-icon>-->
+<!--        <div class="kpi-content">-->
+<!--          <div class="kpi-label">{{loc('kpi.netProfit')}}</div>-->
+<!--          <div class="kpi-value" [style.color]="valueColor(summary?.totalNetProfit)">{{formatNumber(summary?.totalNetProfit)}}</div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </mat-grid-tile>-->
+<!--  </mat-grid-list>-->
+
+  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!-- Charts                                                                -->
+  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+  <div class="charts-grid">
+    <mat-card class="chart-card-fixed">
+      <div class="chart-title">{{loc('chart.allSystemsByMode')}}</div>
+      <apx-chart
+        [series]     = "allOptions.series"
+        [chart]      = "allOptions.chart"
+        [labels]     = "allOptions.labels"
+        [legend]     = "allOptions.legend"
+        [colors]     = "allOptions.colors"
+        [dataLabels] = "allOptions.dataLabels"
+        [tooltip]    = "allOptions.tooltip"
+        [stroke]     = "allOptions.stroke"
+        [plotOptions]= "allOptions.plotOptions"
+      ></apx-chart>
+    </mat-card>
+
+    <mat-card class="chart-card-fixed">
+      <div class="chart-title">{{loc('chart.systemsInTradingByStatus')}}</div>
+      <apx-chart
+        [series]     = "tradingOptions.series"
+        [chart]      = "tradingOptions.chart"
+        [labels]     = "tradingOptions.labels"
+        [legend]     = "tradingOptions.legend"
+        [colors]     = "tradingOptions.colors"
+        [dataLabels] = "tradingOptions.dataLabels"
+        [tooltip]    = "tradingOptions.tooltip"
+        [stroke]     = "tradingOptions.stroke"
+        [plotOptions]= "tradingOptions.plotOptions"
+      ></apx-chart>
+    </mat-card>
+
+    <mat-card class="chart-card-exp">
+      <div class="chart-title">{{loc('chart.topSystemsByProfit')}}</div>
+      <apx-chart
+        [series]      = "topByProfitOptions.series"
+        [chart]       = "topByProfitOptions.chart"
+        [plotOptions] = "topByProfitOptions.plotOptions"
+        [colors]      = "topByProfitOptions.colors"
+        [dataLabels]  = "topByProfitOptions.dataLabels"
+        [xaxis]       = "topByProfitOptions.xaxis"
+        [tooltip]     = "topByProfitOptions.tooltip"
+        [grid]        = "topByProfitOptions.grid"
+      ></apx-chart>
+    </mat-card>
+  </div>
+
+  <div class="charts-grid">
+    <mat-card class="chart-card-fixed">
+      <div class="chart-title">{{loc('chart.systemsInTradingByMarket')}}</div>
+      <apx-chart
+        [series]     = "marketOptions.series"
+        [chart]      = "marketOptions.chart"
+        [labels]     = "marketOptions.labels"
+        [legend]     = "marketOptions.legend"
+        [colors]     = "marketOptions.colors"
+        [dataLabels] = "marketOptions.dataLabels"
+        [tooltip]    = "marketOptions.tooltip"
+        [stroke]     = "marketOptions.stroke"
+      ></apx-chart>
+    </mat-card>
+
+    <mat-card class="chart-card-fixed">
+      <div class="chart-title">{{loc('chart.netProfitByCurrency')}}</div>
+      <apx-chart
+        [series]      = "currencyOptions.series"
+        [chart]       = "currencyOptions.chart"
+        [plotOptions] = "currencyOptions.plotOptions"
+        [colors]      = "currencyOptions.colors"
+        [dataLabels]  = "currencyOptions.dataLabels"
+        [tooltip]     = "currencyOptions.tooltip"
+        [grid]        = "currencyOptions.grid"
+      ></apx-chart>
+    </mat-card>
+
+    <mat-card class="chart-card-exp">
+      <div class="chart-title">{{loc('chart.topSystemsByTrades')}}</div>
+      <apx-chart
+        [series]      = "topByTradesOptions.series"
+        [chart]       = "topByTradesOptions.chart"
+        [plotOptions] = "topByTradesOptions.plotOptions"
+        [colors]      = "topByTradesOptions.colors"
+        [dataLabels]  = "topByTradesOptions.dataLabels"
+        [xaxis]       = "topByTradesOptions.xaxis"
+        [tooltip]     = "topByTradesOptions.tooltip"
+        [grid]        = "topByTradesOptions.grid"
+      ></apx-chart>
+    </mat-card>
+  </div>
+
+</div>

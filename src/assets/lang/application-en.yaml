@@ -374,6 +374,18 @@ model:
 page:
   header:
     platform : Platform
+
+  home:
+    netProfit: Net profit
+    trades   : Trades
+    chart:
+      allSystemsByMode        : All trading systems (by mode)
+      systemsInTradingByStatus: Systems in trading (by status)
+      topSystemsByProfit      : Top systems in trading (by net profit, last 6 months)
+      systemsInTradingByMarket: Systems in trading (by market)
+      netProfitByCurrency     : Net profit (by currency, last 6 months)
+      topSystemsByTrades      : Top systems in trading (by trades, last 6 months)
+
   unknown:
     message: Unknown page
 
@@ -473,12 +485,12 @@ page:
           time  : Time
           trades: Trades
         buttons:
-          on      : On
-          off     : Off
-          manual  : Manual
-          auto    : Auto
-          active  : Active
-          inactive: Inactive
+          on     : On
+          off    : Off
+          manual : Manual
+          auto   : Auto
+          active : Active
+          paused : Paused
         error:
           running    : Can't start/stop the trading system
           activation : Can't change the activation of the trading system
@@ -489,7 +501,7 @@ page:
           running : Running
           stopped : Stopped
           active  : Active
-          inactive: Inactive
+          paused  : Paused
           manual  : Manual
           auto    : Auto
 
@@ -1325,6 +1337,13 @@ map:
 
   positionMoneyConversion:
     percOnCapital: Percentage on capital
+
+  status:
+    0 : Off
+    1 : Paused
+    2 : Active
+    3 : Idle
+    4 : Broken
 
 # ==============================================================================
 

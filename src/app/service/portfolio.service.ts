@@ -35,6 +35,7 @@ import {
   PositionOptimizationRequest, PositionOptimizationResponse,
   TradingPosition
 } from "../model/position-sizing";
+import {DashboardSummary} from "../model/dashboard";
 
 //=============================================================================
 
@@ -231,6 +232,14 @@ export class PortfolioService {
     };
 
     return this.httpService.post<PortfolioMonitoringResponse>('/api/portfolio/v1/portfolio/monitoring', params);
+  }
+
+  //---------------------------------------------------------------------------
+  //--- Dashboard
+  //---------------------------------------------------------------------------
+
+  public getDashboardSummary = (): Observable<DashboardSummary> => {
+    return this.httpService.get<DashboardSummary>('/api/portfolio/v1/dashboard/summary');
   }
 }
 

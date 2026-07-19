@@ -16,3 +16,21 @@ button:
 page:
   header:
     platform : Piattaforma
+
+  home:
+    welcomeBack : Bentornato
+    platform    : Piattaforma
+    loading     : Caricamento...
+    empty       : Nessun dato disponibile
+    kpi:
+      tradingSystems : Sistemi di trading
+      running        : In esecuzione
+      active         : Attivi
+      netProfit      : Profitto netto
+      totalTrades    : Operazioni totali
+      brokers        : Broker collegati
+    chart:
+      marketDistribution  : Sistemi per mercato
+      systemStatus        : Sistemi per stato
+      topSystems          : Top sistemi per profitto netto
+      netProfitByCurrency : Profitto netto per valuta

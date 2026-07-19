@@ -7,7 +7,6 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-
 import {Injectable} from '@angular/core';
 
 import {AppEvent}           from "../model/event";
@@ -15,14 +14,13 @@ import {AbstractSubscriber} from "./abstract-subscriber";
 import {EventBusService}    from "./eventbus.service";
 import {HttpService}        from "./http.service";
 import {
-  EventTypes,
   LoginResponse,
   OidcSecurityService,
   PublicEventsService,
   UserDataResult
 } from "angular-auth-oidc-client";
 import {Observable} from "rxjs";
-import {filter, map} from "rxjs/operators";
+import {map} from "rxjs/operators";
 import {UserInfo} from "../model/user";
 
 //=============================================================================
@@ -53,13 +51,15 @@ export class SessionService extends AbstractSubscriber {
               private publicEventService : PublicEventsService) {
 		super(eventBusService);
 
-    publicEventService.registerForEvents()
-      .pipe(filter( (notification) => notification.type === EventTypes.NewAuthenticationResult))
-      .subscribe( (value) => {
-        oidcSecurityService.getAccessToken().subscribe( (token) => {
-          this.accessToken = token
-        })
+    //--- isAuthenticated$ emits on both initial auth and silent-renew success
+    //--- (NewAuthenticationResult only fires on failure/error paths in v20)
+
+    oidcSecurityService.isAuthenticated$.subscribe(() => {
+      oidcSecurityService.getAccessToken().subscribe((token) => {
+        this.accessToken = token
       })
+    });
+    console.log("Building session service......")
 	}
 
 	//-------------------------------------------------------------------------
@@ -83,7 +83,8 @@ export class SessionService extends AbstractSubscriber {
         u.email      = res.userData.email;
         u.displayName= res.userData.name;
 
-        this.user = u
+        this.user        = u
+        this.accessToken = res.accessToken
       }
       else {
         console.log("User not authenticated. Redirecting to login page...");
