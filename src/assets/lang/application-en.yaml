@@ -38,6 +38,7 @@ button:
   import    : Import
   export    : Export
   back      : Back
+  package   : Package
 
 menu-button:
   view          : View
@@ -355,9 +356,15 @@ model:
     name: Name
 
   agentProfile:
-    name        : Name
-    remoteUrl   : Remote URL
-    scanInterval: Scan interval
+    name         : Name
+    host         : Host
+    port         : Port
+    scanInterval : Scan interval (hours)
+    scanFolder   : Scan folder
+    fileExtension: File extension
+    hostType     : Host type
+    createdAt    : Created at
+    updatedAt    : Updated at
 
   positionOptimiz:
     modelName    : Model
@@ -451,11 +458,18 @@ page:
       delete:
         tradingSystems : There are trading systems referenced. The broker product cannot be deleted
 
+    # ----------------------------------------------------------------------------
+
     tradingSession:
       title: Trading sessions
 
+    # ----------------------------------------------------------------------------
+
     agentProfile:
       title: Agent profiles
+      new  : New agent profile
+      edit : Edit agent profile
+      tradingSystemRefs: Referencing trading systems
 
   # ==============================================================================
 
@@ -979,6 +993,10 @@ page:
       title  : Delete bias analysis
       message: Are you sure you want to delete this bias analysis?
 
+    deleteAgentProfile:
+      title  : Delete agent profile
+      message: Are you sure you want to delete this agent profile?
+
   # ==============================================================================
 
   module:
@@ -1344,6 +1362,10 @@ map:
     2 : Active
     3 : Idle
     4 : Broken
+
+  hostType:
+    linux  : Linux
+    windows: Windows
 
 # ==============================================================================
 

@@ -30,6 +30,7 @@ import {EditButton} from "../../../../../component/button/edit/edit.button";
 import {ListButtons, ListContent, ListPanel} from "../../../../../component/panel/list-panel/list-panel";
 import {ViewButton} from "../../../../../component/button/view/view.button";
 import {NavigationService} from "../../../../../service/navigation.service";
+import {Url} from "../../../../../model/urls";
 
 //=============================================================================
 
@@ -37,12 +38,12 @@ import {NavigationService} from "../../../../../service/navigation.service";
   selector: 'inventory-agent-profile',
   templateUrl: './agent-profile.list.html',
   styleUrls: [ './agent-profile.list.scss'],
-  imports: [MatButtonModule, MatCardModule, MatIconModule, MatInputModule, RouterModule, FlexTablePanel, ConnectButton, CreateButton, DisconnectButton, EditButton, ListButtons, ListContent, ListPanel, ViewButton]
+  imports: [MatButtonModule, MatCardModule, MatIconModule, MatInputModule, RouterModule, FlexTablePanel, CreateButton, EditButton, ListButtons, ListContent, ListPanel, ViewButton]
 })
 
 //=============================================================================
 
-export class AgentProfilePanel extends AbstractPanel {
+export class AgentProfileListPanel extends AbstractPanel {
 
   //-------------------------------------------------------------------------
   //---
@@ -70,7 +71,7 @@ export class AgentProfilePanel extends AbstractPanel {
               private navigationService: NavigationService,
               private inventoryService : InventoryService) {
 
-    super(eventBusService, labelService, router, "inventory.agentProfile");
+    super(eventBusService, labelService, router, "inventory.agentProfile", "agentProfile");
 
     this.navigationService.set();
     this.service = this.getAgentProfiles;
@@ -82,21 +83,15 @@ export class AgentProfilePanel extends AbstractPanel {
   }
 
   //-------------------------------------------------------------------------
-  //---
-  //--- Public methods
-  //---
-  //-------------------------------------------------------------------------
-
-  private getAgentProfiles = (): Observable<ListResponse<AgentProfile>> => {
-    return this.inventoryService.getAgentProfiles();
-  }
-
-  //-------------------------------------------------------------------------
 
   override init = () : void => {
     this.setupColumns();
   }
 
+  //-------------------------------------------------------------------------
+  //---
+  //--- Events
+  //---
   //-------------------------------------------------------------------------
 
   onRowSelected(selection : AgentProfile[]) {
@@ -106,26 +101,29 @@ export class AgentProfilePanel extends AbstractPanel {
   //-------------------------------------------------------------------------
 
   onCreateClick() {
-    // this.openRightPanel(Url.Inventory_DataProducts, Url.Right_DataProduct_Create, AppEvent.DATAPRODUCT_CREATE_START);
+    this.openRightPanel(Url.Inventory_AgentProfiles, Url.Right_AgentProfile_Create, AppEvent.AGENTPROFILE_CREATE_START);
   }
 
   //-------------------------------------------------------------------------
 
   onViewClick() {
     // @ts-ignore
-    // let selection = this.table.getSelection();
-    //
-    // if (selection.length > 0) {
-    //   this.navigateTo([ Url.Inventory_DataProducts, selection[0].id ]);
-    // }
+    let selection = this.table.getSelection();
+
+    if (selection.length > 0) {
+      this.navigateTo([ Url.Inventory_AgentProfiles, selection[0].id ]);
+    }
   }
 
   //-------------------------------------------------------------------------
 
   onEditClick() {
     // @ts-ignore
-    // let selection = this.table.getSelection();
-    // this.openRightPanel(Url.Inventory_DataProducts, Url.Right_DataProduct_Edit, AppEvent.DATAPRODUCT_EDIT_START, selection[0]);
+    let selection = this.table.getSelection();
+
+    if (selection.length > 0) {
+      this.openRightPanel(Url.Inventory_AgentProfiles, Url.Right_AgentProfile_Edit, AppEvent.AGENTPROFILE_EDIT_START, selection[0]);
+    }
   }
 
   //-------------------------------------------------------------------------
@@ -135,12 +133,16 @@ export class AgentProfilePanel extends AbstractPanel {
   //-------------------------------------------------------------------------
 
   setupColumns = () => {
-    let ts = this.labelService.getLabel("model.agentProfile");
+    let ap = this.labelService.getLabel("model.agentProfile");
 
     this.columns = [
-      new FlexTableColumn(ts, "name"),
-      new FlexTableColumn(ts, "remoteUrl"),
-      new FlexTableColumn(ts, "scanInterval"),
+      new FlexTableColumn(ap, "name"),
+      new FlexTableColumn(ap, "host"),
+      new FlexTableColumn(ap, "port"),
+      new FlexTableColumn(ap, "scanInterval"),
+      new FlexTableColumn(ap, "scanFolder"),
+      new FlexTableColumn(ap, "fileExtension"),
+      new FlexTableColumn(ap, "hostType"),
     ]
   }
 
@@ -150,9 +152,15 @@ export class AgentProfilePanel extends AbstractPanel {
   //---
   //-------------------------------------------------------------------------
 
+  private getAgentProfiles = (): Observable<ListResponse<AgentProfile>> => {
+    return this.inventoryService.getAgentProfiles();
+  }
+
+  //-------------------------------------------------------------------------
+
   private updateButtons = (selection : AgentProfile[]) => {
-    // this.disView = (selection.length != 1)
-    // this.disEdit = (selection.length != 1)
+    this.disView = (selection.length != 1)
+    this.disEdit = (selection.length != 1)
   }
 }
 

@@ -18,6 +18,7 @@ export enum Url {
   Inventory_BrokerProducts_Id  = "inventory/broker-products/:id",
   Inventory_TradingSessions    = "inventory/trading-sessions",
   Inventory_AgentProfiles      = "inventory/agent-profiles",
+  Inventory_AgentProfiles_Id   = "inventory/agent-profiles/:id",
 
   Portfolio_TradingSystems     = "portfolio/trading-systems",
   Portfolio_TradingSystems_Id  = "portfolio/trading-systems/:id",
@@ -56,6 +57,8 @@ export enum Url {
   Right_BiasAnalysis_Create       = "biasAnalysis-create",
   Right_BiasAnalysis_View         = "biasAnalysis-view",
   Right_BiasAnalysis_Edit         = "biasAnalysis-edit",
+  Right_AgentProfile_Create       = "agentProfile-create",
+  Right_AgentProfile_Edit         = "agentProfile-edit",
 
   //--- Modules ---------------------------------------------------------------
 

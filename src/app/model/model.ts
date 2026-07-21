@@ -111,6 +111,8 @@ export class ReloadTradesResponse {
 }
 
 //=============================================================================
+//=== Connections
+//=============================================================================
 
 export class ConnectionSpec {
   id?                 : number
@@ -173,6 +175,8 @@ export class ConnectionResult {
 }
 
 //=============================================================================
+//=== Data products
+//=============================================================================
 
 export class DataProductSpec {
   id?             : number
@@ -204,6 +208,8 @@ export class DataProductFull extends DataProduct {
   exchangeCode?   : string
 }
 
+//=============================================================================
+//=== Data instruments
 //=============================================================================
 
 export enum DIRStatus {
@@ -288,6 +294,8 @@ export class DataProductExt extends DataProduct {
 }
 
 //=============================================================================
+//=== Broker products
+//=============================================================================
 
 export class BrokerProductSpec {
   id?               : number
@@ -340,17 +348,32 @@ export class BrokerProductExt extends BrokerProduct {
 }
 
 //=============================================================================
+//=== Agent profiles
+//=============================================================================
 
-export class AgentProfile {
-  id?          : number
-  username?    : string
-  name?        : string
-  remoteUrl?   : string
-  sslKeyRef?   : string
-  sslCertRef?  : string
-  scanInterval?: number
-  createdAt?   : string
-  updatedAt?   : string
+export class AgentProfileSpec {
+  id?           : number
+  name?         : string
+  host?         : string
+  port?         : number = 8443
+  scanInterval  : number = 1
+  scanFolder    : string = "/reports"
+  fileExtension : string = ".trl"
+  hostType      : string = "windows"
+}
+
+//=============================================================================
+
+export class AgentProfile extends AgentProfileSpec {
+  username?  : string
+  createdAt? : string
+  updatedAt? : string
+}
+
+//=============================================================================
+
+export class AgentProfileExt extends AgentProfile {
+  tradingSystems : InvTradingSystemFull[] = []
 }
 
 //=============================================================================

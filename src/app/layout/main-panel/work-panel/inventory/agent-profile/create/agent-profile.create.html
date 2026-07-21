@@ -1,0 +1,20 @@
+<div class="main-layout">
+  <right-title-panel icon="smart_toy" title="{{loc('new')}}" (onClose)="onClose()"></right-title-panel>
+
+  <div class="form-layout">
+    <input-text-required   #apNameCtrl     [label]="mod('name')"          [(value)]="ap.name"          [len]="64"></input-text-required><br/>
+    <input-text-required   #apHostCtrl     [label]="mod('host')"          [(value)]="ap.host"          [len]="255"></input-text-required><br/>
+    <input-number          #apPortCtrl     [label]="mod('port')"          [(value)]="ap.port"          [min]="80" [max]="65535"></input-number><br/>
+    <input-number          #apScanIntCtrl  [label]="mod('scanInterval')"  [(value)]="ap.scanInterval"  [min]="0"  [max]="24"></input-number><br/>
+    <input-text-required   #apScanFolCtrl  [label]="mod('scanFolder')"    [(value)]="ap.scanFolder"    [len]="255"></input-text-required><br/>
+    <input-text-required   #apFileExtCtrl  [label]="mod('fileExtension')" [(value)]="ap.fileExtension" [len]="16"></input-text-required><br/>
+    <select-required       #apHostTypeCtrl [label]="mod('hostType')"      [(key)]  ="ap.hostType"      [map]="hostTypes"></select-required><br/>
+    </div>
+
+    <div class="buttons-layout">
+      <mat-divider></mat-divider>
+      <button mat-button (click)="onSave()" [disabled]="!saveEnabled()">{{button("save")}}</button>
+      <button mat-button (click)="onClose()">{{button("cancel")}}</button>
+    </div>
+  </div>
+

@@ -1,6 +1,6 @@
 //=============================================================================
 //===
-//=== Copyright (C) 2024-present Andrea Carboni
+//=== Copyright (C) 2026-present Andrea Carboni
 //===
 //=== This source code is licensed under the Elastic License 2.0 (ELv2) available at:
 //=== https://github.com/algotiqa/gui/blob/main/LICENSE.md
@@ -24,33 +24,40 @@ import {MatButtonModule} from "@angular/material/button";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatDividerModule} from "@angular/material/divider";
 import {InputTextRequired} from "../../../../../../component/form/input-text-required/input-text-required";
-import {SystemAdapterService} from "../../../../../../service/system-adapter.service";
 import {
-  Adapter, Connection,
-  ConnectionSpec, Currency, Exchange,
-  Portfolio,
-  BrokerProduct, BrokerProductSpec, DataProduct, DataProductSpec,
-  TradingSession,
-  TradingSystemSpec
+  AgentProfile,
+  AgentProfileSpec,
+  BrokerProductSpec,
+  Connection,
+  Exchange,
+  RootSymbol
 } from "../../../../../../model/model";
 import {SelectRequired} from "../../../../../../component/form/select-required/select-required";
-import {Url} from "../../../../../../model/urls";
-import {PortfolioService} from "../../../../../../service/portfolio.service";
 import {InventoryService} from "../../../../../../service/inventory.service";
 import {InputNumber} from "../../../../../../component/form/input-number/input-number";
+import {
+  PresetProductSelectorDialog
+} from "../../../../../../component/form/preset-product-selector/preset-product-selector.dialog";
+import {PresetProduct, PresetsService} from "../../../../../../service/presets.service";
+import {MatDialog} from "@angular/material/dialog";
+import {TextSelectorPanel} from "../../../../../../component/form/text-selector/text-selector.panel";
+import {
+  RootProductSelectorDialog
+} from "../../../../../../component/form/root-product-selector/root-product-selector.dialog";
+import {DialogData} from "../../../../../../component/form/root-product-selector/dialog-data";
 
 //=============================================================================
 
 @Component({
-    selector: "broker-product-edit",
-    templateUrl: './broker-product.edit.html',
-    styleUrls: ['./broker-product.edit.scss'],
-    imports: [RightTitlePanel, MatFormFieldModule, MatOptionModule, MatSelectModule, MatInputModule, MatIconModule, MatButtonModule, FormsModule, ReactiveFormsModule, MatDividerModule, InputTextRequired, SelectRequired, InputNumber]
+    selector: "agent-profile-create",
+    templateUrl: './agent-profile.create.html',
+    styleUrls: [ './agent-profile.create.scss'],
+    imports: [RightTitlePanel, MatFormFieldModule, MatOptionModule, MatSelectModule, MatInputModule, MatIconModule, MatButtonModule, FormsModule, ReactiveFormsModule, MatDividerModule, InputTextRequired, SelectRequired, InputNumber, TextSelectorPanel]
 })
 
 //=============================================================================
 
-export class ProductBrokerEditPanel extends AbstractPanel {
+export class AgentProfileCreatePanel extends AbstractPanel {
 
   //-------------------------------------------------------------------------
   //---
@@ -58,21 +65,16 @@ export class ProductBrokerEditPanel extends AbstractPanel {
   //---
   //-------------------------------------------------------------------------
 
-  pb = new BrokerProductSpec()
-  markets     : Object[]   = []
-  products    : Object[]   = []
-  exchanges   : Exchange[] = []
+  ap = new AgentProfileSpec()
+  hostTypes : Object[] = []
 
-  //---  The symbol cannot be changed because it is the root used to retrieve instruments from the broker
-
-  @ViewChild("pbNameCtrl")         pbNameCtrl?         : InputTextRequired
-  @ViewChild("pbPointValueCtrl")   pbPointValueCtrl?   : InputNumber
-  @ViewChild("pbCostPerOperCtrl")  pbCostPerOperCtrl?  : InputNumber
-  @ViewChild("pbMarginValueCtrl")  pbMarginValueCtrl?  : InputNumber
-  @ViewChild("pbIncrementCtrl")    pbIncrementCtrl?    : InputNumber
-  @ViewChild("pbMarketCtrl")       pbMarketCtrl?       : SelectRequired
-  @ViewChild("pbProductCtrl")      pbProductCtrl?      : SelectRequired
-  @ViewChild("pbExchangeCtrl")     pbExchangeCtrl?     : SelectRequired
+  @ViewChild("apNameCtrl")     apNameCtrl?     : InputTextRequired
+  @ViewChild("apHostCtrl")     apHostCtrl?     : InputTextRequired
+  @ViewChild("apPortCtrl")     apPortCtrl?     : InputNumber
+  @ViewChild("apScanIntCtrl")  apScanIntCtrl?  : InputNumber
+  @ViewChild("apScanFolCtrl")  apScanFolCtrl?  : InputTextRequired
+  @ViewChild("apFileExtCtrl")  apFileExtCtrl?  : InputTextRequired
+  @ViewChild("apHostTypeCtrl") apHostTypeCtrl? : SelectRequired
 
   //-------------------------------------------------------------------------
   //---
@@ -83,15 +85,11 @@ export class ProductBrokerEditPanel extends AbstractPanel {
   constructor(eventBusService          : EventBusService,
               labelService             : LabelService,
               router                   : Router,
+              public  dialog           : MatDialog,
               private inventoryService : InventoryService) {
 
-    super(eventBusService, labelService, router, "inventory.brokerProduct", "brokerProduct");
-    super.subscribeToApp(AppEvent.BROKERPRODUCT_EDIT_START, (e : AppEvent) => this.onStart(e));
-
-    inventoryService.getExchanges().subscribe(
-      result => {
-        this.exchanges = result.result;
-      })
+    super(eventBusService, labelService, router, "inventory.agentProfile", "agentProfile");
+    super.subscribeToApp(AppEvent.AGENTPROFILE_CREATE_START, (e : AppEvent) => this.onStart(e));
   }
 
   //-------------------------------------------------------------------------
@@ -101,35 +99,32 @@ export class ProductBrokerEditPanel extends AbstractPanel {
   //-------------------------------------------------------------------------
 
   private onStart(event : AppEvent) : void {
-    console.log("ProductBrokerEditPanel: Starting...");
+    console.log("AgentProfileCreatePanel: Starting...");
 
-    this.pb       = Object.assign(new BrokerProductSpec(), event.params)
-    this.markets  = this.labelService.getLabel("map.market")
-    this.products = this.labelService.getLabel("map.product")
+    this.ap        = new AgentProfileSpec()
+    this.hostTypes = this.labelService.getLabel("map.hostType")
   }
 
   //-------------------------------------------------------------------------
 
   public saveEnabled() : boolean|undefined {
-    return  this.pbNameCtrl        ?.isValid() &&
-            this.pbPointValueCtrl  ?.isValid() &&
-            this.pbCostPerOperCtrl ?.isValid() &&
-            this.pbMarginValueCtrl ?.isValid() &&
-            this.pbIncrementCtrl   ?.isValid() &&
-            this.pbMarketCtrl      ?.isValid() &&
-            this.pbProductCtrl     ?.isValid() &&
-            this.pbExchangeCtrl    ?.isValid()
+
+    return  this.apNameCtrl    ?.isValid() &&
+            this.apHostCtrl    ?.isValid() &&
+            this.apPortCtrl    ?.isValid() &&
+            this.apScanIntCtrl ?.isValid() &&
+            this.apScanFolCtrl ?.isValid() &&
+            this.apFileExtCtrl ?.isValid()
   }
 
   //-------------------------------------------------------------------------
 
   public onSave() : void {
+    console.log("Agent Profile is : \n"+ JSON.stringify(this.ap));
 
-    console.log("Product for broker is : \n"+ JSON.stringify(this.pb));
-
-    this.inventoryService.updateBrokerProduct(this.pb).subscribe( c => {
+    this.inventoryService.addAgentProfile(this.ap).subscribe( res => {
       this.onClose();
-      this.emitToApp(new AppEvent<any>(AppEvent.BROKERPRODUCT_LIST_RELOAD))
+      this.emitToApp(new AppEvent<any>(AppEvent.AGENTPROFILE_LIST_RELOAD))
     })
   }
 

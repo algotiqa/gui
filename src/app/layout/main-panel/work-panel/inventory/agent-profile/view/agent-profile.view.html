@@ -1,0 +1,59 @@
+<list-panel [title]="ap.name">
+  <list-buttons>
+    <back-button></back-button>
+    |
+    <delete-button  (click)="onDeleteClick()"></delete-button>
+    <package-button (click)="onPackageClick()"></package-button>
+  </list-buttons>
+
+  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+  <list-content>
+    <table>
+      <tr>
+        <td>{{mod("host")}}</td>
+        <td class="data-style">{{ap.host}}</td>
+        <td class="separator-width"></td>
+        <td>{{mod("scanFolder")}}</td>
+        <td class="data-style">{{ap.scanFolder}}</td>
+        <td class="separator-width"></td>
+        <td>{{mod("createdAt")}}</td>
+        <td class="data-style">{{ap.createdAt}}</td>
+      </tr>
+
+      <tr>
+        <td>{{mod("port")}}</td>
+        <td class="data-style">{{ap.port}}</td>
+        <td class="separator-width"></td>
+        <td>{{mod("fileExtension")}}</td>
+        <td class="data-style">{{ap.fileExtension}}</td>
+        <td class="separator-width"></td>
+        <td>{{mod("updatedAt")}}</td>
+        <td class="data-style">{{ap.updatedAt}}</td>
+      </tr>
+
+      <tr>
+        <td>{{mod("scanInterval")}}</td>
+        <td class="data-style">{{ap.scanInterval}}</td>
+        <td class="separator-width"></td>
+        <td>{{mod("hostType")}}</td>
+        <td class="data-style">{{ap.hostType}}</td>
+        <td class="separator-width"></td>
+        <td></td>
+        <td class="data-style"></td>
+      </tr>
+    </table>
+
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+    <mat-tab-group class="table-panel" [mat-stretch-tabs]="false">
+      <mat-tab label="{{loc('tradingSystemRefs')}}">
+        <flex-table [columns] = "tradingSystemCols"
+                    [data]    = "ap.tradingSystems"
+        >
+        </flex-table>
+      </mat-tab>
+    </mat-tab-group>
+
+  </list-content>
+</list-panel>

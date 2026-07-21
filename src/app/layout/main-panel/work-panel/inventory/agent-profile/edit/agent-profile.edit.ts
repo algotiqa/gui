@@ -1,6 +1,6 @@
 //=============================================================================
 //===
-//=== Copyright (C) 2024-present Andrea Carboni
+//=== Copyright (C) 2026-present Andrea Carboni
 //===
 //=== This source code is licensed under the Elastic License 2.0 (ELv2) available at:
 //=== https://github.com/algotiqa/gui/blob/main/LICENSE.md
@@ -31,26 +31,27 @@ import {
   Portfolio,
   BrokerProduct, BrokerProductSpec, DataProduct, DataProductSpec,
   TradingSession,
-  TradingSystemSpec
+  TradingSystemSpec, AgentProfileSpec
 } from "../../../../../../model/model";
 import {SelectRequired} from "../../../../../../component/form/select-required/select-required";
 import {Url} from "../../../../../../model/urls";
 import {PortfolioService} from "../../../../../../service/portfolio.service";
 import {InventoryService} from "../../../../../../service/inventory.service";
 import {InputNumber} from "../../../../../../component/form/input-number/input-number";
+import {MatDialog} from "@angular/material/dialog";
 
 //=============================================================================
 
 @Component({
-    selector: "broker-product-edit",
-    templateUrl: './broker-product.edit.html',
-    styleUrls: ['./broker-product.edit.scss'],
+    selector: "agent-profile-edit",
+    templateUrl: './agent-profile.edit.html',
+    styleUrls: ['./agent-profile.edit.scss'],
     imports: [RightTitlePanel, MatFormFieldModule, MatOptionModule, MatSelectModule, MatInputModule, MatIconModule, MatButtonModule, FormsModule, ReactiveFormsModule, MatDividerModule, InputTextRequired, SelectRequired, InputNumber]
 })
 
 //=============================================================================
 
-export class ProductBrokerEditPanel extends AbstractPanel {
+export class AgentProfileEditPanel extends AbstractPanel {
 
   //-------------------------------------------------------------------------
   //---
@@ -58,21 +59,16 @@ export class ProductBrokerEditPanel extends AbstractPanel {
   //---
   //-------------------------------------------------------------------------
 
-  pb = new BrokerProductSpec()
-  markets     : Object[]   = []
-  products    : Object[]   = []
-  exchanges   : Exchange[] = []
+  ap = new AgentProfileSpec()
+  hostTypes : Object[] = []
 
-  //---  The symbol cannot be changed because it is the root used to retrieve instruments from the broker
-
-  @ViewChild("pbNameCtrl")         pbNameCtrl?         : InputTextRequired
-  @ViewChild("pbPointValueCtrl")   pbPointValueCtrl?   : InputNumber
-  @ViewChild("pbCostPerOperCtrl")  pbCostPerOperCtrl?  : InputNumber
-  @ViewChild("pbMarginValueCtrl")  pbMarginValueCtrl?  : InputNumber
-  @ViewChild("pbIncrementCtrl")    pbIncrementCtrl?    : InputNumber
-  @ViewChild("pbMarketCtrl")       pbMarketCtrl?       : SelectRequired
-  @ViewChild("pbProductCtrl")      pbProductCtrl?      : SelectRequired
-  @ViewChild("pbExchangeCtrl")     pbExchangeCtrl?     : SelectRequired
+  @ViewChild("apNameCtrl")     apNameCtrl?     : InputTextRequired
+  @ViewChild("apHostCtrl")     apHostCtrl?     : InputTextRequired
+  @ViewChild("apPortCtrl")     apPortCtrl?     : InputNumber
+  @ViewChild("apScanIntCtrl")  apScanIntCtrl?  : InputNumber
+  @ViewChild("apScanFolCtrl")  apScanFolCtrl?  : InputTextRequired
+  @ViewChild("apFileExtCtrl")  apFileExtCtrl?  : InputTextRequired
+  @ViewChild("apHostTypeCtrl") apHostTypeCtrl? : SelectRequired
 
   //-------------------------------------------------------------------------
   //---
@@ -83,15 +79,11 @@ export class ProductBrokerEditPanel extends AbstractPanel {
   constructor(eventBusService          : EventBusService,
               labelService             : LabelService,
               router                   : Router,
+              public  dialog           : MatDialog,
               private inventoryService : InventoryService) {
 
-    super(eventBusService, labelService, router, "inventory.brokerProduct", "brokerProduct");
-    super.subscribeToApp(AppEvent.BROKERPRODUCT_EDIT_START, (e : AppEvent) => this.onStart(e));
-
-    inventoryService.getExchanges().subscribe(
-      result => {
-        this.exchanges = result.result;
-      })
+    super(eventBusService, labelService, router, "inventory.agentProfile", "agentProfile");
+    super.subscribeToApp(AppEvent.AGENTPROFILE_EDIT_START, (e : AppEvent) => this.onStart(e));
   }
 
   //-------------------------------------------------------------------------
@@ -101,35 +93,31 @@ export class ProductBrokerEditPanel extends AbstractPanel {
   //-------------------------------------------------------------------------
 
   private onStart(event : AppEvent) : void {
-    console.log("ProductBrokerEditPanel: Starting...");
+    console.log("AgentProfileCreatePanel: Starting...");
 
-    this.pb       = Object.assign(new BrokerProductSpec(), event.params)
-    this.markets  = this.labelService.getLabel("map.market")
-    this.products = this.labelService.getLabel("map.product")
+    this.ap        = Object.assign(new AgentProfileSpec(), event.params)
+    this.hostTypes = this.labelService.getLabel("map.hostType")
   }
 
   //-------------------------------------------------------------------------
 
   public saveEnabled() : boolean|undefined {
-    return  this.pbNameCtrl        ?.isValid() &&
-            this.pbPointValueCtrl  ?.isValid() &&
-            this.pbCostPerOperCtrl ?.isValid() &&
-            this.pbMarginValueCtrl ?.isValid() &&
-            this.pbIncrementCtrl   ?.isValid() &&
-            this.pbMarketCtrl      ?.isValid() &&
-            this.pbProductCtrl     ?.isValid() &&
-            this.pbExchangeCtrl    ?.isValid()
+    return  this.apNameCtrl    ?.isValid() &&
+            this.apHostCtrl    ?.isValid() &&
+            this.apPortCtrl    ?.isValid() &&
+            this.apScanIntCtrl ?.isValid() &&
+            this.apScanFolCtrl ?.isValid() &&
+            this.apFileExtCtrl ?.isValid()
   }
 
   //-------------------------------------------------------------------------
 
   public onSave() : void {
+    console.log("Agent Profile is : \n"+ JSON.stringify(this.ap));
 
-    console.log("Product for broker is : \n"+ JSON.stringify(this.pb));
-
-    this.inventoryService.updateBrokerProduct(this.pb).subscribe( c => {
+    this.inventoryService.updateAgentProfile(this.ap).subscribe( res => {
       this.onClose();
-      this.emitToApp(new AppEvent<any>(AppEvent.BROKERPRODUCT_LIST_RELOAD))
+      this.emitToApp(new AppEvent<any>(AppEvent.AGENTPROFILE_LIST_RELOAD))
     })
   }
 

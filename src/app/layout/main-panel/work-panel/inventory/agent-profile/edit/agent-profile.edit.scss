@@ -1,0 +1,41 @@
+//=============================================================================
+//===
+//=== Copyright (C) 2026-present Andrea Carboni
+//===
+//=== This source code is licensed under the Elastic License 2.0 (ELv2) available at:
+//=== https://github.com/algotiqa/gui/blob/main/LICENSE.md
+//=== By using this file, you agree to the terms and conditions of that license.
+//=============================================================================
+
+.main-layout {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 8px;
+  height   : 100%;
+  overflow: hidden;
+}
+
+//=============================================================================
+
+.form-layout {
+  flex: 1 1 auto;
+  overflow: auto;
+  padding: 0 8px 0 8px;
+}
+
+//=============================================================================
+
+.buttons-layout {
+  text-align: center;
+}
+
+//=============================================================================
+
+input-text-required, select-required, input-number {
+  width: 100%;
+}
+
+//=============================================================================

@@ -64,7 +64,7 @@ import {TradingSystemSimulationPanel} from "./app/module/simulator/simulation.pa
 import {
   TradingSystemArchiveEditPanel
 } from "./app/layout/main-panel/work-panel/portfolio/trading-system/archive/edit/edit.panel";
-import {AgentProfilePanel} from "./app/layout/main-panel/work-panel/inventory/agent-profile/agent-profile.list";
+import {AgentProfileListPanel} from "./app/layout/main-panel/work-panel/inventory/agent-profile/agent-profile.list";
 import {TradingSessionPanel} from "./app/layout/main-panel/work-panel/inventory/trading-session/trading-session.list";
 import {ConnectionView} from "./app/layout/main-panel/work-panel/admin/connection/view/connection.view";
 import {BrokerProductView} from "./app/layout/main-panel/work-panel/inventory/broker-product/view/broker-product.view";
@@ -77,6 +77,15 @@ import {
   PositionSizingPanel
 } from "./app/layout/main-panel/work-panel/portfolio/trading-system/position-sizing/position-sizing.panel";
 import {TradeAnalyzerPanel} from "./app/module/trade-analyzer/trade-analyzer.panel";
+import {
+  AgentProfileViewPanel
+} from "./app/layout/main-panel/work-panel/inventory/agent-profile/view/agent-profile.view";
+import {
+  AgentProfileEditPanel
+} from "./app/layout/main-panel/work-panel/inventory/agent-profile/edit/agent-profile.edit";
+import {
+  AgentProfileCreatePanel
+} from "./app/layout/main-panel/work-panel/inventory/agent-profile/create/agent-profile.create";
 
 //=============================================================================
 
@@ -99,12 +108,18 @@ export const routes: Routes = [
 
   { path: Url.Right_DataProduct_Create,           component: ProductDataCreatePanel,   outlet : 'right' },
   { path: Url.Right_DataProduct_Edit,             component: ProductDataEditPanel,     outlet : 'right' },
+
   { path: Url.Inventory_BrokerProducts,           component: BrokerProductList               },
   { path: Url.Inventory_BrokerProducts_Id,        component: BrokerProductView               },
-  { path: Url.Inventory_TradingSessions,          component: TradingSessionPanel             },
-  { path: Url.Inventory_AgentProfiles,            component: AgentProfilePanel               },
   { path: Url.Right_BrokerProduct_Create,         component: BrokerProductCreatePanel, outlet : 'right' },
   { path: Url.Right_BrokerProduct_Edit,           component: ProductBrokerEditPanel,   outlet : 'right' },
+
+  { path: Url.Inventory_TradingSessions,          component: TradingSessionPanel             },
+
+  { path: Url.Inventory_AgentProfiles,            component: AgentProfileListPanel           },
+  { path: Url.Inventory_AgentProfiles_Id,         component: AgentProfileViewPanel           },
+  { path: Url.Right_AgentProfile_Create,          component: AgentProfileCreatePanel, outlet : 'right' },
+  { path: Url.Right_AgentProfile_Edit,            component: AgentProfileEditPanel,   outlet : 'right' },
 
   //--- Portfolio
 

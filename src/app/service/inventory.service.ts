@@ -18,7 +18,7 @@ import {
   DataProduct, DataProductExt, DataProductSpec,
   TradingSession, TradingSystemSpec, AgentProfile, FinalizationResponse, DataProductFull,
   BrokerProductExt, BrokerProductFull, ReloadTradesResponse, ConnectionExt, DeleteResponse,
-  PlatformInfo,
+  PlatformInfo, AgentProfileSpec, AgentProfileExt,
 } from "../model/model";
 import {HttpService, UploadEvent} from "./http.service";
 import { HttpParams } from "@angular/common/http";
@@ -250,8 +250,39 @@ export class InventoryService {
 
   //---------------------------------------------------------------------------
 
+  public getAgentProfileById = (id:number): Observable<AgentProfileExt> => {
+    let params = new HttpParams()
+    return this.httpService.get<AgentProfileExt>('/api/inventory/v1/agent-profiles/'+ id, { params: params });
+  }
+
+  //---------------------------------------------------------------------------
+
+  public addAgentProfile = (aps : AgentProfileSpec): Observable<AgentProfile> => {
+    return this.httpService.post<AgentProfile>('/api/inventory/v1/agent-profiles', aps);
+  }
+
+  //---------------------------------------------------------------------------
+
+  public updateAgentProfile = (aps : AgentProfileSpec): Observable<AgentProfile> => {
+    return this.httpService.put<AgentProfile>('/api/inventory/v1/agent-profiles/'+aps.id, aps);
+  }
+
+  //---------------------------------------------------------------------------
+
+  public deleteAgentProfile = (id : number): Observable<DeleteResponse> => {
+    return this.httpService.delete<DeleteResponse>('/api/inventory/v1/agent-profiles/'+id);
+  }
+
+  //---------------------------------------------------------------------------
+
   public getAgentExternalRefs = (id : number): Observable<string[]> => {
     return this.httpService.get<string[]>('/api/inventory/v1/agent-profiles/'+ id +'/external-refs');
+  }
+
+  //---------------------------------------------------------------------------
+
+  public downloadAgentPackage = (id : number): Observable<ArrayBuffer> => {
+    return this.httpService.getBytes('/api/inventory/v1/agent-profiles/'+ id +'/package');
   }
 }
 
