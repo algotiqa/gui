@@ -52,7 +52,7 @@ import {DialogData} from "../../../../../../component/form/root-product-selector
     selector: "agent-profile-create",
     templateUrl: './agent-profile.create.html',
     styleUrls: [ './agent-profile.create.scss'],
-    imports: [RightTitlePanel, MatFormFieldModule, MatOptionModule, MatSelectModule, MatInputModule, MatIconModule, MatButtonModule, FormsModule, ReactiveFormsModule, MatDividerModule, InputTextRequired, SelectRequired, InputNumber, TextSelectorPanel]
+    imports: [RightTitlePanel, MatFormFieldModule, MatOptionModule, MatSelectModule, MatInputModule, MatIconModule, MatButtonModule, FormsModule, ReactiveFormsModule, MatDividerModule, InputTextRequired, SelectRequired, InputNumber]
 })
 
 //=============================================================================

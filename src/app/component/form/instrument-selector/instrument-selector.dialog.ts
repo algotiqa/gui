@@ -31,7 +31,7 @@ import {LabelTranscoder} from "../../panel/flex-table/transcoders";
     selector: 'instrument-selector-dialog',
     templateUrl: 'instrument-selector.dialog.html',
     styleUrls: ['instrument-selector.dialog.scss'],
-    imports: [MatDialogModule, MatButtonModule, FileUploader, InputTextRequired, MatChipListbox, MatChipOption, MatProgressBar, SelectRequired, FlexTablePanel]
+    imports: [MatDialogModule, MatButtonModule, FlexTablePanel]
 })
 
 //=============================================================================
