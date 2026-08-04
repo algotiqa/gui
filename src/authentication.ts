@@ -14,7 +14,7 @@ import {LogLevel, PassedInitialConfig} from "angular-auth-oidc-client";
 
 export const authConfig : PassedInitialConfig = {
   config: {
-    authority: 'https://algotiqa-server:8443/auth/realms/algotiqa',
+    authority: 'https://'+ process.env['HOST'] +':8443/auth/realms/algotiqa',
     redirectUrl: window.location.origin,
     postLogoutRedirectUri: window.location.origin,
     clientId: 'algotiqa-frontend',
@@ -26,8 +26,9 @@ export const authConfig : PassedInitialConfig = {
     ignoreNonceAfterRefresh: true,
     triggerRefreshWhenIdTokenExpired: false,
     logLevel: LogLevel.Debug,
-    secureRoutes: [ 'https://algotiqa-server:8443/' ],
+    secureRoutes: [ 'https://'+ process.env['HOST'] +':8443/' ],
   },
 }
 
 //=============================================================================
+

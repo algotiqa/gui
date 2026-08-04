@@ -21,5 +21,5 @@ FROM nginx:alpine
 # Copy compiled static files to Nginx web root directory
 COPY --from=build /app/dist/gui/browser /usr/share/nginx/html
 
-EXPOSE 8444
+EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
