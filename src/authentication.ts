@@ -7,14 +7,13 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-
 import {LogLevel, PassedInitialConfig} from "angular-auth-oidc-client";
 
 //=============================================================================
 
 export const authConfig : PassedInitialConfig = {
   config: {
-    authority: 'https://'+ process.env['HOST'] +':8443/auth/realms/algotiqa',
+    authority: 'https://algotiqa:8443/auth/realms/algotiqa',
     redirectUrl: window.location.origin,
     postLogoutRedirectUri: window.location.origin,
     clientId: 'algotiqa-frontend',
@@ -26,7 +25,7 @@ export const authConfig : PassedInitialConfig = {
     ignoreNonceAfterRefresh: true,
     triggerRefreshWhenIdTokenExpired: false,
     logLevel: LogLevel.Debug,
-    secureRoutes: [ 'https://'+ process.env['HOST'] +':8443/' ],
+    secureRoutes: [ 'https://algotiqa:8443/' ],
   },
 }
 
