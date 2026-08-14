@@ -117,7 +117,7 @@ export class HomePanel extends AbstractPanel {
   //-------------------------------------------------------------------------
 
   private rebuildCharts = (s : DashboardSummary) : void => {
-
+    this.ensureNotNull(s)
     this.allOptions        = this.buildAllOptions(s);
     this.tradingOptions    = this.buildTradingOptions(s);
     this.topByProfitOptions= this.buildTopSystemsByProfitOptions(s);
@@ -125,6 +125,26 @@ export class HomePanel extends AbstractPanel {
     this.currencyOptions   = this.buildCurrencyOptions(s);
     this.topByTradesOptions= this.buildTopSystemsByTradesOptions(s);
   };
+
+  //-------------------------------------------------------------------------
+
+  private ensureNotNull(s : DashboardSummary) {
+    if (s.byMarket == null) {
+      s.byMarket = [];
+    }
+
+    if (s.byCurrency == null) {
+      s.byCurrency = [];
+    }
+
+    if (s.topSystemsByProfit == null) {
+      s.topSystemsByProfit = [];
+    }
+
+    if (s.topSystemsByTrades == null) {
+      s.topSystemsByTrades = [];
+    }
+  }
 
   //-------------------------------------------------------------------------
 

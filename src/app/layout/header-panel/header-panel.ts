@@ -111,7 +111,8 @@ export class HeaderPanel extends AbstractPanel {
       },
       error: (err) => {
         console.log('Cannot load platform version: ' + JSON.stringify(err));
-        this.platformVersion = 'error';
+        //TODO: set back "error" here
+        this.platformVersion = 'beta';
       }
     });
   };
