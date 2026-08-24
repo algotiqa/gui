@@ -18,10 +18,16 @@ RUN npm run build -- --configuration=production
 # ====================================================================
 
 FROM nginx:alpine
+
 # Override stock config with SPA fallback routing
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 # Copy compiled static files to Nginx web root directory
 COPY --from=build /app/dist/gui/browser /usr/share/nginx/html
 
+COPY start.sh /
+RUN chmod +x /start.sh
+
 EXPOSE 80
+
+ENTRYPOINT ["/start.sh"]
 CMD ["nginx", "-g", "daemon off;"]
