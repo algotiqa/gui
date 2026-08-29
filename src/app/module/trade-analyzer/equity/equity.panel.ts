@@ -265,10 +265,14 @@ export class TradeEquityPanel extends AbstractPanel {
   private buildSerie(te : TradeEntry, eq? : TradeEquity) : any {
     let name = String(te.entryDate).substring(0, 10);
     let color= this.assignColor(te)
+    let data = eq?.equity
+    if (data) {
+      data = [ 0, ...data ]
+    }
 
     return {
       name  : name,
-      data  : eq?.equity,
+      data  : data,
       color : color
       }
   }
@@ -306,7 +310,7 @@ export class TradeEquityPanel extends AbstractPanel {
   private buildLabels(len : number) : any[] {
     let labels : any[] = []
 
-    for (let i=1; i <= len ; i++) {
+    for (let i=0; i <= len ; i++) {
       labels.push(i)
     }
     return labels
