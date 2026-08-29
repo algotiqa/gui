@@ -305,7 +305,7 @@ export class PerformanceChartPanel extends AbstractPanel {
 
     return [{
         x : new Date(1980, 1, 1).getTime(),
-        x2: new Date(y, m, d).getTime(),
+        x2: new Date(y, m-1, d).getTime(),
         fillColor: "#C0C0C0",
         opacity: 0.1,
         strokeDashArray: 0,
@@ -335,7 +335,7 @@ export class PerformanceChartPanel extends AbstractPanel {
     let d = new IntDateAdapter().day(isTo)
 
     return [{
-      x : new Date(y, m, d).getTime(),
+      x : new Date(y, m-1, d).getTime(),
       x2: new Date().getTime(),
       fillColor: "#B3F7CA",
       opacity: 0.2,
@@ -388,7 +388,6 @@ export class PerformanceChartPanel extends AbstractPanel {
         }
       }
       list = list.concat(lp)
-      console.log("Processed ", JSON.stringify(list))
     })
 
     return list
