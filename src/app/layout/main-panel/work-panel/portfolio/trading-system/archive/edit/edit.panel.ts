@@ -7,7 +7,6 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-
 import {Component, ViewChild} from '@angular/core';
 import {Router} from "@angular/router";
 import {MatFormFieldModule} from "@angular/material/form-field";
@@ -59,6 +58,8 @@ export class TradingSystemArchiveEditPanel extends AbstractPanel {
   //-------------------------------------------------------------------------
 
   ts = new TradingSystemSpec()
+  tsOrig? : TradingSystemSpec
+
   disabled = false
 
   data          : DataProduct   [] = []
@@ -68,14 +69,7 @@ export class TradingSystemArchiveEditPanel extends AbstractPanel {
   profiles      : AgentProfile  [] = []
   tagSet        : string        [] = []
 
-  @ViewChild("tsNameCtrl")      tsNameCtrl?      : InputTextRequired
-  @ViewChild("tsDataCtrl")      tsDataCtrl?      : SelectRequired
-  @ViewChild("tsBrokerCtrl")    tsBrokerCtrl?    : SelectRequired
-  @ViewChild("tsSessionCtrl")   tsSessionCtrl?   : SelectRequired
-  @ViewChild("tsTimeframeCtrl") tsTimeframeCtrl? : InputNumber
-  @ViewChild("tsStratTypeCtrl") tsStratTypeCtrl? : SelectRequired
-  @ViewChild("tsProfileCtrl")   tsProfileCtrl?   : SelectRequired
-  @ViewChild("tsExternRefCtrl") tsExternRefCtrl? : InputTextRequired
+  @ViewChild("tsNameCtrl") tsNameCtrl? : InputTextRequired
 
   //-------------------------------------------------------------------------
   //---
@@ -125,7 +119,8 @@ export class TradingSystemArchiveEditPanel extends AbstractPanel {
 
     this.strategyTypes = this.labelService.getLabel("map.strategyType")
 
-    this.ts = Object.assign(new TradingSystemSpec(), event.params)
+    this.tsOrig = event.params
+    this.ts = Object.assign(new TradingSystemSpec(), this.tsOrig)
     let pts : PorTradingSystem = event.params
     this.disabled = (pts.trading || pts.lastTrade != undefined)
   }
@@ -133,19 +128,7 @@ export class TradingSystemArchiveEditPanel extends AbstractPanel {
   //-------------------------------------------------------------------------
 
   public saveEnabled() : boolean|undefined {
-    let agent = true
-
-    if (this.ts.agentProfileId && this.tsExternRefCtrl) {
-      agent = this.tsExternRefCtrl?.isValid()
-    }
-
-    return  this.tsNameCtrl     ?.isValid() &&
-            this.tsDataCtrl     ?.isValid() &&
-            this.tsBrokerCtrl   ?.isValid() &&
-            this.tsSessionCtrl  ?.isValid() &&
-            this.tsTimeframeCtrl?.isValid() &&
-            this.tsStratTypeCtrl?.isValid() &&
-            agent
+    return  this.tsNameCtrl?.isValid()
   }
 
   //-------------------------------------------------------------------------
@@ -155,9 +138,23 @@ export class TradingSystemArchiveEditPanel extends AbstractPanel {
     console.log("TradingSystem is : \n"+ JSON.stringify(this.ts));
 
     this.ts.tags = this.tagSet.join("|")
-    this.inventoryService.updateTradingSystem(this.ts).subscribe( c => {
+    let ts = this.ts
+    this.inventoryService.updateTradingSystem(ts).subscribe( c => {
       this.onClose();
-      this.emitToApp(new AppEvent<any>(AppEvent.TRADINGSYSTEM_ARCHIVE_LIST_RELOAD))
+
+      if (this.tsOrig) {
+        //--- We need let ts=this.ts because this resolves to another object
+        this.tsOrig.name         = ts.name
+        this.tsOrig.strategyType = ts.strategyType
+        this.tsOrig.tags         = ts.tags
+        this.tsOrig.overnight    = ts.overnight
+      }
+
+      //--- We don't send the event because this data is taken from the portfolio trader but
+      //--- modified in the inventory manager. This event is too fast: the message in the queue
+      //--- from inventory -> portfolio won't arrive in time
+
+      // this.emitToApp(new AppEvent<any>(AppEvent.TRADINGSYSTEM_ARCHIVE_LIST_RELOAD))
     })
   }
 
