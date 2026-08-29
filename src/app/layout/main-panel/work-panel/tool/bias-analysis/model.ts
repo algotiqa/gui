@@ -15,6 +15,7 @@
 //=============================================================================
 
 import {BrokerProduct, DataPoint} from "../../../../../model/model";
+import {PeriodSelectorInfo} from "../../../../../component/form/period-selector/period-selector";
 
 export class BiasAnalysis {
   id?               : number
@@ -91,6 +92,7 @@ export class DataPointEntry {
 //=============================================================================
 
 export class BiasBacktestRequest {
+  period     : PeriodSelectorInfo = new PeriodSelectorInfo()
   stopLoss   : number = 0
   takeProfit : number = 0
   session    : string = ""
@@ -106,6 +108,7 @@ export class BiasBacktestResponse {
   biasAnalysis?    : BiasAnalysis
   brokerProduct?   : BrokerProduct
   backtestedConfigs: BacktestedConfig[] = []
+  spec?            : BiasBacktestSpec
 }
 
 //=============================================================================
@@ -154,6 +157,13 @@ export class ProfitDistribution {
   netProfits : number[] = []
   numTrades  : number[] = []
   avgTrades  : number[] = []
+}
+
+//=============================================================================
+
+export class BiasBacktestSpec {
+  stopLoss   : number = 0
+  takeProfit : number = 0
 }
 
 //=============================================================================

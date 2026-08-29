@@ -164,31 +164,39 @@ export class CollectorService {
   //--- Configs
 
   public getBiasConfigsByAnalysisId = (id: number): Observable<ListResponse<BiasConfig>> => {
-    return this.httpService.get<ListResponse<BiasConfig>>('/api/collector/v1/bias-analyses/'+ id+'/configs', {});
+    return this.httpService.get<ListResponse<BiasConfig>>('/api/collector/v1/bias-analyses/'+ id +'/configs', {});
   }
 
   //---------------------------------------------------------------------------
 
-  public addBiasConfig = (baId: number, bc : BiasConfig): Observable<BiasConfig> => {
-    return this.httpService.post<BiasConfig>('/api/collector/v1/bias-analyses/'+ baId+'/configs', bc);
+  public addBiasConfig = (id: number, bc : BiasConfig): Observable<BiasConfig> => {
+    return this.httpService.post<BiasConfig>('/api/collector/v1/bias-analyses/'+ id +'/configs', bc);
   }
 
   //---------------------------------------------------------------------------
 
-  public updateBiasConfig = (baId: number, bc : BiasConfig): Observable<BiasConfig> => {
-    return this.httpService.put<BiasConfig>('/api/collector/v1/bias-analyses/'+ baId+'/configs/'+ bc.id, bc);
+  public updateBiasConfig = (id: number, bc : BiasConfig): Observable<BiasConfig> => {
+    return this.httpService.put<BiasConfig>('/api/collector/v1/bias-analyses/'+ id +'/configs/'+ bc.id, bc);
   }
 
   //---------------------------------------------------------------------------
 
   public deleteBiasConfig = (baId: number, id : number): Observable<boolean> => {
-    return this.httpService.delete<boolean>('/api/collector/v1/bias-analyses/'+ baId+'/configs/'+ id);
+    return this.httpService.delete<boolean>('/api/collector/v1/bias-analyses/'+ baId +'/configs/'+ id);
   }
 
   //---------------------------------------------------------------------------
 
-  public runBacktest = (baId: number, req:BiasBacktestRequest): Observable<BiasBacktestResponse> => {
-    return this.httpService.post<BiasBacktestResponse>('/api/collector/v1/bias-analyses/'+ baId+'/backtest', req);
+  public runBacktest = (id: number, req: BiasBacktestRequest): Observable<BiasBacktestResponse> => {
+    let base = Lib.query.createSpec(req.period, undefined, undefined, undefined, undefined)
+    let spec = {
+      ...base,
+      stopLoss     : req.stopLoss,
+      takeProfit   : req.takeProfit,
+      sessionConfig: JSON.stringify(req.session)
+    }
+
+    return this.httpService.get<BiasBacktestResponse>('/api/collector/v1/bias-analyses/'+ id +'/backtest', { params: spec });
   }
 }
 

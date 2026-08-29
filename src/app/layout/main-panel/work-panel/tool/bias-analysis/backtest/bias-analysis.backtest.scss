@@ -7,7 +7,6 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-
 .main-layout {
   display: flex;
   flex-direction: column;
@@ -21,14 +20,19 @@
 
 //=============================================================================
 
-.session-style {
-  width: 350px;
+.toolbar-layout {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 8px;
 }
 
 //=============================================================================
 
-div input-number {
-  margin-right: 4px;
+.session-style {
+  width: 350px;
 }
 
 //=============================================================================

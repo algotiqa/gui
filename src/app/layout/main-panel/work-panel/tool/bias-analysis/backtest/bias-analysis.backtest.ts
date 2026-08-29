@@ -46,6 +46,7 @@ import {
   Equity,
   ProfitDistribution
 } from "../model";
+import {PeriodSelector, PeriodSelectorInfo} from "../../../../../../component/form/period-selector/period-selector";
 
 //=============================================================================
 
@@ -59,10 +60,10 @@ const EquityChart     = "equity"
 //=============================================================================
 
 @Component({
-    selector: 'bias-analysis-backtest',
+    selector   : 'bias-analysis-backtest',
     templateUrl: 'bias-analysis.backtest.html',
-    styleUrls: ['bias-analysis.backtest.scss'],
-    imports: [MatButtonModule, MatGridListModule, MatIconModule, FlexTreePanel, MatDivider, FlexTablePanel, ChartComponent, MatButtonToggleModule, InputNumber, SelectRequired]
+    styleUrls  : ['bias-analysis.backtest.scss'],
+  imports: [MatButtonModule, MatGridListModule, MatIconModule, FlexTreePanel, MatDivider, FlexTablePanel, ChartComponent, MatButtonToggleModule, InputNumber, SelectRequired, PeriodSelector]
 })
 
 //=============================================================================
@@ -156,6 +157,13 @@ export class BiasAnalysisBacktestPanel extends AbstractPanel {
   //---
   //--- Events methods
   //---
+  //-------------------------------------------------------------------------
+
+  onPeriodChange(period: PeriodSelectorInfo) {
+    console.log("Analysis period change : ", period)
+//    this.reloadBiasAnalysis();
+  }
+
   //-------------------------------------------------------------------------
 
   onNodeSelected(node : TreeNode) {
