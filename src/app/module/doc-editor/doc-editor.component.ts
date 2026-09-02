@@ -87,14 +87,9 @@ export class DocEditorComponent implements OnInit {
     let doc = $('#doc-editor').trumbowyg('html');
 
     this.storageService.setTradingSystemDoc(this.tsId, doc).subscribe( res => {
-      this.snackBar.open("Documentation saved", undefined, { duration: 3000 })
+      // this.snackBar.open("Documentation saved", undefined, { duration: 3000 })
+      window.close()
     })
-  }
-
-  //-------------------------------------------------------------------------
-
-  public onClose() : void {
-    window.close()
   }
 }
 
