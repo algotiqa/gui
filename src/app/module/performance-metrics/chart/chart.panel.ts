@@ -99,6 +99,7 @@ export class PerformanceChartPanel extends AbstractPanel {
     this.showDrawdown = this.localService.getStringItem(Setting.Portfolio_TradSys_PerfDdown, "true") == "true"
 
     this.updateChartType()
+    this.rebuildChart()
   }
 
   //-------------------------------------------------------------------------
