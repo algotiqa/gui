@@ -73,6 +73,14 @@ export class AppEvent<T = any>  {
   static TRADINGSESSION_LIST_RELOAD : string = "tradingSession.list.reload";
   static TRADINGSESSION_CREATE_START: string = "tradingSession.create.start";
   static TRADINGSESSION_EDIT_START  : string = "tradingSession.edit.start";
+
+  static ACCOUNT_LIST_RELOAD : string = "account.list.reload";
+  static ACCOUNT_CREATE_START: string = "account.create.start";
+  static ACCOUNT_EDIT_START  : string = "account.edit.start";
+
+  static PORTFOLIO_LIST_RELOAD : string = "portfolio.list.reload";
+  static PORTFOLIO_CREATE_START: string = "portfolio.create.start";
+  static PORTFOLIO_EDIT_START  : string = "portfolio.edit.start";
 }
 
 //=============================================================================

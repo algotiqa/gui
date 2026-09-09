@@ -1,0 +1,34 @@
+<div class="main-layout">
+  <right-title-panel icon="credit_card" title="{{loc('new')}}" (onClose)="onClose()"></right-title-panel>
+
+  <div class="form-layout">
+    <select-required  #aConnCtrl keyField="id" valueField="name"
+      [label]="mod('connectionCode')"
+      [(key)]="acs.connectionId"
+      [list] ="connections"
+      (keyChange)="onConnectionChange($event)"></select-required><br/>
+
+    @if (status != Status.Selecting) {
+        @if (status == Status.AccountNo) {
+          <input-text-required #aCodeICtrl [label]="mod('code')" [(value)]="acs.code" [len]="64"></input-text-required>
+        }
+
+        @if (status == Status.AccountYes) {
+          <select-required #aCodeSCtrl [label]="mod('code')" [(key)]="acs.code" [list]="codes"
+                           keyField="code" valueField="code"
+                           (keyChange)="onAccountChange($event)"></select-required>
+        }
+
+      <input-text-required #aNameCtrl  [label]="mod('name')"           [(value)]="acs.name"           [len]="64"></input-text-required>
+      <input-number        #aCapitCtrl [label]="mod('currentCapital')" [(value)]="acs.currentCapital" [min]="0" [max]="999999999" [disabled]="status == Status.AccountYes"></input-number>
+      <select-required     #aCurrCtrl  [label]="mod('currencyCode')"   [(key)]  ="acs.currencyId"     [list]="currencies"         [disabled]="status == Status.AccountYes" keyField="id" valueField="name"></select-required>
+    }
+    </div>
+
+    <div class="buttons-layout">
+      <mat-divider></mat-divider>
+      <button mat-button (click)="onSave()" [disabled]="!saveEnabled()">{{button("save")}}</button>
+      <button mat-button (click)="onClose()">{{button("cancel")}}</button>
+    </div>
+  </div>
+

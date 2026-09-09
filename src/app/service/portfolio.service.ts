@@ -15,7 +15,6 @@ import {
   StatusResponse,
   TradingSystemPropertyResponse,
   Portfolio,
-  PortfolioTree,
 } from "../model/model";
 import {HttpService}     from "./http.service";
 import {ListResponse} from "../model/flex-table";
@@ -214,12 +213,6 @@ export class PortfolioService {
 
   public getPortfolios = (): Observable<ListResponse<Portfolio>> => {
     return this.httpService.get<ListResponse<Portfolio>>('/api/portfolio/v1/portfolios');
-  }
-
-  //---------------------------------------------------------------------------
-
-  public getPortfolioTree = (): Observable<PortfolioTree[]> => {
-    return this.httpService.get<PortfolioTree[]>('/api/portfolio/v1/portfolio/tree');
   }
 
   //---------------------------------------------------------------------------

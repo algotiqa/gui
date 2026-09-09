@@ -1,0 +1,58 @@
+<list-panel [title]="ac.name">
+  <list-buttons>
+    <back-button></back-button>
+    |
+    <delete-button (click)="onDeleteClick()"></delete-button>
+  </list-buttons>
+
+  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+  <list-content>
+    <table>
+      <tr>
+        <td>{{mod("code")}}</td>
+        <td class="data-style">{{ac.code}}</td>
+        <td class="separator-width"></td>
+        <td>{{mod("statusMessage")}}</td>
+        <td class="data-style">{{ac.statusMessage}}</td>
+        <td class="separator-width"></td>
+        <td>{{mod("connectionCode")}}</td>
+        <td class="data-style"><a routerLink="/{{Url.Admin_Connections}}/{{ac.connection?.id}}">{{ac.connection?.name}}</a></td>
+      </tr>
+
+      <tr>
+        <td>{{mod("currentCapital")}}</td>
+        <td class="data-style">{{ac.currentCapital}}</td>
+        <td class="separator-width"></td>
+        <td></td>
+        <td></td>
+        <td class="separator-width"></td>
+        <td>{{mod("createdAt")}}</td>
+        <td class="data-style">{{ac.createdAt}}</td>
+      </tr>
+
+      <tr>
+        <td>{{mod("currencyCode")}}</td>
+        <td class="data-style">{{ac.currency?.code}}</td>
+        <td class="separator-width"></td>
+        <td></td>
+        <td></td>
+        <td class="separator-width"></td>
+        <td>{{mod("updatedAt")}}</td>
+        <td class="data-style">{{ac.updatedAt}}</td>
+      </tr>
+    </table>
+
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+    <mat-tab-group class="table-panel" [mat-stretch-tabs]="false">
+      <mat-tab label="{{loc('portfolioRefs')}}">
+        <flex-table [columns] = "portfolioCols"
+                    [data]    = "ac.portfolios"
+        >
+        </flex-table>
+      </mat-tab>
+    </mat-tab-group>
+
+  </list-content>
+</list-panel>

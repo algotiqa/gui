@@ -18,7 +18,8 @@ import {
   DataProduct, DataProductExt, DataProductSpec,
   TradingSession, TradingSystemSpec, AgentProfile, FinalizationResponse, DataProductFull,
   BrokerProductExt, BrokerProductFull, ReloadTradesResponse, ConnectionExt, DeleteResponse,
-  PlatformInfo, AgentProfileSpec, AgentProfileExt,
+  PlatformInfo, AgentProfileSpec, AgentProfileExt, Account, PortfolioFull, Portfolio, AccountExt, AccountFull,
+  AccountSpec, PortfolioExt, PortfolioSpec,
 } from "../model/model";
 import {HttpService, UploadEvent} from "./http.service";
 import { HttpParams } from "@angular/common/http";
@@ -283,6 +284,76 @@ export class InventoryService {
 
   public downloadAgentPackage = (id : number): Observable<ArrayBuffer> => {
     return this.httpService.getBytes('/api/inventory/v1/agent-profiles/'+ id +'/package');
+  }
+
+  //---------------------------------------------------------------------------
+  //--- Accounts
+  //---------------------------------------------------------------------------
+
+  public getAccounts = (details: boolean): Observable<ListResponse<AccountFull>> => {
+    let params = new HttpParams()
+    params = params.set("details", details)
+    return this.httpService.get<ListResponse<AccountFull>>('/api/inventory/v1/accounts', { params: params });
+  }
+
+  //---------------------------------------------------------------------------
+
+  public getAccountById = (id:number): Observable<AccountExt> => {
+    let params = new HttpParams()
+    return this.httpService.get<AccountExt>('/api/inventory/v1/accounts/'+ id, { params: params });
+  }
+
+  //---------------------------------------------------------------------------
+
+  public addAccount = (as : AccountSpec): Observable<Account> => {
+    return this.httpService.post<Account>('/api/inventory/v1/accounts', as);
+  }
+
+  //---------------------------------------------------------------------------
+
+  public updateAccount = (as : AccountSpec): Observable<Account> => {
+    return this.httpService.put<Account>('/api/inventory/v1/accounts/'+as.id, as);
+  }
+
+  //---------------------------------------------------------------------------
+
+  public deleteAccount = (id : number): Observable<DeleteResponse> => {
+    return this.httpService.delete<DeleteResponse>('/api/inventory/v1/accounts/'+id);
+  }
+
+  //---------------------------------------------------------------------------
+  //--- Portfolios
+  //---------------------------------------------------------------------------
+
+  public getPortfolios = (details: boolean): Observable<ListResponse<PortfolioFull>> => {
+    let params = new HttpParams()
+    params = params.set("details", details)
+    return this.httpService.get<ListResponse<PortfolioFull>>('/api/inventory/v1/portfolios', { params: params });
+  }
+
+  //---------------------------------------------------------------------------
+
+  public getPortfolioById = (id:number): Observable<PortfolioExt> => {
+    let params = new HttpParams()
+    return this.httpService.get<PortfolioExt>('/api/inventory/v1/portfolios/'+ id, { params: params });
+  }
+
+  //---------------------------------------------------------------------------
+
+  public addPortfolio = (ps : PortfolioSpec): Observable<Portfolio> => {
+    return this.httpService.post<Portfolio>('/api/inventory/v1/portfolios', ps);
+  }
+
+  //---------------------------------------------------------------------------
+
+  public updatePortfolio = (ps : PortfolioSpec): Observable<Portfolio> => {
+    return this.httpService.put<Portfolio>('/api/inventory/v1/portfolios/'+ps.id, ps);
+  }
+
+  //---------------------------------------------------------------------------
+
+  public deletePortfolio = (id : number): Observable<DeleteResponse> => {
+    return this.httpService.delete<DeleteResponse>('/api/inventory/v1/portfolios/'+id);
   }
 }
 

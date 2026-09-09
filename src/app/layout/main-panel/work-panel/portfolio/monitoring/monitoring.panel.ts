@@ -20,7 +20,6 @@ import {TreeNodeProvider}        from "../../../../../model/flex-tree";
 import {PortfolioService}        from "../../../../../service/portfolio.service";
 import {
   PortfolioMonitoringResponse,
-  PortfolioTree,
   InvTradingSystemFull
 } from "../../../../../model/model";
 import {MatDividerModule} from "@angular/material/divider";
@@ -38,19 +37,21 @@ import {ChartComponent} from "ng-apexcharts";
 
 //=============================================================================
 
+class PortfolioTree{}
+
 class PorfolioNodeProvider implements TreeNodeProvider<PortfolioTree> {
   getChildren(node: PortfolioTree): PortfolioTree[] {
-    if (node.children !== undefined) {
-      return node.children;
-    }
+    // if (node.children !== undefined) {
+    //   return node.children;
+    // }
 
     return [];
   }
 
   getName(node: PortfolioTree): string {
-    if (node.name !== undefined) {
-      return node.name;
-    }
+    // if (node.name !== undefined) {
+    //   return node.name;
+    // }
 
     return "";
   }
@@ -124,11 +125,6 @@ export class MonitoringPanel extends AbstractPanel {
     this.options.labelTotGrossDrawdown = this.loc("totalGrossDrawdown")
     this.options.labelTotNetDrawdown   = this.loc("totalNetDrawdown")
 
-    this.portfolioService.getPortfolioTree().subscribe(
-      result => {
-        this.roots = result;
-      }
-    )
   }
 
   //-------------------------------------------------------------------------
@@ -137,15 +133,16 @@ export class MonitoringPanel extends AbstractPanel {
   //---
   //-------------------------------------------------------------------------
 
-  onNodeSelected(node : PortfolioTree) {
-    let list = this.buildTSList(node);
-    this.tradingSystems = list.sort( (a,b) => {
-      if (a.name != undefined && b.name != undefined) {
-        return a.name < b.name ? -1: 1
-      }
-
-      return 0;
-    });
+//  onNodeSelected(node : PortfolioTree) {
+  onNodeSelected(node : any) {
+    // let list = this.buildTSList(node);
+    // this.tradingSystems = list.sort( (a,b) => {
+    //   if (a.name != undefined && b.name != undefined) {
+    //     return a.name < b.name ? -1: 1
+    //   }
+    //
+    //   return 0;
+    // });
 
     this.flexTable.clearSelection();
     this.destroyChart();
@@ -240,16 +237,16 @@ export class MonitoringPanel extends AbstractPanel {
 
   //-------------------------------------------------------------------------
 
-  private buildTSList(node : PortfolioTree) : InvTradingSystemFull[] {
-
-    let res = [...node.tradingSystems];
-
-    for (var child of node.children) {
-      res = [...res, ...this.buildTSList(child)]
-    }
-
-    return res;
-  }
+  // private buildTSList(node : PortfolioTree) : InvTradingSystemFull[] {
+  //
+  //   let res = [...node.tradingSystems];
+  //
+  //   for (var child of node.children) {
+  //     res = [...res, ...this.buildTSList(child)]
+  //   }
+  //
+  //   return res;
+  // }
 
   //-------------------------------------------------------------------------
 

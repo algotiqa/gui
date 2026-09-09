@@ -1,0 +1,40 @@
+//=============================================================================
+//===
+//=== Copyright (C) 2026-present Andrea Carboni
+//===
+//=== This source code is licensed under the Elastic License 2.0 (ELv2) available at:
+//=== https://github.com/algotiqa/gui/blob/main/LICENSE.md
+//=== By using this file, you agree to the terms and conditions of that license.
+//=============================================================================
+
+list-content {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  overflow: hidden;
+}
+
+//=============================================================================
+
+.data-style {
+  font-weight: bold;
+}
+
+//=============================================================================
+
+.separator-width {
+  width: 20%;
+}
+
+//=============================================================================
+
+.table-panel {
+  flex: 1 1 auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+//=============================================================================

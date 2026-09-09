@@ -105,17 +105,19 @@ export class HeaderPanel extends AbstractPanel {
   //-------------------------------------------------------------------------
 
   private loadPlatformVersion() {
-    this.inventoryService.getPlatformInfo().subscribe({
-      next: (info) => {
-        this.platformVersion = info?.version ? info.version : '-';
-      },
-      error: (err) => {
-        console.log('Cannot load platform version: ' + JSON.stringify(err));
-        //TODO: set back "error" here
-        this.platformVersion = 'beta';
-      }
-    });
-  };
+    this.platformVersion = 'beta';
+
+    // this.inventoryService.getPlatformInfo().subscribe({
+    //   next: (info) => {
+    //     this.platformVersion = info?.version ? info.version : '-';
+    //   },
+    //   error: (err) => {
+    //     console.log('Cannot load platform version: ' + JSON.stringify(err));
+    //     //TODO: set back "error" here
+    //     this.platformVersion = 'beta';
+    //   }
+    // });
+  }
 }
 
 //=============================================================================

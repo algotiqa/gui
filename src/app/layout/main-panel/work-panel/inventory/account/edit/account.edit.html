@@ -1,0 +1,18 @@
+<div class="main-layout">
+  <right-title-panel icon="credit_card" title="{{loc('edit')}}" (onClose)="onClose()"></right-title-panel>
+
+  <div class="form-layout">
+    <input-text-optional [label]="mod('connectionCode')" [(value)]="connCode" [disabled]="true"></input-text-optional>
+    <input-text-required #aCodeCtrl  [label]="mod('code')"           [(value)]="acs.code" [len]="64" [disabled]="suppAccount == true"></input-text-required>
+    <input-text-required #aNameCtrl  [label]="mod('name')"           [(value)]="acs.name"           [len]="64"></input-text-required>
+    <input-number        #aCapitCtrl [label]="mod('currentCapital')" [(value)]="acs.currentCapital" [min]="0" [max]="999999999" [disabled]="suppAccount == true"></input-number>
+    <select-required     #aCurrCtrl  [label]="mod('currencyCode')"   [(key)]  ="acs.currencyId"     [list]="currencies"         [disabled]="suppAccount == true" keyField="id" valueField="name"></select-required>
+  </div>
+
+    <div class="buttons-layout">
+      <mat-divider></mat-divider>
+      <button mat-button (click)="onSave()" [disabled]="!saveEnabled()">{{button("save")}}</button>
+      <button mat-button (click)="onClose()">{{button("cancel")}}</button>
+    </div>
+  </div>
+

@@ -252,9 +252,19 @@ export class HttpService {
       this.sessionService.checkAuthentication()
     }
 
+    let error = "Missing backend service"
+    if (err.error) {
+      if (err.error.error) {
+        error = err.error.error.toString()
+      }
+      else{
+        error = err.error
+      }
+    }
+
 		let reqError : ErrorEvent = {
       code : err.status.toString(),
-      error: err.error.error.toString()
+      error: error,
     };
 
 		this.eventBusService.emitToError(reqError);

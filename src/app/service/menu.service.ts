@@ -101,6 +101,18 @@ export class MenuService extends AbstractSubscriber {
         header: this.get('portfolio._label'),
       },
       {
+        id: 'menu.portfolio.account',
+        label: this.get('portfolio.account'),
+        route: Url.Inventory_Accounts,
+        iconClasses: 'credit_card'
+      },
+      {
+        id: 'menu.portfolio.portfolio',
+        label: this.get('portfolio.portfolio'),
+        route: Url.Inventory_Portfolios,
+        iconClasses: 'savings'
+      },
+      {
         id: 'menu.portfolio.trading-system',
         label: this.get('portfolio.tradingSystem'),
         route: Url.Portfolio_TradingSystems,

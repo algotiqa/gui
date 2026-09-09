@@ -46,24 +46,6 @@ export class Exchange {
 
 //=============================================================================
 
-export class Portfolio {
-  id?        : number;
-  username?  : string;
-  parentId?  : number;
-  name?      : string;
-  createdAt? : string;
-  updatedAt? : string;
-}
-
-//=============================================================================
-
-export class PortfolioTree extends Portfolio {
-  children      : PortfolioTree   [] = [];
-  tradingSystems: InvTradingSystem[] = [];
-}
-
-//=============================================================================
-
 export class TradingSystemSpec {
   id?               : number
   name?             : string
@@ -132,6 +114,7 @@ export class Connection extends ConnectionSpec {
   supportsBroker?       : boolean
   supportsMultipleData? : boolean
   supportsInventory?    : boolean
+  supportsAccount?      : boolean
   createdAt?            : string
   updatedAt?            : string
 }
@@ -373,6 +356,83 @@ export class AgentProfile extends AgentProfileSpec {
 //=============================================================================
 
 export class AgentProfileExt extends AgentProfile {
+  tradingSystems : InvTradingSystemFull[] = []
+}
+
+//=============================================================================
+//=== Account
+//=============================================================================
+
+export class AccountSpec {
+  id?              : number
+  connectionId?    : number
+  currencyId?      : number
+  code?            : string
+  name?            : string
+  currentCapital ? : number
+}
+
+//=============================================================================
+
+export class Account extends AccountSpec {
+  username?        : string
+  supportsAccount? :boolean
+  statusMessage?   : string
+  createdAt?       : string
+  updatedAt?       : string
+}
+
+//=============================================================================
+
+export class AccountFull extends Account {
+  connectionCode? : string
+  connectionName? : string
+  systemCode?     : string
+  currencyCode?   : string
+}
+
+//=============================================================================
+
+export class AccountExt extends Account {
+  connection? : Connection
+  currency?   : Currency
+  portfolios  : PortfolioFull[] = []
+}
+
+//=============================================================================
+//=== Portfolio
+//=============================================================================
+
+export class PortfolioSpec {
+  id?            : number;
+  accountId?     : number;
+  name?          : string;
+  management     : string = "M"
+  accountPerc?   : number
+  maxMarginPerc? : number
+}
+
+//=============================================================================
+
+export class Portfolio extends PortfolioSpec {
+  username?      : string;
+  createdAt?     : string;
+  updatedAt?     : string;
+}
+
+//=============================================================================
+
+export class PortfolioFull extends Portfolio {
+  accountCode?  : string
+  accountName?  : string
+  currencyCode? : string
+}
+
+//=============================================================================
+
+export class PortfolioExt extends Portfolio {
+  account?       : Account
+  currency?      : Currency
   tradingSystems : InvTradingSystemFull[] = []
 }
 
@@ -734,6 +794,21 @@ export class RootSymbol {
   increment   : number = 0
   country     : string = ""
   currency    : string = ""
+}
+
+//=============================================================================
+
+export class AdapterAccount {
+  code?                : string
+  type?                : number
+  currencyCode?        : string
+  cashBalance?         : number
+  equity?              : number
+  realizedProfitLoss?  : number
+  unrealizedProfitLoss?: number
+  openOrderMargin?     : number
+  initialMargin?       : number
+  maintenanceMargin?   : number
 }
 
 //=============================================================================

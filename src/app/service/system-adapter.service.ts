@@ -12,7 +12,7 @@ import {Observable}        from "rxjs";
 import {ListResponse}      from "../model/flex-table";
 import {HttpService}       from "./http.service";
 import {
-  Adapter, AdapterParam,
+  Adapter, AdapterAccount, AdapterParam,
   ConnectionRequest,
   ConnectionResult,
   ConnectionSpec,
@@ -81,6 +81,12 @@ export class SystemAdapterService {
 
   public getRootSymbol = (connectionCode : string, root : string): Observable<RootSymbol> => {
     return this.httpService.get<RootSymbol>('/api/system/v1/connections/'+ connectionCode +"/roots/"+root);
+  }
+
+  //---------------------------------------------------------------------------
+
+  public getAccounts = (code : string): Observable<ListResponse<AdapterAccount>> => {
+    return this.httpService.get<ListResponse<AdapterAccount>>('/api/system/v1/connections/'+code+"/accounts");
   }
 
   //---------------------------------------------------------------------------

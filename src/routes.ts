@@ -86,6 +86,14 @@ import {
 import {
   AgentProfileCreatePanel
 } from "./app/layout/main-panel/work-panel/inventory/agent-profile/create/agent-profile.create";
+import {AccountListPanel} from "./app/layout/main-panel/work-panel/inventory/account/account.list";
+import {AccountCreatePanel} from "./app/layout/main-panel/work-panel/inventory/account/create/account.create";
+import {AccountEditPanel} from "./app/layout/main-panel/work-panel/inventory/account/edit/account.edit";
+import {PortfolioListPanel} from "./app/layout/main-panel/work-panel/inventory/portfolio/portfolio.list";
+import {PortfolioCreatePanel} from "./app/layout/main-panel/work-panel/inventory/portfolio/create/portfolio.create";
+import {PortfolioEditPanel} from "./app/layout/main-panel/work-panel/inventory/portfolio/edit/portfolio.edit";
+import {AccountViewPanel} from "./app/layout/main-panel/work-panel/inventory/account/view/account.view";
+import {PortfolioViewPanel} from "./app/layout/main-panel/work-panel/inventory/portfolio/view/portfolio.view";
 
 //=============================================================================
 
@@ -120,6 +128,16 @@ export const routes: Routes = [
   { path: Url.Inventory_AgentProfiles_Id,         component: AgentProfileViewPanel           },
   { path: Url.Right_AgentProfile_Create,          component: AgentProfileCreatePanel, outlet : 'right' },
   { path: Url.Right_AgentProfile_Edit,            component: AgentProfileEditPanel,   outlet : 'right' },
+
+  { path: Url.Inventory_Accounts,                 component: AccountListPanel          },
+  { path: Url.Inventory_Accounts_Id,              component: AccountViewPanel          },
+  { path: Url.Right_Account_Create,               component: AccountCreatePanel, outlet : 'right' },
+  { path: Url.Right_Account_Edit,                 component: AccountEditPanel,   outlet : 'right' },
+
+  { path: Url.Inventory_Portfolios,               component: PortfolioListPanel          },
+  { path: Url.Inventory_Portfolios_Id,            component: PortfolioViewPanel          },
+  { path: Url.Right_Portfolio_Create,             component: PortfolioCreatePanel, outlet : 'right' },
+  { path: Url.Right_Portfolio_Edit,               component: PortfolioEditPanel,   outlet : 'right' },
 
   //--- Portfolio
 

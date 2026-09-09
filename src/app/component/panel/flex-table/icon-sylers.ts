@@ -175,3 +175,16 @@ export class NumericClassStyler implements CellStyler {
 }
 
 //=============================================================================
+
+export class AccountStatusStyler implements IconStyler {
+
+  getStyle(value : string, row? : any) : IconStyle {
+    if (value ==  "") return ACCOUNT_STATUS_OK;
+
+    return new IconStyle("error", "#A00000", value);
+  }
+}
+
+var ACCOUNT_STATUS_OK = new IconStyle("done", "#00A000", "No issues");
+
+//=============================================================================
