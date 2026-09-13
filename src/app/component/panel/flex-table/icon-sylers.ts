@@ -188,3 +188,17 @@ export class AccountStatusStyler implements IconStyler {
 var ACCOUNT_STATUS_OK = new IconStyle("done", "#00A000", "No issues");
 
 //=============================================================================
+
+export class BooleanStyler implements IconStyler {
+
+  getStyle(value : boolean, row? : any) : IconStyle {
+    if (value) return BOOL_TRUE;
+
+    return BOOL_FALSE;
+  }
+}
+
+var BOOL_TRUE  = new IconStyle("done",  "#00A000", "Yes");
+var BOOL_FALSE = new IconStyle("close", "#606060", "No");
+
+//=============================================================================

@@ -152,7 +152,7 @@ export class AccountCreatePanel extends AbstractPanel {
     let conn = this.connMap.get(key)
 
     if (conn) {
-      if (conn.supportsAccount) {
+      if (conn.supportsAccounting) {
         this.status = Status.AccountYes
         this.retrieveAccountCodes(conn)
       }

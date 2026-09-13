@@ -14,7 +14,7 @@ import {
   PorTradingSystem,
   StatusResponse,
   TradingSystemPropertyResponse,
-  Portfolio,
+  Portfolio, TradingSystemAssignable,
 } from "../model/model";
 import {HttpService}     from "./http.service";
 import {ListResponse} from "../model/flex-table";
@@ -35,6 +35,7 @@ import {
   TradingPosition
 } from "../model/position-sizing";
 import {DashboardSummary} from "../model/dashboard";
+import {HttpParams} from "@angular/common/http";
 
 //=============================================================================
 
@@ -225,6 +226,32 @@ export class PortfolioService {
     };
 
     return this.httpService.post<PortfolioMonitoringResponse>('/api/portfolio/v1/portfolio/monitoring', params);
+  }
+
+  //---------------------------------------------------------------------------
+
+  public getAssignableTradingSystemsToPortfolio = (id:number|undefined): Observable<ListResponse<TradingSystemAssignable>> => {
+    let params = new HttpParams()
+    return this.httpService.get<ListResponse<TradingSystemAssignable>>('/api/portfolio/v1/portfolios/'+ id +"/assignable-systems", { params: params });
+  }
+
+  //---------------------------------------------------------------------------
+
+  public getAssignedTradingSystemsToPortfolio = (id:number|undefined): Observable<ListResponse<PorTradingSystem>> => {
+    let params = new HttpParams()
+    return this.httpService.get<ListResponse<PorTradingSystem>>('/api/portfolio/v1/portfolios/'+ id +"/assigned-systems", { params: params });
+  }
+
+  //---------------------------------------------------------------------------
+
+  public assignTradingSystemsToPortfolio = (id:number|undefined, list : number[]): Observable<void> => {
+    return this.httpService.put<void>('/api/portfolio/v1/portfolios/'+ id +"/assigned-systems", list);
+  }
+
+  //---------------------------------------------------------------------------
+
+  public unassignTradingSystemsFromPortfolio = (id:number|undefined, list : number[]): Observable<void> => {
+    return this.httpService.delete<void>('/api/portfolio/v1/portfolios/'+ id +"/assigned-systems", list);
   }
 
   //---------------------------------------------------------------------------

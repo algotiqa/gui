@@ -30,7 +30,7 @@ import {EditButton} from "../../../../../component/button/edit/edit.button";
 import {ListButtons, ListContent, ListPanel} from "../../../../../component/panel/list-panel/list-panel";
 import {ViewButton} from "../../../../../component/button/view/view.button";
 import {NavigationService} from "../../../../../service/navigation.service";
-import {AccountStatusStyler} from "../../../../../component/panel/flex-table/icon-sylers";
+import {AccountStatusStyler, BooleanStyler, FlagStyler} from "../../../../../component/panel/flex-table/icon-sylers";
 
 //=============================================================================
 
@@ -133,15 +133,15 @@ export class PortfolioListPanel extends AbstractPanel {
   //-------------------------------------------------------------------------
 
   setupColumns = () => {
-    let bp = this.labelService.getLabel("model.portfolio");
+    let p = this.labelService.getLabel("model.portfolio");
 
     this.columns = [
-      new FlexTableColumn(bp, "name"),
-      new FlexTableColumn(bp, "management", new MapTranscoder(this.labelService, "management")),
-      new FlexTableColumn(bp, "accountPerc"),
-      new FlexTableColumn(bp, "maxMarginPerc"),
-      new FlexTableColumn(bp, "accountName"),
-      new FlexTableColumn(bp, "currencyCode"),
+      new FlexTableColumn(p, "name"),
+      new FlexTableColumn(p, "accountPerc"),
+      new FlexTableColumn(p, "maxMarginPerc"),
+      new FlexTableColumn(p, "accountName"),
+      new FlexTableColumn(p, "currencyCode"),
+      new FlexTableColumn(p, "supportsAccounting", undefined, new BooleanStyler()),
     ]
   }
 

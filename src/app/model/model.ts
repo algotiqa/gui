@@ -114,7 +114,7 @@ export class Connection extends ConnectionSpec {
   supportsBroker?       : boolean
   supportsMultipleData? : boolean
   supportsInventory?    : boolean
-  supportsAccount?      : boolean
+  supportsAccounting?   : boolean
   createdAt?            : string
   updatedAt?            : string
 }
@@ -375,11 +375,11 @@ export class AccountSpec {
 //=============================================================================
 
 export class Account extends AccountSpec {
-  username?        : string
-  supportsAccount? :boolean
-  statusMessage?   : string
-  createdAt?       : string
-  updatedAt?       : string
+  username?           : string
+  supportsAccounting? :boolean
+  statusMessage?      : string
+  createdAt?          : string
+  updatedAt?          : string
 }
 
 //=============================================================================
@@ -423,17 +423,31 @@ export class Portfolio extends PortfolioSpec {
 //=============================================================================
 
 export class PortfolioFull extends Portfolio {
-  accountCode?  : string
-  accountName?  : string
-  currencyCode? : string
+  accountCode?        : string
+  accountName?        : string
+  currencyCode?       : string
+  supportsAccounting? : boolean
 }
 
 //=============================================================================
 
 export class PortfolioExt extends Portfolio {
-  account?       : Account
-  currency?      : Currency
-  tradingSystems : InvTradingSystemFull[] = []
+  account?  : Account
+  currency? : Currency
+}
+
+//=============================================================================
+
+export class TradingSystemAssignable {
+  id?            : number
+  name?          : string
+  timeframe?     : number
+  strategyType?  : string
+  dataSymbol?    : string
+  brokerSymbol?  : string
+  portfolioName? : string
+  accountCode?   : string
+  accountName?   : string
 }
 
 //=============================================================================

@@ -14,7 +14,7 @@
         <td class="data-style">{{ac.code}}</td>
         <td class="separator-width"></td>
         <td>{{mod("statusMessage")}}</td>
-        <td class="data-style">{{ac.statusMessage}}</td>
+        <td class="data-style">{{status()}}</td>
         <td class="separator-width"></td>
         <td>{{mod("connectionCode")}}</td>
         <td class="data-style"><a routerLink="/{{Url.Admin_Connections}}/{{ac.connection?.id}}">{{ac.connection?.name}}</a></td>

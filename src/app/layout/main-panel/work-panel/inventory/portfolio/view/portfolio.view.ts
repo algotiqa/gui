@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 
 import {MatInputModule}       from "@angular/material/input";
 import {MatCardModule}        from "@angular/material/card";
@@ -19,10 +19,16 @@ import {LabelService} from "../../../../../../service/label.service";
 import {ActivatedRoute, Router, RouterModule} from "@angular/router";
 import {InventoryService} from "../../../../../../service/inventory.service";
 import {ListButtons, ListContent, ListPanel} from "../../../../../../component/panel/list-panel/list-panel";
-import {BrokerProductExt, DeleteResponse, PortfolioExt} from "../../../../../../model/model";
+import {
+  BrokerProductExt, DataProductFull,
+  DeleteResponse,
+  InvTradingSystemFull,
+  PortfolioExt, PorTradingSystem,
+  TradingSystemAssignable
+} from "../../../../../../model/model";
 import {FlexTablePanel} from "../../../../../../component/panel/flex-table/flex-table.panel";
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
-import {FlexTableColumn} from "../../../../../../model/flex-table";
+import {FlexTableColumn, ListResponse} from "../../../../../../model/flex-table";
 import {Url} from "../../../../../../model/urls";
 import {BackButton} from "../../../../../../component/button/back/back.button";
 import {DeleteButton} from "../../../../../../component/button/delete/delete.button";
@@ -32,6 +38,11 @@ import {ConfirmationDialogData} from "../../../../../../component/form/confirmat
 import {ConfirmationDialog} from "../../../../../../component/form/confirmation-dialog/confirmation-dialog.component";
 import {MapTranscoder} from "../../../../../../component/panel/flex-table/transcoders";
 import {NavigationService} from "../../../../../../service/navigation.service";
+import {InstrumentUploadDialog} from "../../data-product/view/instrument-upload.dialog";
+import {SystemsSelectorDialog} from "./systems-selector.dialog";
+import {PortfolioService} from "../../../../../../service/portfolio.service";
+import {Observable} from "rxjs";
+import {BiasAnalysisFull} from "../../../tool/bias-analysis/model";
 
 //=============================================================================
 
@@ -55,7 +66,10 @@ export class PortfolioViewPanel extends AbstractPanel {
   id : number       = 0
   pe : PortfolioExt = new PortfolioExt()
 
-  tradingSystemCols : FlexTableColumn[] = []
+  tradingSystemCols : FlexTableColumn [] = []
+  selection         : PorTradingSystem[] = []
+
+  @ViewChild("table") table : FlexTablePanel<PorTradingSystem>|null = null;
 
   //-------------------------------------------------------------------------
   //---
@@ -70,6 +84,7 @@ export class PortfolioViewPanel extends AbstractPanel {
               private dialog           : MatDialog,
               private snackBar         : MatSnackBar,
               private inventoryService : InventoryService,
+              private portfolioService : PortfolioService,
               private navigationService: NavigationService,
   ) {
     super(eventBusService, labelService, router, "inventory.portfolio", "portfolio");
@@ -118,6 +133,48 @@ export class PortfolioViewPanel extends AbstractPanel {
   }
 
   //-------------------------------------------------------------------------
+
+  onRowSelected(selection : PorTradingSystem[]) {
+    this.selection = selection
+  }
+
+  //-------------------------------------------------------------------------
+
+  onSystemsAdd() {
+    const dialogRef = this.dialog.open(SystemsSelectorDialog, {
+      minWidth: "1400px",
+      data: {
+        portfolio : this.pe
+      }
+    })
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.selection = []
+        this.table?.reload()
+      }
+    })
+  }
+
+  //-------------------------------------------------------------------------
+
+  onSystemsRemove() {
+    let list : number[] = []
+    this.selection.forEach( (ts:PorTradingSystem) => {
+        if (ts.id) {
+          list.push(ts.id)}
+      }
+    )
+
+    this.portfolioService.unassignTradingSystemsFromPortfolio(this.pe.id, list).subscribe(
+      result => {
+        this.selection = []
+        this.table?.reload()
+      }
+    )
+  }
+
+  //-------------------------------------------------------------------------
   //---
   //--- Init methods
   //---
@@ -139,6 +196,12 @@ export class PortfolioViewPanel extends AbstractPanel {
   //---
   //--- Private methods
   //---
+  //-------------------------------------------------------------------------
+
+  getTradingSystems = (): Observable<ListResponse<PorTradingSystem>> => {
+    return this.portfolioService.getAssignedTradingSystemsToPortfolio(this.id);
+  }
+
   //-------------------------------------------------------------------------
 
   protected readonly Url = Url;

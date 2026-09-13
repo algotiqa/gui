@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>{{loc("title")}}</h2>
+
+<mat-dialog-content class="mat-typography">
+  <div class="main-layout">
+    <flex-table #table class="table-panel"
+                [columns]     = "columns"
+                [dataProvider]= "service"
+                (onRowsSelected)="onRowSelected($event)"
+    ></flex-table>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <flat-button [disabled]="selection.length == 0" (click)="onSelect()" [label]="button('select')"></flat-button>
+  <flat-button mat-dialog-close [label]="button('close')"></flat-button>
+</mat-dialog-actions>

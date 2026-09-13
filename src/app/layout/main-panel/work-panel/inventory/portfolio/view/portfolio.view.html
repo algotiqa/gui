@@ -13,8 +13,8 @@
         <td>{{mod("accountPerc")}}</td>
         <td class="data-style">{{pe.accountPerc}}</td>
         <td class="separator-width"></td>
-        <td>{{mod("management")}}</td>
-        <td class="data-style">{{management(pe.management)}}</td>
+        <td>{{mod("currencyCode")}}</td>
+        <td class="data-style">{{pe.currency?.code}}</td>
         <td class="separator-width"></td>
         <td>{{mod("accountCode")}}</td>
         <td class="data-style"><a routerLink="/{{Url.Inventory_Accounts}}/{{pe.account?.id}}">{{pe.account?.name}}</a></td>
@@ -24,8 +24,8 @@
         <td>{{mod("maxMarginPerc")}}</td>
         <td class="data-style">{{pe.maxMarginPerc}}</td>
         <td class="separator-width"></td>
-        <td>{{mod("currencyCode")}}</td>
-        <td class="data-style">{{pe.currency?.code}}</td>
+        <td></td>
+        <td class="data-style"></td>
         <td class="separator-width"></td>
         <td>{{mod("createdAt")}}</td>
         <td class="data-style">{{pe.createdAt}}</td>
@@ -47,9 +47,16 @@
 
     <mat-tab-group class="table-panel" [mat-stretch-tabs]="false">
       <mat-tab label="{{loc('tradingSystemRefs')}}">
-        <flex-table [columns] = "tradingSystemCols"
-                    [data]    = "pe.tradingSystems"
-        >
+        <flex-table #table
+                    [columns]       = "tradingSystemCols"
+                    [dataProvider]  = "getTradingSystems"
+                    (onRowsSelected)= "onRowSelected($event)">
+          <button mat-icon-button (click)="onSystemsAdd()">
+            <mat-icon>add</mat-icon>
+          </button>
+          <button mat-icon-button (click)="onSystemsRemove()" [disabled]="selection.length == 0">
+            <mat-icon>remove</mat-icon>
+          </button>
         </flex-table>
       </mat-tab>
     </mat-tab-group>

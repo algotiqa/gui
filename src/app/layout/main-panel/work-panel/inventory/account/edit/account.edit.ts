@@ -105,7 +105,7 @@ export class AccountEditPanel extends AbstractPanel {
     let acf : AccountFull = event.params;
     this.acs         = Object.assign(new AccountSpec(), acf)
     this.connCode    = acf.connectionCode
-    this.suppAccount = acf.supportsAccount;
+    this.suppAccount = acf.supportsAccounting;
   }
 
   //-------------------------------------------------------------------------

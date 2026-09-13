@@ -53,12 +53,9 @@ export class PortfolioEditPanel extends AbstractPanel {
 
   ps = new PortfolioSpec()
 
-  accounts    : Account[] = []
-  managements : Object[] = []
+  accounts : Account[] = []
 
   @ViewChild("pNameCtrl")    pNameCtrl?    : InputTextRequired
-  @ViewChild("pManagCtrl")   pManagCtrl?   : SelectRequired
-  @ViewChild("pAccountCtrl") pAccountCtrl? : SelectRequired
   @ViewChild("pAccPercCtrl") pAccPercCtrl? : InputNumber
   @ViewChild("pMaxPercCtrl") pMaxPercCtrl? : InputNumber
 
@@ -94,16 +91,12 @@ export class PortfolioEditPanel extends AbstractPanel {
 
     let pf : PortfolioFull = event.params;
     this.ps = Object.assign(new PortfolioSpec(), pf)
-
-    this.managements = this.labelService.getLabel("map.management")
   }
 
   //-------------------------------------------------------------------------
 
   public saveEnabled() : boolean|undefined {
     return  this.pNameCtrl   ?.isValid() &&
-            this.pManagCtrl  ?.isValid() &&
-            this.pAccountCtrl?.isValid() &&
             this.pAccPercCtrl?.isValid() &&
             this.pMaxPercCtrl?.isValid()
   }

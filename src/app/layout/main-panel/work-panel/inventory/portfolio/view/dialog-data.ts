@@ -1,38 +1,18 @@
 //=============================================================================
 //===
-//=== Copyright (C) 2024-present Andrea Carboni
+//=== Copyright (C) 2026-present Andrea Carboni
 //===
 //=== This source code is licensed under the Elastic License 2.0 (ELv2) available at:
 //=== https://github.com/algotiqa/gui/blob/main/LICENSE.md
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-.main-layout {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-items: stretch;
-  gap: 16px;
-  width: 100%;
-}
+import {PortfolioExt} from "../../../../../../model/model";
 
 //=============================================================================
 
-.summary-layout {
-  flex: 1 1 auto;
-}
-
-//=============================================================================
-
-.separator-layout {
-  width: 64px;
-}
-
-//=============================================================================
-
-.data-style {
-  text-align: right;
-  font-weight: bold;
+export interface DialogData {
+  portfolio: PortfolioExt
 }
 
 //=============================================================================

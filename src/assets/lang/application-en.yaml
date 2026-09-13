@@ -153,6 +153,7 @@ model:
     engineCode      : Engine
     currencyCode    : Currency
     marketType      : Market
+    accountCode     : Account
 
   connection:
     id                   : Id
@@ -166,7 +167,7 @@ model:
     supportsBroker       : Broker
     supportsMultipleData : Multiple data
     supportsInventory    : Inventory
-    supportsAccount      : Account
+    supportsAccounting   : Accounting
     createdAt            : Created at
     updatedAt            : Updated at
 
@@ -388,15 +389,16 @@ model:
     updatedAt       : Updated at
 
   portfolio:
-    name         : Name
-    management   : Management
-    accountPerc  : Account %
-    maxMarginPerc: Max margin %
-    accountCode  : Account
-    accountName  : Account
-    currencyCode : Currency
-    createdAt       : Created at
-    updatedAt       : Updated at
+    name              : Name
+    management        : Management
+    accountPerc       : Account %
+    maxMarginPerc     : Max margin %
+    accountCode       : Account
+    accountName       : Account
+    currencyCode      : Currency
+    supportsAccounting: Accounting
+    createdAt         : Created at
+    updatedAt         : Updated at
 
 # ==============================================================================
 # ===
@@ -517,6 +519,8 @@ page:
       tradingSystemRefs: Referencing trading systems
       delete:
         tradingSystems : There are trading systems referenced. The portfolio cannot be deleted
+      assign:
+        title: Select trading systems to assign
 
   # ==============================================================================
 
@@ -1422,10 +1426,6 @@ map:
   hostType:
     linux  : Linux
     windows: Windows
-
-  management:
-    M : Manual
-    A : Auto
 
 # ==============================================================================
 

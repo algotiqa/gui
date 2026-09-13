@@ -119,6 +119,17 @@ export class AccountViewPanel extends AbstractPanel {
   }
 
   //-------------------------------------------------------------------------
+
+  status() : string {
+    let msg = this.ac.statusMessage
+    if (msg == undefined || msg == "") {
+      return "ok"
+    }
+
+    return msg
+  }
+
+  //-------------------------------------------------------------------------
   //---
   //--- Init methods
   //---
@@ -129,7 +140,6 @@ export class AccountViewPanel extends AbstractPanel {
 
     this.portfolioCols = [
       new FlexTableColumn(p, "name"),
-      new FlexTableColumn(p, "management", new MapTranscoder(this.labelService, "management")),
       new FlexTableColumn(p, "accountPerc"),
       new FlexTableColumn(p, "maxMarginPerc"),
     ]

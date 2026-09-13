@@ -53,11 +53,11 @@ export class PortfolioCreatePanel extends AbstractPanel {
 
   ps = new PortfolioSpec()
 
-  accounts    : Account[] = []
-  managements : Object[] = []
+  accounts : Account[] = []
+
+  suppAccounting = false
 
   @ViewChild("pNameCtrl")    pNameCtrl?    : InputTextRequired
-  @ViewChild("pManagCtrl")   pManagCtrl?   : SelectRequired
   @ViewChild("pAccountCtrl") pAccountCtrl? : SelectRequired
   @ViewChild("pAccPercCtrl") pAccPercCtrl? : InputNumber
   @ViewChild("pMaxPercCtrl") pMaxPercCtrl? : InputNumber
@@ -84,23 +84,34 @@ export class PortfolioCreatePanel extends AbstractPanel {
   }
 
   //-------------------------------------------------------------------------
+
+  private onStart(event : AppEvent) : void {
+    console.log("PortfolioCreatePanel: Starting...");
+
+    this.ps = new PortfolioSpec()
+  }
+
+  //-------------------------------------------------------------------------
   //---
   //--- Events
   //---
   //-------------------------------------------------------------------------
 
-  private onStart(event : AppEvent) : void {
-    console.log("PortfolioCreatePanel: Starting...");
+  onAccountChange(accId : number) : void {
+    let acc = this.getSelectedAccount(accId);
+    if (acc) {
+      this.suppAccounting = true
 
-    this.ps          = new PortfolioSpec()
-    this.managements = this.labelService.getLabel("map.management")
+      if (!acc.supportsAccounting) {
+        this.suppAccounting = false
+      }
+    }
   }
 
   //-------------------------------------------------------------------------
 
   public saveEnabled() : boolean|undefined {
     return  this.pNameCtrl   ?.isValid() &&
-            this.pManagCtrl  ?.isValid() &&
             this.pAccountCtrl?.isValid() &&
             this.pAccPercCtrl?.isValid() &&
             this.pMaxPercCtrl?.isValid()
@@ -122,6 +133,24 @@ export class PortfolioCreatePanel extends AbstractPanel {
   public onClose() : void {
     let event = new AppEvent(AppEvent.RIGHT_PANEL_CLOSE);
     super.emitToApp(event);
+  }
+
+  //-------------------------------------------------------------------------
+  //---
+  //--- Private methods
+  //---
+  //-------------------------------------------------------------------------
+
+  private getSelectedAccount(id : number) : Account|undefined {
+    let acc : Account|undefined
+
+    this.accounts.forEach(a => {
+      if (a.id == id) {
+        acc = a
+      }
+    })
+
+    return acc
   }
 }
 

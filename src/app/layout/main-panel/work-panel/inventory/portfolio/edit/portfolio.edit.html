@@ -2,9 +2,8 @@
   <right-title-panel icon="savings" title="{{loc('edit')}}" (onClose)="onClose()"></right-title-panel>
 
   <div class="form-layout">
+    <select-required     #pAccountCtrl [label]="mod('accountCode')"   [(key)]  ="ps.accountId"  [list]="accounts" keyField="id" valueField="name" [disabled]="true"></select-required>
     <input-text-required #pNameCtrl    [label]="mod('name')"          [(value)]="ps.name"       [len]="64"></input-text-required>
-    <select-required     #pManagCtrl   [label]="mod('management')"    [(key)]  ="ps.management" [map]="managements"></select-required><br/>
-    <select-required     #pAccountCtrl [label]="mod('accountCode')"   [(key)]  ="ps.accountId"  [list]="accounts" keyField="id" valueField="name"></select-required>
     <input-number        #pAccPercCtrl [label]="mod('accountPerc')"   [(value)]="ps.accountPerc"   [min]="1" [max]="100"></input-number>
     <input-number        #pMaxPercCtrl [label]="mod('maxMarginPerc')" [(value)]="ps.maxMarginPerc" [min]="1" [max]="100"></input-number>
   </div>
