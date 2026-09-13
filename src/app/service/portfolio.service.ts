@@ -251,7 +251,7 @@ export class PortfolioService {
   //---------------------------------------------------------------------------
 
   public unassignTradingSystemsFromPortfolio = (id:number|undefined, list : number[]): Observable<void> => {
-    return this.httpService.delete<void>('/api/portfolio/v1/portfolios/'+ id +"/assigned-systems", list);
+    return this.httpService.delete<void>('/api/portfolio/v1/portfolios/'+ id +"/assigned-systems", { body: list });
   }
 
   //---------------------------------------------------------------------------
