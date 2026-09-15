@@ -25,12 +25,6 @@
       <mat-button-toggle value="s" (change)="onFlagRunningChange()">{{ loc("filters.stopped") }}</mat-button-toggle>
     </mat-button-toggle-group>
 
-    <mat-button-toggle-group [hideSingleSelectionIndicator]="true" [formControl]="selActive">
-      <mat-button-toggle value="*" (change)="onFlagActiveChange()">{{ loc("filters.all") }}</mat-button-toggle>
-      <mat-button-toggle value="a" (change)="onFlagActiveChange()">{{ loc("filters.active") }}</mat-button-toggle>
-      <mat-button-toggle value="i" (change)="onFlagActiveChange()">{{ loc("filters.paused") }}</mat-button-toggle>
-    </mat-button-toggle-group>
-
     <mat-button-toggle-group [hideSingleSelectionIndicator]="true" [formControl]="selActivation">
       <mat-button-toggle value="*" (change)="onFlagActivationChange()">{{ loc("filters.all") }}</mat-button-toggle>
       <mat-button-toggle value="m" (change)="onFlagActivationChange()">{{ loc("filters.manual") }}</mat-button-toggle>

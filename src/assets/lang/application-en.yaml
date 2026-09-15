@@ -141,7 +141,6 @@ model:
     status          : Status
     running         : Running
     activation      : Activation
-    active          : Active
     suggestedAction : Suggested action
     agentProfile    : Agent profile
     strategyType    : Strategy type
@@ -554,19 +553,14 @@ page:
           off    : Off
           manual : Manual
           auto   : Auto
-          active : Active
-          paused : Paused
         error:
           running    : Can't start/stop the trading system
           activation : Can't change the activation of the trading system
-          active     : Can't activate/deactivate the trading system
           toArchive  : Can't archive the trading system
         filters:
           all     : All
           running : Running
           stopped : Stopped
-          active  : Active
-          paused  : Paused
           manual  : Manual
           auto    : Auto
 
@@ -1418,7 +1412,7 @@ map:
 
   status:
     0 : Off
-    1 : Paused
+    1 : Waiting
     2 : Active
     3 : Idle
     4 : Broken

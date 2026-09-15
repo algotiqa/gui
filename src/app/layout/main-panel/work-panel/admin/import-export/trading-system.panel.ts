@@ -165,7 +165,6 @@ export class TradingSystemPanel extends AbstractPanel {
       new FlexTableColumn(ts, "currencyCode"),
       new FlexTableColumn(ts, "mode"),
       new FlexTableColumn(ts, "running", undefined, new FlagStyler()),
-      new FlexTableColumn(ts, "active",  undefined, new FlagStyler()),
     ]
   }
 

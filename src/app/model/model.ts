@@ -457,7 +457,7 @@ export class TradingSystemAssignable {
 //=============================================================================
 
 export enum TsStatus {
-  Off, Paused, Running, Idle, Broken
+  Off, Waiting, Running, Idle, Broken
 }
 
 //-----------------------------------------------------------------------------
@@ -487,7 +487,6 @@ export class PorTradingSystem {
   trading          : boolean = false
   running          : boolean = false
   autoActivation   : boolean = false
-  active           : boolean = false
   status?          : number
   suggestedAction? : number
   firstTrade?      : string

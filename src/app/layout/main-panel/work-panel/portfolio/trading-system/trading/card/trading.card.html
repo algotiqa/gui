@@ -45,7 +45,6 @@
   <mat-card-actions>
     <check-button [status]="ts.running"        [config]="powerConfig" (valueChange)="onPowerClick()"></check-button>
     <check-button [status]="ts.autoActivation" [config]="activConfig" (valueChange)="onActivationClick()"></check-button>
-    <check-button [status]="ts.active"         [config]="enablConfig" (valueChange)="onActiveClick()"></check-button>
     <flat-button icon="query_stats" label="{{loc('performance')}}" (click)="onPerformanceClick()"></flat-button>
     <span class="suggested-action">{{suggAction(ts.suggestedAction)}}</span>
   </mat-card-actions>

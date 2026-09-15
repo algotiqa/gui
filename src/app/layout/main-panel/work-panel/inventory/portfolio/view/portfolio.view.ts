@@ -185,10 +185,11 @@ export class PortfolioViewPanel extends AbstractPanel {
 
     this.tradingSystemCols = [
       new FlexTableColumn(ts, "name"),
-      new FlexTableColumn(ts, "strategyType", new MapTranscoder(this.labelService, "strategyType")),
-      new FlexTableColumn(ts, "timeframe"),
-      new FlexTableColumn(ts, "engineCode"),
       new FlexTableColumn(ts, "dataSymbol"),
+      new FlexTableColumn(ts, "brokerSymbol"),
+      new FlexTableColumn(ts, "timeframe"),
+      new FlexTableColumn(ts, "strategyType", new MapTranscoder(this.labelService, "strategyType")),
+      new FlexTableColumn(ts, "engineCode"),
     ]
   }
 

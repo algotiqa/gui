@@ -60,7 +60,6 @@ export class TradingCard extends AbstractPanel {
 
   powerConfig = new CheckButtonConfig("mode_off_on",                 "off",    "#A0A0A0", "mode_off_on", "on",     "#00A000", LABEL_ROOT)
   activConfig = new CheckButtonConfig("airline_seat_recline_normal", "manual", "#A00080", "mode_off_on", "auto",   "#0080C0", LABEL_ROOT)
-  enablConfig = new CheckButtonConfig("toggle_off",                  "paused", "#A0A0A0", "toggle_on",   "active", "#00A000", LABEL_ROOT)
 
   ts : PorTradingSystem = new PorTradingSystem()
 
@@ -211,20 +210,6 @@ export class TradingCard extends AbstractPanel {
 
   //-------------------------------------------------------------------------
 
-  onActiveClick() {
-    this.portfolioService.setTradingSystemActive(this.ts.id, !this.ts.active).subscribe( res => {
-      if (res.status == TspResponseStatus.OK) {
-        this.refresh(res.tradingSystem)
-      }
-      else if (res.status == TspResponseStatus.ERROR) {
-        let message = this.loc("error.active")+" : "+ res.message
-        this.snackBar.open(message, this.button("ok"))
-      }
-    })
-  }
-
-  //-------------------------------------------------------------------------
-
   onPerformanceClick() {
     this.moduleService.openPerformanceMetrics(this.ts.id)
   }
@@ -316,7 +301,6 @@ export class TradingCard extends AbstractPanel {
 
     this.ts.running         = ts.running
     this.ts.autoActivation  = ts.autoActivation
-    this.ts.active          = ts.active
     this.ts.status          = ts.status
     this.ts.suggestedAction = ts.suggestedAction
   }

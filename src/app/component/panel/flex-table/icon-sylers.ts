@@ -71,24 +71,12 @@ var TS_ACTIVATION_AUTO   = new IconStyle("time_auto",                   "#0080C0
 
 //=============================================================================
 
-export class TradingSystemActiveStyler implements IconStyler {
-
-  getStyle(value : boolean, row? : any) : IconStyle {
-    return (value) ? TS_ACTIVE_ON : TS_ACTIVE_OFF;
-  }
-}
-
-var TS_ACTIVE_OFF = new IconStyle("toggle_off", "#A0A0A0", "Inactive");
-var TS_ACTIVE_ON  = new IconStyle("toggle_on",  "#00A000", "Active");
-
-//=============================================================================
-
 export class TradingSystemStatusStyler implements IconStyler {
 
   getStyle(value : number, row? : any) : IconStyle {
     switch (value) {
       case TsStatus.Off    : return TS_STATUS_OFF
-      case TsStatus.Paused : return TS_STATUS_PAUSED
+      case TsStatus.Waiting: return TS_STATUS_WAITING
       case TsStatus.Running: return TS_STATUS_RUNNING
       case TsStatus.Idle   : return TS_STATUS_IDLE
 
@@ -98,7 +86,7 @@ export class TradingSystemStatusStyler implements IconStyler {
 }
 
 var TS_STATUS_OFF    = new IconStyle("radio_button_unchecked", "#A0A0A0", "Off");
-var TS_STATUS_PAUSED = new IconStyle("pause_circle",           "#0080C0", "Paused");
+var TS_STATUS_WAITING= new IconStyle("snooze",                 "#0080C0", "Waiting");
 var TS_STATUS_RUNNING= new IconStyle("run_circle",             "#00A000", "Running");
 var TS_STATUS_IDLE   = new IconStyle("schedule",               "#C0C000", "Idle");
 var TS_STATUS_BROKEN = new IconStyle("heart_broken",           "#E03000", "Broken");

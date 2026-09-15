@@ -108,12 +108,6 @@ export class PortfolioService {
 
   //---------------------------------------------------------------------------
 
-  public setTradingSystemActive = (id: number, value: boolean): Observable<TradingSystemPropertyResponse> => {
-    return this.httpService.post<TradingSystemPropertyResponse>('/api/portfolio/v1/trading-systems/'+ id +'/active', { value: value });
-  }
-
-  //---------------------------------------------------------------------------
-
   public deleteTradingSystemTrades = (id:number): Observable<void> => {
     return this.httpService.delete<void>('/api/portfolio/v1/trading-systems/'+ id +'/trades');
   }

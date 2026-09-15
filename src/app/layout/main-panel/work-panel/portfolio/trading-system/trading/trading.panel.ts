@@ -53,7 +53,6 @@ export class TradingPanel extends AbstractPanel {
 
   selChartType = new FormControl("time")
   selRunning   = new FormControl("*")
-  selActive    = new FormControl("*")
   selActivation= new FormControl("*")
 
   tradingSystems : PorTradingSystem[] = []
@@ -96,7 +95,6 @@ export class TradingPanel extends AbstractPanel {
   private setupSettings = () => {
     this.selChartType .setValue(this.storageService.getStringItem(Setting.Portfolio_TradSys_ChartType , "time"))
     this.selRunning   .setValue(this.storageService.getStringItem(Setting.Portfolio_TradSys_Running   , "*"))
-    this.selActive    .setValue(this.storageService.getStringItem(Setting.Portfolio_TradSys_Active    , "*"))
     this.selActivation.setValue(this.storageService.getStringItem(Setting.Portfolio_TradSys_Activation, "*"))
   }
 
@@ -151,14 +149,6 @@ export class TradingPanel extends AbstractPanel {
 
   //-------------------------------------------------------------------------
 
-  onFlagActiveChange() {
-    let value = this.selActive.value
-    this.storageService.setStringItem(Setting.Portfolio_TradSys_Active, value)
-    this.rebuildTSList()
-  }
-
-  //-------------------------------------------------------------------------
-
   onFlagActivationChange() {
     let value = this.selActivation.value
     this.storageService.setStringItem(Setting.Portfolio_TradSys_Activation, value)
@@ -184,7 +174,7 @@ export class TradingPanel extends AbstractPanel {
   private runFilter = (ts : PorTradingSystem) : boolean => {
     let text= this.filterText(ts, this._filter)
 
-    let trading = this.filterRunning(ts.running) && this.filterActive(ts.active) && this.filterActivation(ts.autoActivation)
+    let trading = this.filterRunning(ts.running) && this.filterActivation(ts.autoActivation)
     if (!trading) {
       return false
     }
@@ -212,17 +202,6 @@ export class TradingPanel extends AbstractPanel {
       return true
     }
     return (value == "r" && running) || (value == "s" && !running)
-  }
-
-  //-------------------------------------------------------------------------
-
-  private filterActive(active : boolean) : boolean {
-    let value = this.selActive.value
-
-    if (value == "*") {
-      return true
-    }
-    return (value == "a" && active) || (value == "i" && !active)
   }
 
   //-------------------------------------------------------------------------
