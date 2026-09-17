@@ -2,7 +2,8 @@
 
 This is the frontend to the Algotiqa ecosystem.
 
-**Note:** the main documentation of the platform is located [HERE](https://github.com/algotiqa/docs).
+> [!TIP]
+> The main documentation of the platform is located [HERE](https://github.com/algotiqa/docs).
 
 ## Development server
 
