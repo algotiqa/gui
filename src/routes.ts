@@ -94,6 +94,8 @@ import {PortfolioCreatePanel} from "./app/layout/main-panel/work-panel/inventory
 import {PortfolioEditPanel} from "./app/layout/main-panel/work-panel/inventory/portfolio/edit/portfolio.edit";
 import {AccountViewPanel} from "./app/layout/main-panel/work-panel/inventory/account/view/account.view";
 import {PortfolioViewPanel} from "./app/layout/main-panel/work-panel/inventory/portfolio/view/portfolio.view";
+import {AllocationListPanel} from "./app/layout/main-panel/work-panel/portfolio/allocation/allocation.list";
+import {AllocationViewPanel} from "./app/layout/main-panel/work-panel/portfolio/allocation/view/allocation.view";
 
 //=============================================================================
 
@@ -150,7 +152,9 @@ export const routes: Routes = [
       { path: Url.Sub_PositionSizing, component:  PositionSizingPanel }
   ]},
 
-  { path: Url.Portfolio_Monitoring,               component: MonitoringPanel                 },
+  { path: Url.Portfolio_Allocations,              component: AllocationListPanel          },
+  { path: Url.Portfolio_Allocations_Id,           component: AllocationViewPanel          },
+  { path: Url.Portfolio_Monitoring,               component: MonitoringPanel              },
 
   //--- Tool
 

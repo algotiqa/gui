@@ -53,7 +53,12 @@ export class PortfolioEditPanel extends AbstractPanel {
 
   ps = new PortfolioSpec()
 
-  accounts : Account[] = []
+  accounts           : Account[] = []
+  correlationPeriods : Object [] = []
+  runPeriods         : Object [] = []
+
+  corrPeriod = "180"
+  runPeriod  = "4"
 
   @ViewChild("pNameCtrl")    pNameCtrl?    : InputTextRequired
   @ViewChild("pAccPercCtrl") pAccPercCtrl? : InputNumber
@@ -91,6 +96,12 @@ export class PortfolioEditPanel extends AbstractPanel {
 
     let pf : PortfolioFull = event.params;
     this.ps = Object.assign(new PortfolioSpec(), pf)
+
+    this.corrPeriod = String(pf.correlationPeriod)
+    this.runPeriod  = String(pf.runPeriod)
+
+    this.correlationPeriods = this.labelMap("correlationPeriod")
+    this.runPeriods         = this.labelMap("runPeriod")
   }
 
   //-------------------------------------------------------------------------
@@ -105,6 +116,9 @@ export class PortfolioEditPanel extends AbstractPanel {
 
   public onSave() : void {
     console.log("Portfolio is : \n"+ JSON.stringify(this.ps));
+
+    this.ps.correlationPeriod = Number(this.corrPeriod);
+    this.ps.runPeriod         = Number(this.runPeriod);
 
     this.inventoryService.updatePortfolio(this.ps).subscribe( c => {
       this.onClose();

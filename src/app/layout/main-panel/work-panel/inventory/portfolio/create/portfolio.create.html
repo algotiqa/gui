@@ -2,10 +2,12 @@
   <right-title-panel icon="savings" title="{{loc('new')}}" (onClose)="onClose()"></right-title-panel>
 
   <div class="form-layout">
-    <select-required     #pAccountCtrl [label]="mod('accountCode')"   [(key)]  ="ps.accountId"  [list]="accounts" keyField="id" valueField="name" (keyChange)="onAccountChange($event)"></select-required>
-    <input-text-required #pNameCtrl    [label]="mod('name')"          [(value)]="ps.name"       [len]="64"></input-text-required>
-    <input-number        #pAccPercCtrl [label]="mod('accountPerc')"   [(value)]="ps.accountPerc"   [min]="1" [max]="100"></input-number>
-    <input-number        #pMaxPercCtrl [label]="mod('maxMarginPerc')" [(value)]="ps.maxMarginPerc" [min]="1" [max]="100"></input-number>
+    <select-required     #pAccountCtrl [label]="mod('accountCode')"       [(key)]  ="ps.accountId"      [list]="accounts" keyField="id" valueField="name" (keyChange)="onAccountChange($event)"></select-required>
+    <input-text-required #pNameCtrl    [label]="mod('name')"              [(value)]="ps.name"           [len]="64"></input-text-required>
+    <input-number        #pAccPercCtrl [label]="mod('accountPerc')"       [(value)]="ps.accountPerc"    [min]="1" [max]="100"></input-number>
+    <input-number        #pMaxPercCtrl [label]="mod('maxMarginPerc')"     [(value)]="ps.maxMarginPerc"  [min]="1" [max]="100"></input-number>
+    <select-required                   [label]="mod('correlationPeriod')" [(key)]  ="corrPeriod"        [map]="correlationPeriods"></select-required><br/>
+    <select-required                   [label]="mod('runPeriod')"         [(key)]  ="runPeriod"         [map]="runPeriods"></select-required><br/>
   </div>
 
   <div class="buttons-layout">

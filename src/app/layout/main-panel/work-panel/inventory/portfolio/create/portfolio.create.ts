@@ -53,7 +53,12 @@ export class PortfolioCreatePanel extends AbstractPanel {
 
   ps = new PortfolioSpec()
 
-  accounts : Account[] = []
+  accounts           : Account[] = []
+  correlationPeriods : Object [] = []
+  runPeriods         : Object [] = []
+
+  corrPeriod = "180"
+  runPeriod  = "4"
 
   suppAccounting = false
 
@@ -89,6 +94,8 @@ export class PortfolioCreatePanel extends AbstractPanel {
     console.log("PortfolioCreatePanel: Starting...");
 
     this.ps = new PortfolioSpec()
+    this.correlationPeriods = this.labelMap("correlationPeriod")
+    this.runPeriods         = this.labelMap("runPeriod")
   }
 
   //-------------------------------------------------------------------------
@@ -121,6 +128,9 @@ export class PortfolioCreatePanel extends AbstractPanel {
 
   public onSave() : void {
     console.log("Portfolio is : \n"+ JSON.stringify(this.ps));
+
+    this.ps.correlationPeriod = Number(this.corrPeriod);
+    this.ps.runPeriod         = Number(this.runPeriod);
 
     this.inventoryService.addPortfolio(this.ps).subscribe( c => {
       this.onClose();

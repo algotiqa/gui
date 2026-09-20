@@ -36,6 +36,7 @@ import {
 } from "../model/position-sizing";
 import {DashboardSummary} from "../model/dashboard";
 import {HttpParams} from "@angular/common/http";
+import {Allocation, AllocationSpec} from "../model/allocation";
 
 //=============================================================================
 
@@ -254,6 +255,29 @@ export class PortfolioService {
 
   public getDashboardSummary = (): Observable<DashboardSummary> => {
     return this.httpService.get<DashboardSummary>('/api/portfolio/v1/dashboard/summary');
+  }
+
+  //---------------------------------------------------------------------------
+  //--- Allocations
+  //---------------------------------------------------------------------------
+
+  public getAllocations = (portfolioId : number): Observable<ListResponse<Allocation>> => {
+    let params = new HttpParams()
+    params = params.set("portfolioId", portfolioId)
+
+    return this.httpService.get<ListResponse<Allocation>>('/api/portfolio/v1/allocations', { params: params });
+  }
+
+  //---------------------------------------------------------------------------
+
+  public getAllocation = (id : number): Observable<Allocation> => {
+    return this.httpService.get<Allocation>('/api/portfolio/v1/allocations/'+ id);
+  }
+
+  //---------------------------------------------------------------------------
+
+  public addAllocation = (spec : AllocationSpec): Observable<Allocation> => {
+    return this.httpService.post<Allocation>('/api/portfolio/v1/allocations', spec);
   }
 }
 

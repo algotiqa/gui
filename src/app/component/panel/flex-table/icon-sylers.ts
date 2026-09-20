@@ -9,6 +9,7 @@
 
 import {CellStyler, IconStyle, IconStyler} from "../../../model/flex-table";
 import {DataInstrumentExt, DIRStatus, TsStatus} from "../../../model/model";
+import {CheckButtonConfig} from "../../form/check-button/check-button-config";
 
 //=============================================================================
 //===
@@ -56,18 +57,6 @@ export class TradingSystemRunningStyler implements IconStyler {
 
 var TS_RUNNING_OFF  = new IconStyle("mode_off_on", "#A0A0A0", "Stopped");
 var TS_RUNNING_ON   = new IconStyle("mode_off_on", "#00A000", "Running");
-
-//=============================================================================
-
-export class TradingSystemActivationStyler implements IconStyler {
-
-  getStyle(value : number, row? : any) : IconStyle {
-    return value ? TS_ACTIVATION_AUTO : TS_ACTIVATION_MANUAL;
-  }
-}
-
-var TS_ACTIVATION_MANUAL = new IconStyle("airline_seat_recline_normal", "#A00080", "Manual");
-var TS_ACTIVATION_AUTO   = new IconStyle("time_auto",                   "#0080C0", "Auto");
 
 //=============================================================================
 
@@ -177,7 +166,7 @@ var ACCOUNT_STATUS_OK = new IconStyle("done", "#00A000", "No issues");
 
 //=============================================================================
 
-export class BooleanStyler implements IconStyler {
+export class GrayBooleanStyler implements IconStyler {
 
   getStyle(value : boolean, row? : any) : IconStyle {
     if (value) return BOOL_TRUE;
@@ -188,5 +177,50 @@ export class BooleanStyler implements IconStyler {
 
 var BOOL_TRUE  = new IconStyle("done",  "#00A000", "Yes");
 var BOOL_FALSE = new IconStyle("close", "#606060", "No");
+
+//=============================================================================
+
+export class RedBooleanStyler implements IconStyler {
+
+  getStyle(value : boolean, row? : any) : IconStyle {
+    if (value) return BOOL_TRUE;
+
+    return RED_BOOL_FALSE;
+  }
+}
+
+var RED_BOOL_FALSE = new IconStyle("close", "#C00000", "No");
+
+//=============================================================================
+
+export class AllocationRunTypeStyler implements IconStyler {
+  getStyle(value : string, row? : any) : IconStyle {
+    if (value == "M") return RUNTYPE_MANUAL;
+
+    return RUNTYPE_AUTO;
+  }
+}
+
+var RUNTYPE_MANUAL  = new IconStyle("airline_seat_recline_normal",  "#A00080", "Manual");
+var RUNTYPE_AUTO    = new IconStyle("time_auto",                    "#0080C0", "Automatic");
+
+//=============================================================================
+
+export class AllocationStatusStyler implements IconStyler {
+  getStyle(value : string, row? : any) : IconStyle {
+    if (value == "W") return ALLOC_STATUS_WAITING;
+    if (value == "R") return ALLOC_STATUS_RUNNING;
+    if (value == "D") return ALLOC_STATUS_DONE;
+    if (value == "A") return ALLOC_STATUS_WARNINGS;
+
+    return ALLOC_STATUS_ERRORS;
+  }
+}
+
+var ALLOC_STATUS_WAITING  = new IconStyle("snooze",        "#606060", "Waiting");
+var ALLOC_STATUS_RUNNING  = new IconStyle("build_circle",  "#0080C0", "Running");
+var ALLOC_STATUS_DONE     = new IconStyle("done",          "#00A000", "Done");
+var ALLOC_STATUS_WARNINGS = new IconStyle("warning",       "#A0A000", "Warnings");
+var ALLOC_STATUS_ERRORS   = new IconStyle("error",         "#A00000", "Errors");
 
 //=============================================================================

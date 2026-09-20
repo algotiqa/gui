@@ -118,6 +118,12 @@ export class MenuService extends AbstractSubscriber {
         route: Url.Portfolio_TradingSystems,
         iconClasses: 'inventory'
       },
+      {
+        id: 'menu.portfolio.allocation',
+        label: this.get('portfolio.allocation'),
+        route: Url.Portfolio_Allocations,
+        iconClasses: 'schema'
+      },
       // {
       //   id: 'menu.portfolio.monitoring',
       //   label: this.get('portfolio.monitoring'),

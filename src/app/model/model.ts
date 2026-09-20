@@ -404,12 +404,14 @@ export class AccountExt extends Account {
 //=============================================================================
 
 export class PortfolioSpec {
-  id?            : number;
-  accountId?     : number;
-  name?          : string;
-  management     : string = "M"
-  accountPerc?   : number
-  maxMarginPerc? : number
+  id?                : number;
+  accountId?         : number;
+  name?              : string;
+  management         : string = "M"
+  accountPerc?       : number
+  maxMarginPerc?     : number
+  correlationPeriod? : number
+  runPeriod?         : number
 }
 
 //=============================================================================

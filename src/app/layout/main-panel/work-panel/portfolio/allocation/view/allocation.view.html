@@ -1,0 +1,57 @@
+<list-panel title="{{loc('subTitle')}}">
+  <list-buttons>
+    <back-button></back-button>
+    |
+    <delete-button (click)="onDeleteClick()"></delete-button>
+  </list-buttons>
+
+  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+  <list-content>
+    <table>
+      <tr>
+        <td>{{mod("runDate")}}</td>
+        <td class="data-style">{{ae.runDate}}</td>
+        <td class="separator-width"></td>
+        <td>{{mod("accountPerc")}}</td>
+        <td class="data-style">{{ae.accountPerc}}%</td>
+        <td class="separator-width"></td>
+        <td>{{mod("portfolioName")}}</td>
+        <td class="data-style"><a routerLink="/{{Url.Inventory_Portfolios}}/{{ae.portfolio?.id}}">{{ae.portfolio?.name}}</a></td>
+      </tr>
+
+      <tr>
+        <td>{{mod("runType")}}</td>
+        <td class="data-style">{{runType[ae.runType]}}</td>
+        <td class="separator-width"></td>
+        <td>{{mod("maxMarginPerc")}}</td>
+        <td class="data-style">{{ae.maxMarginPerc}}%</td>
+        <td class="separator-width"></td>
+        <td>{{mod("accountCapital")}}</td>
+        <td class="data-style">{{ae.accountCapital}}</td>
+      </tr>
+
+      <tr>
+        <td>{{mod("status")}}</td>
+        <td class="data-style">{{status[ae.status]}}</td>
+        <td class="separator-width"></td>
+        <td>{{mod("correlationPeriod")}}</td>
+        <td class="data-style">{{ae.correlationPeriod}} {{loc("days")}}</td>
+        <td class="separator-width"></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </table>
+
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+    <mat-tab-group class="table-panel" [mat-stretch-tabs]="false">
+      <mat-tab label="{{loc('tabFilters.title')}}">
+        <flex-table [columns] = "filterCols"
+                    [data]    = "ae.filters">
+        </flex-table>
+      </mat-tab>
+    </mat-tab-group>
+
+  </list-content>
+</list-panel>

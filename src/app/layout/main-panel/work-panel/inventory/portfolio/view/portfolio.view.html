@@ -13,8 +13,8 @@
         <td>{{mod("accountPerc")}}</td>
         <td class="data-style">{{pe.accountPerc}}</td>
         <td class="separator-width"></td>
-        <td>{{mod("currencyCode")}}</td>
-        <td class="data-style">{{pe.currency?.code}}</td>
+        <td>{{mod("correlationPeriod")}}</td>
+        <td class="data-style">{{pe.correlationPeriod}} {{loc("days")}}</td>
         <td class="separator-width"></td>
         <td>{{mod("accountCode")}}</td>
         <td class="data-style"><a routerLink="/{{Url.Inventory_Accounts}}/{{pe.account?.id}}">{{pe.account?.name}}</a></td>
@@ -24,16 +24,16 @@
         <td>{{mod("maxMarginPerc")}}</td>
         <td class="data-style">{{pe.maxMarginPerc}}</td>
         <td class="separator-width"></td>
-        <td></td>
-        <td class="data-style"></td>
+        <td>{{mod("runPeriod")}}</td>
+        <td class="data-style">{{pe.runPeriod}} {{loc("weeks")}}</td>
         <td class="separator-width"></td>
         <td>{{mod("createdAt")}}</td>
         <td class="data-style">{{pe.createdAt}}</td>
       </tr>
 
       <tr>
-        <td></td>
-        <td></td>
+        <td>{{mod("currencyCode")}}</td>
+        <td class="data-style">{{pe.currency?.code}}</td>
         <td class="separator-width"></td>
         <td></td>
         <td></td>

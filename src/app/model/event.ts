@@ -81,6 +81,8 @@ export class AppEvent<T = any>  {
   static PORTFOLIO_LIST_RELOAD : string = "portfolio.list.reload";
   static PORTFOLIO_CREATE_START: string = "portfolio.create.start";
   static PORTFOLIO_EDIT_START  : string = "portfolio.edit.start";
+
+  static ALLOCATION_LIST_RELOAD : string = "allocation.list.reload";
 }
 
 //=============================================================================

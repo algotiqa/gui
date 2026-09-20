@@ -76,6 +76,7 @@ menu:
     account      : Accounts
     portfolio    : Portfolios
     tradingSystem: Trading systems
+    allocation   : Allocations
     monitoring   : Monitoring
   tool:
     _label: Tool
@@ -392,12 +393,35 @@ model:
     management        : Management
     accountPerc       : Account %
     maxMarginPerc     : Max margin %
+    correlationPeriod : Correlation period
+    runPeriod         : Run period
     accountCode       : Account
     accountName       : Account
     currencyCode      : Currency
     supportsAccounting: Accounting
     createdAt         : Created at
     updatedAt         : Updated at
+
+  allocation:
+    runDate              : Run date
+    runType              : Run type
+    accountPerc          : Account %
+    maxMarginPerc        : Max margin %
+    correlationPeriod    : Correlation period
+    accountCapital       : Account capital
+    status               : Status
+    portfolioName        : Portfolio
+    accountCode          : Account
+    accountCurrencyCode  : Currency
+
+  allocationFilter:
+    filterPassed   : Filter passed
+    comment        : Comment
+    tsMarketType   : Market
+    tsBrokerSymbol : Broker symbol
+    tsName         : Trading system
+    tsRunning      : Currently running
+    tsStrategyType : Strategy type
 
 # ==============================================================================
 # ===
@@ -520,6 +544,22 @@ page:
         tradingSystems : There are trading systems referenced. The portfolio cannot be deleted
       assign:
         title: Select trading systems to assign
+      correlationPeriod:
+        90  : 3 Months
+        180 : 6 Months
+        270 : 9 Months
+        365 : 1 Year
+      runPeriod:
+        0 : Disabled
+        1 : 1 Week
+        2 : 2 Weeks
+        3 : 3 Weeks
+        4 : 4 Weeks (~1 Month)
+        9 : 9 Weeks (~2 Months)
+        13: 13 Weeks (~3 Months)
+        25: 25 Weeks (~6 months)
+      days : days
+      weeks: weeks
 
   # ==============================================================================
 
@@ -767,6 +807,15 @@ page:
         riskPerTradeOnEarn : Risk per trade on earnings (%)
         moneyConversion    : Money conversion
         percentageOnCapital: Percentage on capital
+
+    allocation:
+      title    : Portfolio allocations
+      subTitle : Portfolio allocation
+      portfolio: Portfolio
+      all      : All
+      days     : days
+      tabFilters:
+        title: Filters
 
   # ==============================================================================
 
@@ -1420,6 +1469,17 @@ map:
   hostType:
     linux  : Linux
     windows: Windows
+
+  allocationRunType:
+    M : Manual
+    A : Auto
+
+  allocationStatus:
+    W : Waiting
+    R : Running
+    D : Done
+    A : Warnings
+    E : Errors
 
 # ==============================================================================
 
