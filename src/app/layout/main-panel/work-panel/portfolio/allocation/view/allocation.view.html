@@ -51,6 +51,25 @@
                     [data]    = "ae.filters">
         </flex-table>
       </mat-tab>
+
+      <!-- - - - - - - - - - - - - - - - - - - - - -->
+
+      <mat-tab label="{{loc('tabCorrelations.title')}}">
+        <flex-table [columns] = "correlCols"
+                    [data]    = "ae.correlations">
+          <button mat-icon-button (click)="onCorrelationMatrix()">
+            <mat-icon>grid_on</mat-icon>
+          </button>
+        </flex-table>
+      </mat-tab>
+
+      <!-- - - - - - - - - - - - - - - - - - - - - -->
+
+      <mat-tab label="{{loc('tabLogs.title')}}">
+        <flex-table [columns] = "logCols"
+                    [data]    = "ae.logs">
+        </flex-table>
+      </mat-tab>
     </mat-tab-group>
 
   </list-content>

@@ -56,7 +56,7 @@ import {
   TradingSystemDevelEditPanel
 } from "./app/layout/main-panel/work-panel/portfolio/trading-system/development/edit/edit.panel";
 import {BiasAnalysisViewPanel} from "./app/layout/main-panel/work-panel/tool/bias-analysis/view/bias-analysis.view";
-import {DocEditorComponent} from "./app/module/doc-editor/doc-editor.component";
+import {DocEditorPanel} from "./app/module/doc-editor/doc-editor.panel";
 import {TradingSystemPerformancePanel} from "./app/module/performance-metrics/performance.panel";
 import {MarketAnalysisListPanel} from "./app/layout/main-panel/work-panel/tool/market-analysis/market-analysis.list";
 import {TradingSystemQualityPanel} from "./app/module/quality-analyzer/quality.panel";
@@ -96,6 +96,9 @@ import {AccountViewPanel} from "./app/layout/main-panel/work-panel/inventory/acc
 import {PortfolioViewPanel} from "./app/layout/main-panel/work-panel/inventory/portfolio/view/portfolio.view";
 import {AllocationListPanel} from "./app/layout/main-panel/work-panel/portfolio/allocation/allocation.list";
 import {AllocationViewPanel} from "./app/layout/main-panel/work-panel/portfolio/allocation/view/allocation.view";
+import {
+  CorrelationMatrixPanel
+} from "./app/module/correlation-matrix/correlation-matrix.component";
 
 //=============================================================================
 
@@ -180,11 +183,12 @@ export const routes: Routes = [
 
   //--- Modules
 
-  { path: Url.Module_DocEditor,                   component: DocEditorComponent            },
+  { path: Url.Module_DocEditor,                   component: DocEditorPanel                },
   { path: Url.Module_PerformanceAnalysis,         component: TradingSystemPerformancePanel },
   { path: Url.Module_QualityAnalysis,             component: TradingSystemQualityPanel     },
   { path: Url.Module_Simulator,                   component: TradingSystemSimulationPanel  },
   { path: Url.Module_TradeAnalysis,               component: TradeAnalyzerPanel            },
+  { path: Url.Module_CorrelationMatrix,           component: CorrelationMatrixPanel        },
 
   { path:'**',                                    component: UnknownPanel },
 ];

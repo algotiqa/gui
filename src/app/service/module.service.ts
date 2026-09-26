@@ -80,6 +80,16 @@ export class ModuleService {
       console.log("Trade analyzer's window is null")
     }
   }
+
+  //-------------------------------------------------------------------------
+
+  public openCorrelationMatrix(allocId:number) {
+    let extWindow = window.open('module/correlation-matrix/'+allocId, '', 'popup,width=1500,height=950,left=100,top=100');
+
+    if (extWindow == null) {
+      console.log("Correlation matrix's window is null")
+    }
+  }
 }
 
 //=============================================================================

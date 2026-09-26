@@ -21,12 +21,12 @@ import {EventBusService}      from "../../../../../service/eventbus.service";
 import {Router, RouterModule} from "@angular/router";
 import {Url} from "../../../../../model/urls";
 import {AppEvent} from "../../../../../model/event";
-import {Observable} from "rxjs";
+import {interval, Observable, Subscription} from "rxjs";
 import {CreateButton} from "../../../../../component/button/create/create.button";
 import {ListButtons, ListContent, ListPanel} from "../../../../../component/panel/list-panel/list-panel";
 import {ViewButton} from "../../../../../component/button/view/view.button";
 import {NavigationService} from "../../../../../service/navigation.service";
-import {Allocation, AllocationFull, AllocationSpec} from "../../../../../model/allocation";
+import {Allocation, AllocationFull, AllocationSpec, AllocationStatus} from "../../../../../model/allocation";
 import {PortfolioService} from "../../../../../service/portfolio.service";
 import {SelectTextRequired} from "../../../../../component/form/select-optional/select-optional";
 import {PortfolioFull} from "../../../../../model/model";
@@ -62,6 +62,8 @@ export class AllocationListPanel extends AbstractPanel {
   disView  : boolean = true;
 
   @ViewChild("table") table : FlexTablePanel<AllocationFull>|null = null;
+
+  private reloadInterval? : Subscription;
 
   //-------------------------------------------------------------------------
   //---
@@ -109,6 +111,19 @@ export class AllocationListPanel extends AbstractPanel {
 
   override init = () : void => {
     this.setupColumns();
+    this.reloadInterval = interval(1500).subscribe(
+      result => {
+        if (this.areTherePendingAllocations()) {
+          this.table?.reload()
+        }
+      }
+    )
+  }
+
+  //-------------------------------------------------------------------------
+
+  override destroy = () : void => {
+    this.reloadInterval?.unsubscribe()
   }
 
   //-------------------------------------------------------------------------
@@ -184,6 +199,18 @@ export class AllocationListPanel extends AbstractPanel {
 
   private updateButtons = (selection : Allocation[]) => {
     this.disView = (selection.length != 1)
+  }
+
+  //-------------------------------------------------------------------------
+
+  private areTherePendingAllocations() : boolean {
+    let res = false
+
+    this.table?.getLoadedData().forEach((alloc) => {
+      res = res || (alloc.status == AllocationStatus.Waiting || alloc.status == AllocationStatus.Running)
+    })
+
+    return res
   }
 }
 

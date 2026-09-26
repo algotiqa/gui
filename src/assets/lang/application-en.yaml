@@ -423,6 +423,16 @@ model:
     tsRunning      : Currently running
     tsStrategyType : Strategy type
 
+  allocationLog:
+    level  : Level
+    message: Message
+
+  systemCorrelation:
+    tradingSystem1Name : First trading system
+    tradingSystem2Name : Second trading system
+    correlation        : Correlation
+    message            : Message
+
 # ==============================================================================
 # ===
 # === Pages
@@ -816,6 +826,10 @@ page:
       days     : days
       tabFilters:
         title: Filters
+      tabCorrelations:
+        title: Correlations
+      tabLogs:
+        title: Logs
 
   # ==============================================================================
 
@@ -1281,6 +1295,9 @@ page:
         winners   : Winners
         loosers   : Loosers
         breakEvens: Break evens
+
+    allocationCorrelation:
+      title: Portfolio allocation
 
 # ==============================================================================
 # ===

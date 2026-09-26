@@ -1,6 +1,6 @@
 //=============================================================================
 //===
-//=== Copyright (C) 2025-present Andrea Carboni
+//=== Copyright (C) 2026-present Andrea Carboni
 //===
 //=== This source code is licensed under the Elastic License 2.0 (ELv2) available at:
 //=== https://github.com/algotiqa/gui/blob/main/LICENSE.md
@@ -10,36 +10,39 @@
 import {Component, OnInit} from '@angular/core';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatButtonModule} from "@angular/material/button";
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {StorageService} from "../../service/storage.service";
 import {BroadcastEvent, BroadcastService, EventType} from "../../service/broadcast.service";
 import {ModuleTitlePanel} from "../../component/panel/module-title/module-title.panel";
 import {RightTitlePanel} from "../../component/panel/right-title/right-title.panel";
-
-declare var $:any
+import {PortfolioService} from "../../service/portfolio.service";
+import {Allocation} from "../../model/allocation";
+import {LabelService} from "../../service/label.service";
+import {EventBusService} from "../../service/eventbus.service";
+import {AbstractPanel} from "../../component/abstract.panel";
 
 //=============================================================================
 
 @Component({
-  selector   : 'editor',
-  templateUrl: './doc-editor.component.html',
-  styleUrl   : './doc-editor.component.scss',
-  imports: [MatToolbarModule, MatButtonModule, ModuleTitlePanel, RightTitlePanel],
+  selector   : 'correlation-matrix',
+  templateUrl: './correlation-matrix.component.html',
+  styleUrl   : './correlation-matrix.component.scss',
+  imports: [MatToolbarModule, MatButtonModule, ModuleTitlePanel],
   standalone : true
 })
 
 //=============================================================================
 
-export class DocEditorComponent implements OnInit {
+export class CorrelationMatrixPanel extends AbstractPanel {
+
   //-------------------------------------------------------------------------
   //---
   //--- Variables
   //---
   //-------------------------------------------------------------------------
 
-  private tsId : number = 0
-  title : string = ""
+  ae : Allocation = new Allocation()
 
   //-------------------------------------------------------------------------
   //---
@@ -47,16 +50,20 @@ export class DocEditorComponent implements OnInit {
   //---
   //-------------------------------------------------------------------------
 
-  constructor(private route            : ActivatedRoute,
-              private snackBar         : MatSnackBar,
-              private storageService   : StorageService,
+  constructor(eventBusService          : EventBusService,
+              labelService             : LabelService,
+              router                   : Router,
+              private route            : ActivatedRoute,
+              private portfolioService : PortfolioService,
               private broadcastService : BroadcastService) {
 
-    broadcastService.onEvent((e : BroadcastEvent)=>{
-      if (e.type == EventType.TradingsSystem_Deleted && e.id == this.tsId) {
-        window.close()
-      }
-    })
+    super(eventBusService, labelService, router, "module.allocationCorrelation");
+
+    // broadcastService.onEvent((e : BroadcastEvent)=>{
+      // if (e.type == EventType.TradingsSystem_Deleted && e.id == this.tsId) {
+      //   window.close()
+      // }
+    // })
   }
 
   //-------------------------------------------------------------------------
@@ -65,16 +72,14 @@ export class DocEditorComponent implements OnInit {
   //---
   //-------------------------------------------------------------------------
 
-  ngOnInit() {
-    $("#doc-editor").trumbowyg({
-      svgPath: "assets/image/icons.svg"
-    });
+  override init = () : void => {
+    let id = Number(this.route.snapshot.paramMap.get("id"));
 
-    this.tsId = Number(this.route.snapshot.paramMap.get("id"));
-    this.storageService.getTradingSystemDoc(this.tsId).subscribe( res => {
-      this.title = res.name
-      $('#doc-editor').trumbowyg('html', res.documentation);
-    })
+    this.portfolioService.getAllocation(id).subscribe(
+      result => {
+        this.ae = result
+      }
+    )
   }
 
   //-------------------------------------------------------------------------
@@ -83,13 +88,8 @@ export class DocEditorComponent implements OnInit {
   //---
   //-------------------------------------------------------------------------
 
-  onSaveClick() {
-    let doc = $('#doc-editor').trumbowyg('html');
-
-    this.storageService.setTradingSystemDoc(this.tsId, doc).subscribe( res => {
-      // this.snackBar.open("Documentation saved", undefined, { duration: 3000 })
-      window.close()
-    })
+  onCloseClick() {
+    window.close()
   }
 }
 

@@ -244,6 +244,12 @@ export class FlexTablePanel<T = any> implements AfterViewInit {
   @Input() filter: FlexTableFilter<T> = this.defaultFilter
 
   //-------------------------------------------------------------------------
+
+  public getLoadedData() : T[] {
+    return this.tableData.data
+  }
+
+  //-------------------------------------------------------------------------
   //---
   //--- Private methods
   //---

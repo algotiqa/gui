@@ -15,6 +15,16 @@ export class AllocationSpec {
 
 //=============================================================================
 
+export enum AllocationStatus {
+  Waiting  = "W",
+  Running  = "R",
+  Done     = "D",
+  Warnings = "A",
+  Errors   = "E",
+}
+
+//-----------------------------------------------------------------------------
+
 export class Allocation {
   id?                : number
   portfolioId?       : number
@@ -26,9 +36,10 @@ export class Allocation {
   correlationPeriod? : number
   accountCapital?    : number
 
-  portfolio? : Portfolio
-  filters    : AllocationFilter[] = []
-  logs       : AllocationLog   [] = []
+  portfolio?  : Portfolio
+  filters     : AllocationFilter [] = []
+  logs        : AllocationLog    [] = []
+  correlations: SystemCorrelation[] = []
 }
 
 //=============================================================================
@@ -64,6 +75,18 @@ export class AllocationFull extends Allocation {
   accountCode?         : string
   accountName?         : string
   accountCurrencyCode? : string
+}
+
+//=============================================================================
+
+export class SystemCorrelation {
+  allocationId?       : number
+  tradingSystem1Id?   : number
+  tradingSystem2Id?   : number
+  tradingSystem1Name? : string
+  tradingSystem2Name? : string
+  correlation?        : number
+  message?            : string
 }
 
 //=============================================================================

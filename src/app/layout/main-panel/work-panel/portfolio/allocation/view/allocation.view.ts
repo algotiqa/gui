@@ -34,6 +34,7 @@ import {NavigationService} from "../../../../../../service/navigation.service";
 import {PortfolioService} from "../../../../../../service/portfolio.service";
 import {Allocation} from "../../../../../../model/allocation";
 import {RedBooleanStyler} from "../../../../../../component/panel/flex-table/icon-sylers";
+import {ModuleService} from "../../../../../../service/module.service";
 
 //=============================================================================
 
@@ -58,6 +59,8 @@ export class AllocationViewPanel extends AbstractPanel {
   ae : Allocation = new Allocation()
 
   filterCols : FlexTableColumn [] = []
+  correlCols : FlexTableColumn [] = []
+  logCols    : FlexTableColumn [] = []
 
   markets : Object[] = []
   runType : {[index:string]:any} = {}
@@ -75,7 +78,7 @@ export class AllocationViewPanel extends AbstractPanel {
               private route            : ActivatedRoute,
               private dialog           : MatDialog,
               private snackBar         : MatSnackBar,
-              private inventoryService : InventoryService,
+              private moduleService    : ModuleService,
               private portfolioService : PortfolioService,
               private navigationService: NavigationService,
   ) {
@@ -104,6 +107,12 @@ export class AllocationViewPanel extends AbstractPanel {
   //---
   //--- Events
   //---
+  //-------------------------------------------------------------------------
+
+  onCorrelationMatrix() {
+    this.moduleService.openCorrelationMatrix(this.id)
+  }
+
   //-------------------------------------------------------------------------
 
   onDeleteClick() {
@@ -143,16 +152,38 @@ export class AllocationViewPanel extends AbstractPanel {
   //-------------------------------------------------------------------------
 
   setupColumns = () => {
+    //--- Filters
+
     let c = this.labelService.getLabel("model.allocationFilter");
 
     this.filterCols = [
       new FlexTableColumn(c, "tsMarketType", new LabelTranscoder(this.labelService, "map.market")),
       new FlexTableColumn(c, "tsBrokerSymbol"),
       new FlexTableColumn(c, "tsName"),
-      new FlexTableColumn(c, "tsRunning",      undefined, new RedBooleanStyler()),
       new FlexTableColumn(c, "tsStrategyType", new LabelTranscoder(this.labelService, "map.strategyType")),
+      new FlexTableColumn(c, "tsRunning",      undefined, new RedBooleanStyler()),
       new FlexTableColumn(c, "filterPassed",   undefined, new RedBooleanStyler()),
       new FlexTableColumn(c, "comment"),
+    ]
+
+    //--- Correlations
+
+    c = this.labelService.getLabel("model.systemCorrelation");
+
+    this.correlCols = [
+      new FlexTableColumn(c, "tradingSystem1Name"),
+      new FlexTableColumn(c, "tradingSystem2Name"),
+      new FlexTableColumn(c, "correlation"),
+      new FlexTableColumn(c, "message"),
+    ]
+
+    //--- Logs
+
+    c = this.labelService.getLabel("model.allocationLog");
+
+    this.logCols = [
+      new FlexTableColumn(c, "level"),
+      new FlexTableColumn(c, "message"),
     ]
   }
 
