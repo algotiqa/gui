@@ -34,3 +34,7 @@ page:
       systemStatus        : Sistemi per stato
       topSystems          : Top sistemi per profitto netto
       netProfitByCurrency : Profitto netto per valuta
+
+  module:
+    allocationCorrelation:
+      title: "Allocazione portafoglio: matrice di correlazione"

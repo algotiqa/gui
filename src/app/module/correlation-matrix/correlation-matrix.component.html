@@ -1,2 +1,15 @@
 <module-title-panel icon="grid_on" title="{{loc('title')}}" (onClose)="onCloseClick()">
 </module-title-panel>
+
+@if (chartOptions) {
+  <div class="chart-scroll">
+    <apx-chart
+                [chart]      = "chartOptions.chart"
+                [series]     = "chartOptions.series"
+                [plotOptions]= "chartOptions.plotOptions"
+                [dataLabels] = "chartOptions.dataLabels"
+                [xaxis]      = "chartOptions.xaxis"
+                [legend]     = "chartOptions.legend"
+    ></apx-chart>
+  </div>
+}

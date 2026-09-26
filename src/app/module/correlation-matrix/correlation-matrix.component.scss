@@ -7,8 +7,17 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
+:host {
+  display : flex;
+  height  : 100%;
+  flex-direction: column;
+}
 
 //=============================================================================
 
+.chart-scroll {
+  flex : 1 1 auto;
+  overflow : auto;
+}
 
 //=============================================================================

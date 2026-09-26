@@ -40,6 +40,7 @@ export class Allocation {
   filters     : AllocationFilter [] = []
   logs        : AllocationLog    [] = []
   correlations: SystemCorrelation[] = []
+  corrMatrix? : CorrelationMatrix
 }
 
 //=============================================================================
@@ -87,6 +88,13 @@ export class SystemCorrelation {
   tradingSystem2Name? : string
   correlation?        : number
   message?            : string
+}
+
+//=============================================================================
+
+export class CorrelationMatrix {
+  names : string[]   = []
+  cells : number[][] = []
 }
 
 //=============================================================================

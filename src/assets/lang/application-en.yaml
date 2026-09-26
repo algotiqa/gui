@@ -1297,7 +1297,7 @@ page:
         breakEvens: Break evens
 
     allocationCorrelation:
-      title: Portfolio allocation
+      title: "Portfolio allocation: correlation matrix"
 
 # ==============================================================================
 # ===
