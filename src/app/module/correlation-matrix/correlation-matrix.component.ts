@@ -101,20 +101,20 @@ export class CorrelationMatrixPanel extends AbstractPanel {
   //-------------------------------------------------------------------------
 
   private buildChart() : void {
-    let cm = this.ae.corrMatrix;
+    let cm = this.ae.report.correlationMatrix;
 
     if (cm == undefined || cm.names.length == 0) {
       return
     }
 
     let count    = cm.names.length;
-    let cellSize = 60;
+    let cellSize = 45;
 
     this.chartOptions = {
       chart: {
         type                : "heatmap",
         width               : count * cellSize + 150,
-        height              : count * cellSize + 130,
+        height              : count * cellSize + 150,
         toolbar             : { show: false },
         animations          : { enabled: false },
         redrawOnParentResize: false,
@@ -167,16 +167,24 @@ export class CorrelationMatrixPanel extends AbstractPanel {
 
   private buildSeries(cm : CorrelationMatrix) : any[] {
     let series : any[] = []
+    let diagonal = false
 
     for (let row = 0; row < cm.names.length; row++) {
       let data : any[] = []
 
-      for (let col = 0; col < row; col++) {
-        data.push({ x: cm.names[col], y: null })
-      }
+      if (diagonal) {
+        for (let col = 0; col < row; col++) {
+          data.push({ x: cm.names[col], y: null })
+        }
 
-      for (let col = row; col < cm.names.length; col++) {   //--- Upper-right triangle
-        data.push({ x: cm.names[col], y: cm.cells[row][col] })
+        for (let col = row; col < cm.names.length; col++) {   //--- Upper-right triangle
+          data.push({ x: cm.names[col], y: cm.cells[row][col] })
+        }
+      }
+      else {
+        for (let col = 0; col < cm.names.length; col++) {
+          data.push({ x: cm.names[col], y: cm.cells[row][col] })
+        }
       }
 
       series = [ { name: cm.names[row], data: data }, ...series ]

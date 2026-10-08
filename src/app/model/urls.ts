@@ -69,6 +69,7 @@ export enum Url {
   Right_Account_Edit              = "account-edit",
   Right_Portfolio_Create          = "portfolio-create",
   Right_Portfolio_Edit            = "portfolio-edit",
+  Right_PortBuilder_Edit          = "portBuilder-edit",
 
   //--- Modules ---------------------------------------------------------------
 

@@ -37,6 +37,7 @@ import {
 import {DashboardSummary} from "../model/dashboard";
 import {HttpParams} from "@angular/common/http";
 import {Allocation, AllocationSpec} from "../model/allocation";
+import {PortfolioBuilder, PortfolioBuilderResponse} from "../model/builder";
 
 //=============================================================================
 
@@ -105,12 +106,6 @@ export class PortfolioService {
 
   public setTradingSystemActivation = (id: number, value: boolean): Observable<TradingSystemPropertyResponse> => {
     return this.httpService.post<TradingSystemPropertyResponse>('/api/portfolio/v1/trading-systems/'+ id +'/activation', { value: value });
-  }
-
-  //---------------------------------------------------------------------------
-
-  public deleteTradingSystemTrades = (id:number): Observable<void> => {
-    return this.httpService.delete<void>('/api/portfolio/v1/trading-systems/'+ id +'/trades');
   }
 
   //---------------------------------------------------------------------------
@@ -278,6 +273,21 @@ export class PortfolioService {
 
   public addAllocation = (spec : AllocationSpec): Observable<Allocation> => {
     return this.httpService.post<Allocation>('/api/portfolio/v1/allocations', spec);
+  }
+
+  //---------------------------------------------------------------------------
+  //--- Portfolio builders
+  //---------------------------------------------------------------------------
+
+  public getPortfolioBuilder = (id:number|undefined): Observable<PortfolioBuilderResponse> => {
+    let params = new HttpParams()
+    return this.httpService.get<PortfolioBuilderResponse>('/api/portfolio/v1/portfolios/'+ id +"/builder", { params: params });
+  }
+
+  //---------------------------------------------------------------------------
+
+  public setPortfolioBuilder = (id:number|undefined, builder : PortfolioBuilder): Observable<void> => {
+    return this.httpService.put<void>('/api/portfolio/v1/portfolios/'+ id +"/builder", builder);
   }
 }
 

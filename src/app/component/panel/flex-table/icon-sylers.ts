@@ -224,3 +224,48 @@ var ALLOC_STATUS_WARNINGS = new IconStyle("warning",       "#A0A000", "Warnings"
 var ALLOC_STATUS_ERRORS   = new IconStyle("error",         "#A00000", "Errors");
 
 //=============================================================================
+
+export class LogLevelStyler implements IconStyler {
+  getStyle(value : string, row? : any) : IconStyle {
+    if (value == "I") return LOG_LEVEL_INFO;
+    if (value == "W") return LOG_LEVEL_WARNING;
+
+    return LOG_LEVEL_ERROR;
+  }
+}
+
+var LOG_LEVEL_INFO    = new IconStyle("info",    "#0080C0", "Info");
+var LOG_LEVEL_WARNING = new IconStyle("warning", "#A0A000", "Warning");
+var LOG_LEVEL_ERROR   = new IconStyle("error",   "#A00000", "Error");
+
+//=============================================================================
+
+export class FilterActionStyler implements IconStyler {
+  getStyle(value : string, row? : any) : IconStyle {
+    if (value == "turnOn")  return FILTER_ACTION_TURN_ON;
+    if (value == "turnOff") return FILTER_ACTION_TURN_OFF;
+
+    return FILTER_ACTION_NONE;
+  }
+}
+
+var FILTER_ACTION_NONE    = new IconStyle("remove",    "#F0F0F0", "None");
+var FILTER_ACTION_TURN_ON = new IconStyle("toggle_on", "#00A000", "Turn ON");
+var FILTER_ACTION_TURN_OFF= new IconStyle("toggle_off","#A02020", "Turn OFF");
+
+//=============================================================================
+
+export class SystemHealthStyler implements IconStyler {
+  getStyle(value : string, row? : any) : IconStyle {
+    if (value == "O") return SYSTEM_HEALTH_OK;
+    if (value == "W") return SYSTEM_HEALTH_WARNING;
+
+    return SYSTEM_HEALTH_ERROR;
+  }
+}
+
+var SYSTEM_HEALTH_OK      = new IconStyle("done",    "#00A000", "Ok");
+var SYSTEM_HEALTH_WARNING = new IconStyle("warning", "#A0A000", "Warning");
+var SYSTEM_HEALTH_ERROR   = new IconStyle("error",   "#A00000", "Error");
+
+//=============================================================================

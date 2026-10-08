@@ -1,0 +1,23 @@
+<div class="main-layout">
+  <right-title-panel icon="build" title="{{loc('title')}}" (onClose)="onClose()"></right-title-panel>
+
+  <div class="form-layout">
+    <select-required [label]="loc('type')" [(key)]="builder.name" [list]="pbr.available" keyField="name" valueField="label"
+                    (keyChange)="onBuilderChange($event)"></select-required><br/>
+
+    @if (builder?.name == "none") {
+
+    }
+
+    @if (builder?.name == "simple") {
+      <input-number #inCorrThresh [(value)]="builder.config.corrThresh" [label]="loc('params.corrThresh')" [min]="minP('corrThresh')" [max]="maxP('corrThresh')" [optional]="optP('corrThresh')"></input-number>
+    }
+  </div>
+
+  <div class="buttons-layout">
+    <mat-divider></mat-divider>
+    <button mat-button (click)="onSave()" [disabled]="!saveEnabled()">{{button("save")}}</button>
+    <button mat-button (click)="onClose()">{{button("cancel")}}</button>
+  </div>
+</div>
+

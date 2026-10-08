@@ -43,6 +43,8 @@ import {SystemsSelectorDialog} from "./systems-selector.dialog";
 import {PortfolioService} from "../../../../../../service/portfolio.service";
 import {Observable} from "rxjs";
 import {BiasAnalysisFull} from "../../../tool/bias-analysis/model";
+import {AppEvent} from "../../../../../../model/event";
+import {BuilderButton} from "../../../../../../component/button/builder/builder.button";
 
 //=============================================================================
 
@@ -50,7 +52,7 @@ import {BiasAnalysisFull} from "../../../tool/bias-analysis/model";
   selector: 'portfolio-view',
   templateUrl: './portfolio.view.html',
   styleUrls:  ['./portfolio.view.scss'],
-  imports: [MatButtonModule, MatCardModule, MatIconModule, MatInputModule, RouterModule, ListPanel, ListButtons, ListContent, FlexTablePanel, MatTab, MatTabGroup, BackButton, DeleteButton]
+  imports: [MatButtonModule, MatCardModule, MatIconModule, MatInputModule, RouterModule, ListPanel, ListButtons, ListContent, FlexTablePanel, MatTab, MatTabGroup, BackButton, DeleteButton, BuilderButton]
 })
 
 //=============================================================================
@@ -172,6 +174,12 @@ export class PortfolioViewPanel extends AbstractPanel {
         this.table?.reload()
       }
     )
+  }
+
+  //-------------------------------------------------------------------------
+
+  onBuilderClick() {
+    this.openRightPanel(Url.Inventory_Portfolios +"/"+this.id, Url.Right_PortBuilder_Edit, AppEvent.PORTBUILDER_EDIT_START, this.id);
   }
 
   //-------------------------------------------------------------------------

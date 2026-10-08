@@ -99,6 +99,9 @@ import {AllocationViewPanel} from "./app/layout/main-panel/work-panel/portfolio/
 import {
   CorrelationMatrixPanel
 } from "./app/module/correlation-matrix/correlation-matrix.component";
+import {
+  PortfolioBuilderEditPanel
+} from "./app/layout/main-panel/work-panel/inventory/portfolio/view/builder/builder.edit";
 
 //=============================================================================
 
@@ -141,8 +144,9 @@ export const routes: Routes = [
 
   { path: Url.Inventory_Portfolios,               component: PortfolioListPanel          },
   { path: Url.Inventory_Portfolios_Id,            component: PortfolioViewPanel          },
-  { path: Url.Right_Portfolio_Create,             component: PortfolioCreatePanel, outlet : 'right' },
-  { path: Url.Right_Portfolio_Edit,               component: PortfolioEditPanel,   outlet : 'right' },
+  { path: Url.Right_Portfolio_Create,             component: PortfolioCreatePanel,      outlet : 'right' },
+  { path: Url.Right_Portfolio_Edit,               component: PortfolioEditPanel,        outlet : 'right' },
+  { path: Url.Right_PortBuilder_Edit,             component: PortfolioBuilderEditPanel, outlet : 'right' },
 
   //--- Portfolio
 

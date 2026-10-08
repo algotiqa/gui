@@ -46,9 +46,17 @@
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
     <mat-tab-group class="table-panel" [mat-stretch-tabs]="false">
+      <mat-tab label="{{loc('tabHealth.title')}}">
+        <flex-table [columns] = "healthCols"
+                    [data]    = "ae.report.tradingSystems">
+        </flex-table>
+      </mat-tab>
+
+      <!-- - - - - - - - - - - - - - - - - - - - - -->
+
       <mat-tab label="{{loc('tabFilters.title')}}">
         <flex-table [columns] = "filterCols"
-                    [data]    = "ae.filters">
+                    [data]    = "ae.report.filterOutcomes">
         </flex-table>
       </mat-tab>
 
@@ -56,7 +64,7 @@
 
       <mat-tab label="{{loc('tabCorrelations.title')}}">
         <flex-table [columns] = "correlCols"
-                    [data]    = "ae.correlations">
+                    [data]    = "ae.report.correlations">
           <button mat-icon-button (click)="onCorrelationMatrix()">
             <mat-icon>grid_on</mat-icon>
           </button>
@@ -67,7 +75,7 @@
 
       <mat-tab label="{{loc('tabLogs.title')}}">
         <flex-table [columns] = "logCols"
-                    [data]    = "ae.logs">
+                    [data]    = "ae.report.logs">
         </flex-table>
       </mat-tab>
     </mat-tab-group>

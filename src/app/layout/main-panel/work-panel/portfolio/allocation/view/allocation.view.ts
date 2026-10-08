@@ -32,8 +32,12 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {LabelTranscoder} from "../../../../../../component/panel/flex-table/transcoders";
 import {NavigationService} from "../../../../../../service/navigation.service";
 import {PortfolioService} from "../../../../../../service/portfolio.service";
-import {Allocation} from "../../../../../../model/allocation";
-import {RedBooleanStyler} from "../../../../../../component/panel/flex-table/icon-sylers";
+import {Allocation, AllocationReport} from "../../../../../../model/allocation";
+import {
+  FilterActionStyler,
+  LogLevelStyler,
+  RedBooleanStyler, SystemHealthStyler
+} from "../../../../../../component/panel/flex-table/icon-sylers";
 import {ModuleService} from "../../../../../../service/module.service";
 
 //=============================================================================
@@ -58,6 +62,7 @@ export class AllocationViewPanel extends AbstractPanel {
   id : number     = 0
   ae : Allocation = new Allocation()
 
+  healthCols : FlexTableColumn [] = []
   filterCols : FlexTableColumn [] = []
   correlCols : FlexTableColumn [] = []
   logCols    : FlexTableColumn [] = []
@@ -152,17 +157,30 @@ export class AllocationViewPanel extends AbstractPanel {
   //-------------------------------------------------------------------------
 
   setupColumns = () => {
+    //--- Health
+
+    let c = this.labelService.getLabel("model.allocationSystem");
+
+    this.healthCols = [
+      new FlexTableColumn(c, "marketType", new LabelTranscoder(this.labelService, "map.market")),
+      new FlexTableColumn(c, "brokerSymbol"),
+      new FlexTableColumn(c, "name"),
+      new FlexTableColumn(c, "strategyType", new LabelTranscoder(this.labelService, "map.strategyType")),
+      new FlexTableColumn(c, "healthLevel", undefined, new SystemHealthStyler()),
+      new FlexTableColumn(c, "message"),
+    ]
+
     //--- Filters
 
-    let c = this.labelService.getLabel("model.allocationFilter");
+    c = this.labelService.getLabel("model.allocationFilter");
 
     this.filterCols = [
       new FlexTableColumn(c, "tsMarketType", new LabelTranscoder(this.labelService, "map.market")),
       new FlexTableColumn(c, "tsBrokerSymbol"),
       new FlexTableColumn(c, "tsName"),
-      new FlexTableColumn(c, "tsStrategyType", new LabelTranscoder(this.labelService, "map.strategyType")),
       new FlexTableColumn(c, "tsRunning",      undefined, new RedBooleanStyler()),
       new FlexTableColumn(c, "filterPassed",   undefined, new RedBooleanStyler()),
+      new FlexTableColumn(c, "action",         undefined, new FilterActionStyler()),
       new FlexTableColumn(c, "comment"),
     ]
 
@@ -171,10 +189,10 @@ export class AllocationViewPanel extends AbstractPanel {
     c = this.labelService.getLabel("model.systemCorrelation");
 
     this.correlCols = [
-      new FlexTableColumn(c, "tradingSystem1Name"),
-      new FlexTableColumn(c, "tradingSystem2Name"),
+      new FlexTableColumn(c, "ts1Name"),
+      new FlexTableColumn(c, "ts2Name"),
       new FlexTableColumn(c, "correlation"),
-      new FlexTableColumn(c, "message"),
+      new FlexTableColumn(c, "error"),
     ]
 
     //--- Logs
@@ -182,7 +200,7 @@ export class AllocationViewPanel extends AbstractPanel {
     c = this.labelService.getLabel("model.allocationLog");
 
     this.logCols = [
-      new FlexTableColumn(c, "level"),
+      new FlexTableColumn(c, "level", undefined, new LogLevelStyler()),
       new FlexTableColumn(c, "message"),
     ]
   }
@@ -191,9 +209,6 @@ export class AllocationViewPanel extends AbstractPanel {
   //---
   //--- Private methods
   //---
-  //-------------------------------------------------------------------------
-
-
   //-------------------------------------------------------------------------
 
   protected readonly Url = Url;

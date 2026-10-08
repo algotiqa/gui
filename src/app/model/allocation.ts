@@ -35,37 +35,53 @@ export class Allocation {
   maxMarginPerc?     : number
   correlationPeriod? : number
   accountCapital?    : number
-
-  portfolio?  : Portfolio
-  filters     : AllocationFilter [] = []
-  logs        : AllocationLog    [] = []
-  correlations: SystemCorrelation[] = []
-  corrMatrix? : CorrelationMatrix
+  portfolio?         : Portfolio
+  report             : AllocationReport = new AllocationReport()
 }
 
 //=============================================================================
 
-export class AllocationFilter {
-  id?              : number
-  allocationId?    : number
-  tradingSystemId? : number
-  filterPassed?    : boolean
-  comment?         : string
-  tsName?          : string
-  tsDataSymbol?    : string
-  tsBrokerSymbol?  : string
-  tsMarketType?    : string
-  tsStrategyType?  : string
-  tsRunning?       : boolean
+export class AllocationReport {
+  tradingSystems     : AllocTradingSystem[] = []
+  filterOutcomes     : FilterOutcome     [] = []
+  logs               : AllocationLog     [] = []
+  correlations       : SystemCorrelation [] = []
+  correlationMatrix? : CorrelationMatrix
+}
+
+//=============================================================================
+
+export class AllocTradingSystem {
+  id?           : number
+  name?         : string
+  dataSymbol?   : string
+  brokerSymbol? : string
+  marketType?   : string
+  strategyType? : string
+  healthLevel?  : string
+  message?      : string
+}
+
+//=============================================================================
+
+export class FilterOutcome {
+  tsId?           : number
+  tsName?         : string
+  tsDataSymbol?   : string
+  tsBrokerSymbol? : string
+  tsMarketType?   : string
+  tsStrategyType? : string
+  tsRunning?      : boolean
+  filterPassed?   : boolean
+  action?         : string
+  comment?        : string
 }
 
 //=============================================================================
 
 export class AllocationLog {
-  id?           : number
-  allocationId? : number
-  level?        : string
-  message?      : string
+  level?   : string
+  message? : string
 }
 
 //=============================================================================
@@ -81,13 +97,12 @@ export class AllocationFull extends Allocation {
 //=============================================================================
 
 export class SystemCorrelation {
-  allocationId?       : number
-  tradingSystem1Id?   : number
-  tradingSystem2Id?   : number
-  tradingSystem1Name? : string
-  tradingSystem2Name? : string
-  correlation?        : number
-  message?            : string
+  ts1Id?       : number
+  ts2Id?       : number
+  ts1Name?     : string
+  ts2Name?     : string
+  correlation? : number
+  error?       : string
 }
 
 //=============================================================================

@@ -39,6 +39,7 @@ button:
   export    : Export
   back      : Back
   package   : Package
+  builder   : Builder
 
 menu-button:
   view          : View
@@ -414,9 +415,19 @@ model:
     accountCode          : Account
     accountCurrencyCode  : Currency
 
+  allocationSystem:
+    marketType   : Market
+    dataSymbol   : Data symbol
+    brokerSymbol : Broker symbol
+    name         : Trading system
+    strategyType : Strategy type
+    healthLevel  : Health
+    message      : Message
+
   allocationFilter:
     filterPassed   : Filter passed
     comment        : Comment
+    action         : Action
     tsMarketType   : Market
     tsBrokerSymbol : Broker symbol
     tsName         : Trading system
@@ -428,10 +439,10 @@ model:
     message: Message
 
   systemCorrelation:
-    tradingSystem1Name : First trading system
-    tradingSystem2Name : Second trading system
-    correlation        : Correlation
-    message            : Message
+    ts1Name    : First trading system
+    ts2Name    : Second trading system
+    correlation: Correlation
+    error      : Error
 
 # ==============================================================================
 # ===
@@ -570,6 +581,14 @@ page:
         25: 25 Weeks (~6 months)
       days : days
       weeks: weeks
+      builder:
+        title : Portfolio builder
+        type  : Builder type
+        types:
+          none  : None
+          simple: Simple
+        params:
+          corrThresh: Correlation threshold
 
   # ==============================================================================
 
@@ -811,7 +830,7 @@ page:
         riskValue   : Risk value
       pv:
         averageLength: Average length (days)
-        maxVolatility: Max volatility
+        maxVolatility: Max volatility on equity (%)
       mm:
         riskPerTradeOnCap  : Risk per trade on capital (%)
         riskPerTradeOnEarn : Risk per trade on earnings (%)
@@ -824,6 +843,8 @@ page:
       portfolio: Portfolio
       all      : All
       days     : days
+      tabHealth:
+        title: Health
       tabFilters:
         title: Filters
       tabCorrelations:
@@ -1497,6 +1518,10 @@ map:
     D : Done
     A : Warnings
     E : Errors
+
+    managementType:
+      none  : None
+      simple: Simple
 
 # ==============================================================================
 
