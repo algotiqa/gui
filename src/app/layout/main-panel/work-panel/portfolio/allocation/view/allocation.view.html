@@ -73,6 +73,30 @@
 
       <!-- - - - - - - - - - - - - - - - - - - - - -->
 
+      <mat-tab label="{{loc('tabPositions.title')}}">
+        <flex-table [columns] = "positCols"
+                    [data]    = "ae.report.systemPositions">
+        </flex-table>
+      </mat-tab>
+
+      <!-- - - - - - - - - - - - - - - - - - - - - -->
+
+      <mat-tab label="{{loc('tabExcluded.title')}}">
+        <flex-table [columns] = "excludCols"
+                    [data]    = "ae.report.excludedSystems">
+        </flex-table>
+      </mat-tab>
+
+      <!-- - - - - - - - - - - - - - - - - - - - - -->
+
+      <mat-tab label="{{loc('tabActions.title')}}">
+        <flex-table [columns] = "actionCols"
+                    [data]    = "ae.report.systemActions">
+        </flex-table>
+      </mat-tab>
+
+      <!-- - - - - - - - - - - - - - - - - - - - - -->
+
       <mat-tab label="{{loc('tabLogs.title')}}">
         <flex-table [columns] = "logCols"
                     [data]    = "ae.report.logs">

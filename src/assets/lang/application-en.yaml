@@ -444,6 +444,25 @@ model:
     correlation: Correlation
     error      : Error
 
+  systemPosition:
+    name           : Trading system
+    model          : Position model
+    risk           : Risk
+    atrValue       : ATR
+    initialPosition: Initial position
+    finalPosition  : Final position
+
+  excludedSystem:
+    name        : Trading system
+    dataSymbol  : Data symbol
+    brokerSymbol: Broker symbol
+    message     : Message
+
+  systemAction:
+    name    : Trading system
+    action  : Action
+    message : Message
+
 # ==============================================================================
 # ===
 # === Pages
@@ -849,8 +868,14 @@ page:
         title: Filters
       tabCorrelations:
         title: Correlations
+      tabPositions:
+        title: Positions
       tabLogs:
         title: Logs
+      tabExcluded:
+        title: Excluded systems
+      tabActions:
+        title: Actions
 
   # ==============================================================================
 

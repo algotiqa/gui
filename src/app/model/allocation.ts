@@ -44,8 +44,11 @@ export class Allocation {
 export class AllocationReport {
   tradingSystems     : AllocTradingSystem[] = []
   filterOutcomes     : FilterOutcome     [] = []
-  logs               : AllocationLog     [] = []
   correlations       : SystemCorrelation [] = []
+  systemPositions    : SystemPosition    [] = []
+  excludedSystems    : ExcludedSystem    [] = []
+  systemActions      : SystemAction      [] = []
+  logs               : AllocationLog     [] = []
   correlationMatrix? : CorrelationMatrix
 }
 
@@ -110,6 +113,37 @@ export class SystemCorrelation {
 export class CorrelationMatrix {
   names : string[]   = []
   cells : number[][] = []
+}
+
+//=============================================================================
+
+export class SystemPosition {
+  id?              : number
+  name?            : string
+  model?           : string
+  risk?            : number
+  atrValue?        : number
+  initialPosition? : number
+  finalPosition?   : number
+}
+
+//=============================================================================
+
+export class ExcludedSystem {
+  id?            : number
+  name?          : string
+  dataSymbol?    : string
+  brokerSymbol?  : string
+  message?       : string
+}
+
+//=============================================================================
+
+export class SystemAction {
+  id?      : number
+  name?    : string
+  action?  : string
+  message? : string
 }
 
 //=============================================================================

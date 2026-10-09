@@ -29,7 +29,7 @@ import {BackButton} from "../../../../../../component/button/back/back.button";
 import {DeleteButton} from "../../../../../../component/button/delete/delete.button";
 import {MatDialog} from "@angular/material/dialog";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {LabelTranscoder} from "../../../../../../component/panel/flex-table/transcoders";
+import {LabelTranscoder, MapTranscoder} from "../../../../../../component/panel/flex-table/transcoders";
 import {NavigationService} from "../../../../../../service/navigation.service";
 import {PortfolioService} from "../../../../../../service/portfolio.service";
 import {Allocation, AllocationReport} from "../../../../../../model/allocation";
@@ -65,6 +65,9 @@ export class AllocationViewPanel extends AbstractPanel {
   healthCols : FlexTableColumn [] = []
   filterCols : FlexTableColumn [] = []
   correlCols : FlexTableColumn [] = []
+  positCols  : FlexTableColumn [] = []
+  excludCols : FlexTableColumn [] = []
+  actionCols : FlexTableColumn [] = []
   logCols    : FlexTableColumn [] = []
 
   markets : Object[] = []
@@ -192,7 +195,40 @@ export class AllocationViewPanel extends AbstractPanel {
       new FlexTableColumn(c, "ts1Name"),
       new FlexTableColumn(c, "ts2Name"),
       new FlexTableColumn(c, "correlation"),
-      new FlexTableColumn(c, "error"),
+    ]
+
+    //--- Position
+
+    c = this.labelService.getLabel("model.systemPosition");
+
+    this.positCols = [
+      new FlexTableColumn(c, "name"),
+      new FlexTableColumn(c, "model", new MapTranscoder(this.labelService, "positionModel")),
+      new FlexTableColumn(c, "risk"),
+      new FlexTableColumn(c, "initialPosition"),
+      new FlexTableColumn(c, "finalPosition"),
+      new FlexTableColumn(c, "atrValue"),
+    ]
+
+    //--- Excluded systems
+
+    c = this.labelService.getLabel("model.excludedSystem");
+
+    this.excludCols = [
+      new FlexTableColumn(c, "dataSymbol"),
+      new FlexTableColumn(c, "brokerSymbol"),
+      new FlexTableColumn(c, "name"),
+      new FlexTableColumn(c, "message"),
+    ]
+
+    //--- Actions
+
+    c = this.labelService.getLabel("model.systemAction");
+
+    this.actionCols = [
+      new FlexTableColumn(c, "name"),
+      new FlexTableColumn(c, "action", undefined, new FilterActionStyler()),
+      new FlexTableColumn(c, "message"),
     ]
 
     //--- Logs
