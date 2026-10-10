@@ -31,6 +31,7 @@ import {ListButtons, ListContent, ListPanel} from "../../../../../component/pane
 import {ViewButton} from "../../../../../component/button/view/view.button";
 import {NavigationService} from "../../../../../service/navigation.service";
 import {AccountStatusStyler, GrayBooleanStyler, FlagStyler} from "../../../../../component/panel/flex-table/icon-sylers";
+import {HelpButton} from "../../../../../component/button/help/help.button";
 
 //=============================================================================
 
@@ -38,7 +39,7 @@ import {AccountStatusStyler, GrayBooleanStyler, FlagStyler} from "../../../../..
     selector: 'portfolio-list',
     templateUrl: './portfolio.list.html',
     styleUrls:  ['./portfolio.list.scss'],
-  imports: [MatButtonModule, MatCardModule, MatIconModule, MatInputModule, RouterModule, FlexTablePanel, CreateButton, EditButton, ListButtons, ListContent, ListPanel, ViewButton]
+  imports: [MatButtonModule, MatCardModule, MatIconModule, MatInputModule, RouterModule, FlexTablePanel, CreateButton, EditButton, ListButtons, ListContent, ListPanel, ViewButton, HelpButton]
 })
 
 //=============================================================================

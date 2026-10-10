@@ -123,9 +123,9 @@ export class LabelService {
 
 	private loadLanguageFile(language : string, name : string) {
 
-		let file : string = name +"-"+ language +".yaml";
+		let file : string = name +".yaml";
 
-		this.httpService.get<string>("assets/lang/"+ file, { responseType : "text" })
+		this.httpService.get<string>("assets/lang/"+ language +"/"+ file, { responseType : "text" })
 			.subscribe(	result => this.processFile(language, file, result),
 									error => console.log("Cannot load labels file : "+ file));
 	}

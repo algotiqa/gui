@@ -40,6 +40,7 @@ button:
   back      : Back
   package   : Package
   builder   : Builder
+  help      : Help
 
 menu-button:
   view          : View

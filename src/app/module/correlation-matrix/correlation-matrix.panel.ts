@@ -24,8 +24,8 @@ import {NgApexchartsModule} from "ng-apexcharts";
 
 @Component({
   selector   : 'correlation-matrix',
-  templateUrl: './correlation-matrix.component.html',
-  styleUrl   : './correlation-matrix.component.scss',
+  templateUrl: './correlation-matrix.panel.html',
+  styleUrl   : './correlation-matrix.panel.scss',
   imports: [MatToolbarModule, MatButtonModule, ModuleTitlePanel, NgApexchartsModule],
   standalone : true
 })

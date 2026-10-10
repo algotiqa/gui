@@ -90,6 +90,16 @@ export class ModuleService {
       console.log("Correlation matrix's window is null")
     }
   }
+
+  //-------------------------------------------------------------------------
+
+  public openHelpViewer(topic:string) {
+    let extWindow = window.open('module/help-viewer/'+topic, '', 'popup,width=1500,height=950,left=100,top=100');
+
+    if (extWindow == null) {
+      console.log("Help viewer's window is null")
+    }
+  }
 }
 
 //=============================================================================

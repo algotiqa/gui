@@ -79,6 +79,7 @@ export enum Url {
   Module_Simulator           = "module/simulation/:id",
   Module_TradeAnalysis       = "module/trade-analysis/:id",
   Module_CorrelationMatrix   = "module/correlation-matrix/:id",
+  Module_HelpViewer          = "module/help-viewer/:topic/:subtopic",
 }
 
 //=============================================================================

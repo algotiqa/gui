@@ -98,10 +98,11 @@ import {AllocationListPanel} from "./app/layout/main-panel/work-panel/portfolio/
 import {AllocationViewPanel} from "./app/layout/main-panel/work-panel/portfolio/allocation/view/allocation.view";
 import {
   CorrelationMatrixPanel
-} from "./app/module/correlation-matrix/correlation-matrix.component";
+} from "./app/module/correlation-matrix/correlation-matrix.panel";
 import {
   PortfolioBuilderEditPanel
 } from "./app/layout/main-panel/work-panel/inventory/portfolio/view/builder/builder.edit";
+import {HelpViewerPanel} from "./app/module/help-viewer/help-viewer.panel";
 
 //=============================================================================
 
@@ -193,6 +194,7 @@ export const routes: Routes = [
   { path: Url.Module_Simulator,                   component: TradingSystemSimulationPanel  },
   { path: Url.Module_TradeAnalysis,               component: TradeAnalyzerPanel            },
   { path: Url.Module_CorrelationMatrix,           component: CorrelationMatrixPanel        },
+  { path: Url.Module_HelpViewer,                  component: HelpViewerPanel               },
 
   { path:'**',                                    component: UnknownPanel },
 ];
