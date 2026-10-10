@@ -3,5 +3,47 @@
 
   <div class="panel-layout">
 
+    <div class="left-panel">
+      <div class="search-box">
+        <mat-icon>search</mat-icon>
+        <input type="text"
+               placeholder="{{loc('search')}}"
+               [value]="searchText"
+               (input)="onSearchChange($any($event.target).value)" />
+      </div>
+
+      <div class="tree">
+        @for (group of filteredToc; track group.title) {
+          <div class="tree-group">
+            <div class="tree-group-title">{{group.title}}</div>
+
+            @for (topic of group.topics; track topic.code) {
+              <div class="tree-topic">{{topic.label}}</div>
+
+              @for (subtopic of topic.subtopics; track subtopic.code) {
+                <div class="tree-subtopic"
+                     [class.selected]="isSelected(topic, subtopic)"
+                     (click)="onSubtopicClick(topic, subtopic)">{{subtopic.label}}</div>
+              }
+            }
+          </div>
+        }
+
+        @if (filteredToc.length == 0) {
+          <div class="tree-empty">{{loc('noMatch')}}</div>
+        }
+      </div>
+    </div>
+
+    <div class="center-panel">
+      @if (loading) {
+        <div class="center-message">{{loc('loading')}}</div>
+      } @else if (notFound) {
+        <div class="center-message">{{loc('notFound')}}</div>
+      } @else if (content) {
+        <div class="help-content" [innerHTML]="content"></div>
+      }
+    </div>
+
   </div>
 </div>

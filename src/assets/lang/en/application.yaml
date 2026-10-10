@@ -1346,6 +1346,9 @@ page:
     allocationCorrelation:
       title: "Portfolio allocation: correlation matrix"
 
+    help:
+      search: Search
+
 # ==============================================================================
 # ===
 # === Adapters

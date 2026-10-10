@@ -1,0 +1,18 @@
+= Market Analysis
+
+The *market analysis* tool shows how instruments behaved over a selected period.
+
+== Workflow
+
+. Pick a data product from the list
+. Choose a timeframe and a period
+. Inspect the generated charts
+
+image::market-analysis.png[Market analysis overview]
+
+== Reading the chart
+
+* The upper panel shows the *price* series
+* The lower panel highlights *volume* and *volatility*
+
+TIP: Use the zoom controls to focus on a specific date range.

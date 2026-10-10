@@ -1,0 +1,21 @@
+= Connection List
+
+This page lists all the *broker connections* configured on the platform.
+
+== Columns
+
+|===
+|Column |Meaning
+
+|Name |The connection identifier
+|Adapter |The adapter used to talk to the broker
+|Status |Whether the connection is currently enabled
+|===
+
+== Actions
+
+* *View* : opens the read-only detail page
+* *Edit* : changes connection parameters
+* *Create* : adds a new connection
+
+CAUTION: Deleting a connection may break running trading sessions.

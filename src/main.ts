@@ -39,6 +39,7 @@ import {ModuleService} from "./app/service/module.service";
 import {BroadcastService} from "./app/service/broadcast.service";
 import {StateService} from "./app/service/state.service";
 import {NavigationService} from "./app/service/navigation.service";
+import {HelpService} from "./app/service/help.service";
 
 //=============================================================================
 
@@ -73,6 +74,7 @@ bootstrapApplication(AppComponent, {
     StorageService,
     SystemAdapterService,
     StateService,
+    HelpService,
 	]
 })
 .catch(err => console.error(err));

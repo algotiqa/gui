@@ -1,0 +1,28 @@
+toc:
+  - title: Entities
+    topics:
+      - code : portfolio
+        label: Portfolios
+        subtopics:
+          - code : list
+            label: Portfolio list
+
+          - code: edit
+            label: Portfolio Edit
+
+  - title: Tools
+    topics:
+      - code : market-analysis
+        label: Market analysis
+        subtopics:
+          - code: view
+            label: Market analysis
+
+  - title: Administration
+    topics:
+      - code: connection
+        label: Connections
+        subtopics:
+          - code: list
+            label: Connection list
+

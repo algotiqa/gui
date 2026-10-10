@@ -8,17 +8,16 @@
 //=============================================================================
 
 import {Component} from '@angular/core';
-import {MatToolbarModule} from "@angular/material/toolbar";
-import {MatButtonModule} from "@angular/material/button";
+import {MatIconModule} from "@angular/material/icon";
 import {ActivatedRoute, Router} from '@angular/router';
-import {BroadcastEvent, BroadcastService, EventType} from "../../service/broadcast.service";
+import {SafeHtml} from "@angular/platform-browser";
+
 import {ModuleTitlePanel} from "../../component/panel/module-title/module-title.panel";
-import {PortfolioService} from "../../service/portfolio.service";
-import {Allocation, CorrelationMatrix} from "../../model/allocation";
 import {LabelService} from "../../service/label.service";
 import {EventBusService} from "../../service/eventbus.service";
 import {AbstractPanel} from "../../component/abstract.panel";
-import {NgApexchartsModule} from "ng-apexcharts";
+import {HelpService} from "../../service/help.service";
+import {HelpSubtopic, HelpTocGroup, HelpTopic} from "../../model/help";
 
 //=============================================================================
 
@@ -26,7 +25,7 @@ import {NgApexchartsModule} from "ng-apexcharts";
   selector   : 'help-viewer',
   templateUrl: './help-viewer.panel.html',
   styleUrl   : './help-viewer.panel.scss',
-  imports: [MatToolbarModule, MatButtonModule, ModuleTitlePanel, NgApexchartsModule],
+  imports: [MatIconModule, ModuleTitlePanel],
   standalone : true
 })
 
@@ -40,7 +39,17 @@ export class HelpViewerPanel extends AbstractPanel {
   //---
   //-------------------------------------------------------------------------
 
-  title : string = ""
+  title       : string          = "";
+  searchText  : string          = "";
+  toc         : HelpTocGroup[]  = [];
+  filteredToc : HelpTocGroup[]  = [];
+
+  topic    : string = "";
+  subtopic : string = "";
+
+  content  : SafeHtml | undefined = undefined;
+  loading  : boolean = false;
+  notFound : boolean = false;
 
   //-------------------------------------------------------------------------
   //---
@@ -51,7 +60,8 @@ export class HelpViewerPanel extends AbstractPanel {
   constructor(eventBusService          : EventBusService,
               labelService             : LabelService,
               router                   : Router,
-              private route            : ActivatedRoute) {
+              private route            : ActivatedRoute,
+              private helpService      : HelpService) {
 
     super(eventBusService, labelService, router, "module.help");
   }
@@ -63,9 +73,15 @@ export class HelpViewerPanel extends AbstractPanel {
   //-------------------------------------------------------------------------
 
   override init = () : void => {
-    let topic    = Number(this.route.snapshot.paramMap.get("topic"));
-    let subTopic = Number(this.route.snapshot.paramMap.get("subtopic"));
+    this.topic    = this.route.snapshot.paramMap.get("topic")    || "";
+    this.subtopic = this.route.snapshot.paramMap.get("subtopic") || "";
 
+    this.helpService.loadIndex().subscribe(toc => {
+      this.toc         = toc.toc || [];
+      this.filteredToc = this.toc;
+
+      this.selectRequested();
+    });
   }
 
   //-------------------------------------------------------------------------
@@ -79,11 +95,138 @@ export class HelpViewerPanel extends AbstractPanel {
   }
 
   //-------------------------------------------------------------------------
+
+  onSearchChange(value : string) {
+    this.searchText  = value;
+    this.filteredToc = this.filterToc(value);
+  }
+
+  //-------------------------------------------------------------------------
+
+  onSubtopicClick(topic : HelpTopic, subtopic : HelpSubtopic) {
+    this.select(topic.code, subtopic.code, subtopic.label);
+  }
+
+  //-------------------------------------------------------------------------
   //---
   //--- Private methods
   //---
   //-------------------------------------------------------------------------
 
+  private selectRequested() {
+    let label : string | undefined = undefined;
+
+    if (this.topic != "") {
+      let subtopic : HelpSubtopic | undefined = undefined;
+
+      for (let group of this.toc) {
+        for (let topic of group.topics) {
+          if (topic.code == this.topic) {
+            subtopic = topic.subtopics.find(s => s.code == this.subtopic) || topic.subtopics[0];
+            break;
+          }
+        }
+
+        if (subtopic != undefined) {
+          break;
+        }
+      }
+
+      if (subtopic != undefined) {
+        this.select(this.topic, subtopic.code, subtopic.label);
+        return;
+      }
+    }
+
+    //--- Fallback : first subtopic available in the tree
+
+    for (let group of this.toc) {
+      for (let topic of group.topics) {
+        if (topic.subtopics.length > 0) {
+          label = topic.subtopics[0].label;
+          this.select(topic.code, topic.subtopics[0].code, label);
+          return;
+        }
+      }
+    }
+  }
+
+  //-------------------------------------------------------------------------
+
+  private select(topic : string, subtopic : string, label : string) {
+    this.topic    = topic;
+    this.subtopic = subtopic;
+    this.title    = label;
+
+    this.router.navigate(['/', 'module', 'help-viewer', topic, subtopic]).then(() => {});
+
+    this.loadContent(topic, subtopic);
+  }
+
+  //-------------------------------------------------------------------------
+
+  private loadContent(topic : string, subtopic : string) {
+    this.loading  = true;
+    this.notFound = false;
+    this.content  = undefined;
+
+    this.helpService.loadContent({ topic : topic, subtopic : subtopic }).subscribe({
+      next    : html  => { this.content  = html;  this.loading = false; },
+      error   : ()    => { this.notFound = true; this.loading = false; }
+    });
+  }
+
+  //-------------------------------------------------------------------------
+
+  private filterToc(search : string) : HelpTocGroup[] {
+    let s : string = search.trim().toLowerCase();
+
+    if (s == "") {
+      return this.toc;
+    }
+
+    let result : HelpTocGroup[] = [];
+
+    for (let group of this.toc) {
+      if (this.matches(group.title, s)) {
+        result.push(group);
+        continue;
+      }
+
+      let topics : HelpTopic[] = [];
+
+      for (let topic of group.topics) {
+        if (this.matches(topic.label, s) || this.matches(topic.code, s)) {
+          topics.push(topic);
+          continue;
+        }
+
+        let subtopics = topic.subtopics.filter(sub => this.matches(sub.label, s) || this.matches(sub.code, s));
+
+        if (subtopics.length > 0) {
+          topics.push({ code : topic.code, label : topic.label, subtopics : subtopics });
+        }
+      }
+
+      if (topics.length > 0) {
+        result.push({ title : group.title, topics : topics });
+      }
+    }
+
+    return result;
+  }
+
+  //-------------------------------------------------------------------------
+
+  private matches(value : string | undefined, search : string) : boolean {
+    return (value != undefined && value.toLowerCase().includes(search));
+  }
+
+  //-------------------------------------------------------------------------
+
+  isSelected(topic : HelpTopic, subtopic : HelpSubtopic) : boolean {
+    return (topic.code == this.topic && subtopic.code == this.subtopic);
+  }
 }
 
 //=============================================================================
