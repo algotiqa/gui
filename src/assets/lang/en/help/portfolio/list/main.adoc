@@ -1,29 +1,25 @@
-= Portfolio List
+This page shows all the *portfolios* defined in the inventory and is the starting point to manage them.
 
-This page shows all the *portfolios* defined in the inventory and is the
-starting point to manage them.
-
-== Toolbar actions
+== Actions
 
 * *Create* : opens the creation form in the right panel
 * *View* : opens the read-only detail page of the selected portfolio
 * *Edit* : opens the edit form of the selected portfolio in the right panel
 
-NOTE: The *View* and *Edit* buttons are enabled only when exactly one row is
-selected.
+NOTE: The *View* and *Edit* buttons are enabled only when exactly one row is selected.
 
-== Table columns
+
+== Columns
 
 |===
 |Column |Description
 
-|Name |The unique name identifying the portfolio
+|Name |A name identifying the portfolio
 |Account % |Percentage of the account capital managed by the portfolio
-|Max margin % |Maximum share of the account margin the portfolio can use
+|Max margin % |Maximum allowed margin when opening positions
 |Account |The brokerage account the portfolio is bound to
-|Currency |The base currency used for allocation and reporting
-|Accounting |Whether the underlying account supports accounting
+|Currency |The base currency of the account. It is used for calculations and reporting
+|Accounting |Whether the underlying connection is able to retrieve account information (i.e. the changing capital and allocated margin over time). Accounting capabilities are mandatory for active trading
 |===
 
-TIP: Use the tree on the left of this window to jump to *Portfolio Edit* for a
-description of the editable fields.
+TIP: More information on portfolios is located at link:module/help-viewer/portfolio/create[Creating/editing a portfolio]

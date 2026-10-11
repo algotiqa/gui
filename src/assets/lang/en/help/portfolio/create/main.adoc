@@ -1,0 +1,21 @@
+This page explains how to create and edit a *portfolio*.
+
+== Actions
+
+* *Save* : creates a new portfolio or updates its information
+* *Cancel* : closes the right panel and aborts the creation/editing
+
+== Fields
+
+|===
+|Field |Description |Required
+
+|Account||Yes
+|Name |The unique name of the portfolio |Yes
+|Account % |A free-text description |No
+|Max margin % |The base currency used for allocation |Yes
+|Correlation period||Yes
+|Run period||Yes
+|===
+
+NOTE: Changes are applied only after pressing the save button.

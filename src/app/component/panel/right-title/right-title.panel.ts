@@ -11,6 +11,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule}    from "@angular/material/icon";
 import {MatButtonModule, MatIconButton} from "@angular/material/button";
+import {HelpButton} from "../../button/help/help.button";
 
 
 //=============================================================================
@@ -19,7 +20,7 @@ import {MatButtonModule, MatIconButton} from "@angular/material/button";
     selector: 'right-title-panel',
     templateUrl: './right-title.panel.html',
     styleUrls: ['./right-title.panel.scss'],
-  imports: [MatToolbarModule, MatIconModule, MatButtonModule, MatIconButton, MatIconButton]
+  imports: [MatToolbarModule, MatIconModule, MatButtonModule, MatIconButton, MatIconButton, HelpButton]
 })
 
 //=============================================================================
@@ -34,6 +35,7 @@ export class RightTitlePanel {
 
   @Input() icon?  : string;
   @Input() title? : string;
+  @Input() help   : string = "";
 
   //-------------------------------------------------------------------------
 
@@ -44,6 +46,7 @@ export class RightTitlePanel {
   //--- API methods
   //---
   //-------------------------------------------------------------------------
+
 }
 
 //=============================================================================

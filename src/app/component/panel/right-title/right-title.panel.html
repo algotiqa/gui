@@ -3,6 +3,9 @@
   <div class="title">{{title}}</div>
   <span class="filler"></span>
 
+  @if (help != "") {
+    <help-button [help]="help"></help-button>
+  }
   <button mat-icon-button (click)="onClose.emit($event)">
     <mat-icon>close</mat-icon>
   </button>
