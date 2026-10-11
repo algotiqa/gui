@@ -41,7 +41,7 @@
       } @else if (notFound) {
         <div class="center-message">{{loc('notFound')}}</div>
       } @else if (content) {
-        <div class="help-content" [innerHTML]="content"></div>
+        <div class="help-content" [innerHTML]="content" (click)="onContentClick($event)"></div>
       }
     </div>
 

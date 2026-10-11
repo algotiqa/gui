@@ -108,6 +108,28 @@ export class HelpViewerPanel extends AbstractPanel {
   }
 
   //-------------------------------------------------------------------------
+
+  onContentClick(event : MouseEvent) {
+    let target = event.target as HTMLElement | null;
+    let anchor = target?.closest('a');
+    let href   = anchor?.getAttribute('href') || "";
+
+    let match = href.match(/\/help\/([^/]+)\/([^/]+)\/main\.adoc$/);
+
+    if (match == null) {
+      return;
+    }
+
+    event.preventDefault();
+
+    let topicCode    = match[1];
+    let subtopicCode = match[2];
+    let label        = this.findLabel(topicCode, subtopicCode) || subtopicCode;
+
+    this.select(topicCode, subtopicCode, label);
+  }
+
+  //-------------------------------------------------------------------------
   //---
   //--- Private methods
   //---
@@ -220,6 +242,20 @@ export class HelpViewerPanel extends AbstractPanel {
 
   private matches(value : string | undefined, search : string) : boolean {
     return (value != undefined && value.toLowerCase().includes(search));
+  }
+
+  //-------------------------------------------------------------------------
+
+  private findLabel(topicCode : string, subtopicCode : string) : string | undefined {
+    for (let group of this.toc) {
+      for (let topic of group.topics) {
+        if (topic.code == topicCode) {
+          return topic.subtopics.find(s => s.code == subtopicCode)?.label;
+        }
+      }
+    }
+
+    return undefined;
   }
 
   //-------------------------------------------------------------------------

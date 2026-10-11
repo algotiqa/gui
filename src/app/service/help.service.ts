@@ -81,7 +81,8 @@ export class HelpService {
 
     return this.httpClient.get(file, { responseType : "text" })
       .pipe(switchMap(adoc => from(this.convert(adoc, options))),
-            map(html => this.sanitizer.bypassSecurityTrustHtml(html)));
+            map(html  => this.rewriteRelativeUrls(html, folder)),
+            map(html  => this.sanitizer.bypassSecurityTrustHtml(html)));
   }
 
   //-------------------------------------------------------------------------
@@ -106,6 +107,42 @@ export class HelpService {
 
   private buildPath(folder : string) : string {
     return HelpService.LANG_PATH +"/"+ folder;
+  }
+
+  //-------------------------------------------------------------------------
+
+  private rewriteRelativeUrls(html : string, folder : string) : string {
+    return html.replace(/(href|src)="([^"]*)"/g, (match, attr : string, url : string) => {
+      if (url == "" || url.startsWith("/") || url.startsWith("#") || /^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(url)) {
+        return match;
+      }
+
+      return attr +'="'+ this.normalizeRelative(url, folder) +'"';
+    });
+  }
+
+  //-------------------------------------------------------------------------
+
+  private normalizeRelative(url : string, folder : string) : string {
+    url = url.replace(/\.html$/, ".adoc");
+
+    let segments : string[] = folder.split("/");
+    let result   : string[] = [];
+
+    for (let token of url.split("/")) {
+      if (token == "." || token == "") {
+        continue;
+      }
+
+      if (token == "..") {
+        segments.pop();
+        continue;
+      }
+
+      result.push(token);
+    }
+
+    return segments.concat(result).join("/");
   }
 }
 
