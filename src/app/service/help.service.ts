@@ -8,7 +8,7 @@
 //=============================================================================
 
 import {Injectable}          from '@angular/core';
-import {Observable, map}     from 'rxjs';
+import {Observable, from, map, switchMap} from 'rxjs';
 import {HttpClient}          from '@angular/common/http';
 import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
 import {parse}               from 'yaml';
@@ -18,7 +18,10 @@ import {HelpSelection, HelpToc} from '../model/help';
 
 //=============================================================================
 
-declare const Asciidoctor : () => any;
+interface AsciidoctorGlobal {
+
+  convert(input : string, options? : object) : Promise<string>;
+}
 
 //=============================================================================
 
@@ -36,7 +39,7 @@ export class HelpService {
   private static INDEX_FILE     : string = "index.yaml";
   private static CONTENT_FILE   : string = "main.adoc";
 
-  private asciidoctor : any = Asciidoctor();
+  private asciidoctor : any = undefined;
 
   //-------------------------------------------------------------------------
   //---
@@ -77,7 +80,8 @@ export class HelpService {
     };
 
     return this.httpClient.get(file, { responseType : "text" })
-      .pipe(map(adoc => this.sanitizer.bypassSecurityTrustHtml(this.asciidoctor.convert(adoc, options) as string)));
+      .pipe(switchMap(adoc => from(this.convert(adoc, options))),
+            map(html => this.sanitizer.bypassSecurityTrustHtml(html)));
   }
 
   //-------------------------------------------------------------------------
@@ -85,6 +89,20 @@ export class HelpService {
   //--- Private methods
   //---
   //-------------------------------------------------------------------------
+
+  private convert(adoc : string, options : object) : Promise<string> {
+    if (this.asciidoctor == undefined) {
+      let ctor = (globalThis as any)['Asciidoctor'];
+
+      if (typeof ctor != 'object' || typeof ctor.convert != 'function') {
+        throw new Error("Asciidoctor global script is not loaded");
+      }
+
+      this.asciidoctor = ctor;
+    }
+
+    return this.asciidoctor.convert(adoc, options) as Promise<string>;
+  }
 
   private buildPath(folder : string) : string {
     return HelpService.LANG_PATH +"/"+ folder;

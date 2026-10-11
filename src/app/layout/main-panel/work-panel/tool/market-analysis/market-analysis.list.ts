@@ -35,6 +35,7 @@ import {EditButton} from "../../../../../component/button/edit/edit.button";
 import {FlexTablePanel} from "../../../../../component/panel/flex-table/flex-table.panel";
 import {ListButtons, ListContent, ListPanel} from "../../../../../component/panel/list-panel/list-panel";
 import {ViewButton} from "../../../../../component/button/view/view.button";
+import {HelpButton} from "../../../../../component/button/help/help.button";
 
 //=============================================================================
 
@@ -44,7 +45,7 @@ import {ViewButton} from "../../../../../component/button/view/view.button";
   styleUrls: [ './market-analysis.list.scss'],
   imports: [MatFormFieldModule, MatOptionModule, MatSelectModule,
     MatInputModule, MatIconModule, MatButtonModule, FormsModule, ReactiveFormsModule,
-    MatDividerModule, SelectRequired, DataProductSelector, MarketAnalysisBarsPanel, TimeframeSelector, PeriodSelector, ConnectButton, CreateButton, DisconnectButton, EditButton, FlexTablePanel, ListButtons, ListContent, ListPanel, ViewButton
+    MatDividerModule, SelectRequired, DataProductSelector, MarketAnalysisBarsPanel, TimeframeSelector, PeriodSelector, ConnectButton, CreateButton, DisconnectButton, EditButton, FlexTablePanel, ListButtons, ListContent, ListPanel, ViewButton, HelpButton
   ]
 })
 

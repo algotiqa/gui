@@ -6,7 +6,8 @@
     "start": "ng serve --host algotiqa --port 8080",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "vendor:asciidoctor": "esbuild tools/asciidoctor/entry.mjs --bundle --minify --format=iife --platform=browser --outfile=src/assets/js/asciidoctor.min.js --alias:node:fs/promises=./tools/asciidoctor/stubs/fs-promises.mjs --alias:node:fs=./tools/asciidoctor/stubs/fs.mjs --alias:node:path=./tools/asciidoctor/stubs/path.mjs --alias:node:async_hooks=./tools/asciidoctor/stubs/async-hooks.mjs"
   },
   "private": true,
   "dependencies": {
@@ -19,7 +20,7 @@
     "@angular/platform-browser": "^21.2.10",
     "@angular/platform-browser-dynamic": "^21.2.10",
     "@angular/router": "^21.2.10",
-    "@asciidoctor/core": "^2.2.6",
+    "@asciidoctor/core": "^4.1.1",
     "angular-auth-oidc-client": "^20.0.3",
     "apexcharts": "^5.15.0",
     "deepmerge-ts": "7.1.5",
@@ -36,6 +37,7 @@
     "@angular/build": "^21.2.8",
     "@angular/cli": "~21.2.8",
     "@angular/compiler-cli": "^21.2.10",
+    "esbuild": "0.27.3",
     "@types/jasmine": "~5.1.15",
     "jasmine-core": "~5.13.0",
     "karma": "~6.4.4",

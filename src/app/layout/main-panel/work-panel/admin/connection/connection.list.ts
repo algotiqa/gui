@@ -37,6 +37,7 @@ import {SystemAdapterService} from "../../../../../service/system-adapter.servic
 import {ConnectButton} from "../../../../../component/button/connect/connect.button";
 import {DisconnectButton} from "../../../../../component/button/disconnect/disconnect.button";
 import {NavigationService} from "../../../../../service/navigation.service";
+import {HelpButton} from "../../../../../component/button/help/help.button";
 
 //=============================================================================
 
@@ -44,7 +45,7 @@ import {NavigationService} from "../../../../../service/navigation.service";
     selector: 'connection',
     templateUrl: './connection.list.html',
     styleUrls: ['./connection.list.scss'],
-  imports: [MatButtonModule, MatCardModule, MatIconModule, MatInputModule, RouterModule, FlexTablePanel, ListPanel, ListButtons, ListContent, CreateButton, ViewButton, EditButton, ConnectButton, DisconnectButton]
+  imports: [MatButtonModule, MatCardModule, MatIconModule, MatInputModule, RouterModule, FlexTablePanel, ListPanel, ListButtons, ListContent, CreateButton, ViewButton, EditButton, ConnectButton, DisconnectButton, HelpButton]
 })
 
 //=============================================================================

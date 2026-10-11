@@ -4,6 +4,8 @@
     <period-selector [(period)]="period" (periodChange)="onPeriodChange($event)"></period-selector>
     <select-required [label]="loc('atrLength')" [(key)]="atrLength" [map] ="atrLengths" (keyChange)="onAtrLengthChange($event)"></select-required>
     <timeframe-selector #timeframeCtrl [label]="loc('timeframe')" [(value)]="timeframe" (valueChange)  ="onTimeframeChange($event)"></timeframe-selector>
+    <span class="spacer"></span>
+    <help-button help="market-analysis/view"></help-button>
   </list-buttons>
 
   <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->

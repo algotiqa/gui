@@ -42,7 +42,7 @@
               "node_modules/apexcharts/dist/apexcharts.min.js",
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/trumbowyg/dist/trumbowyg.min.js",
-              "node_modules/@asciidoctor/core/dist/browser/asciidoctor.min.js"
+              "src/assets/js/asciidoctor.min.js"
             ],
             "browser": "src/main.ts"
           },
@@ -110,7 +110,7 @@
               "node_modules/apexcharts/dist/apexcharts.min.js",
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/trumbowyg/dist/trumbowyg.min.js",
-              "node_modules/@asciidoctor/core/dist/browser/asciidoctor.min.js"
+              "src/assets/js/asciidoctor.min.js"
             ]
           }
         }
