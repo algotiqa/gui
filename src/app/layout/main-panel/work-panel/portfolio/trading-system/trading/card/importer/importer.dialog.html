@@ -1,0 +1,20 @@
+<h2 mat-dialog-title>{{ts?.name}} : {{loc("title")}}</h2>
+
+<mat-dialog-content class="mat-typography">
+  <div class="main-layout">
+    <file-uploader [acceptedTypes]="'trl'" (onFileChange)="onFileChange($event)" [disabled]="buttonsDisabled" [multiSelection]="false"></file-uploader>
+    <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+    <p></p>
+    <mat-checkbox [checked]="spec.wipeData">{{loc("wipeData")}}</mat-checkbox>
+    <p></p>
+    <span>{{loc("message")}}</span>
+    <a href="https://github.com/algotiqa/agent" target="_blank" rel="noopener noreferrer">https://github.com/algotiqa/agent</a>
+    <p></p>
+    <span>{{loc("notice")}}</span>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <flat-button label="{{button('import')}}" (click)="onImport()" [disabled]="importDisabled()"></flat-button>
+  <flat-button label="{{button('close')}}"  (click)="onClose()"  [disabled]="closeDisabled()" mat-dialog-close></flat-button>
+</mat-dialog-actions>

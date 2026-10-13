@@ -26,7 +26,7 @@ import { HttpParams } from "@angular/common/http";
 import {
   ImportExecutionSpec,
   ImportOverviewResponse,
-  ImportOverviewSpec,
+  ImportOverviewSpec, TradeImportResponse, TradeImportSpec,
 } from "../model/importer";
 
 //=============================================================================
@@ -239,6 +239,12 @@ export class InventoryService {
 
   public importTradingSystemsExecute = (spec : ImportExecutionSpec, file: any) : Observable<UploadEvent<void>> => {
     return this.httpService.upload<void>('/api/inventory/v1/trading-systems/import/execute', spec, [file])
+  }
+
+  //---------------------------------------------------------------------------
+
+  public importTradesFromFile = (id: number|undefined, spec: TradeImportSpec, file: any) : Observable<UploadEvent<TradeImportResponse>> => {
+    return this.httpService.upload<TradeImportResponse>('/api/inventory/v1/trading-systems/'+ id +'/import-trades', spec, [file])
   }
 
   //---------------------------------------------------------------------------

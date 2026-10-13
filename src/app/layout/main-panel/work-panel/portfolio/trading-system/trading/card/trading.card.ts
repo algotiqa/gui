@@ -31,6 +31,10 @@ import {StorageService} from "../../../../../../../service/storage.service";
 import {ModuleService} from "../../../../../../../service/module.service";
 import {FlatButton} from "../../../../../../../component/form/flat-button/flat-button";
 import {BroadcastService} from "../../../../../../../service/broadcast.service";
+import {TradingSystemImporterDialog} from "../../../../admin/import-export/importer/importer.dialog";
+import {TradeImporterDialog} from "./importer/importer.dialog";
+import {MatDialog} from "@angular/material/dialog";
+import {DialogData} from "./importer/dialog-data";
 
 //=============================================================================
 
@@ -79,6 +83,7 @@ export class TradingCard extends AbstractPanel {
               labelService             : LabelService,
               router                   : Router,
               private snackBar         : MatSnackBar,
+              public  dialog           : MatDialog,
               private inventoryService : InventoryService,
               private portfolioService : PortfolioService,
               private storageService   : StorageService,
@@ -285,6 +290,24 @@ export class TradingCard extends AbstractPanel {
     this.inventoryService.reloadTrades(this.ts.id).subscribe( res => {
       this.displayResult(res)
       this.emitToApp(new AppEvent<any>(AppEvent.TRADINGSYSTEM_TRADING_LIST_RELOAD))
+    })
+  }
+
+  //-------------------------------------------------------------------------
+
+  onMenuImportTrades() {
+    const dialogRef = this.dialog.open(TradeImporterDialog, {
+      minWidth : "1024px",
+      minHeight: "500px",
+      data: <DialogData> {
+        ts: this.ts
+      }
+    })
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // this.table?.reload()
+      }
     })
   }
 

@@ -56,6 +56,7 @@ menu-button:
   simulation    : Simulation
   positionSizing: Position sizing
   tradeAnalysis : Trade analysis
+  importTrades  : Import trades from a file
 
 # ==============================================================================
 # ===
@@ -1160,6 +1161,15 @@ page:
     deletePortfolio:
       title  : Delete portfolio
       message: Are you sure you want to delete this portfolio?
+
+    tradeImport:
+      title   : Trade import
+      message : |
+        File extension must be 'trl' and file format must be compliant with the specification provided here:
+      notice  : |
+        Dates and times must be in the broker's product timezone
+      wipeData: Delete previous trades, bars and daily returns
+      result  : Imported data
 
   # ==============================================================================
 

@@ -170,7 +170,7 @@ export class DevelopmentCard extends AbstractPanel {
 
   onMenuFinalize() {
     this.inventoryService.finalizeTradingSystem(this.ts.id).subscribe( res => {
-//      this.reload()
+      this.emitToApp(new AppEvent<any>(AppEvent.TRADINGSYSTEM_DEVELOP_LIST_RELOAD))
     })
   }
 

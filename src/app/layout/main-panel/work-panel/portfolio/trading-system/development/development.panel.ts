@@ -86,7 +86,9 @@ export class DevelopmentPanel extends AbstractPanel {
     super(eventBusService, labelService, router, "portfolio.tradingSystem.development");
 
     eventBusService.subscribeToApp(AppEvent.TRADINGSYSTEM_DEVELOP_LIST_RELOAD, () => {
-      this.reload()
+      setTimeout(() => {
+        this.reload()
+      }, 2000)
     })
   }
 
