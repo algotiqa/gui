@@ -622,6 +622,7 @@ page:
         filter: Filter...
         currency   : Currency
         performance: Performance
+        extNotice  : External trading systems are automatically finalized and moved into TRADING mode
 
       trading:
         filter: Filter...

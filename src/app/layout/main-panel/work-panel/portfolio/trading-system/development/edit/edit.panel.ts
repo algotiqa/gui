@@ -41,6 +41,7 @@ import {
   BrokerProductSelector
 } from "../../../../../../../component/form/broker-product-selector/product-selector.panel";
 import {DatePicker} from "../../../../../../../component/form/date-picker/date-picker";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 //=============================================================================
 
@@ -96,6 +97,7 @@ export class TradingSystemDevelEditPanel extends AbstractPanel {
   constructor(eventBusService          : EventBusService,
               labelService             : LabelService,
               router                   : Router,
+              private snackBar         : MatSnackBar,
               private inventoryService : InventoryService) {
 
     super(eventBusService, labelService, router, "portfolio.tradingSystem.development", "tradingSystem");
@@ -197,14 +199,12 @@ export class TradingSystemDevelEditPanel extends AbstractPanel {
     this.ts.tags = this.tagSet.join("|")
     if (this.ts.id == undefined) {
       this.inventoryService.addTradingSystem(this.ts).subscribe( c => {
-        this.onClose();
-        this.emitToApp(new AppEvent<any>(AppEvent.TRADINGSYSTEM_DEVELOP_LIST_RELOAD))
+        this.closePanel()
       })
     }
     else {
       this.inventoryService.updateTradingSystem(this.ts).subscribe( c => {
-        this.onClose();
-        this.emitToApp(new AppEvent<any>(AppEvent.TRADINGSYSTEM_DEVELOP_LIST_RELOAD))
+        this.closePanel()
       })
     }
   }
@@ -217,6 +217,21 @@ export class TradingSystemDevelEditPanel extends AbstractPanel {
 
     let event = new AppEvent(AppEvent.RIGHT_PANEL_CLOSE);
     super.emitToApp(event);
+  }
+
+  //-------------------------------------------------------------------------
+  //---
+  //--- Private methods
+  //---
+  //-------------------------------------------------------------------------
+
+  private closePanel() : void {
+    if (this.ts.engineCode == "external") {
+      this.snackBar.open(this.loc("extNotice"), "", { duration: 3000})
+    }
+
+    this.onClose();
+    this.emitToApp(new AppEvent<any>(AppEvent.TRADINGSYSTEM_DEVELOP_LIST_RELOAD, this.ts))
   }
 }
 
