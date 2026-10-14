@@ -105,7 +105,7 @@ export class HeaderPanel extends AbstractPanel {
   //-------------------------------------------------------------------------
 
   private loadPlatformVersion() {
-    this.platformVersion = 'beta';
+    this.platformVersion = '0.9.6';
 
     // this.inventoryService.getPlatformInfo().subscribe({
     //   next: (info) => {
