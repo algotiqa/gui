@@ -218,19 +218,8 @@ export class PositionSizingPanel extends AbstractPanel {
   //-------------------------------------------------------------------------
 
   public runEnabled() : boolean {
-    let paramValid =
-      this.inInitCapComp  ?.isValid() !== false &&
-      this.inMaxxDDPerComp?.isValid() !== false &&
-      this.inMargOverComp ?.isValid() !== false &&
-      this.inMaxUnitsComp ?.isValid() !== false &&
-      this.srRiskPerU     ?.isValid() !== false
-
-    if (!paramValid) return false
-
-    if (this.params.riskPerUnit == "") {
-      if (! (this.inRiskValComp?.isValid() !== false)) {
-        return false
-      }
+    if (!this.saveEnabled()) {
+      return false
     }
 
     switch (this.selModel.name) {
@@ -249,6 +238,27 @@ export class PositionSizingPanel extends AbstractPanel {
       default:
         return false
     }
+  }
+
+  //-------------------------------------------------------------------------
+
+  public saveEnabled() : boolean {
+    let paramValid =
+      this.inInitCapComp  ?.isValid() !== false &&
+      this.inMaxxDDPerComp?.isValid() !== false &&
+      this.inMargOverComp ?.isValid() !== false &&
+      this.inMaxUnitsComp ?.isValid() !== false &&
+      this.srRiskPerU     ?.isValid() !== false
+
+    if (!paramValid) return false
+
+    if (this.params.riskPerUnit == "") {
+      if (! (this.inRiskValComp?.isValid() !== false)) {
+        return false
+      }
+    }
+
+    return true
   }
 
   //-------------------------------------------------------------------------
@@ -299,9 +309,15 @@ export class PositionSizingPanel extends AbstractPanel {
       model  : this.selModel,
     }
 
+    if (this.selModel.name === "") {
+      req.model = this.curModel
+    }
+
     this.portfolioService.setTradingPosition(this.tsId, req).subscribe(
       result => {
-        this.curModel = structuredClone(this.selModel)
+        if (this.selModel.name !== "") {
+          this.curModel = structuredClone(this.selModel)
+        }
         this.snackBar.open(this.loc("positionSaved"), undefined, { duration: 3000 })
       }
     )

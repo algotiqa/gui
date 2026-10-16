@@ -5,7 +5,7 @@
     <period-selector [(period)]="period" (periodChange)="onPeriodChange($event)"></period-selector>
     <run-button      (click)="onRunClick()"      [disabled]="!runEnabled()"></run-button>
     <optimize-button (click)="onOptimizeClick()"></optimize-button>
-    <save-button     (click)="onSaveClick()"    [disabled]="!runEnabled()"></save-button>
+    <save-button     (click)="onSaveClick()"    [disabled]="!saveEnabled()"></save-button>
     <reload-button   (click)="onReloadClick()"  ></reload-button>
 
     <mat-button-toggle-group [hideSingleSelectionIndicator]="true" [formControl]="chartType">
