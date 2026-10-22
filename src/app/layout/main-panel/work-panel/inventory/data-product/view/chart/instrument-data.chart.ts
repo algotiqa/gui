@@ -244,8 +244,9 @@ export class DataInstrumentChartPanel extends AbstractPanel {
   }
 
   //-------------------------------------------------------------------------
+//  beforeZoom?(chart: ApexCharts, options?: { xaxis: { min: number; max: number } }): boolean | void
 
-  private zoomedHandler = (chart: any, options?: any) => {
+  private zoomedHandler = (chart: any, options?: any) : void => {
     this.period.custom   = true
     this.period.fromDate = this.convertDate(options.xaxis.min)
     this.period.toDate   = this.convertDate(options.xaxis.max)
@@ -253,12 +254,12 @@ export class DataInstrumentChartPanel extends AbstractPanel {
     //--- Reload is triggered by writing into period.toDate
     // this.reload(true)
 
-    return {
-      xaxis: {
-        min: undefined,
-        max: undefined
-      }
-    }
+    // return {
+    //   xaxis: {
+    //     min: undefined,
+    //     max: undefined
+    //   }
+    // }
   }
 
   //-------------------------------------------------------------------------

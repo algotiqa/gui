@@ -24,7 +24,6 @@ import {AppEvent} from "../../../../../model/event";
 import {Observable} from "rxjs";
 import {InventoryService} from "../../../../../service/inventory.service";
 import {ListButtons, ListContent, ListPanel} from "../../../../../component/panel/list-panel/list-panel";
-import {ViewButton} from "../../../../../component/button/view/view.button";
 import {NavigationService} from "../../../../../service/navigation.service";
 
 //=============================================================================
@@ -34,7 +33,7 @@ import {NavigationService} from "../../../../../service/navigation.service";
   templateUrl: './trading-session.list.html',
   styleUrls: [ './trading-session.list.scss'],
   changeDetection: ChangeDetectionStrategy.Eager,
-  imports: [MatButtonModule, MatCardModule, MatIconModule, MatInputModule, RouterModule, FlexTablePanel, ListButtons, ListContent, ListPanel, ViewButton]
+  imports: [MatButtonModule, MatCardModule, MatIconModule, MatInputModule, RouterModule, FlexTablePanel, ListButtons, ListContent, ListPanel]
 })
 
 //=============================================================================
