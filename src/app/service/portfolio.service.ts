@@ -38,6 +38,7 @@ import {DashboardSummary} from "../model/dashboard";
 import {HttpParams} from "@angular/common/http";
 import {Allocation, AllocationSpec} from "../model/allocation";
 import {PortfolioBuilder, PortfolioBuilderResponse} from "../model/builder";
+import {MetricsResponse} from "../model/metric";
 
 //=============================================================================
 
@@ -106,6 +107,18 @@ export class PortfolioService {
 
   public setTradingSystemActivation = (id: number, value: boolean): Observable<TradingSystemPropertyResponse> => {
     return this.httpService.post<TradingSystemPropertyResponse>('/api/portfolio/v1/trading-systems/'+ id +'/activation', { value: value });
+  }
+
+  //---------------------------------------------------------------------------
+
+  public getMetrics = (portfolioId : number|undefined): Observable<MetricsResponse> => {
+    let params = new HttpParams()
+
+    if (portfolioId) {
+      params = params.set("portfolioId", portfolioId)
+    }
+
+    return this.httpService.get<MetricsResponse>('/api/portfolio/v1/trading-systems/metrics', { params: params });
   }
 
   //---------------------------------------------------------------------------

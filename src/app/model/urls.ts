@@ -29,6 +29,7 @@ export enum Url {
   Portfolio_Allocations        = "portfolio/allocations",
   Portfolio_Allocations_Id     = "portfolio/allocations/:id",
   Portfolio_Monitoring         = "portfolio/monitoring",
+  Portfolio_PeriodMetrics      = "portfolio/period-metrics",
 
   Tool_MarketAnalysis          = "tool/market-analysis",
 

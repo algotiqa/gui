@@ -68,12 +68,14 @@ menu:
   main:
     _label: Main
     home: Home
+
   inventory:
     _label: Inventory
     dataProduct   : Data products
     brokerProduct : Broker products
     tradingSession: Trading sessions
     agentProfile  : Agent profiles
+
   portfolio:
     _label: Portfolio
     account      : Accounts
@@ -81,6 +83,8 @@ menu:
     tradingSystem: Trading systems
     allocation   : Allocations
     monitoring   : Monitoring
+    periodMetrics: Period metrics
+
   tool:
     _label: Tool
     marketAnalysis: Market analysis
@@ -795,6 +799,8 @@ page:
         taGain:       Gain
         taStartDate:  Start date
 
+    # ----------------------------------------------------------------------------
+
     positionSizing:
       title          : Position sizing for
       params         : General parameters
@@ -859,6 +865,8 @@ page:
         moneyConversion    : Money conversion
         percentageOnCapital: Percentage on capital
 
+    # ----------------------------------------------------------------------------
+
     allocation:
       title    : Portfolio allocations
       subTitle : Portfolio allocation
@@ -879,6 +887,34 @@ page:
         title: Excluded systems
       tabActions:
         title: Actions
+
+    # ----------------------------------------------------------------------------
+
+    metrics:
+      title     : Trading system metrics
+      portfolio : Portfolio
+      all       : All
+      running   : Running
+      stopped   : Stopped
+      name      : Trading system
+      filter    : Filter
+      periods:
+        m3 : 3M
+        m4 : 4M
+        m6 : 6M
+        m9 : 9M
+        y1 : 1Y
+        y5 : 5Y
+      metrics:
+        netReturn    : NetReturn
+        trades       : Trades
+        averageTrade : AvgTrade
+        profitFactor : ProfFactor
+        winningPerc  : Win (%)
+        maxDrawdown  : MaxDD
+        sharpeRatio  : SharpeRatio
+        sqn100       : SQN(100)
+        returnDDRatio: Ret/DD
 
   # ==============================================================================
 

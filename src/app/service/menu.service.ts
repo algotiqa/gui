@@ -124,6 +124,12 @@ export class MenuService extends AbstractSubscriber {
         route: Url.Portfolio_Allocations,
         iconClasses: 'schema'
       },
+      {
+        id: 'menu.portfolio.periodMetrics',
+        label: this.get('portfolio.periodMetrics'),
+        route: Url.Portfolio_PeriodMetrics,
+        iconClasses: 'view_timeline'
+      },
       // {
       //   id: 'menu.portfolio.monitoring',
       //   label: this.get('portfolio.monitoring'),

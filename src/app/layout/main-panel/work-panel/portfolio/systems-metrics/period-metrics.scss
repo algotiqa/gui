@@ -1,0 +1,41 @@
+//=============================================================================
+//===
+//=== Copyright (C) 2026-present Andrea Carboni
+//===
+//=== This source code is licensed under the Elastic License 2.0 (ELv2) available at:
+//=== https://github.com/algotiqa/gui/blob/main/LICENSE.md
+//=== By using this file, you agree to the terms and conditions of that license.
+//=============================================================================
+
+list-content {
+  flex: 1 1 auto;
+  display: block;
+  overflow: auto;
+}
+
+//=============================================================================
+
+.mode-selector {
+  margin: 16px 0 16px 8px;
+  background-color: #FFFFFF;
+}
+
+//=============================================================================
+
+.name-style {
+  min-width: 250px;
+}
+
+//=============================================================================
+
+.value-style {
+  text-align: center;
+}
+
+//=============================================================================
+
+select-optional {
+  width: 400px;
+}
+
+//=============================================================================

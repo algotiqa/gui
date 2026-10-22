@@ -1,0 +1,60 @@
+<list-panel [title]="loc('title')">
+  <list-buttons>
+    <select-optional [label]="loc('portfolio')" [(key)]="portfolioId"
+                     [list]="portfolios" keyField="id" valueField="name"
+                     (keyChange)="onPortfolioChange($event)"></select-optional>
+
+    <mat-form-field class="search-field">
+      <mat-label>{{loc("filter")}}</mat-label>
+      <input matInput [(ngModel)]="filter" (keyup)="onChange()" placeholder="...">
+    </mat-form-field>
+
+    <mat-button-toggle-group [hideMultipleSelectionIndicator]="true" [multiple]="true" [formControl]="selPeriod" class="mode-selector">
+      <mat-button-toggle value="m3" (change)="onChange()">{{ per("m3") }}</mat-button-toggle>
+      <mat-button-toggle value="m4" (change)="onChange()">{{ per("m4") }}</mat-button-toggle>
+      <mat-button-toggle value="m6" (change)="onChange()">{{ per("m6") }}</mat-button-toggle>
+      <mat-button-toggle value="m9" (change)="onChange()">{{ per("m9") }}</mat-button-toggle>
+      <mat-button-toggle value="y1" (change)="onChange()">{{ per("y1") }}</mat-button-toggle>
+      <mat-button-toggle value="y5" (change)="onChange()">{{ per("y5") }}</mat-button-toggle>
+    </mat-button-toggle-group>
+
+    <mat-button-toggle-group [hideMultipleSelectionIndicator]="true" [multiple]="true" [formControl]="selMetrics" class="mode-selector">
+      <mat-button-toggle value="netReturn"     (change)="onChange()">{{ met("netReturn") }}</mat-button-toggle>
+      <mat-button-toggle value="trades"        (change)="onChange()">{{ met("trades") }}</mat-button-toggle>
+      <mat-button-toggle value="averageTrade"  (change)="onChange()">{{ met("averageTrade") }}</mat-button-toggle>
+      <mat-button-toggle value="profitFactor"  (change)="onChange()">{{ met("profitFactor") }}</mat-button-toggle>
+      <mat-button-toggle value="winningPerc"   (change)="onChange()">{{ met("winningPerc") }}</mat-button-toggle>
+      <mat-button-toggle value="maxDrawdown"   (change)="onChange()">{{ met("maxDrawdown") }}</mat-button-toggle>
+      <mat-button-toggle value="sharpeRatio"   (change)="onChange()">{{ met("sharpeRatio") }}</mat-button-toggle>
+      <mat-button-toggle value="sqn100"        (change)="onChange()">{{ met("sqn100") }}</mat-button-toggle>
+      <mat-button-toggle value="returnDDRatio" (change)="onChange()">{{ met("returnDDRatio") }}</mat-button-toggle>
+    </mat-button-toggle-group>
+
+    <mat-button-toggle-group [hideSingleSelectionIndicator]="true" [formControl]="selSystems" class="mode-selector">
+      <mat-button-toggle value="all"     (change)="onChange()">{{ loc("all") }}</mat-button-toggle>
+      <mat-button-toggle value="running" (change)="onChange()">{{ loc("running") }}</mat-button-toggle>
+      <mat-button-toggle value="stopped" (change)="onChange()">{{ loc("stopped") }}</mat-button-toggle>
+    </mat-button-toggle-group>
+  </list-buttons>
+
+  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+  <list-content>
+    <table mat-table [dataSource]="systems" class="table-layout">
+      <ng-container matColumnDef="name" [sticky]="true">
+        <th mat-header-cell *matHeaderCellDef class="name-style">{{loc("name")}}</th>
+        <td mat-cell *matCellDef="let e" style="background-color:{{e.color}}">{{e.name}}</td>
+      </ng-container>
+
+      @for(col of columnInfos; track col) {
+        <ng-container [matColumnDef]="col.name">
+          <th mat-header-cell *matHeaderCellDef class="value-style">{{col.label}}</th>
+          <td mat-cell *matCellDef="let row" class="value-style" style="background-color:{{col.cell(row).backColor}}">{{col.cell(row).value}}</td>
+        </ng-container>
+      }
+
+      <tr mat-header-row *matHeaderRowDef="columnNames; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnNames;"></tr>
+    </table>
+  </list-content>
+</list-panel>

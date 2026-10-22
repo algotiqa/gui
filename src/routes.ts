@@ -103,6 +103,7 @@ import {
   PortfolioBuilderEditPanel
 } from "./app/layout/main-panel/work-panel/inventory/portfolio/view/builder/builder.edit";
 import {HelpViewerPanel} from "./app/module/help-viewer/help-viewer.panel";
+import {PeriodMetricsPanel} from "./app/layout/main-panel/work-panel/portfolio/systems-metrics/period-metrics";
 
 //=============================================================================
 
@@ -163,6 +164,7 @@ export const routes: Routes = [
   { path: Url.Portfolio_Allocations,              component: AllocationListPanel          },
   { path: Url.Portfolio_Allocations_Id,           component: AllocationViewPanel          },
   { path: Url.Portfolio_Monitoring,               component: MonitoringPanel              },
+  { path: Url.Portfolio_PeriodMetrics,            component: PeriodMetricsPanel           },
 
   //--- Tool
 
