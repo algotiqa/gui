@@ -7,8 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-
-import {Component, ViewChild} from '@angular/core';
+import {Component, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 
 import {MatInputModule}       from "@angular/material/input";
 import {MatCardModule}        from "@angular/material/card";
@@ -40,6 +39,7 @@ import {NavigationService} from "../../../../../service/navigation.service";
     selector: 'data-product-list',
     templateUrl: './data-product.list.html',
     styleUrls: ['./data-product.list.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatButtonModule, MatCardModule, MatIconModule, MatInputModule, RouterModule, FlexTablePanel, ListPanel, ListButtons, CreateButton, ViewButton, EditButton, ListContent]
 })
 

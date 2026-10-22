@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component, ViewChild} from '@angular/core';
+import {Component, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 
 import {MatInputModule}       from "@angular/material/input";
 import {MatCardModule}        from "@angular/material/card";
@@ -40,6 +40,7 @@ import {IsoDateTranscoder} from "../../../../../component/panel/flex-table/trans
     selector: 'allocation-list',
     templateUrl: './allocation.list.html',
     styleUrls:  ['./allocation.list.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatButtonModule, MatCardModule, MatIconModule, MatInputModule, RouterModule, FlexTablePanel, CreateButton, ListButtons, ListContent, ListPanel, ViewButton, SelectTextRequired]
 })
 

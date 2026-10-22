@@ -7,8 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 
 import {MainPanel}      from "./main-panel/main.panel";
 import {HeaderPanel}    from "./header-panel/header-panel";
@@ -24,6 +23,7 @@ import {RouterOutlet} from "@angular/router";
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [HeaderPanel, MainPanel, PortalModule, RouterOutlet]
 })
 

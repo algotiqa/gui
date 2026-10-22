@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component, ViewChild} from '@angular/core';
+import {Component, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 import {RightTitlePanel} from "../../../../../../component/panel/right-title/right-title.panel";
 import {AbstractPanel}   from "../../../../../../component/abstract.panel";
 import {AppEvent} from "../../../../../../model/event";
@@ -25,7 +25,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatDividerModule} from "@angular/material/divider";
 import {InputTextRequired} from "../../../../../../component/form/input-text-required/input-text-required";
 import {
-  Account, AccountFull, AccountSpec, PortfolioFull, PortfolioSpec,
+  Account, PortfolioFull, PortfolioSpec,
 } from "../../../../../../model/model";
 import {SelectRequired} from "../../../../../../component/form/select-required/select-required";
 import {InventoryService} from "../../../../../../service/inventory.service";
@@ -38,6 +38,7 @@ import {MatDialog} from "@angular/material/dialog";
     selector: "portfolio-edit",
     templateUrl: './portfolio.edit.html',
     styleUrls: [ './portfolio.edit.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [RightTitlePanel, MatFormFieldModule, MatOptionModule, MatSelectModule, MatInputModule, MatIconModule, MatButtonModule, FormsModule, ReactiveFormsModule, MatDividerModule, InputTextRequired, SelectRequired, InputNumber]
 })
 

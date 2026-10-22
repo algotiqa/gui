@@ -7,8 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-
-import {Component}         from "@angular/core";
+import {Component, ChangeDetectionStrategy}         from "@angular/core";
 import {MatIconModule}     from "@angular/material/icon";
 import {MatToolbarModule}  from "@angular/material/toolbar";
 import {MatButtonModule}   from "@angular/material/button";
@@ -23,7 +22,6 @@ import {AbstractPanel} from "../../component/abstract.panel";
 import {Router, RouterModule} from "@angular/router";
 import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
-import {Subscription} from "rxjs";
 
 //=============================================================================
 
@@ -32,6 +30,7 @@ import {Subscription} from "rxjs";
     templateUrl: './header-panel.html',
     styleUrls: ['./header-panel.scss'],
     imports: [MatButtonModule, MatIconModule, MatToolbarModule, MatMenuModule, MatDividerModule, RouterModule, MatSnackBarModule, MatProgressSpinnerModule],
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: []
 })
 

@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component, ViewChild} from '@angular/core';
+import {Component, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 import {RightTitlePanel} from "../../../../../../component/panel/right-title/right-title.panel";
 import {AbstractPanel}   from "../../../../../../component/abstract.panel";
 import {AppEvent} from "../../../../../../model/event";
@@ -24,18 +24,10 @@ import {MatButtonModule} from "@angular/material/button";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatDividerModule} from "@angular/material/divider";
 import {InputTextRequired} from "../../../../../../component/form/input-text-required/input-text-required";
-import {SystemAdapterService} from "../../../../../../service/system-adapter.service";
 import {
-  Adapter, Connection,
-  ConnectionSpec, Currency, Exchange,
-  Portfolio,
-  BrokerProduct, BrokerProductSpec, DataProduct, DataProductSpec,
-  TradingSession,
-  TradingSystemSpec
+  Exchange, BrokerProductSpec,
 } from "../../../../../../model/model";
 import {SelectRequired} from "../../../../../../component/form/select-required/select-required";
-import {Url} from "../../../../../../model/urls";
-import {PortfolioService} from "../../../../../../service/portfolio.service";
 import {InventoryService} from "../../../../../../service/inventory.service";
 import {InputNumber} from "../../../../../../component/form/input-number/input-number";
 
@@ -45,6 +37,7 @@ import {InputNumber} from "../../../../../../component/form/input-number/input-n
     selector: "broker-product-edit",
     templateUrl: './broker-product.edit.html',
     styleUrls: ['./broker-product.edit.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [RightTitlePanel, MatFormFieldModule, MatOptionModule, MatSelectModule, MatInputModule, MatIconModule, MatButtonModule, FormsModule, ReactiveFormsModule, MatDividerModule, InputTextRequired, SelectRequired, InputNumber]
 })
 

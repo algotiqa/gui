@@ -7,8 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 import {MenuService} from "../../../service/menu.service";
 import {Roles} from "../../../model/user";
 import { SidebarModes, UnAuthorizedVisibility } from '../../../component/sidebar-menu/model';
@@ -24,6 +23,7 @@ import {MatInputModule} from "@angular/material/input";
     selector: 'left-panel',
     templateUrl: './left-panel.html',
     styleUrls: ['./left-panel.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [CommonModule, MatInputModule, MatIconModule, MatToolbarModule, SidebarMenuModule]
 })
 

@@ -9,26 +9,24 @@
 
 import {MatButtonModule} from "@angular/material/button";
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
-import {Component, Inject} from "@angular/core";
+import {Component, Inject, ChangeDetectionStrategy} from "@angular/core";
 import {AbstractPanel} from "../../../../../../../../component/abstract.panel";
 import {EventBusService} from "../../../../../../../../service/eventbus.service";
 import {LabelService} from "../../../../../../../../service/label.service";
 import {Router} from "@angular/router";
 import {SelectRequired} from "../../../../../../../../component/form/select-required/select-required";
 import {MatChipSelectionChange, MatChipsModule} from "@angular/material/chips";
-import {FilterOptimizationRequest} from "../../../../../../../../model/filtering";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 
 import {InputNumber} from "../../../../../../../../component/form/input-number/input-number";
 import {PortfolioService} from "../../../../../../../../service/portfolio.service";
 import {DialogData} from "../dialog-data";
 import {MatTabsModule} from "@angular/material/tabs";
-import {PositionOptimizationRequest, PositionTargets, RunConfig} from "../../../../../../../../model/position-sizing";
+import {PositionOptimizationRequest} from "../../../../../../../../model/position-sizing";
 import {
   PeriodSelector,
   PeriodSelectorInfo
 } from "../../../../../../../../component/form/period-selector/period-selector";
-import {MatGridList, MatGridTile} from "@angular/material/grid-list";
 import {FormsModule} from "@angular/forms";
 
 //=============================================================================
@@ -37,6 +35,7 @@ import {FormsModule} from "@angular/forms";
     selector: 'position-parameter-dialog',
     templateUrl: 'parameter.dialog.html',
     styleUrls: ['parameter.dialog.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatDialogModule, MatButtonModule, SelectRequired, MatChipsModule, MatCheckboxModule, InputNumber, MatTabsModule, PeriodSelector, FormsModule]
 })
 

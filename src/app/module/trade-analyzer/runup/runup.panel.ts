@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component, Input, ViewChild} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import {Router} from "@angular/router";
 import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatButtonToggle, MatButtonToggleGroup} from "@angular/material/button-toggle";
@@ -15,16 +15,10 @@ import {AbstractPanel} from "../../../component/abstract.panel";
 import {EventBusService} from "../../../service/eventbus.service";
 import {LabelService} from "../../../service/label.service";
 import {LocalService} from "../../../service/local.service";
-import {Metrics, QualityAnalysisResponse} from "../../../model/quality";
 import {TradeAnalysisResponse, TradeEntry, TradeEquity} from "../../../model/trade-analysis";
-import {ApexAxisChartSeries, ChartComponent} from "ng-apexcharts";
-import {FlexTablePanel} from "../../../component/panel/flex-table/flex-table.panel";
-import {createChart} from "../../../layout/main-panel/work-panel/portfolio/monitoring/chart-management";
-import {FlexTableColumn} from "../../../model/flex-table";
+import { ChartComponent} from "ng-apexcharts";
 import {ChartOptions} from "../../../lib/chart-lib";
-import {SelectionModel} from "@angular/cdk/collections";
 import {Lib} from "../../../lib/lib";
-import {DataPointTimeTranscoder} from "../../../component/panel/flex-table/transcoders";
 import {Trade} from "../../../model/model";
 
 //=============================================================================
@@ -33,6 +27,7 @@ import {Trade} from "../../../model/model";
   selector: 'trade-runup-panel',
   templateUrl: './runup.panel.html',
   styleUrls:  ['./runup.panel.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ReactiveFormsModule,
     FormsModule,

@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import {Router} from "@angular/router";
 import {
   ApexAxisChartSeries,
@@ -30,6 +30,7 @@ import {PerformanceAnalysisResponse, RollingInfo} from "../../../model/performan
   selector: 'performance-rolling-panel',
   templateUrl: './rolling.panel.html',
   styleUrls:  ['./rolling.panel.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ChartComponent,
     ReactiveFormsModule,

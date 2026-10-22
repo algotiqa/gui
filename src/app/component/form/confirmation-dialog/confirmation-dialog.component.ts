@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component, Inject} from '@angular/core';
+import {Component, Inject, ChangeDetectionStrategy} from '@angular/core';
 import {Router} from "@angular/router";
 import {MatButtonModule} from "@angular/material/button";
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
@@ -23,6 +23,7 @@ import {FlatButton} from "../flat-button/flat-button";
     selector: 'confirmation-dialog',
     templateUrl: './confirmation-dialog.component.html',
     styleUrls:  ['./confirmation-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatDialogModule, MatButtonModule, FlatButton]
 })
 

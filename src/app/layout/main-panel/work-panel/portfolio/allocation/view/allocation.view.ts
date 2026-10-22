@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 
 import {MatInputModule}       from "@angular/material/input";
 import {MatCardModule}        from "@angular/material/card";
@@ -17,7 +17,6 @@ import {AbstractPanel} from "../../../../../../component/abstract.panel";
 import {EventBusService} from "../../../../../../service/eventbus.service";
 import {LabelService} from "../../../../../../service/label.service";
 import {ActivatedRoute, Router, RouterModule} from "@angular/router";
-import {InventoryService} from "../../../../../../service/inventory.service";
 import {ListButtons, ListContent, ListPanel} from "../../../../../../component/panel/list-panel/list-panel";
 import { PorTradingSystem,
 } from "../../../../../../model/model";
@@ -32,7 +31,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {LabelTranscoder, MapTranscoder} from "../../../../../../component/panel/flex-table/transcoders";
 import {NavigationService} from "../../../../../../service/navigation.service";
 import {PortfolioService} from "../../../../../../service/portfolio.service";
-import {Allocation, AllocationReport} from "../../../../../../model/allocation";
+import {Allocation} from "../../../../../../model/allocation";
 import {
   FilterActionStyler,
   LogLevelStyler,
@@ -46,6 +45,7 @@ import {ModuleService} from "../../../../../../service/module.service";
   selector: 'allocation-view',
   templateUrl: './allocation.view.html',
   styleUrls:  ['./allocation.view.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatButtonModule, MatCardModule, MatIconModule, MatInputModule, RouterModule, ListPanel, ListButtons, ListContent, FlexTablePanel, MatTab, MatTabGroup, BackButton, DeleteButton]
 })
 

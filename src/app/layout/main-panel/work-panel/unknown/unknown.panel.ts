@@ -7,8 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-
-import {Component}    from '@angular/core';
+import {Component, ChangeDetectionStrategy}    from '@angular/core';
 import {LabelService} from "../../../../service/label.service";
 import {MatIconModule} from "@angular/material/icon";
 
@@ -18,6 +17,7 @@ import {MatIconModule} from "@angular/material/icon";
     selector: 'unknown',
     templateUrl: './unknown.panel.html',
     styleUrls: ['./unknown.panel.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [MatIconModule]
 })
 

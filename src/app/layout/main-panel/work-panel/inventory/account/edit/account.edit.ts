@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component, ViewChild} from '@angular/core';
+import {Component, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 import {RightTitlePanel} from "../../../../../../component/panel/right-title/right-title.panel";
 import {AbstractPanel}   from "../../../../../../component/abstract.panel";
 import {AppEvent} from "../../../../../../model/event";
@@ -25,22 +25,13 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatDividerModule} from "@angular/material/divider";
 import {InputTextRequired} from "../../../../../../component/form/input-text-required/input-text-required";
 import {
-  Account, AccountExt, AccountFull,
-  AccountSpec, AdapterAccount,
-  BrokerProductSpec,
-  Connection,
+  AccountFull,
+  AccountSpec,
   Currency,
-  Exchange,
-  RootSymbol
 } from "../../../../../../model/model";
 import {SelectRequired} from "../../../../../../component/form/select-required/select-required";
 import {InventoryService} from "../../../../../../service/inventory.service";
 import {InputNumber} from "../../../../../../component/form/input-number/input-number";
-import {PresetProduct, PresetsService} from "../../../../../../service/presets.service";
-import {MatDialog} from "@angular/material/dialog";
-import {TextSelectorPanel} from "../../../../../../component/form/text-selector/text-selector.panel";
-import {SystemAdapterService} from "../../../../../../service/system-adapter.service";
-import {MatSnackBar} from "@angular/material/snack-bar";
 import {InputTextOptional} from "../../../../../../component/form/input-text-optional/input-text-optional";
 
 //=============================================================================
@@ -49,6 +40,7 @@ import {InputTextOptional} from "../../../../../../component/form/input-text-opt
     selector: "account-edit",
     templateUrl: './account.edit.html',
     styleUrls: [ './account.edit.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [RightTitlePanel, MatFormFieldModule, MatOptionModule, MatSelectModule, MatInputModule, MatIconModule, MatButtonModule, FormsModule, ReactiveFormsModule, MatDividerModule, InputTextRequired, SelectRequired, InputNumber, InputTextOptional]
 })
 

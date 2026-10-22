@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output, ChangeDetectionStrategy} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {LabelService} from "../../../service/label.service";
@@ -22,6 +22,7 @@ import {MatIconModule} from "@angular/material/icon";
   selector: 'period-selector',
   templateUrl: 'period-selector.html',
   styleUrl   : 'period-selector.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FormsModule, MatFormFieldModule, ReactiveFormsModule, DatePicker, SelectRequired, MatSlideToggleModule, MatIconModule],
 })
 

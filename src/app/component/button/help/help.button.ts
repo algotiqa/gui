@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component, HostBinding, Input} from "@angular/core";
+import {Component, Input, ChangeDetectionStrategy} from "@angular/core";
 import {FlatButton} from "../../form/flat-button/flat-button";
 import {LabelService} from "../../../service/label.service";
 import {ModuleService} from "../../../service/module.service";
@@ -20,6 +20,7 @@ import {MatIcon} from "@angular/material/icon";
   selector: 'help-button',
   templateUrl: './help.button.html',
   styleUrls  :['./help.button.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlatButton, MatButton, MatIcon, MatIconButton]
 })
 

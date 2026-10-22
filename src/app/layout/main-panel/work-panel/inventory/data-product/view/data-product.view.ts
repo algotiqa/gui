@@ -7,8 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-
-import {Component, ViewChild} from '@angular/core';
+import {Component, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 
 import {MatInputModule}       from "@angular/material/input";
 import {MatCardModule}        from "@angular/material/card";
@@ -62,6 +61,7 @@ import {ReloadButton} from "../../../../../../component/button/reload/reload.but
     selector: 'data-product-view',
     templateUrl: './data-product.view.html',
     styleUrls: ['./data-product.view.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatButtonModule, MatCardModule, MatIconModule, MatInputModule, RouterModule, FlexTablePanel, MatTabsModule, MatDialogModule, MatButtonToggleModule, ReactiveFormsModule, ChartComponent, ToggleButton, BackButton, DeleteButton, ListButtons, ListContent, ListPanel, ChartButton, DataButton, UploadButton, ReloadButton]
 })
 

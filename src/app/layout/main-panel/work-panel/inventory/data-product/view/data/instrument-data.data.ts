@@ -7,8 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 
 import {MatInputModule}       from "@angular/material/input";
 import {MatIconModule}        from "@angular/material/icon";
@@ -26,7 +25,6 @@ import {DataPoint, DataInstrumentDataResponse} from "../../../../../../../model/
 import {FlexTableColumn} from "../../../../../../../model/flex-table";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {SelectRequired} from "../../../../../../../component/form/select-required/select-required";
-import {DatePicker} from "../../../../../../../component/form/date-picker/date-picker";
 import {DataPointTimeTranscoder} from "../../../../../../../component/panel/flex-table/transcoders";
 import {TimeframeSelector} from "../../../../../../../component/form/timeframe-selector/timeframe-selector";
 import {PeriodSelector, PeriodSelectorInfo} from "../../../../../../../component/form/period-selector/period-selector";
@@ -45,6 +43,7 @@ import {NavigationService} from "../../../../../../../service/navigation.service
     selector: 'instrumentData-data',
     templateUrl: './instrument-data.data.html',
     styleUrls: ['./instrument-data.data.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatButtonModule, MatIconModule, MatInputModule, MatFormFieldModule, RouterModule, FlexTablePanel, MatChipsModule, MatSelectModule, SelectRequired, TimeframeSelector, PeriodSelector, ConnectButton, CreateButton, DisconnectButton, EditButton, ListButtons, ListContent, ListPanel, ViewButton, BackButton]
 })
 

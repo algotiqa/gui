@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component, EventEmitter, Input, Output} from "@angular/core";
+import {Component, EventEmitter, Input, Output, ChangeDetectionStrategy} from "@angular/core";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatButtonModule} from "@angular/material/button";
@@ -24,6 +24,7 @@ import {SelectRequired} from "../form/select-required/select-required";
   selector: 'custom-params',
   templateUrl: './custom-params.html',
   styleUrls: [ './custom-params.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatFormFieldModule, FormsModule, ReactiveFormsModule, MatButtonModule, MatIconModule, InputTextRequired, MatCheckbox, SelectRequired]
 })
 

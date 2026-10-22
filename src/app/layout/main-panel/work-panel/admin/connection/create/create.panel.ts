@@ -7,8 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-
-import {Component, ViewChild} from '@angular/core';
+import {Component, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 import {RightTitlePanel} from "../../../../../../component/panel/right-title/right-title.panel";
 import {AbstractPanel}   from "../../../../../../component/abstract.panel";
 import {AppEvent} from "../../../../../../model/event";
@@ -36,6 +35,7 @@ import {CustomParams} from "../../../../../../component/custom-params/custom-par
     selector: 'connection-create',
     templateUrl: './create.panel.html',
     styleUrls: ['./create.panel.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [RightTitlePanel, MatFormFieldModule, MatOptionModule, MatSelectModule,
     MatInputModule, MatIconModule, MatButtonModule, FormsModule, ReactiveFormsModule,
     MatDividerModule, InputTextRequired, SelectRequired, CustomParams

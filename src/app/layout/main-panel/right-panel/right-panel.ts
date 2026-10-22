@@ -7,8 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {RouterModule} from "@angular/router";
 
 //=============================================================================
@@ -17,6 +16,7 @@ import {RouterModule} from "@angular/router";
     selector: 'right-panel',
     templateUrl: './right-panel.html',
     styleUrls: ['./right-panel.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [RouterModule]
 })
 

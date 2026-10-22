@@ -9,7 +9,7 @@
 
 import {MatButtonModule} from "@angular/material/button";
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
-import {Component, Inject, ViewChild} from "@angular/core";
+import {Component, Inject, ViewChild, ChangeDetectionStrategy} from "@angular/core";
 import {Router} from "@angular/router";
 import {DialogData} from "./dialog-data";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
@@ -34,6 +34,7 @@ import {FlatButton} from "../../../../../../component/form/flat-button/flat-butt
     selector: 'instrument-upload-dialog',
     templateUrl: 'instrument-upload.dialog.html',
     styleUrls: ['instrument-upload.dialog.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatDialogModule, MatButtonModule, MatProgressSpinnerModule, MatGridListModule,
     MatIconModule, InputTextRequired, FileUploader, MatProgressBarModule, SelectRequired, MatChipsModule, FlatButton]
 })

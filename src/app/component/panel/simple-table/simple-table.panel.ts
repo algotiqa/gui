@@ -7,18 +7,15 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {AfterViewInit, Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
-import {SelectionModel} from '@angular/cdk/collections';
+import {AfterViewInit, Component, Input, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 import {MatTableDataSource, MatTableModule} from "@angular/material/table";
 import {MatSort, MatSortModule} from "@angular/material/sort";
 import {MatIconModule} from "@angular/material/icon";
 
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
-import {MatCheckboxModule} from "@angular/material/checkbox";
 import {LabelService} from "../../../service/label.service";
-import {FlexTableColumn, ListService} from "../../../model/flex-table";
-import {MatButtonModule} from "@angular/material/button";
+import {FlexTableColumn} from "../../../model/flex-table";
 
 //=============================================================================
 
@@ -26,6 +23,7 @@ import {MatButtonModule} from "@angular/material/button";
     selector: 'simple-table',
     templateUrl: './simple-table.panel.html',
     styleUrls: ['./simple-table.panel.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [MatTableModule, MatSortModule, MatFormFieldModule, MatInputModule, MatIconModule]
 })
 

@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component, HostBinding, Input} from "@angular/core";
+import {Component, HostBinding, Input, ChangeDetectionStrategy} from "@angular/core";
 import {FlatButton} from "../../form/flat-button/flat-button";
 import {LabelService} from "../../../service/label.service";
 
@@ -17,6 +17,7 @@ import {LabelService} from "../../../service/label.service";
   selector: 'run-button',
   templateUrl: './run.button.html',
   styleUrls  :['./run.button.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlatButton]
 })
 

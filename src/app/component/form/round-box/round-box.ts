@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component, Input} from "@angular/core";
+import {Component, Input, ChangeDetectionStrategy} from "@angular/core";
 import {MatButtonModule} from "@angular/material/button";
 
 //=============================================================================
@@ -16,6 +16,7 @@ import {MatButtonModule} from "@angular/material/button";
   selector: 'round-box',
   templateUrl: './round-box.html',
   styleUrls  :['./round-box.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatButtonModule]
 })
 

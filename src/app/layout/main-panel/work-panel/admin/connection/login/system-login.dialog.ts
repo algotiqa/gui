@@ -7,10 +7,9 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-
 import {MatButtonModule} from "@angular/material/button";
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
-import {Component, Inject, ViewChild} from "@angular/core";
+import {Component, Inject, ViewChild, ChangeDetectionStrategy} from "@angular/core";
 import {Router} from "@angular/router";
 import {MatTabsModule} from "@angular/material/tabs";
 import {AbstractPanel} from "../../../../../../component/abstract.panel";
@@ -32,6 +31,7 @@ import {FlatButton} from "../../../../../../component/form/flat-button/flat-butt
   selector: 'system-login-dialog',
   templateUrl: 'system-login.dialog.html',
   styleUrls : ['system-login.dialog.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatDialogModule, MatButtonModule, MatTabsModule, CustomParams, FlatButton]
 })
 

@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import {Router} from "@angular/router";
 import {
   ApexPlotOptions,
@@ -20,7 +20,6 @@ import {ChartOptions} from "../../../lib/chart-lib";
 import {EventBusService} from "../../../service/eventbus.service";
 import {LabelService} from "../../../service/label.service";
 import {LocalService} from "../../../service/local.service";
-import {Setting} from "../../../model/setting";
 import {Distribution, PerformanceAnalysisResponse} from "../../../model/performance";
 import {Lib} from "../../../lib/lib";
 
@@ -30,6 +29,7 @@ import {Lib} from "../../../lib/lib";
   selector: 'performance-distribution-panel',
   templateUrl: './distribution.panel.html',
   styleUrls:  ['./distribution.panel.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ChartComponent,
     ReactiveFormsModule,

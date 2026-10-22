@@ -9,7 +9,7 @@
 
 import {MatButtonModule} from "@angular/material/button";
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
-import {Component, Inject,} from "@angular/core";
+import {Component, Inject, ChangeDetectionStrategy} from "@angular/core";
 import {Router} from "@angular/router";
 import {MatFormField, MatInput, MatLabel} from "@angular/material/input";
 
@@ -29,6 +29,7 @@ import {DialogData} from "./dialog-data";
   selector: 'root-selector-dialog',
   templateUrl: 'root-product-selector.dialog.html',
   styleUrls: [ 'root-product-selector.dialog.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatDialogModule, MatButtonModule, FlexTablePanel, MatFormField, MatInput, MatLabel, MatFormField, ReactiveFormsModule]
 })
 

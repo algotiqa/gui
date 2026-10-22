@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatButtonModule} from "@angular/material/button";
 import {ActivatedRoute, Router} from '@angular/router';
@@ -27,6 +27,7 @@ import {NgApexchartsModule} from "ng-apexcharts";
   templateUrl: './correlation-matrix.panel.html',
   styleUrl   : './correlation-matrix.panel.scss',
   imports: [MatToolbarModule, MatButtonModule, ModuleTitlePanel, NgApexchartsModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone : true
 })
 

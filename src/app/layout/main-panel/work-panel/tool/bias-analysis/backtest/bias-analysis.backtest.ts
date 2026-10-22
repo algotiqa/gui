@@ -7,9 +7,8 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-
 import {MatButtonModule} from "@angular/material/button";
-import {Component} from "@angular/core";
+import {Component, ChangeDetectionStrategy} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 
 import {MatGridListModule} from "@angular/material/grid-list";
@@ -63,6 +62,7 @@ const EquityChart     = "equity"
     selector   : 'bias-analysis-backtest',
     templateUrl: 'bias-analysis.backtest.html',
     styleUrls  : ['bias-analysis.backtest.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatButtonModule, MatGridListModule, MatIconModule, FlexTreePanel, MatDivider, FlexTablePanel, ChartComponent, MatButtonToggleModule, InputNumber, SelectRequired, PeriodSelector]
 })
 

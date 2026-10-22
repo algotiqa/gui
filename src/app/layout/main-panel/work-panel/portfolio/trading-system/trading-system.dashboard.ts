@@ -7,8 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-
-import {Component, ViewChild} from '@angular/core';
+import {Component, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 import {AbstractPanel} from "../../../../../component/abstract.panel";
 import {LabelService} from "../../../../../service/label.service";
 import {EventBusService} from "../../../../../service/eventbus.service";
@@ -28,6 +27,7 @@ import {NavigationService} from "../../../../../service/navigation.service";
     selector: 'portfolio-trading-system-db',
     templateUrl: './trading-system.dashboard.html',
     styleUrls: ['./trading-system.dashboard.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [MatButtonToggleModule, ReactiveFormsModule, TradingPanel, ArchivePanel, DevelopmentPanel]
 })
 

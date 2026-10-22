@@ -7,19 +7,15 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output, ChangeDetectionStrategy} from '@angular/core';
 import {MatFormFieldModule} from "@angular/material/form-field";
-import {ErrorStateMatcher, MatOptionModule} from "@angular/material/core";
-import { KeyValuePipe } from "@angular/common";
+import { MatOptionModule} from "@angular/material/core";
 import {MatIconModule}      from "@angular/material/icon";
 import {
   FormControl,
   FormControlStatus,
-  FormGroupDirective,
   FormsModule,
-  NgForm,
   ReactiveFormsModule,
-  Validators
 } from "@angular/forms";
 import {AbstractSubscriber} from "../../../service/abstract-subscriber";
 import {EventBusService}    from "../../../service/eventbus.service";
@@ -32,6 +28,7 @@ import {MatSelectModule} from "@angular/material/select";
     selector: 'select-optional',
     templateUrl: './select-optional.html',
     styleUrls: ['./select-optional.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [MatFormFieldModule, MatOptionModule, MatSelectModule, MatIconModule, FormsModule, ReactiveFormsModule]
 })
 

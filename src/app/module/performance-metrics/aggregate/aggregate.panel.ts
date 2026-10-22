@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import {Router} from "@angular/router";
 import {AbstractPanel} from "../../../component/abstract.panel";
 import {EventBusService} from "../../../service/eventbus.service";
@@ -23,6 +23,7 @@ import {AnnualAggregate, PerformanceAnalysisResponse} from "../../../model/perfo
   selector: 'performance-aggregate-panel',
   templateUrl: './aggregate.panel.html',
   styleUrls: ['./aggregate.panel.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlexTablePanel
   ]

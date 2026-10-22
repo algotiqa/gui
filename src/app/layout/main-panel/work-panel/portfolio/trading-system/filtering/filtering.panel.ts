@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component, ViewChild} from '@angular/core';
+import {Component, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 
 import {ActivatedRoute, Router, RouterModule} from "@angular/router";
 import {AbstractPanel} from "../../../../../../component/abstract.panel";
@@ -33,7 +33,6 @@ import {Lib} from "../../../../../../lib/lib";
 import {FormsModule} from "@angular/forms";
 import {MatDividerModule} from "@angular/material/divider";
 import {PortfolioService} from "../../../../../../service/portfolio.service";
-import {SelectRequired} from "../../../../../../component/form/select-required/select-required";
 import {MatGridListModule} from "@angular/material/grid-list";
 import {FlexTablePanel} from "../../../../../../component/panel/flex-table/flex-table.panel";
 import {FlexTableColumn} from "../../../../../../model/flex-table";
@@ -64,6 +63,7 @@ import {NavigationService} from "../../../../../../service/navigation.service";
     selector: 'trading-system-filtering',
     templateUrl: './filtering.panel.html',
     styleUrls: ['./filtering.panel.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [RouterModule, MatExpansionModule, MatIconModule, MatFormFieldModule, FormsModule, MatInputModule, MatOptionModule, MatSelectModule, MatSlideToggleModule, MatTabsModule, MatButtonModule, MatDividerModule, MatGridListModule, SimpleTablePanel, MatDialogModule, ChartComponent, MatCardModule, InputNumber, PeriodSelector, ListButtons, ListContent, ListPanel, ListLeft, BackButton, SaveButton, ReloadButton, RunButton, OptimizeButton]
 })
 

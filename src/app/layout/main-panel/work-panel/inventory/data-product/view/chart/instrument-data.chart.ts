@@ -7,8 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-
-import {Component, ViewChild} from '@angular/core';
+import {Component, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 
 import {MatInputModule}       from "@angular/material/input";
 import {MatIconModule}        from "@angular/material/icon";
@@ -34,10 +33,7 @@ import {ChartOptions} from "../../../../../../../lib/chart-lib";
 import {InstrumentStatusStyler} from "../../../../../../../component/panel/flex-table/icon-sylers";
 import {TimeframeSelector} from "../../../../../../../component/form/timeframe-selector/timeframe-selector";
 import {PeriodSelector, PeriodSelectorInfo} from "../../../../../../../component/form/period-selector/period-selector";
-import {CreateButton} from "../../../../../../../component/button/create/create.button";
-import {EditButton} from "../../../../../../../component/button/edit/edit.button";
 import {ListButtons, ListContent, ListPanel} from "../../../../../../../component/panel/list-panel/list-panel";
-import {ViewButton} from "../../../../../../../component/button/view/view.button";
 import {NavigationService} from "../../../../../../../service/navigation.service";
 import {BackButton} from "../../../../../../../component/button/back/back.button";
 
@@ -47,6 +43,7 @@ import {BackButton} from "../../../../../../../component/button/back/back.button
     selector: 'instrumentData-chart',
     templateUrl: './instrument-data.chart.html',
     styleUrls: ['./instrument-data.chart.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatButtonModule, MatIconModule, MatInputModule, MatFormFieldModule, RouterModule, FlexTablePanel, MatChipsModule, MatSelectModule, SelectRequired, NgApexchartsModule, TimeframeSelector, PeriodSelector, ListButtons, ListContent, ListPanel, BackButton]
 })
 

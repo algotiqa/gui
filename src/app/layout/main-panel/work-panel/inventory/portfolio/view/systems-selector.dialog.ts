@@ -9,7 +9,7 @@
 
 import {MatButtonModule} from "@angular/material/button";
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
-import {Component, Inject} from "@angular/core";
+import {Component, Inject, ChangeDetectionStrategy} from "@angular/core";
 import {Router} from "@angular/router";
 import {DialogData} from "./dialog-data";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
@@ -19,8 +19,8 @@ import {AbstractPanel} from "../../../../../../component/abstract.panel";
 import {EventBusService} from "../../../../../../service/eventbus.service";
 import {LabelService} from "../../../../../../service/label.service";
 import {
-  InvTradingSystemFull, PortfolioExt,
-  PortfolioFull, TradingSystemAssignable
+   PortfolioExt,
+  TradingSystemAssignable
 } from "../../../../../../model/model";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatChipsModule} from "@angular/material/chips";
@@ -28,10 +28,8 @@ import {FlatButton} from "../../../../../../component/form/flat-button/flat-butt
 import {FlexTablePanel} from "../../../../../../component/panel/flex-table/flex-table.panel";
 import {FlexTableColumn, ListResponse, ListService} from "../../../../../../model/flex-table";
 import {Observable} from "rxjs";
-import {InventoryService} from "../../../../../../service/inventory.service";
 import {PortfolioService} from "../../../../../../service/portfolio.service";
 import {MapTranscoder} from "../../../../../../component/panel/flex-table/transcoders";
-import {FlagStyler} from "../../../../../../component/panel/flex-table/icon-sylers";
 
 //=============================================================================
 
@@ -39,6 +37,7 @@ import {FlagStyler} from "../../../../../../component/panel/flex-table/icon-syle
   selector: 'systems-selector-dialog',
   templateUrl: 'systems-selector.dialog.html',
   styleUrls:  ['systems-selector.dialog.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatDialogModule, MatButtonModule, MatProgressSpinnerModule, MatGridListModule,
     MatIconModule, MatProgressBarModule, MatChipsModule, FlatButton, FlexTablePanel]
 })

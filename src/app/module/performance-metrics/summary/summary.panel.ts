@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import {Router} from "@angular/router";
 import {AbstractPanel} from "../../../component/abstract.panel";
 import {EventBusService} from "../../../service/eventbus.service";
@@ -20,6 +20,7 @@ import {PerformanceAnalysisResponse} from "../../../model/performance";
   selector: 'performance-summary-panel',
   templateUrl: './summary.panel.html',
   styleUrls: ['./summary.panel.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
   ]
 })

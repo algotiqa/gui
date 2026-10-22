@@ -7,8 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 
 import {Router, RouterModule} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -34,6 +33,7 @@ import {RoundBox} from "../../../../../../component/form/round-box/round-box";
     selector: 'archive-panel',
     templateUrl: './archive.panel.html',
     styleUrls: ['./archive.panel.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [RouterModule, MatTabsModule, ReactiveFormsModule, FormsModule, MatFormField, MatIcon, MatIconButton, MatInput, MatLabel, MatSuffix, MatButton, ArchiveCard, RoundBox]
 })
 

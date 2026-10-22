@@ -7,11 +7,10 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-
-import {Component, ViewChild} from '@angular/core';
+import {Component, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 
 import {MatIcon} from "@angular/material/icon";
-import {MatButton, MatFabButton, MatIconButton, MatMiniFabButton} from "@angular/material/button";
+import {MatButton, MatIconButton} from "@angular/material/button";
 import {ActivatedRoute, Router} from "@angular/router";
 import {
   ApexAxisChartSeries,
@@ -50,6 +49,7 @@ import {PeriodSelector, PeriodSelectorInfo} from "../../../../../../component/fo
     selector: 'bias-analysis-playground',
     templateUrl: './bias-analysis.playground.html',
     styleUrls: ['./bias-analysis.playground.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatButton, MatIcon, NgApexchartsModule, ChipSetTextComponent, MatFormField, MatLabel, MatIconButton, MatInput, MatSuffix, ReactiveFormsModule, MatTabGroup, MatTab, MatButtonToggle, MatButtonToggleGroup, FlexTablePanel, MatGridListModule, ToggleButton, PeriodSelector]
 })
 

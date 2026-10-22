@@ -7,8 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-
-import {Component, EventEmitter, Input, Output} from "@angular/core";
+import {Component, Input,  ChangeDetectionStrategy} from "@angular/core";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatButtonModule} from "@angular/material/button";
@@ -19,7 +18,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {Router} from "@angular/router";
 import {MatMenuModule} from "@angular/material/menu";
 import {AbstractPanel} from "../../../../../../../component/abstract.panel";
-import {PorTradingSystem, TspResponseStatus} from "../../../../../../../model/model";
+import {PorTradingSystem} from "../../../../../../../model/model";
 import {EventBusService} from "../../../../../../../service/eventbus.service";
 import {LabelService} from "../../../../../../../service/label.service";
 import {PortfolioService} from "../../../../../../../service/portfolio.service";
@@ -43,6 +42,7 @@ const LABEL_ROOT = "page.portfolio.tradingSystem.trading.buttons"
     selector: 'development-card',
     templateUrl: './development.card.html',
     styleUrls:  ['./development.card.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatFormFieldModule, FormsModule, ReactiveFormsModule, MatButtonModule, MatIconModule, MatCardModule, MatMenuModule, FlatButton]
 })
 

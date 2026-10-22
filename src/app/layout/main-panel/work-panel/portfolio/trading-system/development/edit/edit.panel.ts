@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component, ViewChild} from '@angular/core';
+import {Component, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 import {Router} from "@angular/router";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatOptionModule} from "@angular/material/core";
@@ -49,6 +49,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
     selector: "tradingSystem-devel-edit",
     templateUrl: './edit.panel.html',
     styleUrls: ['./edit.panel.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [RightTitlePanel, MatFormFieldModule, MatOptionModule, MatSelectModule,
     MatInputModule, MatIconModule, MatButtonModule, FormsModule, ReactiveFormsModule,
     MatDividerModule, InputTextRequired, SelectRequired, InputNumber, ChipSetTextComponent, SelectTextRequired, MatSlideToggle, DataProductSelector, BrokerProductSelector, DatePicker

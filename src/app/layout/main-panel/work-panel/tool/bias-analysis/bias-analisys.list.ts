@@ -7,8 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-
-import {Component, ViewChild} from '@angular/core';
+import {Component, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 
 import {MatInputModule}       from "@angular/material/input";
 import {MatCardModule}        from "@angular/material/card";
@@ -36,7 +35,6 @@ import {PlaygroundButton} from "../../../../../component/button/playground/playg
 import {MatDialog} from "@angular/material/dialog";
 import {ConfirmationDialogData} from "../../../../../component/form/confirmation-dialog/confirmation.data";
 import {ConfirmationDialog} from "../../../../../component/form/confirmation-dialog/confirmation-dialog.component";
-import {DeleteResponse} from "../../../../../model/model";
 
 //=============================================================================
 
@@ -44,6 +42,7 @@ import {DeleteResponse} from "../../../../../model/model";
     selector: 'bias-analysis',
     templateUrl: './bias-analysis.list.html',
     styleUrls: ['./bias-analysis.list.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatButtonModule, MatCardModule, MatIconModule, MatInputModule, RouterModule, FlexTablePanel, ConnectButton, CreateButton, DisconnectButton, EditButton, ListButtons, ListContent, ListPanel, ViewButton, DeleteButton, PlaygroundButton]
 })
 

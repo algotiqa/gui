@@ -7,8 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-
-import {Component, ViewChild} from '@angular/core';
+import {Component, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 
 import {MatInputModule}       from "@angular/material/input";
 import {MatCardModule}        from "@angular/material/card";
@@ -45,6 +44,7 @@ import {HelpButton} from "../../../../../component/button/help/help.button";
     selector: 'connection',
     templateUrl: './connection.list.html',
     styleUrls: ['./connection.list.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatButtonModule, MatCardModule, MatIconModule, MatInputModule, RouterModule, FlexTablePanel, ListPanel, ListButtons, ListContent, CreateButton, ViewButton, EditButton, ConnectButton, DisconnectButton, HelpButton]
 })
 

@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, Output, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 import {Router} from "@angular/router";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatOptionModule} from "@angular/material/core";
@@ -15,10 +15,9 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatInputModule} from "@angular/material/input";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
-import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatDividerModule} from "@angular/material/divider";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
-import {SelectRequired} from "../../../component/form/select-required/select-required";
 import {AbstractPanel} from "../../../component/abstract.panel";
 import {SimulationRequest} from "../../../model/simulation";
 import {EventBusService} from "../../../service/eventbus.service";
@@ -28,7 +27,6 @@ import {InputNumber} from "../../../component/form/input-number/input-number";
 import {MatCardModule} from "@angular/material/card";
 import {PorTradingSystem} from "../../../model/model";
 import {PeriodSelector, PeriodSelectorInfo} from "../../../component/form/period-selector/period-selector";
-import {PerformanceAnalysisRequest} from "../../../model/performance";
 
 //=============================================================================
 
@@ -36,6 +34,7 @@ import {PerformanceAnalysisRequest} from "../../../model/performance";
   selector: "simulation-params",
   templateUrl: './params.panel.html',
   styleUrls : ['./params.panel.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatFormFieldModule, MatOptionModule, MatSelectModule,
     MatInputModule, MatIconModule, MatButtonModule, FormsModule, ReactiveFormsModule,
     MatDividerModule, MatButtonToggleModule, MatIconModule, FlatButton, InputNumber, MatCardModule, PeriodSelector]

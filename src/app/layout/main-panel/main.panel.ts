@@ -7,8 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-
-import {Component, ViewChild} from '@angular/core';
+import {Component, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 import {Router, RouterModule} from "@angular/router";
 import {MatSidenav, MatSidenavModule} from "@angular/material/sidenav";
 
@@ -25,6 +24,7 @@ import {RightPanel} from "./right-panel/right-panel";
     selector: 'main-panel',
     templateUrl: './main.panel.html',
     styleUrls: ['./main.panel.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [MatSidenavModule, RouterModule, LeftPanel, WorkPanel, RightPanel]
 })
 

@@ -9,7 +9,7 @@
 
 import {MatButtonModule} from "@angular/material/button";
 import {MatDialogModule, MatDialogRef} from "@angular/material/dialog";
-import {Component, ViewChild,} from "@angular/core";
+import {Component, ViewChild, ChangeDetectionStrategy} from "@angular/core";
 import {Router} from "@angular/router";
 import {AbstractPanel} from "../../abstract.panel";
 import {EventBusService} from "../../../service/eventbus.service";
@@ -28,6 +28,7 @@ import {MatButtonToggle, MatButtonToggleGroup} from "@angular/material/button-to
     selector: 'instrument-selector-dialog',
     templateUrl: 'preset-product-selector.dialog.html',
     styleUrls: ['preset-product-selector.dialog.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatDialogModule, MatButtonModule, FlexTablePanel, MatButtonToggle, MatButtonToggleGroup, ReactiveFormsModule]
 })
 

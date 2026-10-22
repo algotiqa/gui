@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output, ChangeDetectionStrategy} from '@angular/core';
 import {Router} from "@angular/router";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatOptionModule} from "@angular/material/core";
@@ -35,6 +35,7 @@ import {PorTradingSystem} from "../../../model/model";
   selector: "simulation-waiting",
   templateUrl: './waiting.panel.html',
   styleUrls : ['./waiting.panel.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatFormFieldModule, MatOptionModule, MatSelectModule,
     MatInputModule, MatIconModule, MatButtonModule, FormsModule, ReactiveFormsModule,
     MatDividerModule, MatButtonToggleModule, MatIconModule, FlatButton, MatCardModule, MatProgressSpinnerModule]

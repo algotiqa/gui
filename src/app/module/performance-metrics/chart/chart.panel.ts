@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import {Router} from "@angular/router";
 import {ApexAnnotations, ApexStroke, ApexXAxis, ChartComponent, XAxisAnnotations} from "ng-apexcharts";
 import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -29,6 +29,7 @@ import {IntDateAdapter} from "../../../component/form/date-picker/int-date-adapt
   selector: 'performance-chart-panel',
   templateUrl: './chart.panel.html',
   styleUrls: ['./chart.panel.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ChartComponent,
     ReactiveFormsModule,

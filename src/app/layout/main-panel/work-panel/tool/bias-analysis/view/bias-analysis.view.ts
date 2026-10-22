@@ -7,8 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 import {RightTitlePanel} from "../../../../../../component/panel/right-title/right-title.panel";
 import {AbstractPanel}   from "../../../../../../component/abstract.panel";
 import {AppEvent} from "../../../../../../model/event";
@@ -27,8 +26,6 @@ import {MatDividerModule} from "@angular/material/divider";
 import {InputTextRequired} from "../../../../../../component/form/input-text-required/input-text-required";
 import {SelectRequired} from "../../../../../../component/form/select-required/select-required";
 import {InventoryService} from "../../../../../../service/inventory.service";
-import {InputNumber} from "../../../../../../component/form/input-number/input-number";
-import {BrokerProduct} from "../../../../../../model/model";
 import {InstrumentSelectorPanel} from "../../../../../../component/form/instrument-selector/instrument-selector.panel";
 import {CollectorService} from "../../../../../../service/collector.service";
 import {BiasAnalysis, BiasAnalysisFull} from "../model";
@@ -39,6 +36,7 @@ import {BiasAnalysis, BiasAnalysisFull} from "../model";
   selector: "biasAnalysis-view",
   templateUrl: './bias-analysis.view.html',
   styleUrls: ['./bias-analysis.view.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [RightTitlePanel, MatFormFieldModule, MatOptionModule, MatSelectModule,
     MatInputModule, MatIconModule, MatButtonModule, FormsModule, ReactiveFormsModule,
     MatDividerModule, InputTextRequired, SelectRequired, InstrumentSelectorPanel

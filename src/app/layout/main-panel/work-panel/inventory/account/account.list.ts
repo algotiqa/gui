@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component, ViewChild} from '@angular/core';
+import {Component, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 
 import {MatInputModule}       from "@angular/material/input";
 import {MatCardModule}        from "@angular/material/card";
@@ -23,8 +23,7 @@ import {Url} from "../../../../../model/urls";
 import {AppEvent} from "../../../../../model/event";
 import {Observable} from "rxjs";
 import {InventoryService} from "../../../../../service/inventory.service";
-import {LabelTranscoder} from "../../../../../component/panel/flex-table/transcoders";
-import {AccountFull, BrokerProductFull} from "../../../../../model/model";
+import {AccountFull} from "../../../../../model/model";
 import {CreateButton} from "../../../../../component/button/create/create.button";
 import {EditButton} from "../../../../../component/button/edit/edit.button";
 import {ListButtons, ListContent, ListPanel} from "../../../../../component/panel/list-panel/list-panel";
@@ -38,6 +37,7 @@ import {AccountStatusStyler} from "../../../../../component/panel/flex-table/ico
     selector: 'account-list',
     templateUrl: './account.list.html',
     styleUrls: ['./account.list.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatButtonModule, MatCardModule, MatIconModule, MatInputModule, RouterModule, FlexTablePanel, CreateButton, EditButton, ListButtons, ListContent, ListPanel, ViewButton]
 })
 

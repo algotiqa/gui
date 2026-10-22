@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 
 import {MatInputModule}       from "@angular/material/input";
 import {MatCardModule}        from "@angular/material/card";
@@ -19,7 +19,7 @@ import {LabelService} from "../../../../../../service/label.service";
 import {ActivatedRoute, Router, RouterModule} from "@angular/router";
 import {InventoryService} from "../../../../../../service/inventory.service";
 import {ListButtons, ListContent, ListPanel} from "../../../../../../component/panel/list-panel/list-panel";
-import {AccountExt, BrokerProductExt, DeleteResponse} from "../../../../../../model/model";
+import {AccountExt, DeleteResponse} from "../../../../../../model/model";
 import {FlexTablePanel} from "../../../../../../component/panel/flex-table/flex-table.panel";
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
 import {FlexTableColumn} from "../../../../../../model/flex-table";
@@ -30,9 +30,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {ConfirmationDialogData} from "../../../../../../component/form/confirmation-dialog/confirmation.data";
 import {ConfirmationDialog} from "../../../../../../component/form/confirmation-dialog/confirmation-dialog.component";
-import {MapTranscoder} from "../../../../../../component/panel/flex-table/transcoders";
 import {NavigationService} from "../../../../../../service/navigation.service";
-import {AccountStatusStyler} from "../../../../../../component/panel/flex-table/icon-sylers";
 
 //=============================================================================
 
@@ -40,6 +38,7 @@ import {AccountStatusStyler} from "../../../../../../component/panel/flex-table/
   selector: 'account-view',
   templateUrl: './account.view.html',
   styleUrls: ['./account.view.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatButtonModule, MatCardModule, MatIconModule, MatInputModule, RouterModule, ListPanel, ListButtons, ListContent, FlexTablePanel, MatTab, MatTabGroup, BackButton, DeleteButton]
 })
 

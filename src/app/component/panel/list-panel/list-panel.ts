@@ -7,13 +7,9 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component, HostBinding, Input} from "@angular/core";
+import {Component, Input, ChangeDetectionStrategy} from "@angular/core";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {MatButtonModule} from "@angular/material/button";
-import {MatIconModule} from "@angular/material/icon";
-import {FlatButton} from "../../form/flat-button/flat-button";
-import {FlexTablePanel} from "../flex-table/flex-table.panel";
 import {MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
 
 //=============================================================================
@@ -21,6 +17,7 @@ import {MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle} fr
 @Component({
   selector: 'list-buttons',
   template: `<ng-content></ng-content>`,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styles: [`
     :host {
       display: flex;
@@ -39,6 +36,7 @@ export class ListButtons {}
 @Component({
   selector: 'list-left',
   template: `<ng-content></ng-content>`,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styles: [`
   :host {
     display: flex;
@@ -57,6 +55,7 @@ export class ListLeft {}
 @Component({
   selector: 'list-content',
   template: `<ng-content></ng-content>`,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styles: [`
     :host {
       flex: 1 1 auto;
@@ -77,6 +76,7 @@ export class ListContent {}
   selector: 'list-panel',
   templateUrl: './list-panel.html',
   styleUrls  :['./list-panel.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatFormFieldModule, FormsModule, ReactiveFormsModule, MatCard, MatCardContent, MatCardHeader, MatCardTitle, MatCardActions]
 })
 

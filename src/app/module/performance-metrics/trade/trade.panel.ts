@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 import {Router} from "@angular/router";
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatInput, MatLabel} from "@angular/material/input";
@@ -29,6 +29,7 @@ import {PerformanceAnalysisResponse} from "../../../model/performance";
   selector: 'performance-trade-panel',
   templateUrl: './trade.panel.html',
   styleUrls: ['./trade.panel.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlexTablePanel,
     MatButton,

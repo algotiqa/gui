@@ -7,19 +7,17 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output, ChangeDetectionStrategy} from '@angular/core';
 import {MatFormFieldModule} from "@angular/material/form-field";
-import {ErrorStateMatcher, MatOptionModule} from "@angular/material/core";
+import {MatOptionModule} from "@angular/material/core";
 import {MatInputModule}     from "@angular/material/input";
 import {MatIconModule}      from "@angular/material/icon";
 import {MatButtonModule}    from "@angular/material/button";
 import {
   FormControl,
   FormControlStatus,
-  FormGroupDirective,
   FormsModule,
-  NgForm,
-  ReactiveFormsModule, ValidatorFn,
+  ReactiveFormsModule,
   Validators
 } from "@angular/forms";
 import {AbstractSubscriber} from "../../../service/abstract-subscriber";
@@ -33,6 +31,7 @@ import {CustomErrorStateMatcher} from "../error-state-matcher";
     selector: 'input-number',
     templateUrl: './input-number.html',
     styleUrls: ['./input-number.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [MatFormFieldModule, MatOptionModule, MatInputModule, FormsModule, ReactiveFormsModule, MatButtonModule, MatIconModule]
 })
 

@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component, ViewChild} from "@angular/core";
+import {Component, ViewChild, ChangeDetectionStrategy} from "@angular/core";
 import {MatDialog} from "@angular/material/dialog";
 import {TradingSystemImporterDialog} from "./importer/importer.dialog";
 import {FlatButton} from "../../../../../component/form/flat-button/flat-button";
@@ -25,12 +25,7 @@ import {map} from "rxjs/operators";
 import {Lib} from "../../../../../lib/lib";
 import {MapTranscoder} from "../../../../../component/panel/flex-table/transcoders";
 import {FlagStyler} from "../../../../../component/panel/flex-table/icon-sylers";
-import {ConnectButton} from "../../../../../component/button/connect/connect.button";
-import {CreateButton} from "../../../../../component/button/create/create.button";
-import {DisconnectButton} from "../../../../../component/button/disconnect/disconnect.button";
-import {EditButton} from "../../../../../component/button/edit/edit.button";
 import {ListButtons, ListContent, ListPanel} from "../../../../../component/panel/list-panel/list-panel";
-import {ViewButton} from "../../../../../component/button/view/view.button";
 
 //=============================================================================
 
@@ -38,6 +33,7 @@ import {ViewButton} from "../../../../../component/button/view/view.button";
   selector: 'trading-system-maintenance',
   templateUrl: './trading-system.panel.html',
   styleUrls:  ['./trading-system.panel.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     FlatButton,
     FlexTablePanel,

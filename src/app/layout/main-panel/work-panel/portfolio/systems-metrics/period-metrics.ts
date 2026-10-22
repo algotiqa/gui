@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 
 import {MatInputModule}       from "@angular/material/input";
 import {MatCardModule}        from "@angular/material/card";
@@ -68,6 +68,7 @@ const Stopped = "stopped"
     selector: 'period-metrics',
     templateUrl: './period-metrics.html',
     styleUrls:  ['./period-metrics.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatButtonModule, MatCardModule, MatIconModule, MatInputModule, RouterModule, ListButtons, ListContent, ListPanel, SelectTextRequired, MatButtonToggle, MatButtonToggleGroup, ReactiveFormsModule, MatTable, MatColumnDef, MatHeaderCell, MatCell, MatHeaderCellDef, MatCellDef, MatHeaderRow, MatRow, MatHeaderRowDef, MatRowDef, FormsModule]
 })
 

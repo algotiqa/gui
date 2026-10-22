@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output, ChangeDetectionStrategy} from '@angular/core';
 
 import {MatIconModule}           from "@angular/material/icon";
 import {MatButtonModule}         from "@angular/material/button";
@@ -24,6 +24,7 @@ import {TreeNodeProvider}        from "../../../model/flex-tree";
     selector: 'flex-tree',
     templateUrl: './flex-tree.panel.html',
     styleUrls: ['./flex-tree.panel.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [MatButtonModule, MatIconModule, MatTreeModule]
 })
 

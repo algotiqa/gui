@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatOptionModule} from "@angular/material/core";
@@ -31,13 +31,11 @@ import {Setting} from "../../model/setting";
 import {SelectRequired} from "../../component/form/select-required/select-required";
 import {BroadcastEvent, BroadcastService, EventType} from "../../service/broadcast.service";
 import {ModuleTitlePanel} from "../../component/panel/module-title/module-title.panel";
-import {DatePicker} from "../../component/form/date-picker/date-picker";
 import {PerformanceAggregatePanel} from "./aggregate/aggregate.panel";
 import {PerformanceDistributionPanel} from "./distribution/distribution.panel";
 import {PerformanceRollingPanel} from "./rolling/rolling.panel";
 import {PerformanceAnalysisRequest, PerformanceAnalysisResponse} from "../../model/performance";
 import {PeriodSelector, PeriodSelectorInfo} from "../../component/form/period-selector/period-selector";
-import {IntDateAdapter} from "../../component/form/date-picker/int-date-adapter";
 import {IntDateTranscoder} from "../../component/panel/flex-table/transcoders";
 
 //=============================================================================
@@ -46,6 +44,7 @@ import {IntDateTranscoder} from "../../component/panel/flex-table/transcoders";
     selector: "tradingSystem-performance",
     templateUrl: './performance.panel.html',
     styleUrls : ['./performance.panel.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatFormFieldModule, MatOptionModule, MatSelectModule,
     MatInputModule, MatIconModule, MatButtonModule, FormsModule, ReactiveFormsModule,
     MatDividerModule, MatButtonToggleModule, MatIconModule, PerformanceSummaryPanel, PerformanceChartPanel, PerformanceTradePanel, SelectRequired, ModuleTitlePanel, PerformanceAggregatePanel, PerformanceDistributionPanel, PerformanceRollingPanel, PeriodSelector,

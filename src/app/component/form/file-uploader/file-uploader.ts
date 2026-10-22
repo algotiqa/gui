@@ -7,9 +7,8 @@
 //=== https://owrrpon.medium.com/angular-material-file-uploader-b78aa070f77d
 //=============================================================================
 
-import {Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
-import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
-import { Subscription } from 'rxjs';
+import {Component, EventEmitter, Input, Output, ChangeDetectionStrategy} from '@angular/core';
+import {ReactiveFormsModule} from '@angular/forms';
 import {MatExpansionModule} from "@angular/material/expansion";
 import {DragAndDropDirective} from "../drag-n-drop.directive";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
@@ -33,6 +32,7 @@ const StatusError     = 3
     selector: 'file-uploader',
     templateUrl: './file-uploader.html',
     styleUrls: ['./file-uploader.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
     MatExpansionModule,
     DragAndDropDirective,

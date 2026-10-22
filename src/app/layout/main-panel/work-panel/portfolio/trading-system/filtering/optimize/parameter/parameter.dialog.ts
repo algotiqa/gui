@@ -9,7 +9,7 @@
 
 import {MatButtonModule} from "@angular/material/button";
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
-import {Component, Inject} from "@angular/core";
+import {Component, Inject, ChangeDetectionStrategy} from "@angular/core";
 import {AbstractPanel} from "../../../../../../../../component/abstract.panel";
 import {EventBusService} from "../../../../../../../../service/eventbus.service";
 import {LabelService} from "../../../../../../../../service/label.service";
@@ -30,6 +30,7 @@ import {MatTabsModule} from "@angular/material/tabs";
     selector: 'filter-parameter-dialog',
     templateUrl: 'parameter.dialog.html',
     styleUrls: ['parameter.dialog.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [MatDialogModule, MatButtonModule, SelectRequired, MatChipsModule, MatCheckboxModule, InputNumber, MatTabsModule]
 })
 

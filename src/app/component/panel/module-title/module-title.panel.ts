@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output, ChangeDetectionStrategy} from '@angular/core';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule}    from "@angular/material/icon";
 import {MatButtonModule, MatIconButton} from "@angular/material/button";
@@ -25,6 +25,7 @@ import {AbstractPanel} from "../../abstract.panel";
     selector: 'module-title-panel',
     templateUrl: './module-title.panel.html',
     styleUrls: ['./module-title.panel.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatToolbarModule, MatIconModule, MatButtonModule, MatIconButton, MatIconButton]
 })
 

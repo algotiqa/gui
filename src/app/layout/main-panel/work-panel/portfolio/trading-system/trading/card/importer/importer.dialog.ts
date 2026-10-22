@@ -9,7 +9,7 @@
 
 import {MatButtonModule} from "@angular/material/button";
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
-import {Component, Inject} from "@angular/core";
+import {Component, Inject, ChangeDetectionStrategy} from "@angular/core";
 import {Router} from "@angular/router";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatGridListModule} from "@angular/material/grid-list";
@@ -24,7 +24,7 @@ import {LabelService} from "../../../../../../../../service/label.service";
 import {InventoryService} from "../../../../../../../../service/inventory.service";
 import {FlatButton} from "../../../../../../../../component/form/flat-button/flat-button";
 import {MatCheckbox} from "@angular/material/checkbox";
-import {PorTradingSystem, ReloadTradesResponse} from "../../../../../../../../model/model";
+import {PorTradingSystem} from "../../../../../../../../model/model";
 import {DialogData} from "./dialog-data";
 import {TradeImportResponse, TradeImportSpec} from "../../../../../../../../model/importer";
 
@@ -34,6 +34,7 @@ import {TradeImportResponse, TradeImportSpec} from "../../../../../../../../mode
   selector: 'trade-importer-dialog',
   templateUrl: 'importer.dialog.html',
   styleUrls: ['importer.dialog.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatDialogModule, MatButtonModule, MatProgressSpinnerModule, MatGridListModule,
     MatIconModule, FileUploader, MatProgressBarModule, MatChipsModule, FlatButton, MatCheckbox]
 })

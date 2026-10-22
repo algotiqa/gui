@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 
 //=============================================================================
 
@@ -15,6 +15,7 @@ import {Component, Input} from '@angular/core';
   selector: 'flag',
   templateUrl: './flag.html',
   styleUrls: [ './flag.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: []
 })
 

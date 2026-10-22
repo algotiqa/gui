@@ -7,8 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import {MatCardModule} from "@angular/material/card";
 import {Configuration} from "../../../../../model/config";
@@ -29,6 +28,7 @@ import {SaveButton} from "../../../../../component/button/save/save.button";
     selector: 'configuration-panel',
     templateUrl: './configuration.panel.html',
     styleUrls: ['./configuration.panel.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatCardModule, MatIconModule, MatDividerModule, MatButtonModule, RouterModule, FlexTablePanel, ListButtons, ListContent, ListPanel, SaveButton]
 })
 

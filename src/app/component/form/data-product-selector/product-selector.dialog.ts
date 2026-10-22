@@ -9,21 +9,14 @@
 
 import {MatButtonModule} from "@angular/material/button";
 import {MatDialogModule, MatDialogRef} from "@angular/material/dialog";
-import {Component, } from "@angular/core";
+import {Component, ChangeDetectionStrategy} from "@angular/core";
 import {Router} from "@angular/router";
 import {AbstractPanel} from "../../abstract.panel";
 import {EventBusService} from "../../../service/eventbus.service";
 import {LabelService} from "../../../service/label.service";
-import {CollectorService} from "../../../service/collector.service";
-import {FileUploader} from "../file-uploader/file-uploader";
-import {InputTextRequired} from "../input-text-required/input-text-required";
-import {MatChipListbox, MatChipOption} from "@angular/material/chips";
-import {MatProgressBar} from "@angular/material/progress-bar";
-import {SelectRequired} from "../select-required/select-required";
 import {FlexTablePanel} from "../../panel/flex-table/flex-table.panel";
 import {FlexTableColumn, ListResponse, ListService} from "../../../model/flex-table";
-import {BrokerProduct, DataInstrumentFull, DataProduct, DataProductFull} from "../../../model/model";
-import {LabelTranscoder} from "../../panel/flex-table/transcoders";
+import {DataProductFull} from "../../../model/model";
 import {InventoryService} from "../../../service/inventory.service";
 import {Observable} from "rxjs";
 
@@ -33,6 +26,7 @@ import {Observable} from "rxjs";
     selector: 'data-product-selector-dialog',
     templateUrl: 'product-selector.dialog.html',
     styleUrls:  ['product-selector.dialog.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [MatDialogModule, MatButtonModule, FlexTablePanel]
 })
 

@@ -7,11 +7,10 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-
 import {enableProdMode, importProvidersFrom, provideZoneChangeDetection} from "@angular/core";
 import {bootstrapApplication}    from '@angular/platform-browser';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {provideHttpClient, withInterceptorsFromDi} from "@angular/common/http";
+import {provideHttpClient, withInterceptorsFromDi, withXhr} from "@angular/common/http";
 import {provideRouter}           from "@angular/router";
 import { provideAuth} from "angular-auth-oidc-client";
 
@@ -52,7 +51,7 @@ bootstrapApplication(AppComponent, {
 		importProvidersFrom(BrowserAnimationsModule),
     importProvidersFrom(MatNativeDateModule),
     provideNativeDateAdapter(), { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
-    provideHttpClient(withInterceptorsFromDi()),
+    provideHttpClient(withXhr(), withInterceptorsFromDi()),
     provideZoneChangeDetection({ eventCoalescing: true }),
 		provideRouter(routes),
     provideAuth(authConfig),

@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component, EventEmitter, Inject, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output, ChangeDetectionStrategy} from '@angular/core';
 import {Router} from "@angular/router";
 import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatButtonToggle, MatButtonToggleGroup} from "@angular/material/button-toggle";
@@ -15,16 +15,13 @@ import {AbstractPanel} from "../../../component/abstract.panel";
 import {EventBusService} from "../../../service/eventbus.service";
 import {LabelService} from "../../../service/label.service";
 import {LocalService} from "../../../service/local.service";
-import {QualityAnalysisResponse} from "../../../model/quality";
-import {Details, Distribution, SimulationRequest, SimulationResult} from "../../../model/simulation";
+import {Details, SimulationResult} from "../../../model/simulation";
 import {FlatButton} from "../../../component/form/flat-button/flat-button";
-import {ApexPlotOptions, ChartComponent} from "ng-apexcharts";
+import {ChartComponent} from "ng-apexcharts";
 import {ChartOptions} from "../../../lib/chart-lib";
 import {PorTradingSystem} from "../../../model/model";
 import {Lib} from "../../../lib/lib";
-import {DataProductSelectorDialog} from "../../../component/form/data-product-selector/product-selector.dialog";
-import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
-import {DialogData} from "../../../layout/main-panel/work-panel/admin/connection/login/dialog-data";
+import { MatDialog} from "@angular/material/dialog";
 import {SimulationInfoDialog} from "./info.dialog";
 
 //=============================================================================
@@ -33,6 +30,7 @@ import {SimulationInfoDialog} from "./info.dialog";
   selector: 'simulation-results',
   templateUrl: './results.panel.html',
   styleUrls:  ['./results.panel.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ReactiveFormsModule,
     FormsModule,

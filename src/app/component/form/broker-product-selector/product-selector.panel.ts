@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output, ChangeDetectionStrategy} from '@angular/core';
 
 import {EventBusService} from "../../../service/eventbus.service";
 import {LabelService} from "../../../service/label.service";
@@ -28,6 +28,7 @@ import {BrokerProductSelectorDialog} from "./product-selector.dialog";
     selector: 'broker-product-selector',
     templateUrl: './product-selector.panel.html',
     styleUrls: [ './product-selector.panel.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [MatFormFieldModule, MatInput, FormsModule, MatIconButton, MatIcon]
 })
 

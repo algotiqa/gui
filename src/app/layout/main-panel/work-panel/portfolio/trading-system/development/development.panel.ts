@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 
 import {Router, RouterModule} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -31,8 +31,6 @@ import {ModuleService} from "../../../../../../service/module.service";
 import {DevelopmentCard} from "./card/development.card";
 import {PortfolioService} from "../../../../../../service/portfolio.service";
 import {FlatButton} from "../../../../../../component/form/flat-button/flat-button";
-import {ConfirmationDialog} from "../../../../../../component/form/confirmation-dialog/confirmation-dialog.component";
-import {ConfirmationDialogData} from "../../../../../../component/form/confirmation-dialog/confirmation.data";
 import {RoundBox} from "../../../../../../component/form/round-box/round-box";
 
 //=============================================================================
@@ -41,6 +39,7 @@ import {RoundBox} from "../../../../../../component/form/round-box/round-box";
     selector: 'development-panel',
     templateUrl: './development.panel.html',
     styleUrls: ['./development.panel.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [RouterModule, MatTabsModule, ReactiveFormsModule, FormsModule, MatButton, MatFormField, MatIcon, MatIconButton, MatInput, MatLabel, MatSuffix, DevelopmentCard, FlatButton, RoundBox]
 })
 

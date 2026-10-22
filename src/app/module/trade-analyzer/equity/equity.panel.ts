@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component, Input, ViewChild} from '@angular/core';
+import {Component, Input, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 import {Router} from "@angular/router";
 import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatButtonToggle, MatButtonToggleGroup} from "@angular/material/button-toggle";
@@ -31,6 +31,7 @@ import {SelectionModel} from "@angular/cdk/collections";
   selector: 'trade-equity-panel',
   templateUrl: './equity.panel.html',
   styleUrls:  ['./equity.panel.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ReactiveFormsModule, FormsModule, MatButtonToggle, MatButtonToggleGroup, NgApexchartsModule, FlexTablePanel,
   ]

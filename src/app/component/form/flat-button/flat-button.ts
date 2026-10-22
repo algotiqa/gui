@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component, HostBinding, Input} from "@angular/core";
+import {Component, HostBinding, Input, ChangeDetectionStrategy} from "@angular/core";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatButtonModule} from "@angular/material/button";
@@ -19,6 +19,7 @@ import {MatIconModule} from "@angular/material/icon";
   selector: 'flat-button',
   templateUrl: './flat-button.html',
   styleUrls  :['./flat-button.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatFormFieldModule, FormsModule, ReactiveFormsModule, MatButtonModule, MatIconModule]
 })
 

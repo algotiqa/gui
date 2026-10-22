@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {AfterViewInit, Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, Input, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 import {MatTableDataSource, MatTableModule} from "@angular/material/table";
 import {MatSort, MatSortModule} from "@angular/material/sort";
 import {MatIconModule} from "@angular/material/icon";
@@ -27,6 +27,7 @@ import {SelectRequired} from "../../../../../../component/form/select-required/s
   selector: 'references-table',
   templateUrl: './references.panel.html',
   styleUrls: ['./references.panel.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatTableModule, MatSortModule, MatIconModule, MatFormFieldModule, MatInputModule, MatCheckboxModule, MatButtonModule, MatTooltip, SelectRequired]
 })
 

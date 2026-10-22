@@ -7,8 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-
-import {Component, Input} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
 
 import {MatInputModule} from "@angular/material/input";
 import {MatCardModule} from "@angular/material/card";
@@ -36,6 +35,7 @@ import {RoundBox} from "../../../../../../component/form/round-box/round-box";
     selector: 'trading-panel',
     templateUrl: './trading.panel.html',
     styleUrls: ['./trading.panel.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatButtonModule, MatCardModule, MatIconModule, MatInputModule, RouterModule, MatTabsModule, ReactiveFormsModule, MatButtonToggle, MatButtonToggleGroup, TradingCard, FormsModule, RoundBox]
 })
 

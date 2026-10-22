@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component, HostBinding, Input} from "@angular/core";
+import {Component, HostBinding, Input, ChangeDetectionStrategy} from "@angular/core";
 import {FlatButton} from "../../form/flat-button/flat-button";
 import {NavigationService} from "../../../service/navigation.service";
 import {LabelService} from "../../../service/label.service";
@@ -18,6 +18,7 @@ import {LabelService} from "../../../service/label.service";
   selector: 'back-button',
   templateUrl: './back.button.html',
   styleUrls  :['./back.button.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FlatButton]
 })
 

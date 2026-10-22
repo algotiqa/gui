@@ -9,14 +9,10 @@
 
 import {MatButtonModule} from "@angular/material/button";
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
-import {Component, Inject,} from "@angular/core";
+import {Component, Inject, ChangeDetectionStrategy} from "@angular/core";
 import {Router} from "@angular/router";
 import {EventBusService} from "../../../service/eventbus.service";
 import {LabelService} from "../../../service/label.service";
-import {FlexTableColumn, ListResponse, ListService} from "../../../model/flex-table";
-import {BrokerProductFull} from "../../../model/model";
-import {InventoryService} from "../../../service/inventory.service";
-import {Observable} from "rxjs";
 import {AbstractPanel} from "../../../component/abstract.panel";
 import {SimulationResult} from "../../../model/simulation";
 import {IntDateTranscoder} from "../../../component/panel/flex-table/transcoders";
@@ -27,6 +23,7 @@ import {IntDateTranscoder} from "../../../component/panel/flex-table/transcoders
   selector: 'simulation-info-dialog',
   templateUrl: 'info.dialog.html',
   styleUrls:  ['info.dialog.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatDialogModule, MatButtonModule]
 })
 

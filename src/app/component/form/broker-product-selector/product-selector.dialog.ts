@@ -9,7 +9,7 @@
 
 import {MatButtonModule} from "@angular/material/button";
 import {MatDialogModule, MatDialogRef} from "@angular/material/dialog";
-import {Component, } from "@angular/core";
+import {Component, ChangeDetectionStrategy} from "@angular/core";
 import {Router} from "@angular/router";
 import {AbstractPanel} from "../../abstract.panel";
 import {EventBusService} from "../../../service/eventbus.service";
@@ -26,6 +26,7 @@ import {Observable} from "rxjs";
     selector: 'broker-product-selector-dialog',
     templateUrl: 'product-selector.dialog.html',
     styleUrls:  ['product-selector.dialog.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [MatDialogModule, MatButtonModule, FlexTablePanel]
 })
 

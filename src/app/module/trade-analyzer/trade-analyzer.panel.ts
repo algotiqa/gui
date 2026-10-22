@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatOptionModule} from "@angular/material/core";
@@ -36,6 +36,7 @@ import {TradeAnalysisRequest, TradeAnalysisResponse} from "../../model/trade-ana
   selector: "tradingSystem-trades",
   templateUrl: './trade-analyzer.panel.html',
   styleUrls : ['./trade-analyzer.panel.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatFormFieldModule, MatOptionModule, MatSelectModule,
     MatInputModule, MatIconModule, MatButtonModule, FormsModule, ReactiveFormsModule,
     MatDividerModule, MatButtonToggleModule, MatIconModule, ModuleTitlePanel, TradeEquityPanel, TradeRunupPanel, PeriodSelector,

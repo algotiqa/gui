@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component, ViewChild} from '@angular/core';
+import {Component, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 import {RightTitlePanel} from "../../../../../../component/panel/right-title/right-title.panel";
 import {AbstractPanel}   from "../../../../../../component/abstract.panel";
 import {AppEvent} from "../../../../../../model/event";
@@ -25,26 +25,12 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatDividerModule} from "@angular/material/divider";
 import {InputTextRequired} from "../../../../../../component/form/input-text-required/input-text-required";
 import {
-  AgentProfile,
   AgentProfileSpec,
-  BrokerProductSpec,
-  Connection,
-  Exchange,
-  RootSymbol
 } from "../../../../../../model/model";
 import {SelectRequired} from "../../../../../../component/form/select-required/select-required";
 import {InventoryService} from "../../../../../../service/inventory.service";
 import {InputNumber} from "../../../../../../component/form/input-number/input-number";
-import {
-  PresetProductSelectorDialog
-} from "../../../../../../component/form/preset-product-selector/preset-product-selector.dialog";
-import {PresetProduct, PresetsService} from "../../../../../../service/presets.service";
 import {MatDialog} from "@angular/material/dialog";
-import {TextSelectorPanel} from "../../../../../../component/form/text-selector/text-selector.panel";
-import {
-  RootProductSelectorDialog
-} from "../../../../../../component/form/root-product-selector/root-product-selector.dialog";
-import {DialogData} from "../../../../../../component/form/root-product-selector/dialog-data";
 
 //=============================================================================
 
@@ -52,6 +38,7 @@ import {DialogData} from "../../../../../../component/form/root-product-selector
     selector: "agent-profile-create",
     templateUrl: './agent-profile.create.html',
     styleUrls: [ './agent-profile.create.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [RightTitlePanel, MatFormFieldModule, MatOptionModule, MatSelectModule, MatInputModule, MatIconModule, MatButtonModule, FormsModule, ReactiveFormsModule, MatDividerModule, InputTextRequired, SelectRequired, InputNumber]
 })
 

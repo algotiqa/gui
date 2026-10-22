@@ -7,8 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-
-import {Component, Input, ViewChild} from '@angular/core';
+import {Component, Input, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 
 import {MatCardModule}        from "@angular/material/card";
 import {MatIconModule}        from "@angular/material/icon";
@@ -31,6 +30,7 @@ import {
   selector: 'market-analysis-bars',
   templateUrl: './market-analysis.bars.html',
   styleUrls: [ './market-analysis.bars.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatButtonModule, MatCardModule, MatIconModule, RouterModule, FlexTablePanel]
 })
 

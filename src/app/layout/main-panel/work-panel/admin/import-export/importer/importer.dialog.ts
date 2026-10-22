@@ -9,7 +9,7 @@
 
 import {MatButtonModule} from "@angular/material/button";
 import {MatDialogModule, MatDialogRef} from "@angular/material/dialog";
-import {Component, ViewChild} from "@angular/core";
+import {Component, ViewChild, ChangeDetectionStrategy} from "@angular/core";
 import {Router} from "@angular/router";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatGridListModule} from "@angular/material/grid-list";
@@ -40,6 +40,7 @@ import {FlatButton} from "../../../../../../component/form/flat-button/flat-butt
   selector: 'importer-dialog',
   templateUrl: 'importer.dialog.html',
   styleUrls: ['importer.dialog.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatDialogModule, MatButtonModule, MatProgressSpinnerModule, MatGridListModule,
     MatIconModule, FileUploader, MatProgressBarModule, MatChipsModule, FlexTablePanel, MatTab, MatTabGroup, ReferencesPanel, FlatButton]
 })

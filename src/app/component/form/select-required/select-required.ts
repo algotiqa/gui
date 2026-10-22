@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output, ChangeDetectionStrategy} from '@angular/core';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatOptionModule}    from "@angular/material/core";
 import {MatIconModule}      from "@angular/material/icon";
@@ -30,6 +30,7 @@ import {CustomErrorStateMatcher} from "../error-state-matcher";
     selector: 'select-required',
     templateUrl: './select-required.html',
     styleUrls: ['./select-required.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [MatFormFieldModule, MatOptionModule, MatSelectModule, MatIconModule,
               FormsModule, ReactiveFormsModule]
 })

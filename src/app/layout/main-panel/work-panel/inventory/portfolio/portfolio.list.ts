@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component, ViewChild} from '@angular/core';
+import {Component, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 
 import {MatInputModule}       from "@angular/material/input";
 import {MatCardModule}        from "@angular/material/card";
@@ -23,14 +23,13 @@ import {Url} from "../../../../../model/urls";
 import {AppEvent} from "../../../../../model/event";
 import {Observable} from "rxjs";
 import {InventoryService} from "../../../../../service/inventory.service";
-import {LabelTranscoder, MapTranscoder} from "../../../../../component/panel/flex-table/transcoders";
-import {AccountFull, BrokerProductFull, PortfolioFull} from "../../../../../model/model";
+import {PortfolioFull} from "../../../../../model/model";
 import {CreateButton} from "../../../../../component/button/create/create.button";
 import {EditButton} from "../../../../../component/button/edit/edit.button";
 import {ListButtons, ListContent, ListPanel} from "../../../../../component/panel/list-panel/list-panel";
 import {ViewButton} from "../../../../../component/button/view/view.button";
 import {NavigationService} from "../../../../../service/navigation.service";
-import {AccountStatusStyler, GrayBooleanStyler, FlagStyler} from "../../../../../component/panel/flex-table/icon-sylers";
+import {GrayBooleanStyler} from "../../../../../component/panel/flex-table/icon-sylers";
 import {HelpButton} from "../../../../../component/button/help/help.button";
 
 //=============================================================================
@@ -39,6 +38,7 @@ import {HelpButton} from "../../../../../component/button/help/help.button";
     selector: 'portfolio-list',
     templateUrl: './portfolio.list.html',
     styleUrls:  ['./portfolio.list.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatButtonModule, MatCardModule, MatIconModule, MatInputModule, RouterModule, FlexTablePanel, CreateButton, EditButton, ListButtons, ListContent, ListPanel, ViewButton, HelpButton]
 })
 

@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component, ViewChild} from '@angular/core';
+import {Component, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 
 import {MatInputModule}       from "@angular/material/input";
 import {MatCardModule}        from "@angular/material/card";
@@ -46,7 +46,6 @@ import {
 } from "ng-apexcharts";
 import {ChartOptions} from "../../../../../../lib/chart-lib";
 import {Lib} from "../../../../../../lib/lib";
-import {FlexTablePanel} from "../../../../../../component/panel/flex-table/flex-table.panel";
 import {SimpleTablePanel} from "../../../../../../component/panel/simple-table/simple-table.panel";
 import {FlexTableColumn} from "../../../../../../model/flex-table";
 import {OptimizeParameterDialog} from "./optimize/parameter/parameter.dialog";
@@ -60,6 +59,7 @@ import {DialogData} from "./optimize/dialog-data";
   selector: 'position-sizing',
   templateUrl: './position-sizing.panel.html',
   styleUrls: [ './position-sizing.panel.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatButtonModule, MatCardModule, MatIconModule, MatInputModule, RouterModule, ListPanel, ListButtons,
     ListContent, BackButton, OptimizeButton, PeriodSelector, ReloadButton, RunButton, SaveButton, ListLeft,
     InputNumber, SelectRequired, MatButtonToggle, MatButtonToggleGroup, ReactiveFormsModule, ChartComponent, SimpleTablePanel]

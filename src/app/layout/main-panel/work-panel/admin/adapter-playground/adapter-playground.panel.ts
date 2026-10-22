@@ -7,8 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-
-import {Component} from "@angular/core";
+import {Component, ChangeDetectionStrategy} from "@angular/core";
 import {Router} from "@angular/router";
 import {MatButton} from "@angular/material/button";
 import {MatInput} from "@angular/material/input";
@@ -27,6 +26,7 @@ import {ListButtons, ListContent, ListPanel} from "../../../../../component/pane
   selector: 'service-test',
   templateUrl: './adapter-playground.panel.html',
   styleUrls:  ['./adapter-playground.panel.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     InputTextRequired,
     MatButton,

@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatOptionModule} from "@angular/material/core";
@@ -36,6 +36,7 @@ import {PeriodSelector, PeriodSelectorInfo} from "../../component/form/period-se
   selector: "tradingSystem-quality",
   templateUrl: './quality.panel.html',
   styleUrls : ['./quality.panel.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatFormFieldModule, MatOptionModule, MatSelectModule,
     MatInputModule, MatIconModule, MatButtonModule, FormsModule, ReactiveFormsModule,
     MatDividerModule, MatButtonToggleModule, MatIconModule, SelectRequired, ModuleTitlePanel, QualityMarketPanel, PeriodSelector,

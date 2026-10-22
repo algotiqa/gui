@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component, ViewChild} from '@angular/core';
+import {Component, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 
 import {MatInputModule}       from "@angular/material/input";
 import {MatCardModule}        from "@angular/material/card";
@@ -23,10 +23,6 @@ import {Router, RouterModule} from "@angular/router";
 import {AppEvent} from "../../../../../model/event";
 import {Observable} from "rxjs";
 import {InventoryService} from "../../../../../service/inventory.service";
-import {ConnectButton} from "../../../../../component/button/connect/connect.button";
-import {CreateButton} from "../../../../../component/button/create/create.button";
-import {DisconnectButton} from "../../../../../component/button/disconnect/disconnect.button";
-import {EditButton} from "../../../../../component/button/edit/edit.button";
 import {ListButtons, ListContent, ListPanel} from "../../../../../component/panel/list-panel/list-panel";
 import {ViewButton} from "../../../../../component/button/view/view.button";
 import {NavigationService} from "../../../../../service/navigation.service";
@@ -37,6 +33,7 @@ import {NavigationService} from "../../../../../service/navigation.service";
   selector: 'inventory-trading-session',
   templateUrl: './trading-session.list.html',
   styleUrls: [ './trading-session.list.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatButtonModule, MatCardModule, MatIconModule, MatInputModule, RouterModule, FlexTablePanel, ListButtons, ListContent, ListPanel, ViewButton]
 })
 

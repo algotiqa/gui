@@ -7,8 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-
-import {Component}    from '@angular/core';
+import {Component, ChangeDetectionStrategy}    from '@angular/core';
 import {RouterModule} from "@angular/router";
 
 import {LabelService} from "../../../service/label.service";
@@ -19,6 +18,7 @@ import {LabelService} from "../../../service/label.service";
     selector: 'work-panel',
     templateUrl: './work.panel.html',
     styleUrls: ['./work.panel.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [RouterModule]
 })
 

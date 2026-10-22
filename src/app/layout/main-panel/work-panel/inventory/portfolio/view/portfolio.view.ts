@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component, ViewChild} from '@angular/core';
+import {Component, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 
 import {MatInputModule}       from "@angular/material/input";
 import {MatCardModule}        from "@angular/material/card";
@@ -20,11 +20,8 @@ import {ActivatedRoute, Router, RouterModule} from "@angular/router";
 import {InventoryService} from "../../../../../../service/inventory.service";
 import {ListButtons, ListContent, ListPanel} from "../../../../../../component/panel/list-panel/list-panel";
 import {
-  BrokerProductExt, DataProductFull,
   DeleteResponse,
-  InvTradingSystemFull,
   PortfolioExt, PorTradingSystem,
-  TradingSystemAssignable
 } from "../../../../../../model/model";
 import {FlexTablePanel} from "../../../../../../component/panel/flex-table/flex-table.panel";
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
@@ -38,11 +35,9 @@ import {ConfirmationDialogData} from "../../../../../../component/form/confirmat
 import {ConfirmationDialog} from "../../../../../../component/form/confirmation-dialog/confirmation-dialog.component";
 import {MapTranscoder} from "../../../../../../component/panel/flex-table/transcoders";
 import {NavigationService} from "../../../../../../service/navigation.service";
-import {InstrumentUploadDialog} from "../../data-product/view/instrument-upload.dialog";
 import {SystemsSelectorDialog} from "./systems-selector.dialog";
 import {PortfolioService} from "../../../../../../service/portfolio.service";
 import {Observable} from "rxjs";
-import {BiasAnalysisFull} from "../../../tool/bias-analysis/model";
 import {AppEvent} from "../../../../../../model/event";
 import {BuilderButton} from "../../../../../../component/button/builder/builder.button";
 
@@ -52,6 +47,7 @@ import {BuilderButton} from "../../../../../../component/button/builder/builder.
   selector: 'portfolio-view',
   templateUrl: './portfolio.view.html',
   styleUrls:  ['./portfolio.view.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatButtonModule, MatCardModule, MatIconModule, MatInputModule, RouterModule, ListPanel, ListButtons, ListContent, FlexTablePanel, MatTab, MatTabGroup, BackButton, DeleteButton, BuilderButton]
 })
 

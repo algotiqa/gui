@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 
 import {MatInputModule}       from "@angular/material/input";
 import {MatCardModule}        from "@angular/material/card";
@@ -19,7 +19,7 @@ import {LabelService} from "../../../../../../service/label.service";
 import {ActivatedRoute, Router, RouterModule} from "@angular/router";
 import {InventoryService} from "../../../../../../service/inventory.service";
 import {ListButtons, ListContent, ListPanel} from "../../../../../../component/panel/list-panel/list-panel";
-import {AgentProfileExt, BrokerProductExt, DeleteResponse} from "../../../../../../model/model";
+import {AgentProfileExt, DeleteResponse} from "../../../../../../model/model";
 import {FlexTablePanel} from "../../../../../../component/panel/flex-table/flex-table.panel";
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
 import {FlexTableColumn} from "../../../../../../model/flex-table";
@@ -41,6 +41,7 @@ import {Lib} from "../../../../../../lib/lib";
   selector: 'agent-profile-view',
   templateUrl: './agent-profile.view.html',
   styleUrls: ['./agent-profile.view.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatButtonModule, MatCardModule, MatIconModule, MatInputModule, RouterModule, ListPanel, ListButtons, ListContent, FlexTablePanel, MatTab, MatTabGroup, BackButton, DeleteButton, PackageButton]
 })
 

@@ -7,8 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-
-import {Component, ViewChild} from '@angular/core';
+import {Component, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 
 import {MatIconModule}           from "@angular/material/icon";
 import {MatButtonModule}         from "@angular/material/button";
@@ -64,6 +63,7 @@ class PorfolioNodeProvider implements TreeNodeProvider<PortfolioTree> {
     selector: 'portfolio-monitoring',
     templateUrl: './monitoring.panel.html',
     styleUrls: ['./monitoring.panel.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [MatButtonModule, MatIconModule, MatDividerModule, MatFormFieldModule, MatSelectModule, MatSlideToggleModule, RouterModule, MatChipsModule, FlexTreePanel, FlexTablePanel, ChartComponent]
 })
 

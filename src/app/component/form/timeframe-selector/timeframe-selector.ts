@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output, ChangeDetectionStrategy} from '@angular/core';
 import {FormControl, FormControlStatus, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatInputModule} from '@angular/material/input';
@@ -21,6 +21,7 @@ import {LabelService} from "../../../service/label.service";
   selector: 'timeframe-selector',
   templateUrl: 'timeframe-selector.html',
   styleUrl   : 'timeframe-selector.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, ReactiveFormsModule ],
 })
 

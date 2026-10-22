@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component}  from '@angular/core';
+import {Component, ChangeDetectionStrategy}  from '@angular/core';
 
 import {MatCardModule}      from "@angular/material/card";
 import {MatGridListModule}  from "@angular/material/grid-list";
@@ -31,6 +31,7 @@ import {Lib} from "../../../../lib/lib";
 	selector    : 'home-panel',
 	templateUrl : './home.panel.html',
 	styleUrls   : ['./home.panel.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports     : [MatCardModule, MatGridListModule, MatIconModule, ChartComponent]
 })
 

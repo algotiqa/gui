@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component, ViewChild} from '@angular/core';
+import {Component, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 import {Router} from "@angular/router";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatOptionModule} from "@angular/material/core";
@@ -24,7 +24,6 @@ import {AbstractPanel} from "../../../../../../../component/abstract.panel";
 import {EventBusService} from "../../../../../../../service/eventbus.service";
 import {LabelService} from "../../../../../../../service/label.service";
 import {AppEvent} from "../../../../../../../model/event";
-import {InputTextRequired} from "../../../../../../../component/form/input-text-required/input-text-required";
 import {SelectRequired} from "../../../../../../../component/form/select-required/select-required";
 import {InputNumber} from "../../../../../../../component/form/input-number/input-number";
 import {PortfolioService} from "../../../../../../../service/portfolio.service";
@@ -36,7 +35,8 @@ import {BuilderConfig, PortfolioBuilder, PortfolioBuilderResponse} from "../../.
     selector: "portfolio-builder-edit",
     templateUrl: './builder.edit.html',
     styleUrls: [ './builder.edit.scss'],
-    imports: [RightTitlePanel, MatFormFieldModule, MatOptionModule, MatSelectModule, MatInputModule, MatIconModule, MatButtonModule, FormsModule, ReactiveFormsModule, MatDividerModule, InputTextRequired, SelectRequired, InputNumber]
+    changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [RightTitlePanel, MatFormFieldModule, MatOptionModule, MatSelectModule, MatInputModule, MatIconModule, MatButtonModule, FormsModule, ReactiveFormsModule, MatDividerModule,  SelectRequired, InputNumber]
 })
 
 //=============================================================================

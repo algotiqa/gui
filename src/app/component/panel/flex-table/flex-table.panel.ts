@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {AfterViewInit, Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, Output, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 import {SelectionModel} from '@angular/cdk/collections';
 import {MatTableDataSource, MatTableModule} from "@angular/material/table";
 import {MatSort, MatSortModule} from "@angular/material/sort";
@@ -37,6 +37,7 @@ export type FlexTableUpdateListener<T> = (data : T[], selection : SelectionModel
     selector: 'flex-table',
     templateUrl: './flex-table.panel.html',
     styleUrls: ['./flex-table.panel.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatTableModule, MatSortModule, MatIconModule, MatFormFieldModule, MatInputModule, MatCheckboxModule, MatButtonModule, MatTooltip, InputTextRequired, RoundBox]
 })
 

@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatButtonModule} from "@angular/material/button";
 import {ActivatedRoute} from '@angular/router';
@@ -15,7 +15,6 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {StorageService} from "../../service/storage.service";
 import {BroadcastEvent, BroadcastService, EventType} from "../../service/broadcast.service";
 import {ModuleTitlePanel} from "../../component/panel/module-title/module-title.panel";
-import {RightTitlePanel} from "../../component/panel/right-title/right-title.panel";
 
 declare var $:any
 
@@ -26,6 +25,7 @@ declare var $:any
   templateUrl: './doc-editor.panel.html',
   styleUrl   : './doc-editor.panel.scss',
   imports: [MatToolbarModule, MatButtonModule, ModuleTitlePanel],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone : true
 })
 

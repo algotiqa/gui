@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 import {MatIconModule} from "@angular/material/icon";
 import {ActivatedRoute, Router} from '@angular/router';
 import {SafeHtml} from "@angular/platform-browser";
@@ -26,6 +26,7 @@ import {HelpSubtopic, HelpTocGroup, HelpTopic} from "../../model/help";
   templateUrl: './help-viewer.panel.html',
   styleUrl   : './help-viewer.panel.scss',
   imports: [MatIconModule, ModuleTitlePanel],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone : true
 })
 

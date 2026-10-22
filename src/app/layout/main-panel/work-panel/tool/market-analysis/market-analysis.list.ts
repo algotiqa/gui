@@ -7,8 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-
-import {Component, ViewChild} from '@angular/core';
+import {Component, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 import {Router} from "@angular/router";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatOptionModule} from "@angular/material/core";
@@ -43,6 +42,7 @@ import {HelpButton} from "../../../../../component/button/help/help.button";
   selector: "market-analysis-list",
   templateUrl: './market-analysis.list.html',
   styleUrls: [ './market-analysis.list.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatFormFieldModule, MatOptionModule, MatSelectModule,
     MatInputModule, MatIconModule, MatButtonModule, FormsModule, ReactiveFormsModule,
     MatDividerModule, SelectRequired, DataProductSelector, MarketAnalysisBarsPanel, TimeframeSelector, PeriodSelector, ConnectButton, CreateButton, DisconnectButton, EditButton, FlexTablePanel, ListButtons, ListContent, ListPanel, ViewButton, HelpButton

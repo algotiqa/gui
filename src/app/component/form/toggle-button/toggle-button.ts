@@ -7,18 +7,13 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output, ChangeDetectionStrategy} from '@angular/core';
 import {
   FormControl,
-  FormControlStatus,
   FormsModule,
   ReactiveFormsModule,
 } from "@angular/forms";
-import {AbstractSubscriber} from "../../../service/abstract-subscriber";
-import {EventBusService}    from "../../../service/eventbus.service";
-import {LabelService}       from "../../../service/label.service";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
-import {Setting} from "../../../model/setting";
 
 //=============================================================================
 
@@ -26,6 +21,7 @@ import {Setting} from "../../../model/setting";
   selector: 'toggle-button',
   templateUrl: './toggle-button.html',
   styleUrls: ['./toggle-button.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FormsModule, ReactiveFormsModule, MatButtonToggleModule]
 })
 

@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output, ChangeDetectionStrategy} from '@angular/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -30,6 +30,7 @@ import {IntDateAdapter} from "./int-date-adapter";
     templateUrl: 'date-picker.html',
     styleUrls: ['date-picker.scss'],
     imports: [MatFormFieldModule, MatInputModule, MatDatepickerModule, ReactiveFormsModule, MatNativeDateModule],
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [{ provide: DateAdapter, useClass: IntDateAdapter }]
 })
 
