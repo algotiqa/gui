@@ -307,8 +307,9 @@ export class PeriodMetricsPanel extends AbstractPanel {
     }
 
     if (metric == ProfitFactor) {
-      if (value <= 1 ) return "#FFF0F0"
-      if (value  > 1 ) return "#F0FFF0"
+      if (value <= 1   ) return "#FFF0F0"
+      if (value  < 1.5 ) return "#FFFFF0"
+      if (value  > 1   ) return "#F0FFF0"
     }
 
     if (metric == WinningPerc) {
@@ -329,8 +330,9 @@ export class PeriodMetricsPanel extends AbstractPanel {
     }
 
     if (metric == ReturnDDRatio) {
-      if (value <= 1.1 ) return "#FFF0F0"
-      if (value  > 1.1 ) return "#F0FFF0"
+      if (value <= 1.0 ) return "#FFF0F0"
+      if (value  < 1.5 ) return "#FFFFF0"
+      if (value >= 1.5 ) return "#F0FFF0"
     }
 
     return "#FFFFFF"
