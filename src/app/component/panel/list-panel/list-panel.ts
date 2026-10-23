@@ -20,12 +20,14 @@ import {MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle} fr
   changeDetection: ChangeDetectionStrategy.Eager,
   styles: [`
     :host {
+      flex: 1 0 auto;
       display: flex;
       flex-direction: row;
       justify-content: flex-start;
       align-items: center;
       gap: 8px;
       margin: 4px;
+      min-height: 42px;
     }
   `]
 })

@@ -101,6 +101,7 @@ class SummaryRow {
               public netLong?    : number,
               public netShort?   : number) {
   }
+
   //---------------------------------------------------------------------------
 
   grossTotStyle = () : string => { return this.isNeg(this.grossTotal) ? "red-style" : "" }

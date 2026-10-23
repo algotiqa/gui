@@ -7,7 +7,6 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-
 import {
   ApexAnnotations,
   ApexAxisChartSeries,
@@ -21,7 +20,6 @@ import {
   ApexNonAxisChartSeries,
   ApexFill,
   ApexMarkers,
-  ApexResponsive,
   ApexStates,
   ApexTheme
 } from "ng-apexcharts";
@@ -119,7 +117,10 @@ const defaultLineOptions : ChartOptions = {
 
   dataLabels: {},
   colors: [],
-  xaxis: {},
+  xaxis: {
+    type: "datetime",
+    tickAmount: 20,
+  },
 
   yaxis: {
     tickAmount: 20,
@@ -223,7 +224,7 @@ export class ChartLib {
 
     if (isDrawdown) {
       res.type = "area"
-      res.color= "#FF565A"
+      res.color= "#FF565A80"
     }
 
     return res

@@ -78,7 +78,7 @@ export class Summary {
 //=============================================================================
 
 export class Equities {
-  time               : string[] = []
+  time               : Date  [] = []
   unfilteredEquity   : number[] = []
   filteredEquity     : number[] = []
   unfilteredDrawdown : number[] = []

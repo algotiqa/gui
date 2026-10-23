@@ -83,7 +83,7 @@ export class PerformanceChartPanel extends AbstractPanel {
               private localService : LocalService) {
     super(eventBusService, labelService, router, "module.performance.chart", "")
 
-    this.chartOptions  = this.buildChartOptions()
+    this.chartOptions = Lib.chart.buildLineOptions()
   }
 
   //-------------------------------------------------------------------------
@@ -164,32 +164,6 @@ export class PerformanceChartPanel extends AbstractPanel {
   //---
   //-------------------------------------------------------------------------
 
-  private buildChartOptions() : ChartOptions {
-    return Lib.chart.buildLineOptions({
-      yaxis: {
-        tickAmount: 20,
-        decimalsInFloat: 0,
-        axisBorder: {
-          show: true,
-        },
-        axisTicks: {
-          show: true,
-        }
-      },
-      grid: {
-        borderColor: "#B0B0B0",
-        strokeDashArray: 3,
-        xaxis: {
-          lines: {
-            show: true
-          }
-        }
-      }
-    })
-  }
-
-  //-------------------------------------------------------------------------
-
   private rebuildChart() {
     let datasets : any[] = []
     let equs = this.getEquities()
@@ -260,6 +234,7 @@ export class PerformanceChartPanel extends AbstractPanel {
     else {
       this.chartOptions.xaxis = <ApexXAxis>{
         type:"datetime",
+        tickAmount: 20,
       }
     }
   }

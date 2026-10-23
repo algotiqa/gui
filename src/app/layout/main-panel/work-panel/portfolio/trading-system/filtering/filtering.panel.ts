@@ -43,7 +43,6 @@ import {OptimizeProgressDialog} from "./optimize/progress/progress.dialog";
 import {OptimizeResultDialog} from "./optimize/result/result.dialog";
 import {OptimizeParameterDialog} from "./optimize/parameter/parameter.dialog";
 import {ChartComponent} from "ng-apexcharts";
-import {buildActivationChartOptions, buildEquityChartOptions} from "./charts-config";
 import {DialogData} from "./optimize/dialog-data";
 import {MatCardModule} from "@angular/material/card";
 import {ChartOptions} from "../../../../../../lib/chart-lib";
@@ -122,8 +121,8 @@ export class FilteringPanel extends AbstractPanel {
       new FlexTableColumn(ts, "filtered")
     ]
 
-    this.equityChartOptions = buildEquityChartOptions    (this.loc("equities"), this.onChartClick)
-    this.activChartOptions  = buildActivationChartOptions(this.loc("activation"))
+    this.equityChartOptions = this.buildEquityChartOptions    (this.loc("equities"), this.onChartClick)
+    this.activChartOptions  = this.buildActivationChartOptions(this.loc("activation"))
   }
 
   //-------------------------------------------------------------------------
@@ -240,6 +239,47 @@ export class FilteringPanel extends AbstractPanel {
   //---
   //--- Private methods
   //---
+  //-------------------------------------------------------------------------
+
+  private buildEquityChartOptions(title : string, clickFunction: any) : ChartOptions {
+    return Lib.chart.buildLineOptions({
+      chart: {
+        height: 500,
+        events: {
+          click: clickFunction,
+        }
+      },
+
+      stroke: {
+        dashArray: [ 0, 0, 0, 0, 4]
+      },
+
+      title: {
+        text: title
+      },
+    })
+  }
+
+  //-------------------------------------------------------------------------
+
+  private buildActivationChartOptions(title : string) : ChartOptions {
+    return Lib.chart.buildLineOptions({
+      chart: {
+        height: 300,
+        id: "activ",
+      },
+
+      title: {
+        text: title
+      },
+      yaxis: {
+        min: 0,
+        max: 7,
+        tickAmount: 7,
+      },
+    })
+  }
+
   //-------------------------------------------------------------------------
 
   private callService(req : FilterAnalysisRequest) {
@@ -381,7 +421,7 @@ export class FilteringPanel extends AbstractPanel {
 
   //-------------------------------------------------------------------------
 
-  private addActivationDatasetBase(time:any[], values:number[], label : string, factor : number) : any {
+  private addActivationDatasetBase(time:Date[], values:number[], label : string, factor : number) : any {
     for (let i=0; i<values.length; i++) {
       values[i] += factor
     }
