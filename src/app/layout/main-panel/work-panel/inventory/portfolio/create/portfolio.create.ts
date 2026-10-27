@@ -31,6 +31,7 @@ import {SelectRequired} from "../../../../../../component/form/select-required/s
 import {InventoryService} from "../../../../../../service/inventory.service";
 import {InputNumber} from "../../../../../../component/form/input-number/input-number";
 import {MatDialog} from "@angular/material/dialog";
+import {MatSlideToggle} from "@angular/material/slide-toggle";
 
 //=============================================================================
 
@@ -39,7 +40,7 @@ import {MatDialog} from "@angular/material/dialog";
     templateUrl: './portfolio.create.html',
     styleUrls: [ './portfolio.create.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [RightTitlePanel, MatFormFieldModule, MatOptionModule, MatSelectModule, MatInputModule, MatIconModule, MatButtonModule, FormsModule, ReactiveFormsModule, MatDividerModule, InputTextRequired, SelectRequired, InputNumber]
+  imports: [RightTitlePanel, MatFormFieldModule, MatOptionModule, MatSelectModule, MatInputModule, MatIconModule, MatButtonModule, FormsModule, ReactiveFormsModule, MatDividerModule, InputTextRequired, SelectRequired, InputNumber, MatSlideToggle]
 })
 
 //=============================================================================
@@ -54,12 +55,8 @@ export class PortfolioCreatePanel extends AbstractPanel {
 
   ps = new PortfolioSpec()
 
-  accounts           : Account[] = []
-  correlationPeriods : Object [] = []
-  runPeriods         : Object [] = []
-
-  corrPeriod = "180"
-  runPeriod  = "4"
+  accounts    : Account[] = []
+  periodTypes : Object [] = []
 
   suppAccounting = false
 
@@ -67,6 +64,8 @@ export class PortfolioCreatePanel extends AbstractPanel {
   @ViewChild("pAccountCtrl") pAccountCtrl? : SelectRequired
   @ViewChild("pAccPercCtrl") pAccPercCtrl? : InputNumber
   @ViewChild("pMaxPercCtrl") pMaxPercCtrl? : InputNumber
+  @ViewChild("pCorrPerCtrl") pCorrPerCtrl? : InputNumber
+  @ViewChild("pRunPerCtrl")  pRunPerCtrl?  : InputNumber
 
   //-------------------------------------------------------------------------
   //---
@@ -95,8 +94,7 @@ export class PortfolioCreatePanel extends AbstractPanel {
     console.log("PortfolioCreatePanel: Starting...");
 
     this.ps = new PortfolioSpec()
-    this.correlationPeriods = this.labelMap("correlationPeriod")
-    this.runPeriods         = this.labelMap("runPeriod")
+    this.periodTypes = this.labelService.getLabel("map.periodType")
   }
 
   //-------------------------------------------------------------------------
@@ -122,16 +120,15 @@ export class PortfolioCreatePanel extends AbstractPanel {
     return  this.pNameCtrl   ?.isValid() &&
             this.pAccountCtrl?.isValid() &&
             this.pAccPercCtrl?.isValid() &&
-            this.pMaxPercCtrl?.isValid()
+            this.pMaxPercCtrl?.isValid() &&
+            this.pCorrPerCtrl?.isValid() &&
+            this.pRunPerCtrl ?.isValid()
   }
 
   //-------------------------------------------------------------------------
 
   public onSave() : void {
     console.log("Portfolio is : \n"+ JSON.stringify(this.ps));
-
-    this.ps.correlationPeriod = Number(this.corrPeriod);
-    this.ps.runPeriod         = Number(this.runPeriod);
 
     this.inventoryService.addPortfolio(this.ps).subscribe( c => {
       this.onClose();

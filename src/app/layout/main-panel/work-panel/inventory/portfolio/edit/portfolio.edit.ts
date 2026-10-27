@@ -31,6 +31,7 @@ import {SelectRequired} from "../../../../../../component/form/select-required/s
 import {InventoryService} from "../../../../../../service/inventory.service";
 import {InputNumber} from "../../../../../../component/form/input-number/input-number";
 import {MatDialog} from "@angular/material/dialog";
+import {MatSlideToggle} from "@angular/material/slide-toggle";
 
 //=============================================================================
 
@@ -39,7 +40,7 @@ import {MatDialog} from "@angular/material/dialog";
     templateUrl: './portfolio.edit.html',
     styleUrls: [ './portfolio.edit.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [RightTitlePanel, MatFormFieldModule, MatOptionModule, MatSelectModule, MatInputModule, MatIconModule, MatButtonModule, FormsModule, ReactiveFormsModule, MatDividerModule, InputTextRequired, SelectRequired, InputNumber]
+  imports: [RightTitlePanel, MatFormFieldModule, MatOptionModule, MatSelectModule, MatInputModule, MatIconModule, MatButtonModule, FormsModule, ReactiveFormsModule, MatDividerModule, InputTextRequired, SelectRequired, InputNumber, MatSlideToggle]
 })
 
 //=============================================================================
@@ -54,16 +55,16 @@ export class PortfolioEditPanel extends AbstractPanel {
 
   ps = new PortfolioSpec()
 
-  accounts           : Account[] = []
-  correlationPeriods : Object [] = []
-  runPeriods         : Object [] = []
+  accounts    : Account[] = []
+  periodTypes : Object [] = []
 
-  corrPeriod = "180"
-  runPeriod  = "4"
+  suppAccounting = false
 
   @ViewChild("pNameCtrl")    pNameCtrl?    : InputTextRequired
   @ViewChild("pAccPercCtrl") pAccPercCtrl? : InputNumber
   @ViewChild("pMaxPercCtrl") pMaxPercCtrl? : InputNumber
+  @ViewChild("pCorrPerCtrl") pCorrPerCtrl? : InputNumber
+  @ViewChild("pRunPerCtrl")  pRunPerCtrl?  : InputNumber
 
   //-------------------------------------------------------------------------
   //---
@@ -87,10 +88,6 @@ export class PortfolioEditPanel extends AbstractPanel {
   }
 
   //-------------------------------------------------------------------------
-  //---
-  //--- Events
-  //---
-  //-------------------------------------------------------------------------
 
   private onStart(event : AppEvent) : void {
     console.log("PortfolioEditPanel: Starting...");
@@ -98,11 +95,7 @@ export class PortfolioEditPanel extends AbstractPanel {
     let pf : PortfolioFull = event.params;
     this.ps = Object.assign(new PortfolioSpec(), pf)
 
-    this.corrPeriod = String(pf.correlationPeriod)
-    this.runPeriod  = String(pf.runPeriod)
-
-    this.correlationPeriods = this.labelMap("correlationPeriod")
-    this.runPeriods         = this.labelMap("runPeriod")
+    this.periodTypes = this.labelService.getLabel("map.periodType")
   }
 
   //-------------------------------------------------------------------------
@@ -110,16 +103,19 @@ export class PortfolioEditPanel extends AbstractPanel {
   public saveEnabled() : boolean|undefined {
     return  this.pNameCtrl   ?.isValid() &&
             this.pAccPercCtrl?.isValid() &&
-            this.pMaxPercCtrl?.isValid()
+            this.pMaxPercCtrl?.isValid() &&
+            this.pCorrPerCtrl?.isValid() &&
+            this.pRunPerCtrl ?.isValid()
   }
 
+  //-------------------------------------------------------------------------
+  //---
+  //--- Events
+  //---
   //-------------------------------------------------------------------------
 
   public onSave() : void {
     console.log("Portfolio is : \n"+ JSON.stringify(this.ps));
-
-    this.ps.correlationPeriod = Number(this.corrPeriod);
-    this.ps.runPeriod         = Number(this.runPeriod);
 
     this.inventoryService.updatePortfolio(this.ps).subscribe( c => {
       this.onClose();

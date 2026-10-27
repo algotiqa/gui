@@ -407,11 +407,12 @@ export class PortfolioSpec {
   id?                : number;
   accountId?         : number;
   name?              : string;
-  management         : string = "M"
-  accountPerc?       : number
-  maxMarginPerc?     : number
-  correlationPeriod? : number
-  runPeriod?         : number
+  accountPerc        : number  = 100
+  maxMarginPerc      : number  = 75
+  correlationPeriod  : number  = 180
+  periodType         : string  = "WE"
+  runPeriod          : number  = 4
+  paused             : boolean = true
 }
 
 //=============================================================================
