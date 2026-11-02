@@ -683,49 +683,65 @@ page:
     # ----------------------------------------------------------------------------
 
     filtering:
-      period: Period
-      startDate: Start filtering from
-      equities:          Equities and drawdowns
-      activation:        Activation
-      length:            Trades length
-      positiveProfit:    Positive profit
-      oldVsNew:          Old vs new period
-      oldLen:            Old period (length)
-      newLen:            New period (length)
-      oldPercentage:     Old period %
-      winningPercentage: Winning % > value
-      winningPercValue:  Value (%)
-      equityAverage:     Equity over its average
-      equityLen:         Average trades length
-      trendline:         Trendline slope > value
-      trendlineValue:    Slope * 100
-      drawdown:          Drawdown
-      drawdownMin:       Min value
-      drawdownMax:       Max value
-      filterSaved:       Filter saved
-      summary: Summary
-      analysis: Analysis
-      summ:
-        name:
-        unfiltered:   Unfiltered
-        filtered:     Filtered
-        netProfit:    Net profit
-        maxDrawdown:  Max drawdown
-        winningPerc:  Winning percentage
-        averageTrade: Average trade
+      period          : Period
+      equities        : Equities and drawdowns
+      activation      : Activation
+      config          : Configuration
+      activations     : Activations
+      deactivations   : Deactivations
+      markers         : Markers
+      combinationModeA: Combination mode (activations)
+      combinationModeD: Combination mode (deactivations)
+      every: every
+      WE   : week
+      WEs  : weeks
+      MO   : month
+      MOs  : months
 
+#      startDate: Start filtering from
+#      length:            Trades length
+#      positiveProfit:    Positive profit
+#      oldPercentage:     Old period %
+#      winningPercentage: Winning % > value
+#      winningPercValue:  Value (%)
+#      equityAverage:     Equity over its average
+#      equityLen:         Average trades length
+#      trendline:         Trendline slope > value
+#      trendlineValue:    Slope * 100
+#      drawdown:          Drawdown
+#      drawdownMin:       Min value
+#      drawdownMax:       Max value
+#      filterSaved:       Filter saved
+#      summary: Summary
+#      analysis: Analysis
+      summ:
+        name        : Metric
+        unfiltered  : Unfiltered
+        filtered    : Filtered
+        netProfit   : Net profit
+        maxDrawdown : Max drawdown
+        winningPerc : Winning percentage
+        averageTrade: Average trade
       chart:
-        unfEquity:   Unfiltered equity
-        filEquity:   Filtered equity
-        unfDrawdown: Unfiltered DD
-        filDrawdown: Filtered DD
-        average:     Average
-        equOverAvg:  Equity over average
-        positProfit: Positive profit
-        oldVsNew:    Old vs new period
-        winningPerc: Winning % > value
-        trendline:   Trendline
-        filterActivation: Filter activation
+        unfEquity      : Unfiltered equity
+        filEquity      : Filtered equity
+        unfDrawdown    : Unfiltered DD
+        filDrawdown    : Filtered DD
+        averageAct     : Activation average
+        averageDeact   : Deactivation average
+        combinedDeact  : Combined deactivation
+        combinedActiv  : Combined activation
+        combinedFinal  : Combined final
+        sampledFinal   : Sampled final
+        finalActivation: Final activation
+      card:
+        netReturn        : Net return
+        equityAverage    : Equity vs average
+        maxDrawdown      : Max drawdown
+        winningPercentage: Winning percentage
+        trendline        : Trendline
+        length           : Length (# of trades)
+        value            : Value
 
       optimize:
         titleParams    : Filter optimization - Parameters
@@ -1590,6 +1606,11 @@ map:
   periodType:
     WE : Weekly
     MO : Monthly
+
+  filterCombinationMode:
+    O: At least one is true (OR)
+    M: Most true (50%+1)
+    A: All are true (AND)
 
 # ==============================================================================
 

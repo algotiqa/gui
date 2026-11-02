@@ -99,11 +99,11 @@ export class AllocationListPanel extends AbstractPanel {
         //--- Add "all" option
 
         let all = {
-          id        : 0,
-          name      : this.loc("all"),
-          management: "M"
+          id  : 0,
+          name: this.loc("all"),
         }
 
+        // @ts-ignore
         this.portfolios = [ all, ...this.portfolios ]
       })
   }

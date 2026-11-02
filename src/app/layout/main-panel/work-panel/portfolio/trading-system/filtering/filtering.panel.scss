@@ -7,54 +7,87 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-@import "../../../../../../../styles/variables";
-
-//=============================================================================
-
-.left-layout {
-  width: 340px;
-  overflow-y: auto;
-}
-
-//-----------------------------------------------------------------------------
-
-.expansion-layout {
-  margin-left : 8px;
-  margin-right: 8px;
-}
-
-//-----------------------------------------------------------------------------
-
- .expansion-layout .mat-expansion-panel-header-title {
-  justify-content: space-between;
-  margin-right: 0;
-}
-
-//-----------------------------------------------------------------------------
-
-mat-accordion input-number {
-  width: 100%;
-}
-
-//=============================================================================
-
-.center-layout {
-  flex: 1 1 auto;
-
+.config-layout {
+  margin: 0 8px 8px 8px;
+  background-color: #FFFFFF;
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
   justify-content: flex-start;
   align-items: stretch;
-  gap: 8px;
-  height   : 100%;
-  overflow: hidden;
+  width: 340px;
 }
 
 //=============================================================================
 
-.filler {
+.divider {
   flex: 1 0 auto;
+}
+
+//=============================================================================
+
+.portfolio-info {
+  display: grid;
+  margin-left: 16px;
+  margin-right: 16px;
+}
+
+//=============================================================================
+
+.portfolio-name {
+  font-weight: bolder;
+}
+
+//=============================================================================
+
+.portfolio-time {
+  font-size: smaller;
+  font-style: italic;
+}
+
+//=============================================================================
+
+mat-card-content div {
+  select-required {
+    width: 85%;
+  }
+
+  button {
+    margin-left: 4px;
+  }
+}
+
+//=============================================================================
+
+.menu-list {
+  list-style-type: none;
+  margin: 4px;
+  padding: 0px;
+}
+
+//=============================================================================
+
+.view-group {
+  margin-top: 8px;
+  text-align: center;
+}
+
+//=============================================================================
+
+.accordion-layout {
+  width: 340px;
+  overflow-y: auto;
+}
+
+//=============================================================================
+
+.content-layout {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
 }
 
 //=============================================================================
@@ -63,16 +96,6 @@ mat-accordion input-number {
   flex: 1 1 auto;
   overflow-x: hidden;
   overflow-y: auto;
-}
-
-//=============================================================================
-
-.title {
-  font-size: 20px;
-  font-weight: 600;
-  text-align: center;
-  width: 100%;
-  padding-top: 10px;
 }
 
 //=============================================================================

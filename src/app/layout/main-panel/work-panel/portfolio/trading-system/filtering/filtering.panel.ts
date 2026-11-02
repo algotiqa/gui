@@ -19,18 +19,19 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatOptionModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
-import {MatSlideToggleChange, MatSlideToggleModule} from "@angular/material/slide-toggle";
-import {TradingSystemSmall,
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {
+  Portfolio, TradingSystemSmall,
 } from "../../../../../../model/model";
 import {
   FilterAnalysisRequest,
-  FilterAnalysisResponse, FilterRun, Serie, Summary,
-  TradingFilter,
+  FilterAnalysisResponse, FilterRun, Activation, Summary,
+  TradingFilter, Outcomes, Config, EquityVsAverageConfig,
 } from "../../../../../../model/filtering";
 import {MatTabsModule} from "@angular/material/tabs";
 import {MatButtonModule} from "@angular/material/button";
 import {Lib} from "../../../../../../lib/lib";
-import {FormsModule} from "@angular/forms";
+import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatDividerModule} from "@angular/material/divider";
 import {PortfolioService} from "../../../../../../service/portfolio.service";
 import {MatGridListModule} from "@angular/material/grid-list";
@@ -42,7 +43,7 @@ import {MatDialog, MatDialogModule} from "@angular/material/dialog";
 import {OptimizeProgressDialog} from "./optimize/progress/progress.dialog";
 import {OptimizeResultDialog} from "./optimize/result/result.dialog";
 import {OptimizeParameterDialog} from "./optimize/parameter/parameter.dialog";
-import {ChartComponent} from "ng-apexcharts";
+import {ApexDataLabels, ApexMarkers, ChartComponent} from "ng-apexcharts";
 import {DialogData} from "./optimize/dialog-data";
 import {MatCardModule} from "@angular/material/card";
 import {ChartOptions} from "../../../../../../lib/chart-lib";
@@ -55,6 +56,16 @@ import {ReloadButton} from "../../../../../../component/button/reload/reload.but
 import {RunButton} from "../../../../../../component/button/run/run.button";
 import {OptimizeButton} from "../../../../../../component/button/optimize/optimize.button";
 import {NavigationService} from "../../../../../../service/navigation.service";
+import {NetReturnCard} from "./criteria/net-return/net-return.card";
+import {EquityVsAverageCard} from "./criteria/equity-vs-average/equity-vs-average.card";
+import {MaxDrawdownCard} from "./criteria/max-drawdown/max-drawdown.card";
+import {WinningPercentageCard} from "./criteria/winning-percentage/winning-percentage.card";
+import {TrendLineCard} from "./criteria/trendline/trendline.card";
+import {MatButtonToggle, MatButtonToggleGroup} from "@angular/material/button-toggle";
+import {SelectRequired} from "../../../../../../component/form/select-required/select-required";
+import {MatMenu, MatMenuTrigger} from "@angular/material/menu";
+import {MatCheckbox} from "@angular/material/checkbox";
+import {ToggleButton} from "../../../../../../component/form/toggle-button/toggle-button";
 
 //=============================================================================
 
@@ -63,7 +74,7 @@ import {NavigationService} from "../../../../../../service/navigation.service";
     templateUrl: './filtering.panel.html',
     styleUrls: ['./filtering.panel.scss'],
   changeDetection: ChangeDetectionStrategy.Eager,
-  imports: [RouterModule, MatExpansionModule, MatIconModule, MatFormFieldModule, FormsModule, MatInputModule, MatOptionModule, MatSelectModule, MatSlideToggleModule, MatTabsModule, MatButtonModule, MatDividerModule, MatGridListModule, SimpleTablePanel, MatDialogModule, ChartComponent, MatCardModule, InputNumber, PeriodSelector, ListButtons, ListContent, ListPanel, ListLeft, BackButton, SaveButton, ReloadButton, RunButton, OptimizeButton]
+  imports: [RouterModule, MatExpansionModule, MatIconModule, MatFormFieldModule, FormsModule, MatInputModule, MatOptionModule, MatSelectModule, MatSlideToggleModule, MatTabsModule, MatButtonModule, MatDividerModule, MatGridListModule, SimpleTablePanel, MatDialogModule, ChartComponent, MatCardModule, PeriodSelector, ListButtons, ListContent, ListPanel, ListLeft, BackButton, SaveButton, ReloadButton, RunButton, OptimizeButton, NetReturnCard, EquityVsAverageCard, MaxDrawdownCard, WinningPercentageCard, TrendLineCard, MatButtonToggle, MatButtonToggleGroup, ReactiveFormsModule, SelectRequired, MatMenu, MatCheckbox, MatMenuTrigger, ToggleButton]
 })
 
 //=============================================================================
@@ -80,20 +91,23 @@ export class FilteringPanel extends AbstractPanel {
 
   filter       = new TradingFilter()
   tradingSystem= new TradingSystemSmall()
-  summary      = new Summary()
-
-  equityChartOptions : ChartOptions
-  activChartOptions  : ChartOptions
 
   summaryColumns: FlexTableColumn[] = [];
   summaryData   : SummaryRow[]      = []
 
-  @ViewChild("table") table : FlexTablePanel<SummaryRow>|null = null;
+  combinationModes : Object = {}
+  selView = new FormControl("a")
+
+  equityChartOptions : ChartOptions
+  activChartOptions  : ChartOptions
+  showMarkers : boolean = false
+
+  portName? = ""
+  portTime? = ""
 
   //-------------------------------------------------------------------------
 
   private tsId : number = 0;
-  private analysis = new FilterAnalysisResponse();
 
   //-------------------------------------------------------------------------
   //---
@@ -123,6 +137,7 @@ export class FilteringPanel extends AbstractPanel {
 
     this.equityChartOptions = this.buildEquityChartOptions    (this.loc("equities"), this.onChartClick)
     this.activChartOptions  = this.buildActivationChartOptions(this.loc("activation"))
+    this.period.daysBack = 0
   }
 
   //-------------------------------------------------------------------------
@@ -132,8 +147,8 @@ export class FilteringPanel extends AbstractPanel {
   //-------------------------------------------------------------------------
 
   override init = () : void => {
-    this.tsId = Number(this.route.snapshot.paramMap.get("id"));
-//    this.callService(new FilterAnalysisRequest())
+    this.tsId             = Number(this.route.snapshot.paramMap.get("id"));
+    this.combinationModes = this.labelService.getLabel("map.filterCombinationMode")
   }
 
   //-------------------------------------------------------------------------
@@ -144,49 +159,19 @@ export class FilteringPanel extends AbstractPanel {
 
   onPeriodChange(period : PeriodSelectorInfo) {
     console.log("On period change")
-    this.onRunClick()
+    this.callService()
   }
 
   //-------------------------------------------------------------------------
 
-  onPositiveProfitChange(e : MatSlideToggleChange) {
-    this.filter.posProEnabled = e.checked;
-  }
-
-  //-------------------------------------------------------------------------
-
-  onOldVsNewChange(e : MatSlideToggleChange) {
-    this.filter.oldNewEnabled = e.checked;
-  }
-
-  //-------------------------------------------------------------------------
-
-  onWinningPercentageChange(e : MatSlideToggleChange) {
-    this.filter.winPerEnabled = e.checked;
-  }
-
-  //-------------------------------------------------------------------------
-
-  onEquityAverageChange(e : MatSlideToggleChange) {
-    this.filter.equAvgEnabled = e.checked;
-  }
-
-  //-------------------------------------------------------------------------
-
-  onTrendlineChange(e : MatSlideToggleChange) {
-    this.filter.trendlineEnabled = e.checked;
-  }
-
-  //-------------------------------------------------------------------------
-
-  onDrawdownChange(e : MatSlideToggleChange) {
-    this.filter.drawdownEnabled = e.checked;
+  onCriterionChange(config : { enabled : boolean }, checked : boolean) {
+    config.enabled = checked
   }
 
   //-------------------------------------------------------------------------
 
   onRunClick() {
-    this.callService(this.buildRequest(this.filter))
+    this.callService(this.filter)
   }
 
   //-------------------------------------------------------------------------
@@ -220,18 +205,33 @@ export class FilteringPanel extends AbstractPanel {
   //-------------------------------------------------------------------------
 
   onReloadClick() {
-    this.period = new PeriodSelectorInfo()
-    this.callService(this.buildRequest())
+    this.callService()
   }
 
   //-------------------------------------------------------------------------
 
   onChartClick = (e: any, chart?: any, options?: any) => {
-    if (this.analysis.equities.time.length > 0) {
+    // if (this.analysis.equities.time.length > 0) {
       // this.selectedPeriod     = -1
       // this.startDate          = this.analysis.equities.time[options.dataPointIndex]
       // this.startDateDisplayed = this.startDate.substring(0,10)
       // this.setAnnotationDate(new Date(this.startDate))
+    // }
+  }
+
+  //-------------------------------------------------------------------------
+
+  onMarkersChange() {
+    if (this.showMarkers) {
+      this.activChartOptions.markers = <ApexMarkers>{
+        size: 3,
+        hover: {
+          size: 5,
+        }
+      }
+    }
+    else {
+      this.activChartOptions.markers = {}
     }
   }
 
@@ -251,7 +251,7 @@ export class FilteringPanel extends AbstractPanel {
       },
 
       stroke: {
-        dashArray: [ 0, 0, 0, 0, 4]
+        dashArray: [ 0, 0, 0, 0, 4, 4]
       },
 
       title: {
@@ -274,25 +274,29 @@ export class FilteringPanel extends AbstractPanel {
       },
       yaxis: {
         min: 0,
-        max: 7,
-        tickAmount: 7,
+        max: 9,
+        tickAmount: 9,
       },
     })
   }
 
   //-------------------------------------------------------------------------
 
-  private callService(req : FilterAnalysisRequest) {
+  private callService(filter? : TradingFilter) {
     console.log("Calling service")
+    let req = new FilterAnalysisRequest()
+    req.filter = filter
+    req.period = this.period.getSelectedPeriod()
+
     this.portfolioService.runFilterAnalysis(this.tsId, req).subscribe(
       result => {
-        this.analysis       = result;
         this.filter         = result.filter;
         this.tradingSystem  = result.tradingSystem;
-        this.summary        = result.summary;
-        this.summaryData    = this.buildSummary(this.summary)
+        this.summaryData    = this.buildSummary(result.summary)
+        //outcomes
         this.createEquityChart(result);
         this.createActivationChart(result);
+        this.setupPortfolioInfo(result.portfolio)
       }
     )
   }
@@ -359,12 +363,40 @@ export class FilteringPanel extends AbstractPanel {
 
       //--- Moving average
 
-      if (res.equities.average) {
-        let avg = res.equities.average
-        datasets = [...datasets, Lib.chart.buildDataset(this.loc("chart.average"), e.time, avg.values) ]
+      let avg = this.findAverage(res.outcomes.activations, res.filter.activation.equityVsAverage, true)
+      if (avg) {
+        datasets = [...datasets, Lib.chart.buildDataset(this.loc("chart.averageAct"), e.time, avg, false, "#808080") ]
+      }
+
+      avg = this.findAverage(res.outcomes.deactivations, res.filter.deactivation.equityVsAverage, false)
+      if (avg) {
+        datasets = [...datasets, Lib.chart.buildDataset(this.loc("chart.averageDeact"), e.time, avg, false, "#808080") ]
       }
 
       this.equityChartOptions.series = datasets
+  }
+
+  //-------------------------------------------------------------------------
+
+  private findAverage(list : Activation[], c : EquityVsAverageConfig, activ : boolean) : number[]|undefined {
+    if (list) {
+      let a = list.find( a => a.name == "equityVsAverage")
+      if (a) {
+        let avg = a.metrics
+        let val = c.value
+
+        if (!activ) {
+          val *= -1
+        }
+
+        let res : number[] = []
+        avg.forEach(v => { res.push(v + val) })
+
+        return res
+      }
+    }
+
+    return undefined
   }
 
   //-------------------------------------------------------------------------
@@ -375,60 +407,61 @@ export class FilteringPanel extends AbstractPanel {
 
     //--- Average activation
 
-    let factor = 0
+    let factor   = 0
+    let time     = res.equities.time
+    let outcomes = res.outcomes
 
-    if (res.activations.equityVsAverage) {
-      let ds = this.addActivationDataset(res.activations.equityVsAverage, "chart.equOverAvg", factor)
+    if (outcomes.deactivations) {
+      let ds = this.addActivationDataset(time, outcomes.combinedDeact, "chart.combinedDeact", factor)
       datasets = [...datasets, ds];
       factor += 2
     }
 
-    if (res.activations.positiveProfit) {
-      let ds = this.addActivationDataset(res.activations.positiveProfit, "chart.positProfit", factor)
+    if (outcomes.activations) {
+      let ds = this.addActivationDataset(time, outcomes.combinedActiv, "chart.combinedActiv", factor)
       datasets = [...datasets, ds];
       factor += 2
     }
 
-    if (res.activations.oldVsNew) {
-      let ds = this.addActivationDataset(res.activations.oldVsNew, "chart.oldVsNew", factor)
-      datasets = [...datasets, ds];
-      factor += 2
-    }
-
-    if (res.activations.winningPercentage) {
-      let ds = this.addActivationDataset(res.activations.winningPercentage, "chart.winningPerc", factor)
-      datasets = [...datasets, ds];
-      factor += 2
-    }
-
-    if (res.activations.trendline) {
-      let ds = this.addActivationDataset(res.activations.trendline, "chart.trendline", factor)
-      datasets = [...datasets, ds];
-      factor += 2
-    }
-
-    let ds = this.addActivationDatasetBase(res.equities.time, res.equities.filterActivation, "chart.filterActivation", factor)
+    let ds = this.addActivationDataset(time, outcomes.combinedFinal, "chart.combinedFinal", factor)
     datasets = [...datasets, ds];
+    factor += 2
+
+    ds = this.addActivationDataset(time, outcomes.sampledFinal, "chart.sampledFinal", factor)
+    datasets = [...datasets, ds];
+    factor += 2
+
+    //-- Final activation
+
+    if (outcomes.finalActivation) {
+      let fa = outcomes.finalActivation
+      ds = this.addActivationDataset(fa.times, fa.flags, "chart.finalActivation", factor)
+      datasets = [...datasets, ds];
+    }
 
     this.activChartOptions.series = datasets;
+    this.onMarkersChange()
   }
 
   //-------------------------------------------------------------------------
 
-  private addActivationDataset(serie : Serie, label : string, factor : number) : any {
-    return this.addActivationDatasetBase(serie.time, serie.values, label, factor)
-  }
-
-  //-------------------------------------------------------------------------
-
-  private addActivationDatasetBase(time:Date[], values:number[], label : string, factor : number) : any {
+  private addActivationDataset(time:Date[], values:number[], label : string, factor : number) : any {
     for (let i=0; i<values.length; i++) {
       values[i] += factor
     }
 
-    let ds = Lib.chart.buildDataset(this.loc(label), time, values);
+    return Lib.chart.buildDataset(this.loc(label), time, values);
+  }
 
-    return ds
+  //-------------------------------------------------------------------------
+
+  private setupPortfolioInfo(p : Portfolio) {
+    let plural = (p.runPeriod != 1) ? "s" : ""
+    let every  = this.loc("every")
+    let period = this.loc(p.periodType + plural)
+
+    this.portName = p.name
+    this.portTime = every +" "+ p.runPeriod +" "+ period
   }
 
   //-------------------------------------------------------------------------
@@ -494,16 +527,6 @@ export class FilteringPanel extends AbstractPanel {
         }
       }
     })
-  }
-
-  //-------------------------------------------------------------------------
-
-  private buildRequest(filter? : TradingFilter) : FilterAnalysisRequest {
-    let req = new FilterAnalysisRequest()
-    req.filter = filter
-    req.period = this.period.getSelectedPeriod()
-
-    return req
   }
 }
 

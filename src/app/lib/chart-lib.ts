@@ -112,7 +112,7 @@ const defaultLineOptions : ChartOptions = {
 
   stroke: {
     curve: "stepline",
-    width: 2,
+    width: 1.5,
   },
 
   dataLabels: {},

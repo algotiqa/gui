@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import { FieldOptimization, TradingSystemSmall} from "./model";
+import {FieldOptimization, Portfolio, TradingSystemSmall} from "./model";
 import {SelectedPeriod} from "../component/form/period-selector/period-selector";
 
 //=============================================================================
@@ -24,28 +24,103 @@ export class FilterAnalysisRequest {
 //=============================================================================
 
 export class TradingFilter {
-  equAvgEnabled : boolean = false
-  equAvgLen     : number  = 0
+  activation   : Config = new Config()
+  deactivation : Config = new Config()
+}
 
-  posProEnabled : boolean = false
-  posProLen     : number  = 0
+//=============================================================================
 
-  winPerEnabled : boolean = false
-  winPerLen     : number  = 0
-  winPerValue   : number  = 0
+export class Config {
+  combinationMode   : string                  = "A";
+  netReturn         : NetReturnConfig         = new NetReturnConfig()
+  averageTrade      : AverageTradeConfig      = new AverageTradeConfig()
+  equityVsAverage   : EquityVsAverageConfig   = new EquityVsAverageConfig()
+  winningPercentage : WinningPercentageConfig = new WinningPercentageConfig()
+  maxDrawdown       : MaxDrawdownConfig       = new MaxDrawdownConfig()
+  trendLine         : TrendLineConfig         = new TrendLineConfig()
+  profitFactor      : ProfitFactorConfig      = new ProfitFactorConfig()
+  sharpeRatio       : SharpeRatioConfig       = new SharpeRatioConfig()
+  sqn100            : Sqn100Config            = new Sqn100Config()
+  returnMaxDDRatio  : ReturnMaxDDRatioConfig  = new ReturnMaxDDRatioConfig()
+}
 
-  oldNewEnabled : boolean = false
-  oldNewOldLen  : number  = 0
-  oldNewOldPerc : number  = 0
-  oldNewNewLen  : number  = 0
+//=============================================================================
 
-  trendlineEnabled : boolean = false
-  trendlineLen     : number  = 0
-  trendlineValue   : number  = 0
+export class NetReturnConfig {
+  enabled : boolean = false;
+  length  : number  = 20
+  value   : number  = 0
+}
 
-  drawdownEnabled  : boolean = false
-  drawdownMin      : number  = 0
-  drawdownMax      : number  = 0
+//=============================================================================
+
+export class AverageTradeConfig {
+  enabled : boolean = false;
+  length  : number  = 20
+  value   : number  = 0
+}
+
+//=============================================================================
+
+export class EquityVsAverageConfig {
+  enabled : boolean = false;
+  length  : number  = 20
+  value   : number  = 0
+}
+
+//=============================================================================
+
+export class WinningPercentageConfig {
+  enabled : boolean = false;
+  length  : number  = 20
+  value   : number  = 0
+}
+
+//=============================================================================
+
+export class MaxDrawdownConfig {
+  enabled : boolean = false;
+  value   : number  = 0
+}
+
+//=============================================================================
+
+export class TrendLineConfig {
+  enabled : boolean = false;
+  length  : number  = 20
+  value   : number  = 0
+}
+
+//=============================================================================
+
+export class ProfitFactorConfig {
+  enabled : boolean = false;
+  length  : number  = 20
+  value   : number  = 0
+}
+
+//=============================================================================
+
+export class SharpeRatioConfig {
+  enabled : boolean = false;
+  length  : number  = 20
+  value   : number  = 0
+}
+
+//=============================================================================
+
+export class Sqn100Config {
+  enabled : boolean = false;
+  length  : number  = 20
+  value   : number  = 0
+}
+
+//=============================================================================
+
+export class ReturnMaxDDRatioConfig {
+  enabled : boolean = false;
+  length  : number  = 20
+  value   : number  = 0
 }
 
 //=============================================================================
@@ -56,10 +131,11 @@ export class TradingFilter {
 
 export class FilterAnalysisResponse {
   tradingSystem : TradingSystemSmall = new TradingSystemSmall()
+  filter        : TradingFilter      = new TradingFilter()
   summary       : Summary            = new Summary()
   equities      : Equities           = new Equities()
-  filter        : TradingFilter      = new TradingFilter()
-  activations   : Activations        = new Activations()
+  outcomes      : Outcomes           = new Outcomes()
+  portfolio     : Portfolio          = new Portfolio()
 }
 
 //=============================================================================
@@ -83,25 +159,27 @@ export class Equities {
   filteredEquity     : number[] = []
   unfilteredDrawdown : number[] = []
   filteredDrawdown   : number[] = []
-  filterActivation   : number[] = []
-  average            : Serie = new Serie()
 }
 
 //=============================================================================
 
-export class Serie {
-  time   : Date  [] = []
-  values : number[] = []
+export class Outcomes {
+  activations      : Activation[] = []
+  deactivations    : Activation[] = []
+  combinedActiv    : number    [] = []
+  combinedDeact    : number    [] = []
+  combinedFinal    : number    [] = []
+  sampledFinal     : number    [] = []
+  finalActivation? : Activation
 }
 
 //=============================================================================
 
-export class Activations {
-  equityVsAverage?   : Serie
-  positiveProfit?    : Serie
-  winningPercentage? : Serie
-  oldVsNew?          : Serie
-  trendline?         : Serie
+export class Activation {
+  name   : string   = ""
+  times  : Date  [] = []
+  flags  : number[] = []
+  metrics: number[] = []
 }
 
 //=============================================================================

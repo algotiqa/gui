@@ -1,0 +1,3 @@
+<criteria-card icon="support" title="{{loc('maxDrawdown')}}" (onRemove)="onRemove()">
+  <input-number [(value)]="config.value" [label]="loc('value')" [min]="-50000" [max]="0"></input-number>
+</criteria-card>

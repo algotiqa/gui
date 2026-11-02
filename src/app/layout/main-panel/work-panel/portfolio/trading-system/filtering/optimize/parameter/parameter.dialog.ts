@@ -135,23 +135,23 @@ export class OptimizeParameterDialog extends AbstractPanel {
     let f = this.data.baseline
     let o = new FilterOptimizationRequest()
 
-    o.filterConfig.enableEquAvg           = !f.equAvgEnabled
-    o.filterConfig.equAvgLen.enabled      = !f.equAvgEnabled
-    o.filterConfig.enablePosProfit        = !f.posProEnabled
-    o.filterConfig.posProLen.enabled      = !f.posProEnabled
-    o.filterConfig.enableWinPerc          = !f.winPerEnabled
-    o.filterConfig.winPercLen.enabled     = !f.winPerEnabled
-    o.filterConfig.winPercPerc.enabled    = !f.winPerEnabled
-    o.filterConfig.enableOldNew           = !f.oldNewEnabled
-    o.filterConfig.oldNewOldLen.enabled   = !f.oldNewEnabled
-    o.filterConfig.oldNewNewLen.enabled   = !f.oldNewEnabled
-    o.filterConfig.oldNewOldPerc.enabled  = !f.oldNewEnabled
-    o.filterConfig.enableTrendline        = !f.trendlineEnabled
-    o.filterConfig.trendlineLen.enabled   = !f.trendlineEnabled
-    o.filterConfig.trendlineValue.enabled = !f.trendlineEnabled
-    o.filterConfig.enableDrawdown         = !f.drawdownEnabled
-    o.filterConfig.drawdownMin.enabled    = !f.drawdownEnabled
-    o.filterConfig.drawdownMax.enabled    = !f.drawdownEnabled
+    // o.filterConfig.enableEquAvg           = !f.equAvgEnabled
+    // o.filterConfig.equAvgLen.enabled      = !f.equAvgEnabled
+    // o.filterConfig.enablePosProfit        = !f.posProEnabled
+    // o.filterConfig.posProLen.enabled      = !f.posProEnabled
+    // o.filterConfig.enableWinPerc          = !f.winPerEnabled
+    // o.filterConfig.winPercLen.enabled     = !f.winPerEnabled
+    // o.filterConfig.winPercPerc.enabled    = !f.winPerEnabled
+    // o.filterConfig.enableOldNew           = !f.oldNewEnabled
+    // o.filterConfig.oldNewOldLen.enabled   = !f.oldNewEnabled
+    // o.filterConfig.oldNewNewLen.enabled   = !f.oldNewEnabled
+    // o.filterConfig.oldNewOldPerc.enabled  = !f.oldNewEnabled
+    // o.filterConfig.enableTrendline        = !f.trendlineEnabled
+    // o.filterConfig.trendlineLen.enabled   = !f.trendlineEnabled
+    // o.filterConfig.trendlineValue.enabled = !f.trendlineEnabled
+    // o.filterConfig.enableDrawdown         = !f.drawdownEnabled
+    // o.filterConfig.drawdownMin.enabled    = !f.drawdownEnabled
+    // o.filterConfig.drawdownMax.enabled    = !f.drawdownEnabled
 
     o.baseline = f
 

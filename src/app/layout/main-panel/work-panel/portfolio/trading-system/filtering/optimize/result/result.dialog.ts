@@ -173,29 +173,29 @@ export class OptimizeResultDialog extends AbstractPanel {
   private calcDescription(run : FilterRun) {
     let f = run.filter
 
-    if (f.posProEnabled) {
-      run.posProfitDes = "Len:"+ f.posProLen
-    }
-
-    if (f.equAvgEnabled) {
-      run.equityAvgDes = "Len:"+ f.equAvgLen
-    }
-
-    if (f.winPerEnabled) {
-      run.winPercDes = "Len:"+ f.winPerLen +", Val:"+ f.winPerValue
-    }
-
-    if (f.oldNewEnabled) {
-      run.oldVsNewDes = "OLen:"+ f.oldNewOldLen +", OPer:"+ f.oldNewOldPerc +", NLen:"+ f.oldNewNewLen
-    }
-
-    if (f.trendlineEnabled) {
-      run.trendlineDes = "Len:"+ f.trendlineLen +", Val:"+ f.trendlineValue
-    }
-
-    if (f.drawdownEnabled) {
-      run.drawdownDes = "Min:"+ f.drawdownMin +", Max:"+ f.drawdownMax
-    }
+    // if (f.posProEnabled) {
+    //   run.posProfitDes = "Len:"+ f.posProLen
+    // }
+    //
+    // if (f.equAvgEnabled) {
+    //   run.equityAvgDes = "Len:"+ f.equAvgLen
+    // }
+    //
+    // if (f.winPerEnabled) {
+    //   run.winPercDes = "Len:"+ f.winPerLen +", Val:"+ f.winPerValue
+    // }
+    //
+    // if (f.oldNewEnabled) {
+    //   run.oldVsNewDes = "OLen:"+ f.oldNewOldLen +", OPer:"+ f.oldNewOldPerc +", NLen:"+ f.oldNewNewLen
+    // }
+    //
+    // if (f.trendlineEnabled) {
+    //   run.trendlineDes = "Len:"+ f.trendlineLen +", Val:"+ f.trendlineValue
+    // }
+    //
+    // if (f.drawdownEnabled) {
+    //   run.drawdownDes = "Min:"+ f.drawdownMin +", Max:"+ f.drawdownMax
+    // }
   }
 }
 

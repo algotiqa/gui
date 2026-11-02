@@ -7,92 +7,71 @@
     <optimize-button (click)="onOptimizeClick()"></optimize-button>
     <save-button     (click)="onSaveClick()"    ></save-button>
     <reload-button   (click)="onReloadClick()"  ></reload-button>
+    <span class="divider"></span>
+    <toggle-button label="{{loc('markers')}}" [(checked)]="showMarkers" (checkedChange)="onMarkersChange()"></toggle-button>
+    <div class="portfolio-info">
+      <span class="portfolio-name">{{portName}}</span>
+      <span class="portfolio-time">{{portTime}}</span>
+    </div>
   </list-buttons>
 
   <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
   <list-left>
-    <mat-accordion class="left-layout" multi>
-      <mat-expansion-panel [expanded]="filter.posProEnabled" hideToggle class="expansion-layout">
-        <mat-expansion-panel-header>
-          <mat-panel-title><mat-icon>functions</mat-icon> {{loc("positiveProfit")}}
-            <span class="filler"> </span>
-            <mat-slide-toggle (change)="onPositiveProfitChange($event)" [checked]="filter.posProEnabled" (click)="$event.stopPropagation()"></mat-slide-toggle>
-          </mat-panel-title>
-        </mat-expansion-panel-header>
 
-        <input-number [(value)]="filter.posProLen" [label]="loc('length')" [min]="1" [max]="300"></input-number>
-      </mat-expansion-panel>
+    <mat-card class="config-layout">
+      <mat-card-header>
+          <mat-card-title>{{loc("config")}}</mat-card-title>
+      </mat-card-header>
 
-      <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+      <mat-card-content class="content-layout">
+        <div>
+          <select-required [label]="loc('combinationModeA')" [(key)]="filter.activation.combinationMode"   [map]="combinationModes"></select-required>
+          <button mat-icon-button [matMenuTriggerFor]="criteriaMenuA">
+            <mat-icon>filter_alt</mat-icon>
+          </button>
+        </div>
 
-      <mat-expansion-panel [expanded]="filter.oldNewEnabled" hideToggle class="expansion-layout">
-        <mat-expansion-panel-header>
-          <mat-panel-title><mat-icon>date_range</mat-icon> {{loc("oldVsNew")}}
-            <span class="filler"></span>
-            <mat-slide-toggle (change)="onOldVsNewChange($event)" [checked]="filter.oldNewEnabled" (click)="$event.stopPropagation()"></mat-slide-toggle>
-          </mat-panel-title>
-        </mat-expansion-panel-header>
+        <div>
+          <select-required [label]="loc('combinationModeD')" [(key)]="filter.deactivation.combinationMode" [map]="combinationModes"></select-required>
+          <button mat-icon-button [matMenuTriggerFor]="criteriaMenuD">
+            <mat-icon>filter_alt</mat-icon>
+          </button>
+        </div>
 
-        <input-number [(value)]="filter.oldNewOldLen"  [label]="loc('oldLen')"        [min]="1" [max]="600"></input-number>
-        <input-number [(value)]="filter.oldNewNewLen"  [label]="loc('newLen')"        [min]="1" [max]="300"></input-number>
-        <input-number [(value)]="filter.oldNewOldPerc" [label]="loc('oldPercentage')" [min]="1" [max]="150"></input-number>
-      </mat-expansion-panel>
+        <simple-table #table class="performance-layout"
+                      [columns]    = "summaryColumns"
+                      [data]       = "summaryData"
+                      [searchPanel]= "false"
+        ></simple-table>
 
-      <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <div class="view-group">
+          <mat-button-toggle-group [hideSingleSelectionIndicator]="true" [formControl]="selView">
+            <mat-button-toggle value="a">{{ loc("activations") }}</mat-button-toggle>
+            <mat-button-toggle value="d">{{ loc("deactivations") }}</mat-button-toggle>
+          </mat-button-toggle-group>
+        </div>
+      </mat-card-content>
+    </mat-card>
 
-      <mat-expansion-panel [expanded]="filter.winPerEnabled" hideToggle class="expansion-layout">
-        <mat-expansion-panel-header>
-          <mat-panel-title><mat-icon>percent</mat-icon> {{loc("winningPercentage")}}
-            <span class="filler"></span>
-            <mat-slide-toggle (change)="onWinningPercentageChange($event)" [checked]="filter.winPerEnabled" (click)="$event.stopPropagation()"></mat-slide-toggle>
-          </mat-panel-title>
-        </mat-expansion-panel-header>
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
-        <input-number [(value)]="filter.winPerLen"   [label]="loc('length')"           [min]="1" [max]="300"></input-number>
-        <input-number [(value)]="filter.winPerValue" [label]="loc('winningPercValue')" [min]="1" [max]="100"></input-number>
-      </mat-expansion-panel>
+    <mat-accordion class="accordion-layout" multi>
+      @if (selView.value == "a") {
+        <net-return-card         [config] = filter.activation.netReturn         [hidden]="!filter.activation.netReturn.enabled"></net-return-card>
+        <equity-vs-average-card  [config] = filter.activation.equityVsAverage   [hidden]="!filter.activation.equityVsAverage.enabled"></equity-vs-average-card>
+        <max-drawdown-card       [config] = filter.activation.maxDrawdown       [hidden]="!filter.activation.maxDrawdown.enabled"></max-drawdown-card>
+        <winning-percentage-card [config] = filter.activation.winningPercentage [hidden]="!filter.activation.winningPercentage.enabled"></winning-percentage-card>
+        <trendline-card          [config] = filter.activation.trendLine         [hidden]="!filter.activation.trendLine.enabled"></trendline-card>
+      }
 
-      <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-
-      <mat-expansion-panel [expanded]="filter.equAvgEnabled" hideToggle class="expansion-layout">
-        <mat-expansion-panel-header>
-          <mat-panel-title><mat-icon>ssid_chart</mat-icon> {{loc("equityAverage")}}
-            <span class="filler"></span>
-            <mat-slide-toggle (change)="onEquityAverageChange($event)" [checked]="filter.equAvgEnabled" (click)="$event.stopPropagation()"></mat-slide-toggle>
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-
-        <input-number [(value)]="filter.equAvgLen" [label]="loc('equityLen')" [min]="1" [max]="300"></input-number>
-      </mat-expansion-panel>
-
-      <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-
-      <mat-expansion-panel [expanded]="filter.trendlineEnabled" hideToggle class="expansion-layout">
-        <mat-expansion-panel-header>
-          <mat-panel-title><mat-icon>trending_up</mat-icon> {{loc("trendline")}}
-            <span class="filler"></span>
-            <mat-slide-toggle (change)="onTrendlineChange($event)" [checked]="filter.trendlineEnabled" (click)="$event.stopPropagation()"></mat-slide-toggle>
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-
-        <input-number [(value)]="filter.trendlineLen"   [label]="loc('length')"         [min]="1" [max]="300"></input-number>
-        <input-number [(value)]="filter.trendlineValue" [label]="loc('trendlineValue')" [min]="1" [max]="200"></input-number>
-      </mat-expansion-panel>
-
-      <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-
-      <mat-expansion-panel [expanded]="filter.drawdownEnabled" hideToggle class="expansion-layout">
-        <mat-expansion-panel-header>
-          <mat-panel-title><mat-icon>support</mat-icon> {{loc("drawdown")}}
-            <span class="filler"></span>
-            <mat-slide-toggle (change)="onDrawdownChange($event)" [checked]="filter.drawdownEnabled" (click)="$event.stopPropagation()"></mat-slide-toggle>
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-
-        <input-number [(value)]="filter.drawdownMin" [label]="loc('drawdownMin')" [min]="1" [max]="50000"></input-number>
-        <input-number [(value)]="filter.drawdownMax" [label]="loc('drawdownMax')" [min]="1" [max]="50000"></input-number>
-      </mat-expansion-panel>
+      @if (selView.value == "d") {
+        <net-return-card         [config] = filter.deactivation.netReturn         [hidden]="!filter.deactivation.netReturn.enabled"></net-return-card>
+        <equity-vs-average-card  [config] = filter.deactivation.equityVsAverage   [hidden]="!filter.deactivation.equityVsAverage.enabled"></equity-vs-average-card>
+        <max-drawdown-card       [config] = filter.deactivation.maxDrawdown       [hidden]="!filter.deactivation.maxDrawdown.enabled"></max-drawdown-card>
+        <winning-percentage-card [config] = filter.deactivation.winningPercentage [hidden]="!filter.deactivation.winningPercentage.enabled"></winning-percentage-card>
+        <trendline-card          [config] = filter.deactivation.trendLine         [hidden]="!filter.deactivation.trendLine.enabled"></trendline-card>
+      }
     </mat-accordion>
   </list-left>
 
@@ -100,12 +79,6 @@
 
   <list-content>
     <div class="chart-layout">
-      <simple-table #table
-                    [columns]    = "summaryColumns"
-                    [data]       = "summaryData"
-                    [searchPanel]= "false"
-      ></simple-table>
-      <p></p>
       <apx-chart
         [title]      = "equityChartOptions.title"
         [chart]      = "equityChartOptions.chart"
@@ -129,7 +102,34 @@
         [xaxis]      = "activChartOptions.xaxis"
         [yaxis]      = "activChartOptions.yaxis"
         [grid]       = "activChartOptions.grid"
+        [markers]    = "activChartOptions.markers"
       ></apx-chart>
     </div>
   </list-content>
 </list-panel>
+
+<!-- =============================================================================== -->
+
+<mat-menu #criteriaMenuA="matMenu">
+  <ul class="menu-list">
+    <li><mat-checkbox [checked]="filter.activation.netReturn.enabled"         (change)="onCriterionChange(filter.activation.netReturn,         $event.checked)">{{loc("card.netReturn")}}</mat-checkbox></li>
+    <li><mat-checkbox [checked]="filter.activation.equityVsAverage.enabled"   (change)="onCriterionChange(filter.activation.equityVsAverage,   $event.checked)">{{loc("card.equityAverage")}}</mat-checkbox></li>
+    <li><mat-checkbox [checked]="filter.activation.maxDrawdown.enabled"       (change)="onCriterionChange(filter.activation.maxDrawdown,       $event.checked)">{{loc("card.maxDrawdown")}}</mat-checkbox></li>
+    <li><mat-checkbox [checked]="filter.activation.winningPercentage.enabled" (change)="onCriterionChange(filter.activation.winningPercentage, $event.checked)">{{loc("card.winningPercentage")}}</mat-checkbox></li>
+    <li><mat-checkbox [checked]="filter.activation.trendLine.enabled"         (change)="onCriterionChange(filter.activation.trendLine,         $event.checked)">{{loc("card.trendline")}}</mat-checkbox></li>
+  </ul>
+</mat-menu>
+
+<!-- =============================================================================== -->
+
+<mat-menu #criteriaMenuD="matMenu">
+  <ul class="menu-list">
+    <li><mat-checkbox [checked]="filter.deactivation.netReturn.enabled"         (change)="onCriterionChange(filter.deactivation.netReturn,         $event.checked)">{{loc("card.netReturn")}}</mat-checkbox></li>
+    <li><mat-checkbox [checked]="filter.deactivation.equityVsAverage.enabled"   (change)="onCriterionChange(filter.deactivation.equityVsAverage,   $event.checked)">{{loc("card.equityAverage")}}</mat-checkbox></li>
+    <li><mat-checkbox [checked]="filter.deactivation.maxDrawdown.enabled"       (change)="onCriterionChange(filter.deactivation.maxDrawdown,       $event.checked)">{{loc("card.maxDrawdown")}}</mat-checkbox></li>
+    <li><mat-checkbox [checked]="filter.deactivation.winningPercentage.enabled" (change)="onCriterionChange(filter.deactivation.winningPercentage, $event.checked)">{{loc("card.winningPercentage")}}</mat-checkbox></li>
+    <li><mat-checkbox [checked]="filter.deactivation.trendLine.enabled"         (change)="onCriterionChange(filter.deactivation.trendLine,         $event.checked)">{{loc("card.trendline")}}</mat-checkbox></li>
+  </ul>
+</mat-menu>
+
+<!-- =============================================================================== -->
