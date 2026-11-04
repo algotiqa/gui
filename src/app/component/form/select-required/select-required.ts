@@ -48,6 +48,8 @@ export class SelectRequired extends AbstractSubscriber {
 	@Input() label     : string = ""
 	@Input() keyField  : string = ""
 	@Input() valueField: string = ""
+  @Input() iconField : string = ""
+  @Input() iconClass : string = ""
   @Input() list      : any[]  = []
   @Input() map       : Object = {}
 
@@ -135,6 +137,12 @@ export class SelectRequired extends AbstractSubscriber {
   public mapValue(key : string) : string {
     // @ts-ignore
     return this.map[key];
+  }
+
+  //-------------------------------------------------------------------------
+
+  public hasIcon() : boolean {
+    return this.iconField != ""
   }
 
   //-------------------------------------------------------------------------
