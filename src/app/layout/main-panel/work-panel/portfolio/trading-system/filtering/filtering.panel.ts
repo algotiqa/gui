@@ -89,6 +89,7 @@ export class FilteringPanel extends AbstractPanel {
 
   period : PeriodSelectorInfo = new PeriodSelectorInfo()
 
+  result       = new FilterAnalysisResponse()
   filter       = new TradingFilter()
   tradingSystem= new TradingSystemSmall()
 
@@ -100,10 +101,14 @@ export class FilteringPanel extends AbstractPanel {
 
   equityChartOptions : ChartOptions
   activChartOptions  : ChartOptions
+  metricChartOptions : ChartOptions
   showMarkers : boolean = false
 
   portName? = ""
   portTime? = ""
+
+  metric = "none"
+  metrics : Metric[] = []
 
   //-------------------------------------------------------------------------
 
@@ -136,7 +141,8 @@ export class FilteringPanel extends AbstractPanel {
     ]
 
     this.equityChartOptions = this.buildEquityChartOptions    (this.loc("equities"), this.onChartClick)
-    this.activChartOptions  = this.buildActivationChartOptions(this.loc("activation"))
+    this.activChartOptions  = this.buildActivationChartOptions(this.loc("filterOutcome"))
+    this.metricChartOptions = this.buildMetricChartOptions    (this.loc("filterMetric"), this.onChartClick)
     this.period.daysBack = 0
   }
 
@@ -221,6 +227,17 @@ export class FilteringPanel extends AbstractPanel {
 
   //-------------------------------------------------------------------------
 
+  onMetricChange(id : string) : void {
+    let name = id.substring(2)
+
+    let metric = this.metrics.find( m => m.id === id )
+    if (metric) {
+      this.createMetricChart(name, metric.time, metric.values)
+    }
+  }
+
+  //-------------------------------------------------------------------------
+
   onMarkersChange() {
     if (this.showMarkers) {
       this.activChartOptions.markers = <ApexMarkers>{
@@ -282,6 +299,32 @@ export class FilteringPanel extends AbstractPanel {
 
   //-------------------------------------------------------------------------
 
+  private buildMetricChartOptions(title : string, clickFunction: any) : ChartOptions {
+    return Lib.chart.buildLineOptions({
+      chart: {
+        height: 300,
+        id: "metric",
+        events: {
+          click: clickFunction,
+        }
+      },
+
+      stroke: {
+        dashArray: [ 0 ]
+      },
+
+      title: {
+        text: title
+      },
+      yaxis: {
+        tickAmount: 10,
+      },
+      colors: [ "#2060FF", "#FF6040"],
+    })
+  }
+
+  //-------------------------------------------------------------------------
+
   private callService(filter? : TradingFilter) {
     console.log("Calling service")
     let req = new FilterAnalysisRequest()
@@ -290,13 +333,14 @@ export class FilteringPanel extends AbstractPanel {
 
     this.portfolioService.runFilterAnalysis(this.tsId, req).subscribe(
       result => {
-        this.filter         = result.filter;
-        this.tradingSystem  = result.tradingSystem;
+        this.result         = result
+        this.filter         = result.filter
+        this.tradingSystem  = result.tradingSystem
         this.summaryData    = this.buildSummary(result.summary)
-        //outcomes
         this.createEquityChart(result);
         this.createActivationChart(result);
         this.setupPortfolioInfo(result.portfolio)
+        this.setupMetrics(result.outcomes)
       }
     )
   }
@@ -466,6 +510,37 @@ export class FilteringPanel extends AbstractPanel {
 
   //-------------------------------------------------------------------------
 
+  private setupMetrics(o : Outcomes) {
+    this.metric  = "none"
+    this.metrics = []
+    this.metrics.push({id:"none", name:this.loc("none"), icon:"close_small", time:[], values:[]})
+
+    o.activations  .forEach(a => { this.metrics.push(this.buildMetric(a, "filter_plus"  , "a")) })
+    o.deactivations.forEach(d => { this.metrics.push(this.buildMetric(d, "filter_cancel", "d")) })
+  }
+
+  //-------------------------------------------------------------------------
+
+  private buildMetric(a : Activation, icon : string, prefix : string) : Metric {
+    return new Metric(prefix +"."+ a.name, this.loc("card."+ a.name), icon, a.times, a.metrics)
+  }
+
+  //-------------------------------------------------------------------------
+
+  private createMetricChart(name : string, time : Date[], values : number[]) {
+    let zeros : number[]= []
+    values.forEach(value => {
+      zeros.push(0)
+    })
+
+    this.metricChartOptions.series = [
+      Lib.chart.buildDataset(this.loc("card."+ name),  time, values),
+      Lib.chart.buildDataset(this.loc("zero"), time, zeros)
+    ]
+  }
+
+  //-------------------------------------------------------------------------
+
   private openParametersDialog() {
     const dialogRef = this.dialog.open(OptimizeParameterDialog, {
       minWidth : "1280px",
@@ -542,6 +617,16 @@ class SummaryRow {
     this.unfiltered = unfiltered
     this.filtered   = filtered
   }
+}
+
+//=============================================================================
+
+class Metric {
+  constructor(public id    : string,
+              public name  : string,
+              public icon  : string,
+              public time  : Date[],
+              public values: number[]) {}
 }
 
 //=============================================================================

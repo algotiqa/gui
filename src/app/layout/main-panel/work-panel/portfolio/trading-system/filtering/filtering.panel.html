@@ -8,6 +8,9 @@
     <save-button     (click)="onSaveClick()"    ></save-button>
     <reload-button   (click)="onReloadClick()"  ></reload-button>
     <span class="divider"></span>
+    <select-required [label]="loc('viewMetric')" [(key)]="metric" [list]="metrics"
+                     keyField="id" valueField="name" iconField="icon" iconClass="material-symbols-outlined"
+                     (keyChange)="onMetricChange($event)"></select-required>
     <toggle-button label="{{loc('markers')}}" [(checked)]="showMarkers" (checkedChange)="onMarkersChange()"></toggle-button>
     <div class="portfolio-info">
       <span class="portfolio-name">{{portName}}</span>
@@ -28,14 +31,14 @@
         <div>
           <select-required [label]="loc('combinationModeA')" [(key)]="filter.activation.combinationMode"   [map]="combinationModes"></select-required>
           <button mat-icon-button [matMenuTriggerFor]="criteriaMenuA">
-            <mat-icon>filter_alt</mat-icon>
+            <span class="material-symbols-outlined">filter_plus</span>
           </button>
         </div>
 
         <div>
           <select-required [label]="loc('combinationModeD')" [(key)]="filter.deactivation.combinationMode" [map]="combinationModes"></select-required>
           <button mat-icon-button [matMenuTriggerFor]="criteriaMenuD">
-            <mat-icon>filter_alt</mat-icon>
+            <span class="material-symbols-outlined">filter_cancel</span>
           </button>
         </div>
 
@@ -92,6 +95,7 @@
         [grid]       = "equityChartOptions.grid"
         [annotations]= "equityChartOptions.annotations"
       ></apx-chart>
+
       <apx-chart
         [title]      = "activChartOptions.title"
         [chart]      = "activChartOptions.chart"
@@ -104,6 +108,22 @@
         [grid]       = "activChartOptions.grid"
         [markers]    = "activChartOptions.markers"
       ></apx-chart>
+
+      @if (metric != "none") {
+        <apx-chart
+          [title]      = "metricChartOptions.title"
+          [chart]      = "metricChartOptions.chart"
+          [series]     = "metricChartOptions.series"
+          [dataLabels] = "metricChartOptions.dataLabels"
+          [plotOptions]= "metricChartOptions.plotOptions"
+          [stroke]     = "metricChartOptions.stroke"
+          [xaxis]      = "metricChartOptions.xaxis"
+          [yaxis]      = "metricChartOptions.yaxis"
+          [grid]       = "metricChartOptions.grid"
+          [markers]    = "metricChartOptions.markers"
+          [colors]     = "metricChartOptions.colors"
+        ></apx-chart>
+      }
     </div>
   </list-content>
 </list-panel>

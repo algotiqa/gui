@@ -685,13 +685,18 @@ page:
     filtering:
       period          : Period
       equities        : Equities and drawdowns
-      activation      : Activation
+      filterOutcome   : Filter outcome
+      filterMetric    : Filter metric
       config          : Configuration
       activations     : Activations
       deactivations   : Deactivations
       markers         : Markers
+      viewMetric      : View metric
+      none            : None
       combinationModeA: Combination mode (activations)
       combinationModeD: Combination mode (deactivations)
+      filterSaved     : Filter saved
+      zero            : Zero level
       every: every
       WE   : week
       WEs  : weeks
@@ -711,7 +716,6 @@ page:
 #      drawdown:          Drawdown
 #      drawdownMin:       Min value
 #      drawdownMax:       Max value
-#      filterSaved:       Filter saved
 #      summary: Summary
 #      analysis: Analysis
       summ:
