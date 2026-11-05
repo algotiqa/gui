@@ -8,20 +8,25 @@
 //=============================================================================
 
 import {ChangeDetectionStrategy, Component, Input} from "@angular/core";
-import {NetReturnConfig} from "../../../../../../../../model/filtering";
+import {NetReturnConfig, Sqn100Config} from "../../../../../../../../model/filtering";
 import {Router} from "@angular/router";
 import {LabelService} from "../../../../../../../../service/label.service";
 import {EventBusService} from "../../../../../../../../service/eventbus.service";
 import {AbstractPanel} from "../../../../../../../../component/abstract.panel";
+import {CriteriaCard} from "../../criteria-card/criteria.card";
+import {InputNumber} from "../../../../../../../../component/form/input-number/input-number";
 
 //=============================================================================
 
 @Component({
-  selector: 'net-return-card',
-  templateUrl: './net-return.card.html',
-  styleUrls: ['./net-return.card.scss'],
+  selector: 'sqn100-card',
+  templateUrl: './sqn100.card.html',
+  styleUrls: [ './sqn100.card.scss'],
   changeDetection: ChangeDetectionStrategy.Eager,
-  imports: []
+  imports: [
+    CriteriaCard,
+    InputNumber
+  ]
 })
 
 //=============================================================================
@@ -34,7 +39,7 @@ export class Sqn100Card extends AbstractPanel {
   //---
   //-------------------------------------------------------------------------
 
-  @Input() config? : NetReturnConfig
+  @Input() config = new Sqn100Config()
 
   //-------------------------------------------------------------------------
   //---
@@ -47,6 +52,16 @@ export class Sqn100Card extends AbstractPanel {
               router          : Router) {
 
     super(eventBusService, labelService, router, "portfolio.filtering.card");
+  }
+
+  //-------------------------------------------------------------------------
+  //---
+  //--- Events
+  //---
+  //-------------------------------------------------------------------------
+
+  onRemove() {
+    this.config.enabled = false
   }
 }
 

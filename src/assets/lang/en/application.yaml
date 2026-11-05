@@ -702,22 +702,6 @@ page:
       WEs  : weeks
       MO   : month
       MOs  : months
-
-#      startDate: Start filtering from
-#      length:            Trades length
-#      positiveProfit:    Positive profit
-#      oldPercentage:     Old period %
-#      winningPercentage: Winning % > value
-#      winningPercValue:  Value (%)
-#      equityAverage:     Equity over its average
-#      equityLen:         Average trades length
-#      trendline:         Trendline slope > value
-#      trendlineValue:    Slope * 100
-#      drawdown:          Drawdown
-#      drawdownMin:       Min value
-#      drawdownMax:       Max value
-#      summary: Summary
-#      analysis: Analysis
       summ:
         name        : Metric
         unfiltered  : Unfiltered
@@ -743,7 +727,12 @@ page:
         equityAverage    : Equity vs average
         maxDrawdown      : Max drawdown
         winningPercentage: Winning percentage
-        trendline        : Trendline
+        trendLine        : Trendline
+        averageTrade     : Average trade
+        profitFactor     : Profit factor
+        sharpeRatio      : Sharpe ratio
+        sqn100           : SQN(100)
+        returnMaxddRatio : Return / max-drawdown
         length           : Length (# of trades)
         value            : Value
 

@@ -66,6 +66,11 @@ import {SelectRequired} from "../../../../../../component/form/select-required/s
 import {MatMenu, MatMenuTrigger} from "@angular/material/menu";
 import {MatCheckbox} from "@angular/material/checkbox";
 import {ToggleButton} from "../../../../../../component/form/toggle-button/toggle-button";
+import {AverageTradeCard} from "./criteria/average-trade/average-trade.card";
+import {ProfitFactorCard} from "./criteria/profit-factor/profit-factor.card";
+import {SharpeRatioCard} from "./criteria/sharpe-ratio/sharpe-ratio.card";
+import {Sqn100Card} from "./criteria/sqn100/sqn100.card";
+import {ReturnMaxddRatioCard} from "./criteria/return-maxdd-ratio/return-maxdd-ratio.card";
 
 //=============================================================================
 
@@ -74,7 +79,7 @@ import {ToggleButton} from "../../../../../../component/form/toggle-button/toggl
     templateUrl: './filtering.panel.html',
     styleUrls: ['./filtering.panel.scss'],
   changeDetection: ChangeDetectionStrategy.Eager,
-  imports: [RouterModule, MatExpansionModule, MatIconModule, MatFormFieldModule, FormsModule, MatInputModule, MatOptionModule, MatSelectModule, MatSlideToggleModule, MatTabsModule, MatButtonModule, MatDividerModule, MatGridListModule, SimpleTablePanel, MatDialogModule, ChartComponent, MatCardModule, PeriodSelector, ListButtons, ListContent, ListPanel, ListLeft, BackButton, SaveButton, ReloadButton, RunButton, OptimizeButton, NetReturnCard, EquityVsAverageCard, MaxDrawdownCard, WinningPercentageCard, TrendLineCard, MatButtonToggle, MatButtonToggleGroup, ReactiveFormsModule, SelectRequired, MatMenu, MatCheckbox, MatMenuTrigger, ToggleButton]
+  imports: [RouterModule, MatExpansionModule, MatIconModule, MatFormFieldModule, FormsModule, MatInputModule, MatOptionModule, MatSelectModule, MatSlideToggleModule, MatTabsModule, MatButtonModule, MatDividerModule, MatGridListModule, SimpleTablePanel, MatDialogModule, ChartComponent, MatCardModule, PeriodSelector, ListButtons, ListContent, ListPanel, ListLeft, BackButton, SaveButton, ReloadButton, RunButton, OptimizeButton, NetReturnCard, EquityVsAverageCard, MaxDrawdownCard, WinningPercentageCard, TrendLineCard, MatButtonToggle, MatButtonToggleGroup, ReactiveFormsModule, SelectRequired, MatMenu, MatCheckbox, MatMenuTrigger, ToggleButton, AverageTradeCard, ProfitFactorCard, SharpeRatioCard, Sqn100Card, ReturnMaxddRatioCard]
 })
 
 //=============================================================================
@@ -140,9 +145,9 @@ export class FilteringPanel extends AbstractPanel {
       new FlexTableColumn(ts, "filtered")
     ]
 
-    this.equityChartOptions = this.buildEquityChartOptions    (this.loc("equities"), this.onChartClick)
+    this.equityChartOptions = this.buildEquityChartOptions    (this.loc("equities"))
     this.activChartOptions  = this.buildActivationChartOptions(this.loc("filterOutcome"))
-    this.metricChartOptions = this.buildMetricChartOptions    (this.loc("filterMetric"), this.onChartClick)
+    this.metricChartOptions = this.buildMetricChartOptions    (this.loc("filterMetric"))
     this.period.daysBack = 0
   }
 
@@ -216,19 +221,10 @@ export class FilteringPanel extends AbstractPanel {
 
   //-------------------------------------------------------------------------
 
-  onChartClick = (e: any, chart?: any, options?: any) => {
-    // if (this.analysis.equities.time.length > 0) {
-      // this.selectedPeriod     = -1
-      // this.startDate          = this.analysis.equities.time[options.dataPointIndex]
-      // this.startDateDisplayed = this.startDate.substring(0,10)
-      // this.setAnnotationDate(new Date(this.startDate))
-    // }
-  }
-
-  //-------------------------------------------------------------------------
-
   onMetricChange(id : string) : void {
     let name = id.substring(2)
+
+    this.metricChartOptions.series = []
 
     let metric = this.metrics.find( m => m.id === id )
     if (metric) {
@@ -258,13 +254,10 @@ export class FilteringPanel extends AbstractPanel {
   //---
   //-------------------------------------------------------------------------
 
-  private buildEquityChartOptions(title : string, clickFunction: any) : ChartOptions {
+  private buildEquityChartOptions(title : string) : ChartOptions {
     return Lib.chart.buildLineOptions({
       chart: {
         height: 500,
-        events: {
-          click: clickFunction,
-        }
       },
 
       stroke: {
@@ -299,18 +292,15 @@ export class FilteringPanel extends AbstractPanel {
 
   //-------------------------------------------------------------------------
 
-  private buildMetricChartOptions(title : string, clickFunction: any) : ChartOptions {
+  private buildMetricChartOptions(title : string) : ChartOptions {
     return Lib.chart.buildLineOptions({
       chart: {
         height: 300,
         id: "metric",
-        events: {
-          click: clickFunction,
-        }
       },
 
       stroke: {
-        dashArray: [ 0 ]
+        dashArray: [ 0, 0 ]
       },
 
       title: {
@@ -318,8 +308,9 @@ export class FilteringPanel extends AbstractPanel {
       },
       yaxis: {
         tickAmount: 10,
+        decimalsInFloat: 2,
       },
-      colors: [ "#2060FF", "#FF6040"],
+      colors: [ "#FF6040", "#2060FF" ],
     })
   }
 
@@ -344,43 +335,6 @@ export class FilteringPanel extends AbstractPanel {
       }
     )
   }
-
-  //-------------------------------------------------------------------------
-
-  // private findDateFromDays(daysBack : number) : Date {
-  //   let now   = new Date().getTime()
-  //   let delta = daysBack * 24 * 3600 * 1000
-  //   let past    = new Date(now-delta)
-  //
-  //   return new Date(past)
-  // }
-
-  //-------------------------------------------------------------------------
-
-  // private setAnnotationDate(d : Date|undefined) {
-  //   let date = undefined
-  //   let text = ""
-  //
-  //   if (d != undefined) {
-  //     date = d.getTime()
-  //     text = d.toISOString().substring(0, 10)
-  //   }
-  //
-  //   this.equityChartOptions.annotations = {
-  //     xaxis: [
-  //       {
-  //         x: date,
-  //         borderColor: '#775DD0',
-  //         label: {
-  //           style: {
-  //             color: '#000000',
-  //           },
-  //           text: text
-  //         }
-  //       }
-  //     ]
-  //   }
-  // }
 
   //-------------------------------------------------------------------------
 
@@ -517,6 +471,8 @@ export class FilteringPanel extends AbstractPanel {
 
     o.activations  .forEach(a => { this.metrics.push(this.buildMetric(a, "filter_plus"  , "a")) })
     o.deactivations.forEach(d => { this.metrics.push(this.buildMetric(d, "filter_cancel", "d")) })
+
+    this.metricChartOptions.series = []
   }
 
   //-------------------------------------------------------------------------
@@ -529,13 +485,16 @@ export class FilteringPanel extends AbstractPanel {
 
   private createMetricChart(name : string, time : Date[], values : number[]) {
     let zeros : number[]= []
-    values.forEach(value => {
+    let etime = this.result.equities.time
+
+    etime.forEach(value => {
       zeros.push(0)
     })
 
     this.metricChartOptions.series = [
+      //--- This chart must have etime otherwise it doesn't sync with the other charts
+      Lib.chart.buildDataset(this.loc("zero"), etime, zeros),
       Lib.chart.buildDataset(this.loc("card."+ name),  time, values),
-      Lib.chart.buildDataset(this.loc("zero"), time, zeros)
     ]
   }
 

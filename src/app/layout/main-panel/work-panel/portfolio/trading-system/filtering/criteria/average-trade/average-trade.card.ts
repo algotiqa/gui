@@ -8,20 +8,25 @@
 //=============================================================================
 
 import {ChangeDetectionStrategy, Component, Input} from "@angular/core";
-import {NetReturnConfig} from "../../../../../../../../model/filtering";
+import {AverageTradeConfig, NetReturnConfig} from "../../../../../../../../model/filtering";
 import {Router} from "@angular/router";
 import {LabelService} from "../../../../../../../../service/label.service";
 import {EventBusService} from "../../../../../../../../service/eventbus.service";
 import {AbstractPanel} from "../../../../../../../../component/abstract.panel";
+import {CriteriaCard} from "../../criteria-card/criteria.card";
+import {InputNumber} from "../../../../../../../../component/form/input-number/input-number";
 
 //=============================================================================
 
 @Component({
-  selector: 'net-return-card',
-  templateUrl: './net-return.card.html',
-  styleUrls: ['./net-return.card.scss'],
+  selector: 'average-trade-card',
+  templateUrl: './average-trade.card.html',
+  styleUrls: [ './average-trade.card.scss'],
   changeDetection: ChangeDetectionStrategy.Eager,
-  imports: []
+  imports: [
+    CriteriaCard,
+    InputNumber
+  ]
 })
 
 //=============================================================================
@@ -34,7 +39,7 @@ export class AverageTradeCard extends AbstractPanel {
   //---
   //-------------------------------------------------------------------------
 
-  @Input() config? : NetReturnConfig
+  @Input() config = new AverageTradeConfig()
 
   //-------------------------------------------------------------------------
   //---
@@ -47,6 +52,16 @@ export class AverageTradeCard extends AbstractPanel {
               router          : Router) {
 
     super(eventBusService, labelService, router, "portfolio.filtering.card");
+  }
+
+  //-------------------------------------------------------------------------
+  //---
+  //--- Events
+  //---
+  //-------------------------------------------------------------------------
+
+  onRemove() {
+    this.config.enabled = false
   }
 }
 
