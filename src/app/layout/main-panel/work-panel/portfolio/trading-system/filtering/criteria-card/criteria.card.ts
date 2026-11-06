@@ -40,8 +40,9 @@ export class CriteriaCard extends AbstractPanel {
   //---
   //-------------------------------------------------------------------------
 
-  @Input() icon : string = ""
-  @Input() title: string = ""
+  @Input() icon   : string  = ""
+  @Input() title  : string  = ""
+  @Input() changed: boolean = false
 
   //-------------------------------------------------------------------------
 
@@ -71,6 +72,11 @@ export class CriteriaCard extends AbstractPanel {
 
     this.onRemove.emit()
   }
-}
+
+  //-------------------------------------------------------------------------
+
+  backColor() : string {
+    return this.changed ? "#FFF0F0" : "#FFFFFF"
+  }}
 
 //=============================================================================

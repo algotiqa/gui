@@ -40,6 +40,7 @@ export class ReturnMaxddRatioCard extends AbstractPanel {
   //-------------------------------------------------------------------------
 
   @Input() config = new ReturnMaxDDRatioConfig()
+  @Input() base   = new ReturnMaxDDRatioConfig()
 
   //-------------------------------------------------------------------------
   //---

@@ -1,4 +1,4 @@
-<mat-expansion-panel [expanded]="true" hideToggle class="expansion-layout">
+<mat-expansion-panel [expanded]="true" hideToggle class="expansion-layout" style="background-color:{{backColor()}}">
   <mat-expansion-panel-header>
     <mat-panel-title><mat-icon class="material-symbols-outlined">{{icon}}</mat-icon> {{title}}</mat-panel-title>
     <button mat-icon-button (click)="onDelete($event)" (keydown)="$event.stopPropagation()">

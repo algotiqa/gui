@@ -40,6 +40,7 @@ export class NetReturnCard extends AbstractPanel {
   //-------------------------------------------------------------------------
 
   @Input() config = new NetReturnConfig()
+  @Input() base   = new NetReturnConfig()
 
   //-------------------------------------------------------------------------
   //---

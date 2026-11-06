@@ -40,6 +40,7 @@ export class AverageTradeCard extends AbstractPanel {
   //-------------------------------------------------------------------------
 
   @Input() config = new AverageTradeConfig()
+  @Input() base   = new AverageTradeConfig()
 
   //-------------------------------------------------------------------------
   //---

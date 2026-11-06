@@ -44,6 +44,7 @@ export class WinningPercentageCard extends AbstractPanel {
   //-------------------------------------------------------------------------
 
   @Input() config = new WinningPercentageConfig()
+  @Input() base   = new WinningPercentageConfig()
 
   //-------------------------------------------------------------------------
   //---

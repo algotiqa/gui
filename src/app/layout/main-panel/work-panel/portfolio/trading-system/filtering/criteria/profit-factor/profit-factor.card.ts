@@ -40,6 +40,7 @@ export class ProfitFactorCard extends AbstractPanel {
   //-------------------------------------------------------------------------
 
   @Input() config = new ProfitFactorConfig()
+  @Input() base   = new ProfitFactorConfig()
 
   //-------------------------------------------------------------------------
   //---

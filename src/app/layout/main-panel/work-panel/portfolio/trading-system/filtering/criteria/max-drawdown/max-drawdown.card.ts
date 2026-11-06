@@ -44,6 +44,7 @@ export class MaxDrawdownCard extends AbstractPanel {
   //-------------------------------------------------------------------------
 
   @Input() config = new MaxDrawdownConfig()
+  @Input() base   = new MaxDrawdownConfig()
 
   //-------------------------------------------------------------------------
   //---

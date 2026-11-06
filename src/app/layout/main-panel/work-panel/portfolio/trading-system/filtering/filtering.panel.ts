@@ -7,7 +7,7 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-import {Component, ViewChild, ChangeDetectionStrategy} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 
 import {ActivatedRoute, Router, RouterModule} from "@angular/router";
 import {AbstractPanel} from "../../../../../../component/abstract.panel";
@@ -26,7 +26,7 @@ import {
 import {
   FilterAnalysisRequest,
   FilterAnalysisResponse, FilterRun, Activation, Summary,
-  TradingFilter, Outcomes, Config, EquityVsAverageConfig,
+  TradingFilter, Outcomes, EquityVsAverageConfig,
 } from "../../../../../../model/filtering";
 import {MatTabsModule} from "@angular/material/tabs";
 import {MatButtonModule} from "@angular/material/button";
@@ -35,7 +35,6 @@ import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatDividerModule} from "@angular/material/divider";
 import {PortfolioService} from "../../../../../../service/portfolio.service";
 import {MatGridListModule} from "@angular/material/grid-list";
-import {FlexTablePanel} from "../../../../../../component/panel/flex-table/flex-table.panel";
 import {FlexTableColumn} from "../../../../../../model/flex-table";
 import {SimpleTablePanel} from "../../../../../../component/panel/simple-table/simple-table.panel";
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -43,11 +42,10 @@ import {MatDialog, MatDialogModule} from "@angular/material/dialog";
 import {OptimizeProgressDialog} from "./optimize/progress/progress.dialog";
 import {OptimizeResultDialog} from "./optimize/result/result.dialog";
 import {OptimizeParameterDialog} from "./optimize/parameter/parameter.dialog";
-import {ApexDataLabels, ApexMarkers, ChartComponent} from "ng-apexcharts";
+import { ApexMarkers, ChartComponent} from "ng-apexcharts";
 import {DialogData} from "./optimize/dialog-data";
 import {MatCardModule} from "@angular/material/card";
 import {ChartOptions} from "../../../../../../lib/chart-lib";
-import {InputNumber} from "../../../../../../component/form/input-number/input-number";
 import {PeriodSelector, PeriodSelectorInfo} from "../../../../../../component/form/period-selector/period-selector";
 import {ListButtons, ListContent, ListLeft, ListPanel} from "../../../../../../component/panel/list-panel/list-panel";
 import {BackButton} from "../../../../../../component/button/back/back.button";
@@ -219,6 +217,7 @@ export class FilteringPanel extends AbstractPanel {
   onSaveClick() {
     this.portfolioService.setTradingFilters(this.tsId, this.filter).subscribe(
       result => {
+        this.baseline = TradingFilter.fromJson(this.filter)
         this.snackBar.open(this.loc("filterSaved"), undefined, { duration: 3000 })
       }
     )
@@ -334,16 +333,16 @@ export class FilteringPanel extends AbstractPanel {
     req.period = this.period.getSelectedPeriod()
 
     this.portfolioService.runFilterAnalysis(this.tsId, req).subscribe(
-      result => {
-        this.result         = result
-        this.filter         = result.filter
-        this.baseline       = result.baseline
-        this.tradingSystem  = result.tradingSystem
-        this.summaryData    = this.buildSummary(result.summary)
-        this.createEquityChart(result);
-        this.createActivationChart(result);
-        this.setupPortfolioInfo(result.portfolio)
-        this.setupMetrics(result.outcomes)
+      res => {
+        this.result         = res
+        this.filter         = TradingFilter.fromJson(res.filter)
+        this.baseline       = TradingFilter.fromJson(res.baseline)
+        this.tradingSystem  = res.tradingSystem
+        this.summaryData    = this.buildSummary(res.summary)
+        this.createEquityChart(res);
+        this.createActivationChart(res);
+        this.setupPortfolioInfo(res.portfolio)
+        this.setupMetrics(res.outcomes)
       }
     )
   }

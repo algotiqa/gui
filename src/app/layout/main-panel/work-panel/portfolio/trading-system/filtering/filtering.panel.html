@@ -61,29 +61,29 @@
 
     <mat-accordion class="accordion-layout" multi>
       @if (selView.value == "a") {
-        <net-return-card         [config] = filter.activation.netReturn         [hidden]="!filter.activation.netReturn.enabled"></net-return-card>
-        <equity-vs-average-card  [config] = filter.activation.equityVsAverage   [hidden]="!filter.activation.equityVsAverage.enabled"></equity-vs-average-card>
-        <max-drawdown-card       [config] = filter.activation.maxDrawdown       [hidden]="!filter.activation.maxDrawdown.enabled"></max-drawdown-card>
-        <winning-percentage-card [config] = filter.activation.winningPercentage [hidden]="!filter.activation.winningPercentage.enabled"></winning-percentage-card>
-        <trendline-card          [config] = filter.activation.trendLine         [hidden]="!filter.activation.trendLine.enabled"></trendline-card>
-        <average-trade-card      [config] = filter.activation.averageTrade      [hidden]="!filter.activation.averageTrade.enabled"></average-trade-card>
-        <profit-factor-card      [config] = filter.activation.profitFactor      [hidden]="!filter.activation.profitFactor.enabled"></profit-factor-card>
-        <sharpe-ratio-card       [config] = filter.activation.sharpeRatio       [hidden]="!filter.activation.sharpeRatio.enabled"></sharpe-ratio-card>
-        <sqn100-card             [config] = filter.activation.sqn100            [hidden]="!filter.activation.sqn100.enabled"></sqn100-card>
-        <return-maxdd-ratio-card [config] = filter.activation.returnMaxDDRatio  [hidden]="!filter.activation.returnMaxDDRatio.enabled"></return-maxdd-ratio-card>
+        <net-return-card         [config] = "filter.activation.netReturn"         [base] = "baseline.activation.netReturn"         [hidden]="!filter.activation.netReturn.enabled"></net-return-card>
+        <equity-vs-average-card  [config] = "filter.activation.equityVsAverage"   [base] = "baseline.activation.equityVsAverage"   [hidden]="!filter.activation.equityVsAverage.enabled"></equity-vs-average-card>
+        <max-drawdown-card       [config] = "filter.activation.maxDrawdown"       [base] = "baseline.activation.maxDrawdown"       [hidden]="!filter.activation.maxDrawdown.enabled"></max-drawdown-card>
+        <winning-percentage-card [config] = "filter.activation.winningPercentage" [base] = "baseline.activation.winningPercentage" [hidden]="!filter.activation.winningPercentage.enabled"></winning-percentage-card>
+        <trendline-card          [config] = "filter.activation.trendLine"         [base] = "baseline.activation.trendLine"         [hidden]="!filter.activation.trendLine.enabled"></trendline-card>
+        <average-trade-card      [config] = "filter.activation.averageTrade"      [base] = "baseline.activation.averageTrade"      [hidden]="!filter.activation.averageTrade.enabled"></average-trade-card>
+        <profit-factor-card      [config] = "filter.activation.profitFactor"      [base] = "baseline.activation.profitFactor"      [hidden]="!filter.activation.profitFactor.enabled"></profit-factor-card>
+        <sharpe-ratio-card       [config] = "filter.activation.sharpeRatio"       [base] = "baseline.activation.sharpeRatio"       [hidden]="!filter.activation.sharpeRatio.enabled"></sharpe-ratio-card>
+        <sqn100-card             [config] = "filter.activation.sqn100"            [base] = "baseline.activation.sqn100"            [hidden]="!filter.activation.sqn100.enabled"></sqn100-card>
+        <return-maxdd-ratio-card [config] = "filter.activation.returnMaxDDRatio"  [base] = "baseline.activation.returnMaxDDRatio"  [hidden]="!filter.activation.returnMaxDDRatio.enabled"></return-maxdd-ratio-card>
       }
 
       @if (selView.value == "d") {
-        <net-return-card         [config] = filter.deactivation.netReturn         [hidden]="!filter.deactivation.netReturn.enabled"></net-return-card>
-        <equity-vs-average-card  [config] = filter.deactivation.equityVsAverage   [hidden]="!filter.deactivation.equityVsAverage.enabled"></equity-vs-average-card>
-        <max-drawdown-card       [config] = filter.deactivation.maxDrawdown       [hidden]="!filter.deactivation.maxDrawdown.enabled"></max-drawdown-card>
-        <winning-percentage-card [config] = filter.deactivation.winningPercentage [hidden]="!filter.deactivation.winningPercentage.enabled"></winning-percentage-card>
-        <trendline-card          [config] = filter.deactivation.trendLine         [hidden]="!filter.deactivation.trendLine.enabled"></trendline-card>
-        <average-trade-card      [config] = filter.deactivation.averageTrade      [hidden]="!filter.deactivation.averageTrade.enabled"></average-trade-card>
-        <profit-factor-card      [config] = filter.deactivation.profitFactor      [hidden]="!filter.deactivation.profitFactor.enabled"></profit-factor-card>
-        <sharpe-ratio-card       [config] = filter.deactivation.sharpeRatio       [hidden]="!filter.deactivation.sharpeRatio.enabled"></sharpe-ratio-card>
-        <sqn100-card             [config] = filter.deactivation.sqn100            [hidden]="!filter.deactivation.sqn100.enabled"></sqn100-card>
-        <return-maxdd-ratio-card [config] = filter.deactivation.returnMaxDDRatio  [hidden]="!filter.deactivation.returnMaxDDRatio.enabled"></return-maxdd-ratio-card>
+        <net-return-card         [config] = "filter.deactivation.netReturn"         [base] = "baseline.deactivation.netReturn"         [hidden]="!filter.deactivation.netReturn.enabled"></net-return-card>
+        <equity-vs-average-card  [config] = "filter.deactivation.equityVsAverage"   [base] = "baseline.deactivation.equityVsAverage"   [hidden]="!filter.deactivation.equityVsAverage.enabled"></equity-vs-average-card>
+        <max-drawdown-card       [config] = "filter.deactivation.maxDrawdown"       [base] = "baseline.deactivation.maxDrawdown"       [hidden]="!filter.deactivation.maxDrawdown.enabled"></max-drawdown-card>
+        <winning-percentage-card [config] = "filter.deactivation.winningPercentage" [base] = "baseline.deactivation.winningPercentage" [hidden]="!filter.deactivation.winningPercentage.enabled"></winning-percentage-card>
+        <trendline-card          [config] = "filter.deactivation.trendLine"         [base] = "baseline.deactivation.trendLine"         [hidden]="!filter.deactivation.trendLine.enabled"></trendline-card>
+        <average-trade-card      [config] = "filter.deactivation.averageTrade"      [base] = "baseline.deactivation.averageTrade"      [hidden]="!filter.deactivation.averageTrade.enabled"></average-trade-card>
+        <profit-factor-card      [config] = "filter.deactivation.profitFactor"      [base] = "baseline.deactivation.profitFactor"      [hidden]="!filter.deactivation.profitFactor.enabled"></profit-factor-card>
+        <sharpe-ratio-card       [config] = "filter.deactivation.sharpeRatio"       [base] = "baseline.deactivation.sharpeRatio"       [hidden]="!filter.deactivation.sharpeRatio.enabled"></sharpe-ratio-card>
+        <sqn100-card             [config] = "filter.deactivation.sqn100"            [base] = "baseline.deactivation.sqn100"            [hidden]="!filter.deactivation.sqn100.enabled"></sqn100-card>
+        <return-maxdd-ratio-card [config] = "filter.deactivation.returnMaxDDRatio"  [base] = "baseline.deactivation.returnMaxDDRatio"  [hidden]="!filter.deactivation.returnMaxDDRatio.enabled"></return-maxdd-ratio-card>
       }
     </mat-accordion>
   </list-left>

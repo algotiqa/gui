@@ -708,7 +708,7 @@ page:
         filtered    : Filtered
         netProfit   : Net profit
         maxDrawdown : Max drawdown
-        winningPerc : Winning percentage
+        winningPerc : Winning %
         averageTrade: Average trade
       chart:
         unfEquity      : Unfiltered equity

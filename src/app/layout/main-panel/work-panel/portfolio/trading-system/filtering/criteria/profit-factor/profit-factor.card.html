@@ -1,4 +1,4 @@
-<criteria-card icon="calculate" title="{{loc('profitFactor')}}" (onRemove)="onRemove()">
+<criteria-card icon="calculate" title="{{loc('profitFactor')}}" (onRemove)="onRemove()" [changed]="!config.equals(base)">
   <input-number [(value)]="config.length" [label]="loc('length')" [min]="1" [max]="1000"></input-number>
   <input-number [(value)]="config.value"  [label]="loc('value')" [min]="0" [max]="10"></input-number>
 </criteria-card>

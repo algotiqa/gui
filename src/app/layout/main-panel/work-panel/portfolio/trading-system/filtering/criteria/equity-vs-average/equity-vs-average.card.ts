@@ -44,6 +44,7 @@ export class EquityVsAverageCard extends AbstractPanel {
   //-------------------------------------------------------------------------
 
   @Input() config = new EquityVsAverageConfig()
+  @Input() base   = new EquityVsAverageConfig()
 
   //-------------------------------------------------------------------------
   //---

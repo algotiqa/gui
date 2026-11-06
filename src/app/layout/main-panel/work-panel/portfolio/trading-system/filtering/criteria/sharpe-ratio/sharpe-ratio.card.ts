@@ -40,6 +40,7 @@ export class SharpeRatioCard extends AbstractPanel {
   //-------------------------------------------------------------------------
 
   @Input() config = new SharpeRatioConfig()
+  @Input() base   = new SharpeRatioConfig()
 
   //-------------------------------------------------------------------------
   //---

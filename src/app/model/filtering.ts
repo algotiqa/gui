@@ -33,6 +33,15 @@ export class TradingFilter {
     return this.activation  .equals(f.activation) &&
            this.deactivation.equals(f.deactivation)
   }
+
+  //-----------------------------------------------------
+
+  public static fromJson(j? : Partial<TradingFilter>) : TradingFilter {
+    let f          = Object.assign(new TradingFilter(), j)
+    f.activation   = Config.fromJson(j?.activation)
+    f.deactivation = Config.fromJson(j?.deactivation)
+    return f
+  }
 }
 
 //=============================================================================
@@ -64,6 +73,23 @@ export class Config {
            this.sharpeRatio      .equals(c.sharpeRatio)       &&
            this.sqn100           .equals(c.sqn100)            &&
            this.returnMaxDDRatio .equals(c.returnMaxDDRatio)
+  }
+
+  //-----------------------------------------------------
+
+  public static fromJson(j? : Partial<Config>) : Config {
+    let c               = Object.assign(new Config(), j)
+    c.netReturn         = Object.assign(new NetReturnConfig(),         j?.netReturn)
+    c.averageTrade      = Object.assign(new AverageTradeConfig(),      j?.averageTrade)
+    c.equityVsAverage   = Object.assign(new EquityVsAverageConfig(),   j?.equityVsAverage)
+    c.winningPercentage = Object.assign(new WinningPercentageConfig(), j?.winningPercentage)
+    c.maxDrawdown       = Object.assign(new MaxDrawdownConfig(),       j?.maxDrawdown)
+    c.trendLine         = Object.assign(new TrendLineConfig(),         j?.trendLine)
+    c.profitFactor      = Object.assign(new ProfitFactorConfig(),      j?.profitFactor)
+    c.sharpeRatio       = Object.assign(new SharpeRatioConfig(),       j?.sharpeRatio)
+    c.sqn100            = Object.assign(new Sqn100Config(),            j?.sqn100)
+    c.returnMaxDDRatio  = Object.assign(new ReturnMaxDDRatioConfig(),  j?.returnMaxDDRatio)
+    return c
   }
 }
 

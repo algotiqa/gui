@@ -44,6 +44,7 @@ export class TrendLineCard extends AbstractPanel {
   //-------------------------------------------------------------------------
 
   @Input() config = new TrendLineConfig()
+  @Input() base   = new TrendLineConfig()
 
   //-------------------------------------------------------------------------
   //---
