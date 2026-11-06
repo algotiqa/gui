@@ -26,6 +26,13 @@ export class FilterAnalysisRequest {
 export class TradingFilter {
   activation   : Config = new Config()
   deactivation : Config = new Config()
+
+  //-----------------------------------------------------
+
+  public equals(f : TradingFilter) : boolean {
+    return this.activation  .equals(f.activation) &&
+           this.deactivation.equals(f.deactivation)
+  }
 }
 
 //=============================================================================
@@ -42,86 +49,89 @@ export class Config {
   sharpeRatio       : SharpeRatioConfig       = new SharpeRatioConfig()
   sqn100            : Sqn100Config            = new Sqn100Config()
   returnMaxDDRatio  : ReturnMaxDDRatioConfig  = new ReturnMaxDDRatioConfig()
+
+  //-----------------------------------------------------
+
+  public equals(c : Config) : boolean {
+    return this.combinationMode == c.combinationMode          &&
+           this.netReturn        .equals(c.netReturn)         &&
+           this.averageTrade     .equals(c.averageTrade)      &&
+           this.equityVsAverage  .equals(c.equityVsAverage)   &&
+           this.winningPercentage.equals(c.winningPercentage) &&
+           this.maxDrawdown      .equals(c.maxDrawdown)       &&
+           this.trendLine        .equals(c.trendLine)         &&
+           this.profitFactor     .equals(c.profitFactor)      &&
+           this.sharpeRatio      .equals(c.sharpeRatio)       &&
+           this.sqn100           .equals(c.sqn100)            &&
+           this.returnMaxDDRatio .equals(c.returnMaxDDRatio)
+  }
 }
 
 //=============================================================================
 
-export class NetReturnConfig {
+export class BaseConfig {
   enabled : boolean = false;
   length  : number  = 20
   value   : number  = 0
+
+  //-----------------------------------------------------
+
+  public equals(b : BaseConfig) : boolean {
+    return (this.enabled == b.enabled) &&
+           (this.length  == b.length) &&
+           (this.value   == b.value)
+  }
 }
 
 //=============================================================================
 
-export class AverageTradeConfig {
-  enabled : boolean = false;
-  length  : number  = 20
-  value   : number  = 0
-}
+export class NetReturnConfig extends BaseConfig {}
 
 //=============================================================================
 
-export class EquityVsAverageConfig {
-  enabled : boolean = false;
-  length  : number  = 20
-  value   : number  = 0
-}
+export class AverageTradeConfig extends BaseConfig {}
 
 //=============================================================================
 
-export class WinningPercentageConfig {
-  enabled : boolean = false;
-  length  : number  = 20
-  value   : number  = 0
-}
+export class EquityVsAverageConfig extends BaseConfig {}
+
+//=============================================================================
+
+export class WinningPercentageConfig extends BaseConfig {}
 
 //=============================================================================
 
 export class MaxDrawdownConfig {
   enabled : boolean = false;
   value   : number  = 0
+
+  //-----------------------------------------------------
+
+  public equals(b : MaxDrawdownConfig) : boolean {
+    return (this.enabled == b.enabled) &&
+           (this.value   == b.value)
+  }
 }
 
 //=============================================================================
 
-export class TrendLineConfig {
-  enabled : boolean = false;
-  length  : number  = 20
-  value   : number  = 0
-}
+export class TrendLineConfig extends BaseConfig {}
 
 //=============================================================================
 
-export class ProfitFactorConfig {
-  enabled : boolean = false;
-  length  : number  = 20
-  value   : number  = 0
-}
+export class ProfitFactorConfig extends BaseConfig {}
 
 //=============================================================================
 
-export class SharpeRatioConfig {
-  enabled : boolean = false;
-  length  : number  = 20
-  value   : number  = 0
-}
+export class SharpeRatioConfig extends BaseConfig {}
 
 //=============================================================================
 
-export class Sqn100Config {
-  enabled : boolean = false;
-  length  : number  = 20
-  value   : number  = 0
-}
+export class Sqn100Config extends BaseConfig {}
 
 //=============================================================================
 
-export class ReturnMaxDDRatioConfig {
-  enabled : boolean = false;
-  length  : number  = 20
-  value   : number  = 0
-}
+export class ReturnMaxDDRatioConfig extends BaseConfig {}
 
 //=============================================================================
 //===
@@ -132,6 +142,7 @@ export class ReturnMaxDDRatioConfig {
 export class FilterAnalysisResponse {
   tradingSystem : TradingSystemSmall = new TradingSystemSmall()
   filter        : TradingFilter      = new TradingFilter()
+  baseline      : TradingFilter      = new TradingFilter()
   summary       : Summary            = new Summary()
   equities      : Equities           = new Equities()
   outcomes      : Outcomes           = new Outcomes()

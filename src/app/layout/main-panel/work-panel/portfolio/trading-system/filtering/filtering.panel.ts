@@ -96,6 +96,7 @@ export class FilteringPanel extends AbstractPanel {
 
   result       = new FilterAnalysisResponse()
   filter       = new TradingFilter()
+  baseline     = new TradingFilter()
   tradingSystem= new TradingSystemSmall()
 
   summaryColumns: FlexTableColumn[] = [];
@@ -201,6 +202,16 @@ export class FilteringPanel extends AbstractPanel {
         }
       }
     )
+  }
+
+  //-------------------------------------------------------------------------
+
+  saveDisabled() : boolean {
+    if (this.baseline) {
+      return this.baseline.equals(this.filter)
+    }
+
+    return true
   }
 
   //-------------------------------------------------------------------------
@@ -326,6 +337,7 @@ export class FilteringPanel extends AbstractPanel {
       result => {
         this.result         = result
         this.filter         = result.filter
+        this.baseline       = result.baseline
         this.tradingSystem  = result.tradingSystem
         this.summaryData    = this.buildSummary(result.summary)
         this.createEquityChart(result);
