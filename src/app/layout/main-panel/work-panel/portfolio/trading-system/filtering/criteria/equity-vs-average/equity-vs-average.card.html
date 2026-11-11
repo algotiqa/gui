@@ -1,4 +1,4 @@
-<criteria-card icon="ssid_chart" title="{{loc('equityAverage')}}" (onRemove)="onRemove()" [changed]="!config.equals(base)">
+<criteria-card icon="ssid_chart" title="{{loc('equityVsAverage')}}" (onRemove)="onRemove()" [changed]="!config.equals(base)">
   <input-number [(value)]="config.length" [label]="loc('length')" [min]="1" [max]="1000"></input-number>
   <input-number [(value)]="config.value"  [label]="loc('value')"></input-number>
 </criteria-card>
