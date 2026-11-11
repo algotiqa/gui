@@ -5,10 +5,12 @@
       <mat-select-trigger>
         @if (formControl.value) {
           @let selObj = list.find(o => o[keyField] === formControl.value);
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <mat-icon class="{{iconClass}}">{{ selObj[iconField]}}</mat-icon>
-            <span>{{ selObj[valueField] }}</span>
-          </div>
+          @if (selObj) {
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <mat-icon class="{{iconClass}}">{{ selObj[iconField]}}</mat-icon>
+              <span>{{ selObj[valueField] }}</span>
+            </div>
+          }
         }
       </mat-select-trigger>
     }
