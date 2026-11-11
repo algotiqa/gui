@@ -125,7 +125,7 @@ export class AgentProfileViewPanel extends AbstractPanel {
   onPackageClick() {
     if (this.ap.id) {
       this.inventoryService.downloadAgentPackage(this.ap.id).subscribe( (data) => {
-        Lib.browser.download(data, "agent-package-"+ this.ap.hostType +".zip", "application/zip")
+        Lib.browser.downloadData(data, "agent-package-"+ this.ap.hostType +".zip", "application/zip")
       })
     }
   }

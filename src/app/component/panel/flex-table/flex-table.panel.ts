@@ -22,14 +22,13 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatTooltip} from "@angular/material/tooltip";
 import {InputTextRequired} from "../../form/input-text-required/input-text-required";
 import {RoundBox} from "../../form/round-box/round-box";
+import {Lib} from "../../../lib/lib";
 
 //=============================================================================
 
 export type FlexTableFilter<T> = (row: T, filter: string) => boolean;
 
 export type FlexTableUpdateListener<T> = (data : T[], selection : SelectionModel<T>) => void
-
-//=============================================================================
 
 //=============================================================================
 
@@ -248,6 +247,17 @@ export class FlexTablePanel<T = any> implements AfterViewInit {
 
   public getLoadedData() : T[] {
     return this.tableData.data
+  }
+
+  //---------------------------------------------------------------------------
+
+  public exportCsv() : void {
+    let headers = this.tableColumns.map(c => c.header)
+    let sorted  = this.sort ? this.tableData.sortData(this.tableData.filteredData, this.sort) : this.tableData.filteredData
+    let rows    = sorted.map((row : any) => this.tableColumns.map(c => c.transcode(row[c.column], row)))
+    let text    = Lib.csv.build(headers, rows)
+
+    Lib.browser.downloadText(text, "table-export.csv", "text/csv")
   }
 
   //-------------------------------------------------------------------------

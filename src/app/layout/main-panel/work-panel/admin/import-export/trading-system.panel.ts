@@ -138,7 +138,7 @@ export class TradingSystemPanel extends AbstractPanel {
 
     if (ids.length > 0) {
       this.inventoryService.exportTradingSystems(ids).subscribe( (data) => {
-        Lib.browser.download(data, "trading-systems-export.asp", "application/asp")
+        Lib.browser.downloadData(data, "trading-systems-export.asp", "application/asp")
       })
     }
   }
