@@ -15,7 +15,7 @@ import {EventBusService} from "../../../../../../../../service/eventbus.service"
 import {LabelService} from "../../../../../../../../service/label.service";
 import {Router} from "@angular/router";
 import {MatChipsModule} from "@angular/material/chips";
-import {FilterRun} from "../../../../../../../../model/filtering";
+import {BaseConfig, Config, FilterRun} from "../../../../../../../../model/filtering";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 
 import {PortfolioService} from "../../../../../../../../service/portfolio.service";
@@ -68,7 +68,7 @@ export class OptimizeResultDialog extends AbstractPanel {
               private dialogRef       : MatDialogRef<OptimizeResultDialog>,
               @Inject(MAT_DIALOG_DATA) public data: DialogData) {
 
-    super(eventBusService, labelService, router, "portfolio.filtering.optimize");
+    super(eventBusService, labelService, router, "portfolio.filtering");
 
     this.portfolioService.getFilterOptimizationInfo(this.data.tsId).subscribe(
       res => {
@@ -82,7 +82,7 @@ export class OptimizeResultDialog extends AbstractPanel {
           this.field    = this.fieldToOptimize(res.fieldToOptimize)
           this.runs     = res.runs
           this.runs.forEach(run => {
-            this.calcDescription(run)
+            this.setDescriptions(run)
           })
         }
       }
@@ -122,20 +122,6 @@ export class OptimizeResultDialog extends AbstractPanel {
   }
 
   //-------------------------------------------------------------------------
-
-  fieldToOptimize = (field : string) : string => {
-    let list : { id:string, name:string }[] = this.labelService.getLabel("page.portfolio.filtering.optimize.fieldOptions")
-
-    for (let i=0; i<list.length; i++) {
-      if (list[i].id==field) {
-        return list[i].name
-      }
-    }
-
-    return "???"
-  }
-
-  //-------------------------------------------------------------------------
   //---
   //--- Private methods
   //---
@@ -146,16 +132,26 @@ export class OptimizeResultDialog extends AbstractPanel {
 
     this.columns = [
       new FlexTableColumn(ts, "fitnessValue"),
-      new FlexTableColumn(ts, "netProfit"),
+      new FlexTableColumn(ts, "netReturn"),
       new FlexTableColumn(ts, "avgTrade"),
       new FlexTableColumn(ts, "maxDrawdown"),
-      new FlexTableColumn(ts, "posProfitDes"),
-      new FlexTableColumn(ts, "equityAvgDes"),
-      new FlexTableColumn(ts, "oldVsNewDes"),
-      new FlexTableColumn(ts, "winPercDes"),
-      new FlexTableColumn(ts, "trendlineDes"),
-      new FlexTableColumn(ts, "drawdownDes"),
+      new FlexTableColumn(ts, "activation"),
+      new FlexTableColumn(ts, "deactivation"),
     ]
+  }
+
+  //-------------------------------------------------------------------------
+
+  fieldToOptimize = (field : string) : string => {
+    let list : { id:string, name:string }[] = this.labelService.getLabel("page.portfolio.filtering.params.fieldOptions")
+
+    for (let i=0; i<list.length; i++) {
+      if (list[i].id==field) {
+        return list[i].name
+      }
+    }
+
+    return "???"
   }
 
   //-------------------------------------------------------------------------
@@ -170,32 +166,48 @@ export class OptimizeResultDialog extends AbstractPanel {
 
   //-------------------------------------------------------------------------
 
-  private calcDescription(run : FilterRun) {
+  private setDescriptions(run : FilterRun) {
     let f = run.filter
 
-    // if (f.posProEnabled) {
-    //   run.posProfitDes = "Len:"+ f.posProLen
-    // }
-    //
-    // if (f.equAvgEnabled) {
-    //   run.equityAvgDes = "Len:"+ f.equAvgLen
-    // }
-    //
-    // if (f.winPerEnabled) {
-    //   run.winPercDes = "Len:"+ f.winPerLen +", Val:"+ f.winPerValue
-    // }
-    //
-    // if (f.oldNewEnabled) {
-    //   run.oldVsNewDes = "OLen:"+ f.oldNewOldLen +", OPer:"+ f.oldNewOldPerc +", NLen:"+ f.oldNewNewLen
-    // }
-    //
-    // if (f.trendlineEnabled) {
-    //   run.trendlineDes = "Len:"+ f.trendlineLen +", Val:"+ f.trendlineValue
-    // }
-    //
-    // if (f.drawdownEnabled) {
-    //   run.drawdownDes = "Min:"+ f.drawdownMin +", Max:"+ f.drawdownMax
-    // }
+    run.activation   = this.calcDescription(f.activation)
+    run.deactivation = this.calcDescription(f.deactivation)
+  }
+
+  //-------------------------------------------------------------------------
+
+  private calcDescription(c : Config) : string {
+    let mode = this.map("filterCombinationModeShort", c.combinationMode)
+
+    let list : string[] = []
+
+    this.addConfig(list, "NetRet"   , c.netReturn)
+    this.addConfig(list, "AvgTrade" , c.averageTrade)
+    this.addConfig(list, "EqVsAvg"  , c.equityVsAverage)
+    this.addConfig(list, "Win%"     , c.winningPercentage)
+    this.addConfig(list, "MaxDD"    , c.maxDrawdown)
+    this.addConfig(list, "Trend"    , c.trendLine)
+    this.addConfig(list, "ProfFact" , c.profitFactor)
+    this.addConfig(list, "SR"       , c.sharpeRatio)
+    this.addConfig(list, "SQN100"   , c.sqn100)
+    this.addConfig(list, "Ret/MaxDD", c.returnMaxDDRatio)
+
+    if (list.length == 0) {
+      return ""
+    }
+
+    if (list.length == 1) {
+      return list[0]
+    }
+
+    return mode +"[ "+ list.join(", ") +" ]"
+  }
+
+  //-------------------------------------------------------------------------
+
+  private addConfig(list : string[], name : string, b : BaseConfig) {
+    if (b.enabled) {
+      list.push(name+ "(len="+ b.length +", val="+ b.value +")")
+    }
   }
 }
 

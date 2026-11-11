@@ -27,7 +27,6 @@ import {CriteriaCard} from "../../criteria-card/criteria.card";
   changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatExpansionModule,
-    MatIcon,
     InputNumber,
     CriteriaCard
   ]

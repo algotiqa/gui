@@ -22,6 +22,8 @@ import {MatGridListModule} from "@angular/material/grid-list";
 import {Subscription, timer} from "rxjs";
 import {FilterOptimizationResponse} from "../../../../../../../../model/filtering";
 import {MatIconModule} from "@angular/material/icon";
+import {IsoDateTranscoder} from "../../../../../../../../component/panel/flex-table/transcoders";
+import {Lib} from "../../../../../../../../lib/lib";
 
 //=============================================================================
 
@@ -61,7 +63,7 @@ export class OptimizeProgressDialog extends AbstractPanel {
               private dialogRef       : MatDialogRef<OptimizeProgressDialog>,
               @Inject(MAT_DIALOG_DATA) public data: DialogData) {
 
-    super(eventBusService, labelService, router, "portfolio.filtering.optimize");
+    super(eventBusService, labelService, router, "portfolio.filtering");
     this.poller = timer(0, 1000).subscribe(
       result => this.refresh()
     )
@@ -97,11 +99,22 @@ export class OptimizeProgressDialog extends AbstractPanel {
       field = this.response.fieldToOptimize
     }
 
-    let list : { id:string, name:string }[] = this.labelService.getLabel("page.portfolio.filtering.optimize.fieldOptions")
+    let list : { id:string, name:string }[] = this.labelService.getLabel("page.portfolio.filtering.params.fieldOptions")
     for (let i=0; i<list.length; i++) {
       if (list[i].id==field) {
         return list[i].name
       }
+    }
+
+    return ""
+  }
+
+  //-------------------------------------------------------------------------
+
+  startDate() {
+    if (this.response?.startTime) {
+      let time = new Date(this.response?.startTime)
+      return Lib.date.toDate(time)
     }
 
     return ""

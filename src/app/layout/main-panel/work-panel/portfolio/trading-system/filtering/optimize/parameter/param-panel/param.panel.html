@@ -1,0 +1,31 @@
+<mat-chip-option (selectionChange)="onCriterionChange  (config.netReturn,         $event.selected)" [selected]="config.netReturn.enabled"        >{{loc("card.netReturn")}}</mat-chip-option>
+<mat-chip-option (selectionChange)="onCriterionChange  (config.averageTrade,      $event.selected)" [selected]="config.averageTrade.enabled"     >{{loc("card.averageTrade")}}</mat-chip-option>
+<mat-chip-option (selectionChange)="onCriterionChange  (config.equityVsAverage,   $event.selected)" [selected]="config.equityVsAverage.enabled"  >{{loc("card.equityVsAverage")}}</mat-chip-option>
+<mat-chip-option (selectionChange)="onCriterionChange  (config.winningPercentage, $event.selected)" [selected]="config.winningPercentage.enabled">{{loc("card.winningPercentage")}}</mat-chip-option>
+<mat-chip-option (selectionChange)="onCriterionChange  (config.maxDrawdown,       $event.selected)" [selected]="config.maxDrawdown.enabled"      >{{loc("card.maxDrawdown")}}</mat-chip-option>
+<mat-chip-option (selectionChange)="onCriterionChange  (config.trendLine,         $event.selected)" [selected]="config.trendLine.enabled"        >{{loc("card.trendLine")}}</mat-chip-option>
+<mat-chip-option (selectionChange)="onCriterionChange  (config.profitFactor,      $event.selected)" [selected]="config.profitFactor.enabled"     >{{loc("card.profitFactor")}}</mat-chip-option>
+<mat-chip-option (selectionChange)="onCriterionChange  (config.sharpeRatio,       $event.selected)" [selected]="config.sharpeRatio.enabled"      >{{loc("card.sharpeRatio")}}</mat-chip-option>
+<mat-chip-option (selectionChange)="onCriterionChange  (config.sqn100,            $event.selected)" [selected]="config.sqn100.enabled"           >{{loc("card.sqn100")}}</mat-chip-option>
+<mat-chip-option (selectionChange)="onCriterionChange  (config.returnMaxDDRatio,  $event.selected)" [selected]="config.returnMaxDDRatio.enabled" >{{loc("card.returnMaxDDRatio")}}</mat-chip-option>
+
+<table>
+  <tr>
+    <th>{{loc("params.selected")}}</th>
+    <th>{{loc("params.filter")}}</th>
+    <th>{{loc("params.parameter")}}</th>
+    <th>{{loc("params.options")}}</th>
+  </tr>
+
+  <tbody criteria-panel name="netReturn"         [config]="config.netReturn"></tbody>
+  <tbody criteria-panel name="averageTrade"      [config]="config.averageTrade"></tbody>
+  <tbody criteria-panel name="equityVsAverage"   [config]="config.equityVsAverage"></tbody>
+  <tbody criteria-panel name="winningPercentage" [config]="config.winningPercentage"></tbody>
+  <tbody criteria-panel name="maxDrawdown"       [config]="config.maxDrawdown"></tbody>
+  <tbody criteria-panel name="trendLine"         [config]="config.trendLine"></tbody>
+  <tbody criteria-panel name="profitFactor"      [config]="config.profitFactor"></tbody>
+  <tbody criteria-panel name="sharpeRatio"       [config]="config.sharpeRatio"></tbody>
+  <tbody criteria-panel name="sqn100"            [config]="config.sqn100"></tbody>
+  <tbody criteria-panel name="returnMaxDDRatio"  [config]="config.returnMaxDDRatio"></tbody>
+
+</table>

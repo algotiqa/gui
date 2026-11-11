@@ -143,15 +143,15 @@
 <mat-menu #criteriaMenuA="matMenu">
   <ul class="menu-list">
     <li><mat-checkbox [checked]="filter.activation.netReturn.enabled"         (change)="onCriterionChange(filter.activation.netReturn,         $event.checked)">{{loc("card.netReturn")}}</mat-checkbox></li>
-    <li><mat-checkbox [checked]="filter.activation.equityVsAverage.enabled"   (change)="onCriterionChange(filter.activation.equityVsAverage,   $event.checked)">{{loc("card.equityAverage")}}</mat-checkbox></li>
-    <li><mat-checkbox [checked]="filter.activation.maxDrawdown.enabled"       (change)="onCriterionChange(filter.activation.maxDrawdown,       $event.checked)">{{loc("card.maxDrawdown")}}</mat-checkbox></li>
-    <li><mat-checkbox [checked]="filter.activation.winningPercentage.enabled" (change)="onCriterionChange(filter.activation.winningPercentage, $event.checked)">{{loc("card.winningPercentage")}}</mat-checkbox></li>
-    <li><mat-checkbox [checked]="filter.activation.trendLine.enabled"         (change)="onCriterionChange(filter.activation.trendLine,         $event.checked)">{{loc("card.trendLine")}}</mat-checkbox></li>
     <li><mat-checkbox [checked]="filter.activation.averageTrade.enabled"      (change)="onCriterionChange(filter.activation.averageTrade,      $event.checked)">{{loc("card.averageTrade")}}</mat-checkbox></li>
+    <li><mat-checkbox [checked]="filter.activation.equityVsAverage.enabled"   (change)="onCriterionChange(filter.activation.equityVsAverage,   $event.checked)">{{loc("card.equityVsAverage")}}</mat-checkbox></li>
+    <li><mat-checkbox [checked]="filter.activation.winningPercentage.enabled" (change)="onCriterionChange(filter.activation.winningPercentage, $event.checked)">{{loc("card.winningPercentage")}}</mat-checkbox></li>
+    <li><mat-checkbox [checked]="filter.activation.maxDrawdown.enabled"       (change)="onCriterionChange(filter.activation.maxDrawdown,       $event.checked)">{{loc("card.maxDrawdown")}}</mat-checkbox></li>
+    <li><mat-checkbox [checked]="filter.activation.trendLine.enabled"         (change)="onCriterionChange(filter.activation.trendLine,         $event.checked)">{{loc("card.trendLine")}}</mat-checkbox></li>
     <li><mat-checkbox [checked]="filter.activation.profitFactor.enabled"      (change)="onCriterionChange(filter.activation.profitFactor,      $event.checked)">{{loc("card.profitFactor")}}</mat-checkbox></li>
     <li><mat-checkbox [checked]="filter.activation.sharpeRatio.enabled"       (change)="onCriterionChange(filter.activation.sharpeRatio,       $event.checked)">{{loc("card.sharpeRatio")}}</mat-checkbox></li>
     <li><mat-checkbox [checked]="filter.activation.sqn100.enabled"            (change)="onCriterionChange(filter.activation.sqn100,            $event.checked)">{{loc("card.sqn100")}}</mat-checkbox></li>
-    <li><mat-checkbox [checked]="filter.activation.returnMaxDDRatio.enabled"  (change)="onCriterionChange(filter.activation.returnMaxDDRatio,  $event.checked)">{{loc("card.returnMaxddRatio")}}</mat-checkbox></li>
+    <li><mat-checkbox [checked]="filter.activation.returnMaxDDRatio.enabled"  (change)="onCriterionChange(filter.activation.returnMaxDDRatio,  $event.checked)">{{loc("card.returnMaxDDRatio")}}</mat-checkbox></li>
   </ul>
 </mat-menu>
 
@@ -160,15 +160,15 @@
 <mat-menu #criteriaMenuD="matMenu">
   <ul class="menu-list">
     <li><mat-checkbox [checked]="filter.deactivation.netReturn.enabled"         (change)="onCriterionChange(filter.deactivation.netReturn,         $event.checked)">{{loc("card.netReturn")}}</mat-checkbox></li>
-    <li><mat-checkbox [checked]="filter.deactivation.equityVsAverage.enabled"   (change)="onCriterionChange(filter.deactivation.equityVsAverage,   $event.checked)">{{loc("card.equityAverage")}}</mat-checkbox></li>
-    <li><mat-checkbox [checked]="filter.deactivation.maxDrawdown.enabled"       (change)="onCriterionChange(filter.deactivation.maxDrawdown,       $event.checked)">{{loc("card.maxDrawdown")}}</mat-checkbox></li>
-    <li><mat-checkbox [checked]="filter.deactivation.winningPercentage.enabled" (change)="onCriterionChange(filter.deactivation.winningPercentage, $event.checked)">{{loc("card.winningPercentage")}}</mat-checkbox></li>
-    <li><mat-checkbox [checked]="filter.deactivation.trendLine.enabled"         (change)="onCriterionChange(filter.deactivation.trendLine,         $event.checked)">{{loc("card.trendLine")}}</mat-checkbox></li>
     <li><mat-checkbox [checked]="filter.deactivation.averageTrade.enabled"      (change)="onCriterionChange(filter.deactivation.averageTrade,      $event.checked)">{{loc("card.averageTrade")}}</mat-checkbox></li>
+    <li><mat-checkbox [checked]="filter.deactivation.equityVsAverage.enabled"   (change)="onCriterionChange(filter.deactivation.equityVsAverage,   $event.checked)">{{loc("card.equityVsAverage")}}</mat-checkbox></li>
+    <li><mat-checkbox [checked]="filter.deactivation.winningPercentage.enabled" (change)="onCriterionChange(filter.deactivation.winningPercentage, $event.checked)">{{loc("card.winningPercentage")}}</mat-checkbox></li>
+    <li><mat-checkbox [checked]="filter.deactivation.maxDrawdown.enabled"       (change)="onCriterionChange(filter.deactivation.maxDrawdown,       $event.checked)">{{loc("card.maxDrawdown")}}</mat-checkbox></li>
+    <li><mat-checkbox [checked]="filter.deactivation.trendLine.enabled"         (change)="onCriterionChange(filter.deactivation.trendLine,         $event.checked)">{{loc("card.trendLine")}}</mat-checkbox></li>
     <li><mat-checkbox [checked]="filter.deactivation.profitFactor.enabled"      (change)="onCriterionChange(filter.deactivation.profitFactor,      $event.checked)">{{loc("card.profitFactor")}}</mat-checkbox></li>
     <li><mat-checkbox [checked]="filter.deactivation.sharpeRatio.enabled"       (change)="onCriterionChange(filter.deactivation.sharpeRatio,       $event.checked)">{{loc("card.sharpeRatio")}}</mat-checkbox></li>
     <li><mat-checkbox [checked]="filter.deactivation.sqn100.enabled"            (change)="onCriterionChange(filter.deactivation.sqn100,            $event.checked)">{{loc("card.sqn100")}}</mat-checkbox></li>
-    <li><mat-checkbox [checked]="filter.deactivation.returnMaxDDRatio.enabled"  (change)="onCriterionChange(filter.deactivation.returnMaxDDRatio,  $event.checked)">{{loc("card.returnMaxddRatio")}}</mat-checkbox></li>
+    <li><mat-checkbox [checked]="filter.deactivation.returnMaxDDRatio.enabled"  (change)="onCriterionChange(filter.deactivation.returnMaxDDRatio,  $event.checked)">{{loc("card.returnMaxDDRatio")}}</mat-checkbox></li>
   </ul>
 </mat-menu>
 

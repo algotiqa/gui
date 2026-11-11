@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>{{loc("titleProgress")}}</h2>
+<h2 mat-dialog-title>{{loc("progress.title")}}</h2>
 <mat-dialog-content class="mat-typography">
   <div class="main-layout">
     <mat-progress-spinner [value]="percentage">
@@ -6,90 +6,145 @@
 
     <table class="summary-layout">
       <tr>
-        <td>{{loc("taCurrStep")}}</td>
+        <td>{{loc("progress.currStep")}}</td>
         <td class="data-style">{{response?.currStep}}</td>
         <td class="separator-layout"></td>
-        <td>{{loc("taOptimFor")}}</td>
+        <td>{{loc("progress.optimFor")}}</td>
         <td class="data-style">{{fieldToOptimize()}}</td>
         <td class="separator-layout"></td>
-        <td>{{loc("taPosProfit")}}</td>
+        <td>{{loc("card.netReturn")}}</td>
         <td>
-          @if (response?.filter?.posProfit) {
+          @if (response?.filter?.activation?.netReturn) {
             <mat-icon  fontIcon="done"></mat-icon>
           }
-          @if (!response?.filter?.posProfit) {
+          @if (!response?.filter?.activation?.netReturn) {
+            <mat-icon fontIcon="close"></mat-icon>
+          }
+        </td>
+        <td>
+          @if (response?.filter?.deactivation?.netReturn) {
+            <mat-icon  fontIcon="done"></mat-icon>
+          }
+          @if (!response?.filter?.deactivation?.netReturn) {
             <mat-icon fontIcon="close"></mat-icon>
           }
         </td>
       </tr>
+
+      <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
       <tr>
-        <td>{{loc("taTotalSteps")}}</td>
+        <td>{{loc("progress.totalSteps")}}</td>
         <td class="data-style">{{response?.maxSteps}}</td>
         <td></td>
-        <td>{{loc("taBestValue")}}</td>
+        <td>{{loc("progress.bestValue")}}</td>
         <td class="data-style">{{response?.bestValue}}</td>
         <td></td>
-        <td>{{loc("taOldVsNew")}}</td>
+        <td>{{loc("card.averageTrade")}}</td>
         <td>
-          @if (response?.filter?.oldVsNew) {
+          @if (response?.filter?.activation?.averageTrade) {
             <mat-icon  fontIcon="done"></mat-icon>
           }
-          @if (!response?.filter?.oldVsNew) {
+          @if (!response?.filter?.activation?.averageTrade) {
+            <mat-icon fontIcon="close"></mat-icon>
+          }
+        </td>
+        <td>
+          @if (response?.filter?.deactivation?.averageTrade) {
+            <mat-icon  fontIcon="done"></mat-icon>
+          }
+          @if (!response?.filter?.deactivation?.averageTrade) {
             <mat-icon fontIcon="close"></mat-icon>
           }
         </td>
       </tr>
+
+      <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
       <tr>
-        <td>{{loc("taPercentage")}}</td>
+        <td>{{loc("progress.percentage")}}</td>
         <td class="data-style">{{percentage}} %</td>
         <td></td>
-        <td>{{loc("taBaseValue")}}</td>
+        <td>{{loc("progress.baseValue")}}</td>
         <td class="data-style">{{response?.baseValue}}</td>
         <td></td>
-        <td>{{loc("taWinPerc")}}</td>
+        <td>{{loc("card.equityVsAverage")}}</td>
         <td>
-          @if (response?.filter?.winPerc) {
+          @if (response?.filter?.activation?.equityVsAverage) {
             <mat-icon  fontIcon="done"></mat-icon>
           }
-          @if (!response?.filter?.winPerc) {
+          @if (!response?.filter?.activation?.equityVsAverage) {
+            <mat-icon fontIcon="close"></mat-icon>
+          }
+        </td>
+        <td>
+          @if (response?.filter?.deactivation?.equityVsAverage) {
+            <mat-icon  fontIcon="done"></mat-icon>
+          }
+          @if (!response?.filter?.deactivation?.equityVsAverage) {
             <mat-icon fontIcon="close"></mat-icon>
           }
         </td>
       </tr>
+
+      <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
       <tr>
-        <td>{{loc("taDuration")}}</td>
+        <td>{{loc("progress.duration")}}</td>
         <td class="data-style">{{response?.duration}} secs</td>
         <td></td>
-        <td>{{loc("taGain")}}</td>
+        <td>{{loc("progress.gain")}}</td>
         <td class="data-style">{{gain}} %</td>
         <td></td>
-        <td>{{loc("taEquVsAvg")}}</td>
+        <td>{{loc("card.winningPercentage")}}</td>
         <td>
-          @if (response?.filter?.equVsAvg) {
+          @if (response?.filter?.activation?.winningPercentage) {
             <mat-icon  fontIcon="done"></mat-icon>
           }
-          @if (!response?.filter?.equVsAvg) {
+          @if (!response?.filter?.activation?.winningPercentage) {
+            <mat-icon fontIcon="close"></mat-icon>
+          }
+        </td>
+        <td>
+          @if (response?.filter?.deactivation?.winningPercentage) {
+            <mat-icon  fontIcon="done"></mat-icon>
+          }
+          @if (!response?.filter?.deactivation?.winningPercentage) {
             <mat-icon fontIcon="close"></mat-icon>
           }
         </td>
       </tr>
+
+      <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
       <tr>
         <td></td>
         <td class="data-style"></td>
         <td></td>
-        <td>{{loc("taStartDate")}}</td>
-        <td class="data-style">{{response?.startDate}}</td>
+        <td>{{loc("progress.startDate")}}</td>
+        <td class="data-style">{{startDate()}}</td>
         <td></td>
-        <td>{{loc("taTrendline")}}</td>
+        <td>{{loc("card.maxDrawdown")}}</td>
         <td>
-          @if (response?.filter?.trendline) {
+          @if (response?.filter?.activation?.maxDrawdown) {
             <mat-icon  fontIcon="done"></mat-icon>
           }
-          @if (!response?.filter?.trendline) {
+          @if (!response?.filter?.activation?.maxDrawdown) {
+            <mat-icon fontIcon="close"></mat-icon>
+          }
+        </td>
+        <td>
+          @if (response?.filter?.deactivation?.maxDrawdown) {
+            <mat-icon  fontIcon="done"></mat-icon>
+          }
+          @if (!response?.filter?.deactivation?.maxDrawdown) {
             <mat-icon fontIcon="close"></mat-icon>
           }
         </td>
       </tr>
+
+      <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
       <tr>
         <td></td>
         <td class="data-style"></td>
@@ -97,12 +152,132 @@
         <td></td>
         <td class="data-style"></td>
         <td></td>
-        <td>{{loc("taDrawdown")}}</td>
+        <td>{{loc("card.trendLine")}}</td>
         <td>
-          @if (response?.filter?.drawdown) {
+          @if (response?.filter?.activation?.trendLine) {
             <mat-icon  fontIcon="done"></mat-icon>
           }
-          @if (!response?.filter?.drawdown) {
+          @if (!response?.filter?.activation?.trendLine) {
+            <mat-icon fontIcon="close"></mat-icon>
+          }
+        </td>
+        <td>
+          @if (response?.filter?.deactivation?.trendLine) {
+            <mat-icon  fontIcon="done"></mat-icon>
+          }
+          @if (!response?.filter?.deactivation?.trendLine) {
+            <mat-icon fontIcon="close"></mat-icon>
+          }
+        </td>
+      </tr>
+
+      <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+      <tr>
+        <td></td>
+        <td class="data-style"></td>
+        <td></td>
+        <td></td>
+        <td class="data-style"></td>
+        <td></td>
+        <td>{{loc("card.profitFactor")}}</td>
+        <td>
+          @if (response?.filter?.activation?.profitFactor) {
+            <mat-icon  fontIcon="done"></mat-icon>
+          }
+          @if (!response?.filter?.activation?.profitFactor) {
+            <mat-icon fontIcon="close"></mat-icon>
+          }
+        </td>
+        <td>
+          @if (response?.filter?.deactivation?.profitFactor) {
+            <mat-icon  fontIcon="done"></mat-icon>
+          }
+          @if (!response?.filter?.deactivation?.profitFactor) {
+            <mat-icon fontIcon="close"></mat-icon>
+          }
+        </td>
+      </tr>
+
+      <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+      <tr>
+        <td></td>
+        <td class="data-style"></td>
+        <td></td>
+        <td></td>
+        <td class="data-style"></td>
+        <td></td>
+        <td>{{loc("card.sharpeRatio")}}</td>
+        <td>
+          @if (response?.filter?.activation?.sharpeRatio) {
+            <mat-icon  fontIcon="done"></mat-icon>
+          }
+          @if (!response?.filter?.activation?.sharpeRatio) {
+            <mat-icon fontIcon="close"></mat-icon>
+          }
+        </td>
+        <td>
+          @if (response?.filter?.deactivation?.sharpeRatio) {
+            <mat-icon  fontIcon="done"></mat-icon>
+          }
+          @if (!response?.filter?.deactivation?.sharpeRatio) {
+            <mat-icon fontIcon="close"></mat-icon>
+          }
+        </td>
+      </tr>
+
+      <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+      <tr>
+        <td></td>
+        <td class="data-style"></td>
+        <td></td>
+        <td></td>
+        <td class="data-style"></td>
+        <td></td>
+        <td>{{loc("card.sqn100")}}</td>
+        <td>
+          @if (response?.filter?.activation?.sqn100) {
+            <mat-icon  fontIcon="done"></mat-icon>
+          }
+          @if (!response?.filter?.activation?.sqn100) {
+            <mat-icon fontIcon="close"></mat-icon>
+          }
+        </td>
+        <td>
+          @if (response?.filter?.deactivation?.sqn100) {
+            <mat-icon  fontIcon="done"></mat-icon>
+          }
+          @if (!response?.filter?.deactivation?.sqn100) {
+            <mat-icon fontIcon="close"></mat-icon>
+          }
+        </td>
+      </tr>
+
+      <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+      <tr>
+        <td></td>
+        <td class="data-style"></td>
+        <td></td>
+        <td></td>
+        <td class="data-style"></td>
+        <td></td>
+        <td>{{loc("card.returnMaxDDRatio")}}</td>
+        <td>
+          @if (response?.filter?.activation?.returnMaxDDRatio) {
+            <mat-icon  fontIcon="done"></mat-icon>
+          }
+          @if (!response?.filter?.activation?.returnMaxDDRatio) {
+            <mat-icon fontIcon="close"></mat-icon>
+          }
+        </td>
+        <td>
+          @if (response?.filter?.deactivation?.returnMaxDDRatio) {
+            <mat-icon  fontIcon="done"></mat-icon>
+          }
+          @if (!response?.filter?.deactivation?.returnMaxDDRatio) {
             <mat-icon fontIcon="close"></mat-icon>
           }
         </td>

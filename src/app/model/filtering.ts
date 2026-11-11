@@ -127,17 +127,7 @@ export class WinningPercentageConfig extends BaseConfig {}
 
 //=============================================================================
 
-export class MaxDrawdownConfig {
-  enabled : boolean = false;
-  value   : number  = 0
-
-  //-----------------------------------------------------
-
-  public equals(b : MaxDrawdownConfig) : boolean {
-    return (this.enabled == b.enabled) &&
-           (this.value   == b.value)
-  }
-}
+export class MaxDrawdownConfig extends BaseConfig {}
 
 //=============================================================================
 
@@ -226,34 +216,191 @@ export class Activation {
 //=============================================================================
 
 export class FilterOptimizationRequest {
-  startDate?      : string
-  fieldToOptimize : string  = "netProfit"
-  filterConfig    : FilterConfig  = new FilterConfig()
-  algorithm       : AlgorithmSpec = new AlgorithmSpec()
-  baseline        : TradingFilter = new TradingFilter()
+  period          : SelectedPeriod = new SelectedPeriod()
+  fieldToOptimize : string         = "netReturn"
+  filterConfig    : FilterConfig   = new FilterConfig()
+  algorithm       : AlgorithmSpec  = new AlgorithmSpec()
+  baseline        : TradingFilter  = new TradingFilter()
 }
 
 //=============================================================================
 
 export class FilterConfig {
-  enablePosProfit : boolean = true
-  enableOldNew    : boolean = true
-  enableWinPerc   : boolean = true
-  enableEquAvg    : boolean = true
-  enableTrendline : boolean = true
-  enableDrawdown  : boolean = true
+  activation   : OptimizationConfig = new OptimizationConfig()
+  deactivation : OptimizationConfig = new OptimizationConfig()
 
-  posProLen     : FieldOptimization = new FieldOptimization(true, 20, 2, 160, 1)
-  oldNewOldLen  : FieldOptimization = new FieldOptimization(true, 20, 2, 160, 1)
-  oldNewNewLen  : FieldOptimization = new FieldOptimization(true, 20, 2, 160, 1)
-  oldNewOldPerc : FieldOptimization = new FieldOptimization(true, 90, 5, 150, 5)
-  winPercLen    : FieldOptimization = new FieldOptimization(true, 20, 2, 160, 1)
-  winPercPerc   : FieldOptimization = new FieldOptimization(true, 50, 5, 100, 5)
-  equAvgLen     : FieldOptimization = new FieldOptimization(true, 20, 2, 160, 1)
-  trendlineLen  : FieldOptimization = new FieldOptimization(true, 20, 2, 160, 1)
-  trendlineValue: FieldOptimization = new FieldOptimization(true, 10, 1, 100, 1)
-  drawdownMin   : FieldOptimization = new FieldOptimization(true, 500, 100, 5000, 100)
-  drawdownMax   : FieldOptimization = new FieldOptimization(true, 100, 100, 5000, 100)
+  enable(f : TradingFilter) {
+    this.activation  .enable(f.activation)
+    this.deactivation.enable(f.deactivation)
+  }
+}
+
+//=============================================================================
+
+export class OptimizationConfig {
+  netReturn         : NetReturnOptimiz         = new NetReturnOptimiz()
+  averageTrade      : AverageTradeOptimiz      = new AverageTradeOptimiz()
+  equityVsAverage   : EquityVsAverageOptimiz   = new EquityVsAverageOptimiz()
+  winningPercentage : WinningPercentageOptimiz = new WinningPercentageOptimiz()
+  maxDrawdown       : MaxDrawdownOptimiz       = new MaxDrawdownOptimiz()
+  trendLine         : TrendLineOptimiz         = new TrendLineOptimiz()
+  profitFactor      : ProfitFactorOptimiz      = new ProfitFactorOptimiz()
+  sharpeRatio       : SharpeRatioOptimiz       = new SharpeRatioOptimiz()
+  sqn100            : Sqn100Optimiz            = new Sqn100Optimiz()
+  returnMaxDDRatio  : ReturnMaxDDRatioOptimiz  = new ReturnMaxDDRatioOptimiz()
+
+  enable(c : Config) {
+    this.netReturn        .enable(c.netReturn.enabled)
+    this.averageTrade     .enable(c.averageTrade.enabled)
+    this.equityVsAverage  .enable(c.equityVsAverage.enabled)
+    this.winningPercentage.enable(c.winningPercentage.enabled)
+    this.maxDrawdown      .enable(c.maxDrawdown.enabled)
+    this.trendLine        .enable(c.trendLine.enabled)
+    this.profitFactor     .enable(c.profitFactor.enabled)
+    this.sharpeRatio      .enable(c.sharpeRatio.enabled)
+    this.sqn100           .enable(c.sqn100.enabled)
+    this.returnMaxDDRatio .enable(c.returnMaxDDRatio.enabled)
+  }
+}
+
+//=============================================================================
+
+export class BaseOptimiz {
+  enabled : boolean = false;
+
+  enable(e : boolean) {
+    this.enabled = !e;
+  }
+}
+
+//=============================================================================
+
+export class NetReturnOptimiz extends BaseOptimiz {
+  length  : FieldOptimization = new FieldOptimization(true, 8, 4, 48, 4)
+  value   : FieldOptimization = new FieldOptimization(true, 0, -200, 200, 100)
+
+  override enable(e : boolean) {
+    super.enable(e)
+    this.length.enabled = !e;
+    this.value.enabled  = !e;
+  }
+}
+
+//=============================================================================
+
+export class AverageTradeOptimiz extends BaseOptimiz {
+  length  : FieldOptimization = new FieldOptimization(true, 8, 4, 48, 4)
+  value   : FieldOptimization = new FieldOptimization(true, 0, -20, 20, 10)
+
+  override enable(e : boolean) {
+    super.enable(e)
+    this.length.enabled = !e;
+    this.value.enabled  = !e;
+  }
+}
+
+//=============================================================================
+
+export class EquityVsAverageOptimiz extends BaseOptimiz {
+  length  : FieldOptimization = new FieldOptimization(true, 8, 4, 48, 4)
+  value   : FieldOptimization = new FieldOptimization(true, 0, -50, 50, 25)
+
+  override enable(e : boolean) {
+    super.enable(e)
+    this.length.enabled = !e;
+    this.value.enabled  = !e;
+  }
+}
+
+//=============================================================================
+
+export class WinningPercentageOptimiz extends BaseOptimiz {
+  length  : FieldOptimization = new FieldOptimization(true, 8, 4, 48, 4)
+  value   : FieldOptimization = new FieldOptimization(true, 50, 5, 75, 10)
+
+  override enable(e : boolean) {
+    super.enable(e)
+    this.length.enabled = !e;
+    this.value.enabled  = !e;
+  }
+}
+
+//=============================================================================
+
+export class MaxDrawdownOptimiz extends BaseOptimiz {
+  length  : FieldOptimization = new FieldOptimization(true, 8, 4, 48, 4)
+  value   : FieldOptimization = new FieldOptimization(true, 0, -3200, 0, 400)
+
+  override enable(e : boolean) {
+    super.enable(e)
+    this.length.enabled = !e;
+    this.value.enabled  = !e;
+  }
+}
+
+//=============================================================================
+
+export class TrendLineOptimiz extends BaseOptimiz {
+  length  : FieldOptimization = new FieldOptimization(true, 8, 4, 48, 4)
+  value   : FieldOptimization = new FieldOptimization(true, 0, -1, 1, 0.2)
+
+  override enable(e : boolean) {
+    super.enable(e)
+    this.length.enabled = !e;
+    this.value.enabled  = !e;
+  }
+}
+
+//=============================================================================
+
+export class ProfitFactorOptimiz extends BaseOptimiz {
+  length  : FieldOptimization = new FieldOptimization(true, 8, 4, 48, 4)
+  value   : FieldOptimization = new FieldOptimization(true, 1, 0, 2, 0.25)
+
+  override enable(e : boolean) {
+    super.enable(e)
+    this.length.enabled = !e;
+    this.value.enabled  = !e;
+  }
+}
+
+//=============================================================================
+
+export class SharpeRatioOptimiz extends BaseOptimiz {
+  length  : FieldOptimization = new FieldOptimization(true, 8, 4, 48, 4)
+  value   : FieldOptimization = new FieldOptimization(true, 0, -0.5, 0.5, 0.1)
+
+  override enable(e : boolean) {
+    super.enable(e)
+    this.length.enabled = !e;
+    this.value.enabled  = !e;
+  }
+}
+
+//=============================================================================
+
+export class Sqn100Optimiz extends BaseOptimiz {
+  length  : FieldOptimization = new FieldOptimization(true, 8, 4, 48, 4)
+  value   : FieldOptimization = new FieldOptimization(true, 1, -0.5, 2, 0.25)
+
+  override enable(e : boolean) {
+    super.enable(e)
+    this.length.enabled = !e;
+    this.value.enabled  = !e;
+  }
+}
+
+//=============================================================================
+
+export class ReturnMaxDDRatioOptimiz extends BaseOptimiz {
+  length  : FieldOptimization = new FieldOptimization(true, 8, 4, 48, 4)
+  value   : FieldOptimization = new FieldOptimization(true, 1, 0, 2, 0.25)
+
+  override enable(e : boolean) {
+    super.enable(e)
+    this.length.enabled = !e;
+    this.value.enabled  = !e;
+  }
 }
 
 //=============================================================================
@@ -270,46 +417,53 @@ export class AlgorithmSpec {
 //=============================================================================
 
 export class FilterOptimizationResponse {
+  startDate?       : string
   currStep?        : number
   maxSteps?        : number
   startTime?       : string
   endTime?         : string
   status?          : string
+  error?           : string
   runs?            : FilterRun[]
-  startDate?       : string
   baseValue?       : number
   bestValue?       : number
   fieldToOptimize? : string
   duration?        : number
-  filter?          : SelectedFilters
+  filter           : Flags = new Flags()
 }
 
 //=============================================================================
 
 export class FilterRun {
   fitnessValue: number = 0
-  netProfit   : number = 0
+  netReturn   : number = 0
   avgTrade    : number = 0
   maxDrawdown : number = 0
   filter      : TradingFilter = new TradingFilter()
-  posProfitDes: string = ""
-  equityAvgDes: string = ""
-  oldVsNewDes : string = ""
-  winPercDes  : string = ""
-  trendlineDes: string = ""
-  drawdownDes : string = ""
+  activation  : string = ""
+  deactivation: string = ""
 }
 
 //=============================================================================
 
-export class SelectedFilters {
-  posProfit? : boolean
-  oldVsNew?  : boolean
-  winPerc?   : boolean
-  equVsAvg?  : boolean
-  trendline? : boolean
-  drawdown?  : boolean
+export class Flags {
+  activation   : EnableSet = new EnableSet()
+  deactivation : EnableSet = new EnableSet()
 }
 
 //=============================================================================
 
+export class EnableSet {
+  netReturn         : boolean = false
+  averageTrade      : boolean = false
+  equityVsAverage   : boolean = false
+  winningPercentage : boolean = false
+  maxDrawdown       : boolean = false
+  trendLine         : boolean = false
+  profitFactor      : boolean = false
+  sharpeRatio       : boolean = false
+  sqn100            : boolean = false
+  returnMaxDDRatio  : boolean = false
+}
+
+//=============================================================================

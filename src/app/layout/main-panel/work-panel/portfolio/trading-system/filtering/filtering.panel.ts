@@ -517,7 +517,7 @@ export class FilteringPanel extends AbstractPanel {
       data: <DialogData>{
         tsId     : this.tradingSystem.id,
         tsName   : this.tradingSystem.name,
-        // startDate: this.startDate,
+        period   : this.period.getSelectedPeriod(),
         baseline : this.filter
       }
     })
@@ -533,7 +533,7 @@ export class FilteringPanel extends AbstractPanel {
 
   private openProgressDialog() {
     const dialogRef = this.dialog.open(OptimizeProgressDialog, {
-      minWidth: "1024px",
+      minWidth: "1200px",
       data: {
         tsId  : this.tradingSystem.id,
         tsName: this.tradingSystem.name

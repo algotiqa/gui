@@ -180,15 +180,11 @@ model:
 
   filterOptimiz:
     fitnessValue: Fitness value
-    netProfit   : Net profit
+    netReturn   : Net return
     avgTrade    : Average trade
     maxDrawdown : Max Drawdown
-    posProfitDes: Positive profit
-    equityAvgDes: Equity vs avg
-    oldVsNewDes : Old vs new
-    winPercDes  : Winning %
-    trendlineDes: Trendline
-    drawdownDes : Drawdown
+    activation  : Activation
+    deactivation: Deactivation
 
   dataProduct:
     id             : Id
@@ -724,77 +720,58 @@ page:
         finalActivation: Final activation
       card:
         netReturn        : Net return
-        equityAverage    : Equity vs average
-        maxDrawdown      : Max drawdown
-        winningPercentage: Winning percentage
-        trendLine        : Trendline
         averageTrade     : Average trade
+        equityVsAverage  : Equity vs average
+        winningPercentage: Winning percentage
+        maxDrawdown      : Max drawdown
+        trendLine        : Trendline
         profitFactor     : Profit factor
         sharpeRatio      : Sharpe ratio
         sqn100           : SQN(100)
-        returnMaxddRatio : Return / max-drawdown
+        returnMaxDDRatio : Return / max-drawdown
         length           : Length (# of trades)
         value            : Value
-
-      optimize:
-        titleParams    : Filter optimization - Parameters
-        titleProgress  : Filter optimization - Progress
-        titleResult    : Filter optimization - Result
-        tabFilter      : Filter
-        tabAlgorithm   : Algorithm
-        optimizeFor    : Optimize for
-        algorithm      : Algorithm
-        positiveProfit : Positive profit
-        oldVsNewPeriod : Old vs new
-        winningPerc    : Winning %
-        equityVsAverage: Equity vs average
-        trendline      : Trendline
-        drawdown       : Drawdown
-        value          : Value
-        selected:  Selected
-        filter:    Filter
-        parameter: Parameter
-        options:   Options
-        length:    Length
-        oldLen:   Old length
-        newLen:   New length
-        oldPerc:   Old %
-        percentage: Win %
-        curValue : Current value
-        minValue : Min value
-        maxValue : Max value
-        step     : Step
+      params:
+        title        : Filter optimization - Parameters
+        activations  : Activations
+        deactivations: Deactivations
+        algorithm    : Algorithm
+        optimizeFor  : Optimize for
+        selected     : Selected
+        filter       : Filter
+        parameter    : Parameter
+        options      : Options
+        curValue     : Current value
+        minValue     : Min value
+        maxValue     : Max value
+        step         : Step
         fieldOptions:
-          - id: netProfit
-            name: Net profit
+          - id: netReturn
+            name: Net return
           - id: maxDD
             name: Max drawdown
           - id: avgTrade
             name: Average trade
-          - id: netProfit*avgTrade
-            name: Net profit * Average trade
-          - id: netProfit*avgTrade/maxDD
-            name: Net profit * Average trade / MaxDD
+          - id: netReturn*avgTrade
+            name: Net return * Average trade
+          - id: netReturn*avgTrade/maxDD
+            name: Net return * Average trade / MaxDD
         algorOptions:
           - id: simple
             name: Simple (fast, conditions are not combined)
-          - id: genetic
-            name: Genetic (slow and deep optimization)
-        taCurrStep:   Current step
-        taTotalSteps: Total steps
-        taPercentage: Percentage
-        taBestValue:  Best value
-        taBaseValue:  Base value
-        taOptimFor:   Optimize for
-        taPosProfit:  Positive profit
-        taOldVsNew:   Old vs new periods
-        taWinPerc:    Winning percentage
-        taEquVsAvg:   Equity vs average
-        taTrendline:  Trendline
-        taDrawdown:   Drawdown
-        taDuration:   Duration
-        taGain:       Gain
-        taStartDate:  Start date
+      progress:
+        title     : Filter optimization - Progress
+        currStep  : Current step
+        totalSteps: Total steps
+        percentage: Percentage
+        duration  : Duration
+        optimFor  : Optimize for
+        bestValue : Best value
+        baseValue : Base value
+        gain      : Gain
+        startDate : Start date
+      result:
+        title : Filter optimization - Result
 
     # ----------------------------------------------------------------------------
 
@@ -1604,6 +1581,11 @@ map:
     O: At least one is true (OR)
     M: Most true (50%+1)
     A: All are true (AND)
+
+  filterCombinationModeShort:
+    O: OR
+    M: MOST
+    A: AND
 
 # ==============================================================================
 

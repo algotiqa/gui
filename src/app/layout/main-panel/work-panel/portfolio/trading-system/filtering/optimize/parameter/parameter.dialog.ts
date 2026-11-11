@@ -15,14 +15,17 @@ import {EventBusService} from "../../../../../../../../service/eventbus.service"
 import {LabelService} from "../../../../../../../../service/label.service";
 import {Router} from "@angular/router";
 import {SelectRequired} from "../../../../../../../../component/form/select-required/select-required";
-import {MatChipSelectionChange, MatChipsModule} from "@angular/material/chips";
-import {FilterOptimizationRequest} from "../../../../../../../../model/filtering";
+import { MatChipsModule} from "@angular/material/chips";
+import {
+  FilterOptimizationRequest,
+} from "../../../../../../../../model/filtering";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 
 import {InputNumber} from "../../../../../../../../component/form/input-number/input-number";
 import {PortfolioService} from "../../../../../../../../service/portfolio.service";
 import {DialogData} from "../dialog-data";
 import {MatTabsModule} from "@angular/material/tabs";
+import {ParamPanel} from "./param-panel/param.panel";
 
 //=============================================================================
 
@@ -31,7 +34,7 @@ import {MatTabsModule} from "@angular/material/tabs";
     templateUrl: 'parameter.dialog.html',
     styleUrls: ['parameter.dialog.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [MatDialogModule, MatButtonModule, SelectRequired, MatChipsModule, MatCheckboxModule, InputNumber, MatTabsModule]
+  imports: [MatDialogModule, MatButtonModule, SelectRequired, MatChipsModule, MatCheckboxModule, InputNumber, MatTabsModule, ParamPanel]
 })
 
 //=============================================================================
@@ -58,57 +61,15 @@ export class OptimizeParameterDialog extends AbstractPanel {
               private dialogRef       : MatDialogRef<OptimizeParameterDialog>,
               @Inject(MAT_DIALOG_DATA) public data: DialogData) {
 
-    super(eventBusService, labelService, router, "portfolio.filtering.optimize");
+    super(eventBusService, labelService, router, "portfolio.filtering");
     this.resetOptions()
-    this.options.startDate = data.startDate
+    this.options.period = data.period
   }
 
   //-------------------------------------------------------------------------
   //---
   //--- Init methods
   //---
-  //-------------------------------------------------------------------------
-
-  onPosProfitChange(e: MatChipSelectionChange) {
-    this.options.filterConfig.enablePosProfit = e.selected;
-    this.updateFields();
-  }
-
-  //-------------------------------------------------------------------------
-
-  onOldVsNewChange(e: MatChipSelectionChange) {
-    this.options.filterConfig.enableOldNew = e.selected;
-    this.updateFields();
-  }
-
-  //-------------------------------------------------------------------------
-
-  onWinPercChange(e: MatChipSelectionChange) {
-    this.options.filterConfig.enableWinPerc = e.selected;
-    this.updateFields();
-  }
-
-  //-------------------------------------------------------------------------
-
-  onEquVsAvgChange(e: MatChipSelectionChange) {
-    this.options.filterConfig.enableEquAvg = e.selected;
-    this.updateFields();
-  }
-
-  //-------------------------------------------------------------------------
-
-  onTrendlineChange(e: MatChipSelectionChange) {
-    this.options.filterConfig.enableTrendline = e.selected;
-    this.updateFields();
-  }
-
-  //-------------------------------------------------------------------------
-
-  onDrawdownChange(e: MatChipSelectionChange) {
-    this.options.filterConfig.enableDrawdown = e.selected;
-    this.updateFields();
-  }
-
   //-------------------------------------------------------------------------
 
   onReset() {
@@ -134,34 +95,10 @@ export class OptimizeParameterDialog extends AbstractPanel {
   private resetOptions() {
     let f = this.data.baseline
     let o = new FilterOptimizationRequest()
-
-    // o.filterConfig.enableEquAvg           = !f.equAvgEnabled
-    // o.filterConfig.equAvgLen.enabled      = !f.equAvgEnabled
-    // o.filterConfig.enablePosProfit        = !f.posProEnabled
-    // o.filterConfig.posProLen.enabled      = !f.posProEnabled
-    // o.filterConfig.enableWinPerc          = !f.winPerEnabled
-    // o.filterConfig.winPercLen.enabled     = !f.winPerEnabled
-    // o.filterConfig.winPercPerc.enabled    = !f.winPerEnabled
-    // o.filterConfig.enableOldNew           = !f.oldNewEnabled
-    // o.filterConfig.oldNewOldLen.enabled   = !f.oldNewEnabled
-    // o.filterConfig.oldNewNewLen.enabled   = !f.oldNewEnabled
-    // o.filterConfig.oldNewOldPerc.enabled  = !f.oldNewEnabled
-    // o.filterConfig.enableTrendline        = !f.trendlineEnabled
-    // o.filterConfig.trendlineLen.enabled   = !f.trendlineEnabled
-    // o.filterConfig.trendlineValue.enabled = !f.trendlineEnabled
-    // o.filterConfig.enableDrawdown         = !f.drawdownEnabled
-    // o.filterConfig.drawdownMin.enabled    = !f.drawdownEnabled
-    // o.filterConfig.drawdownMax.enabled    = !f.drawdownEnabled
-
+    o.filterConfig.enable(f)
     o.baseline = f
 
     this.options = o
-  }
-
-  //-------------------------------------------------------------------------
-
-  private updateFields() {
-    //TODO: update "run" button and add value validation
   }
 }
 

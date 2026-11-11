@@ -8,13 +8,14 @@
 //=============================================================================
 
 import {TradingFilter} from "../../../../../../../model/filtering";
+import {SelectedPeriod} from "../../../../../../../component/form/period-selector/period-selector";
 
 //=============================================================================
 
 export interface DialogData {
   tsId      : number
   tsName    : string
-  startDate : string
+  period    : SelectedPeriod
   baseline  : TradingFilter
 }
 

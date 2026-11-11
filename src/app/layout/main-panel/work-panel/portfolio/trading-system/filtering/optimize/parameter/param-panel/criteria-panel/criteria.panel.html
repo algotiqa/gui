@@ -1,0 +1,44 @@
+@if (config['enabled']==true) {
+
+  <!-- Length - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+  @if (config['length']) {
+    <tr>
+      <td>
+        <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? config['length'].toggle() : null" [checked]="config['length'].enabled"></mat-checkbox>
+      </td>
+      <td>{{loc("card."+ name)}}</td>
+      <td>{{loc("card.length")}}</td>
+      <td>
+        @if (!config['length'].enabled) {
+          <input-number [(value)]="config['length'].curValue" [label]="loc('params.curValue')" [min]="1" [max]="1000"></input-number>
+        }
+        @if (config['length'].enabled) {
+          <input-number class ="value-style" [(value)]="config['length'].minValue" [label]="loc('params.minValue')" [min]="1" [max]="1000"></input-number>
+          <input-number class ="value-style" [(value)]="config['length'].maxValue" [label]="loc('params.maxValue')" [min]="1" [max]="1000"></input-number>
+          <input-number class ="value-style" [(value)]="config['length'].step"     [label]="loc('params.step')"     [min]="1" [max]="1000"></input-number>
+        }
+      </td>
+    </tr>
+  }
+
+  <!-- Value - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+  <tr>
+    <td>
+      <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? config['value'].toggle() : null" [checked]="config['value'].enabled"></mat-checkbox>
+    </td>
+    <td>{{loc("card."+ name)}}</td>
+    <td>{{loc("card.value")}}</td>
+    <td>
+      @if (!config['value'].enabled) {
+        <input-number [(value)]="config['value'].curValue" [label]="loc('params.curValue')" [min]="1" [max]="1000"></input-number>
+      }
+      @if (config['value'].enabled) {
+        <input-number class ="value-style" [(value)]="config['value'].minValue" [label]="loc('params.minValue')"></input-number>
+        <input-number class ="value-style" [(value)]="config['value'].maxValue" [label]="loc('params.maxValue')"></input-number>
+        <input-number class ="value-style" [(value)]="config['value'].step"     [label]="loc('params.step')"    ></input-number>
+      }
+    </td>
+  </tr>
+}

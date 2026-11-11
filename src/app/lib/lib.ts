@@ -12,6 +12,7 @@ import {StringLib} from "./string-lib";
 import {ChartLib}  from "./chart-lib";
 import {QueryLib} from "./query-lib";
 import {BrowserLib} from "./browser";
+import {DateLib} from "./date";
 
 //=============================================================================
 
@@ -26,7 +27,8 @@ export class Lib {
 	public static str      = new StringLib();
   public static chart    = new ChartLib();
   public static query    = new QueryLib();
-  public static browser = new BrowserLib()
+  public static browser  = new BrowserLib()
+  public static date     = new DateLib()
 }
 
 //=============================================================================
