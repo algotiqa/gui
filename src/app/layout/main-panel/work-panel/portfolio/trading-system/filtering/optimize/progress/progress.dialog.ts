@@ -64,7 +64,7 @@ export class OptimizeProgressDialog extends AbstractPanel {
               @Inject(MAT_DIALOG_DATA) public data: DialogData) {
 
     super(eventBusService, labelService, router, "portfolio.filtering");
-    this.poller = timer(0, 1000).subscribe(
+    this.poller = timer(0, 1500).subscribe(
       result => this.refresh()
     )
   }
