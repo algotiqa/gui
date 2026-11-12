@@ -428,7 +428,8 @@ export class FilterOptimizationResponse {
   baseValue?       : number
   bestValue?       : number
   fieldToOptimize? : string
-  duration?        : number
+  duration?        : string
+  remaining?       : string
   filter           : Flags = new Flags()
 }
 

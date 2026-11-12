@@ -49,7 +49,7 @@ export class OptimizeResultDialog extends AbstractPanel {
   selRun? : FilterRun
 
   steps?    : number
-  duration? : number
+  duration? : string
   field     : string = ""
   baseValue?: number
   bestValue?: number

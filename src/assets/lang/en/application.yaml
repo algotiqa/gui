@@ -766,6 +766,7 @@ page:
         totalSteps: Total steps
         percentage: Percentage
         duration  : Duration
+        remaining : Remaining
         optimFor  : Optimize for
         bestValue : Best value
         baseValue : Base value
