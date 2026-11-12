@@ -5,42 +5,43 @@
 # ==============================================================================
 
 button:
-  create    : Create
-  view      : View
-  edit      : Edit
-  delete    : Delete
-  save      : Save
-  run       : Run
-  optimize  : Optimize
-  reload    : Reload
-  cancel    : Cancel
-  abort     : Abort
-  close     : Close
-  use       : Use
-  restart   : Restart
-  upload    : Upload
-  chart     : Chart
-  ok        : Ok
-  select    : Select
-  presets   : Presets
-  playground: Playground
-  replace   : Replace
-  backtest  : Backtest
-  data      : Data
-  connect   : Connect
-  disconnect: Disconnect
-  reset     : Reset
-  finalize  : Finalize
-  document  : Document
-  login     : Login
-  logout    : Logout
-  yes       : Yes
-  import    : Import
-  export    : Export
-  back      : Back
-  package   : Package
-  builder   : Builder
-  help      : Help
+  create     : Create
+  view       : View
+  edit       : Edit
+  delete     : Delete
+  save       : Save
+  run        : Run
+  optimize   : Optimize
+  reload     : Reload
+  cancel     : Cancel
+  abort      : Abort
+  close      : Close
+  use        : Use
+  restart    : Restart
+  upload     : Upload
+  chart      : Chart
+  ok         : Ok
+  select     : Select
+  presets    : Presets
+  playground : Playground
+  replace    : Replace
+  backtest   : Backtest
+  data       : Data
+  connect    : Connect
+  disconnect : Disconnect
+  reset      : Reset
+  finalize   : Finalize
+  document   : Document
+  login      : Login
+  logout     : Logout
+  yes        : Yes
+  import     : Import
+  export     : Export
+  back       : Back
+  package    : Package
+  builder    : Builder
+  help       : Help
+  performance: Performance
 
 menu-button:
   view          : View

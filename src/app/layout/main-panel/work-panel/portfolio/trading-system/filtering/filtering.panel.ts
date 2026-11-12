@@ -69,6 +69,9 @@ import {ProfitFactorCard} from "./criteria/profit-factor/profit-factor.card";
 import {SharpeRatioCard} from "./criteria/sharpe-ratio/sharpe-ratio.card";
 import {Sqn100Card} from "./criteria/sqn100/sqn100.card";
 import {ReturnMaxddRatioCard} from "./criteria/return-maxdd-ratio/return-maxdd-ratio.card";
+import {FlatButton} from "../../../../../../component/form/flat-button/flat-button";
+import {PerformanceButton} from "../../../../../../component/button/performance/performance.button";
+import {ModuleService} from "../../../../../../service/module.service";
 
 //=============================================================================
 
@@ -77,7 +80,7 @@ import {ReturnMaxddRatioCard} from "./criteria/return-maxdd-ratio/return-maxdd-r
     templateUrl: './filtering.panel.html',
     styleUrls: ['./filtering.panel.scss'],
   changeDetection: ChangeDetectionStrategy.Eager,
-  imports: [RouterModule, MatExpansionModule, MatIconModule, MatFormFieldModule, FormsModule, MatInputModule, MatOptionModule, MatSelectModule, MatSlideToggleModule, MatTabsModule, MatButtonModule, MatDividerModule, MatGridListModule, SimpleTablePanel, MatDialogModule, ChartComponent, MatCardModule, PeriodSelector, ListButtons, ListContent, ListPanel, ListLeft, BackButton, SaveButton, ReloadButton, RunButton, OptimizeButton, NetReturnCard, EquityVsAverageCard, MaxDrawdownCard, WinningPercentageCard, TrendLineCard, MatButtonToggle, MatButtonToggleGroup, ReactiveFormsModule, SelectRequired, MatMenu, MatCheckbox, MatMenuTrigger, ToggleButton, AverageTradeCard, ProfitFactorCard, SharpeRatioCard, Sqn100Card, ReturnMaxddRatioCard]
+  imports: [RouterModule, MatExpansionModule, MatIconModule, MatFormFieldModule, FormsModule, MatInputModule, MatOptionModule, MatSelectModule, MatSlideToggleModule, MatTabsModule, MatButtonModule, MatDividerModule, MatGridListModule, SimpleTablePanel, MatDialogModule, ChartComponent, MatCardModule, PeriodSelector, ListButtons, ListContent, ListPanel, ListLeft, BackButton, SaveButton, ReloadButton, RunButton, OptimizeButton, NetReturnCard, EquityVsAverageCard, MaxDrawdownCard, WinningPercentageCard, TrendLineCard, MatButtonToggle, MatButtonToggleGroup, ReactiveFormsModule, SelectRequired, MatMenu, MatCheckbox, MatMenuTrigger, ToggleButton, AverageTradeCard, ProfitFactorCard, SharpeRatioCard, Sqn100Card, ReturnMaxddRatioCard, FlatButton, PerformanceButton]
 })
 
 //=============================================================================
@@ -131,6 +134,7 @@ export class FilteringPanel extends AbstractPanel {
               private snackBar         : MatSnackBar,
               private portfolioService : PortfolioService,
               private navigationService: NavigationService,
+              private moduleService    : ModuleService,
               public  dialog           : MatDialog) {
 
     super(eventBusService, labelService, router, "portfolio.filtering");
@@ -227,6 +231,12 @@ export class FilteringPanel extends AbstractPanel {
 
   onReloadClick() {
     this.callService()
+  }
+
+  //-------------------------------------------------------------------------
+
+  onPerformanceClick() {
+    this.moduleService.openPerformanceMetrics(this.tsId)
   }
 
   //-------------------------------------------------------------------------
