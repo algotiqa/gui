@@ -261,6 +261,19 @@ export class OptimizationConfig {
     this.sqn100           .enable(c.sqn100.enabled)
     this.returnMaxDDRatio .enable(c.returnMaxDDRatio.enabled)
   }
+
+  disable() {
+    this.netReturn        .enabled = false
+    this.averageTrade     .enabled = false
+    this.equityVsAverage  .enabled = false
+    this.winningPercentage.enabled = false
+    this.maxDrawdown      .enabled = false
+    this.trendLine        .enabled = false
+    this.profitFactor     .enabled = false
+    this.sharpeRatio      .enabled = false
+    this.sqn100           .enabled = false
+    this.returnMaxDDRatio .enabled = false
+  }
 }
 
 //=============================================================================

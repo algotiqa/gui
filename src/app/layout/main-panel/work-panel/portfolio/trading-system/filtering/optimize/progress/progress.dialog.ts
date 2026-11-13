@@ -48,6 +48,8 @@ export class OptimizeProgressDialog extends AbstractPanel {
   percentage? : number
   gain?       : number
 
+  disAbort = false
+
   private poller !: Subscription
 
   //-------------------------------------------------------------------------
@@ -85,7 +87,7 @@ export class OptimizeProgressDialog extends AbstractPanel {
     this.portfolioService.stopFilterOptimization(this.data.tsId).subscribe(
       result => {
         console.log("Filter optimization stopped")
-        this.dialogRef.close(true)
+        this.disAbort = true;
       }
     )
   }
@@ -140,7 +142,7 @@ export class OptimizeProgressDialog extends AbstractPanel {
           this.gain = Math.floor((this.response.bestValue / this.response.baseValue -1) * 100)
         }
 
-        if (result.status == "complete"){
+        if (result.status == "complete" || result.status == "error"){
           this.dialogRef.close(true)
         }
       }

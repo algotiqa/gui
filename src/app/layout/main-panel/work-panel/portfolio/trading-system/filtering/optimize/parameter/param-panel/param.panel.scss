@@ -7,8 +7,50 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-mat-chip-option {
-  margin-right: 8px;
+.header-layout {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+}
+
+//=============================================================================
+
+.filters-layout {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 4px;
+}
+
+//=============================================================================
+
+.actions-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+
+  input-number {
+    width: 180px;
+  }
+  flat-button {
+    margin-left: 4px;
+  }
+}
+
+//=============================================================================
+
+.inline {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
 }
 
 //=============================================================================
@@ -27,6 +69,12 @@ table tr th {
 
 table tr td  {
   text-align: left;
+}
+
+//=============================================================================
+
+input-number {
+  margin-left: 4px;
 }
 
 //=============================================================================

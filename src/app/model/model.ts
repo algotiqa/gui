@@ -608,6 +608,15 @@ export class FieldOptimization {
   public toggle() {
     this.enabled = !this.enabled
   }
+
+  //-----------------------------------------------------------------------------
+
+  public setIfEnabled(max : number, step : number) {
+    if (this.enabled) {
+      this.maxValue = max
+      this.step     = step
+    }
+  }
 }
 
 //=============================================================================

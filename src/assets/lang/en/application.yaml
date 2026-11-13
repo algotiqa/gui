@@ -733,19 +733,21 @@ page:
         length           : Length (# of trades)
         value            : Value
       params:
-        title        : Filter optimization - Parameters
-        activations  : Activations
-        deactivations: Deactivations
-        algorithm    : Algorithm
-        optimizeFor  : Optimize for
-        selected     : Selected
-        filter       : Filter
-        parameter    : Parameter
-        options      : Options
-        curValue     : Current value
-        minValue     : Min value
-        maxValue     : Max value
-        step         : Step
+        title          : Filter optimization - Parameters
+        activations    : Activations
+        deactivations  : Deactivations
+        algorithm      : Algorithm
+        optimizeFor    : Optimize for
+        selected       : Selected
+        filter         : Filter
+        parameter      : Parameter
+        options        : Options
+        curValue       : Current value
+        minValue       : Min value
+        maxValue       : Max value
+        step           : Step
+        setLengthForAll: Set length for all
+        disableAll     : Disable all
         fieldOptions:
           - id: netReturn
             name: Net return

@@ -287,6 +287,6 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-  <button mat-button (click)="onAbort()">{{button("abort")}}</button>
+  <button mat-button (click)="onAbort()" [disabled]="disAbort">{{button("abort")}}</button>
   <button mat-button mat-dialog-close>{{button("close")}}</button>
 </mat-dialog-actions>
