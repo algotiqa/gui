@@ -84,10 +84,12 @@ export class OptimizeParameterDialog extends AbstractPanel {
   //-------------------------------------------------------------------------
 
   onProfileChange() {
-    console.log("New profile: "+ this.profileId);
     let fc = this.profileMap.get(this.profileId);
     if (fc) {
+      let f = this.data.baseline
       this.options.filterConfig = FilterConfig.fromJson(fc)
+      this.options.filterConfig.enable(f)
+      this.options.baseline = f
     }
   }
 
