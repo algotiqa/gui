@@ -1,5 +1,6 @@
 <h2 mat-dialog-title>{{loc("params.title")}}</h2>
 <mat-dialog-content class="dialog-style">
+  <select-required [label]="loc('params.profile')" [(key)]="profileId" [map]="profiles" (keyChange)="onProfileChange()"></select-required><br/>
   <mat-tab-group>
     <mat-tab label="{{loc('params.activations')}}">
       <br/>

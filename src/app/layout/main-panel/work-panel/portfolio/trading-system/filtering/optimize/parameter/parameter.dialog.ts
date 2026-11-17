@@ -17,15 +17,16 @@ import {Router} from "@angular/router";
 import {SelectRequired} from "../../../../../../../../component/form/select-required/select-required";
 import { MatChipsModule} from "@angular/material/chips";
 import {
-  FilterOptimizationRequest,
+  FilterConfig,
+  FilterOptimizationRequest, TradingFilter,
 } from "../../../../../../../../model/filtering";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 
-import {InputNumber} from "../../../../../../../../component/form/input-number/input-number";
 import {PortfolioService} from "../../../../../../../../service/portfolio.service";
 import {DialogData} from "../dialog-data";
 import {MatTabsModule} from "@angular/material/tabs";
 import {ParamPanel} from "./param-panel/param.panel";
+import {aggressiveFilter, standardFilter, symmetricFilter} from "./profiles";
 
 //=============================================================================
 
@@ -34,7 +35,7 @@ import {ParamPanel} from "./param-panel/param.panel";
     templateUrl: 'parameter.dialog.html',
     styleUrls: ['parameter.dialog.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
-  imports: [MatDialogModule, MatButtonModule, SelectRequired, MatChipsModule, MatCheckboxModule, InputNumber, MatTabsModule, ParamPanel]
+  imports: [MatDialogModule, MatButtonModule, SelectRequired, MatChipsModule, MatCheckboxModule, MatTabsModule, ParamPanel]
 })
 
 //=============================================================================
@@ -46,7 +47,12 @@ export class OptimizeParameterDialog extends AbstractPanel {
   //---
   //-------------------------------------------------------------------------
 
+  profileId = "standard"
+  profiles  = {}
+
   options : FilterOptimizationRequest = new FilterOptimizationRequest()
+
+  profileMap : Map<string, FilterConfig> = new Map<string, FilterConfig>();
 
   //-------------------------------------------------------------------------
   //---
@@ -64,12 +70,27 @@ export class OptimizeParameterDialog extends AbstractPanel {
     super(eventBusService, labelService, router, "portfolio.filtering");
     this.resetOptions()
     this.options.period = data.period
+    this.profiles = this.labelMap("params.profiles")
+
+    this.profileMap.set("symmetric" , symmetricFilter())
+    this.profileMap.set("standard"  , standardFilter())
+    this.profileMap.set("aggressive", aggressiveFilter())
   }
 
   //-------------------------------------------------------------------------
   //---
   //--- Init methods
   //---
+  //-------------------------------------------------------------------------
+
+  onProfileChange() {
+    console.log("New profile: "+ this.profileId);
+    let fc = this.profileMap.get(this.profileId);
+    if (fc) {
+      this.options.filterConfig = FilterConfig.fromJson(fc)
+    }
+  }
+
   //-------------------------------------------------------------------------
 
   onReset() {

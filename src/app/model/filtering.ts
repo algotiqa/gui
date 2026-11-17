@@ -233,21 +233,29 @@ export class FilterConfig {
     this.activation  .enable(f.activation)
     this.deactivation.enable(f.deactivation)
   }
+
+  static fromJson(fc : FilterConfig) : FilterConfig {
+    let res = new FilterConfig()
+    res.activation   = OptimizationConfig.fromJson(fc.activation)
+    res.deactivation = OptimizationConfig.fromJson(fc.deactivation)
+
+    return res
+  }
 }
 
 //=============================================================================
 
 export class OptimizationConfig {
-  netReturn         : NetReturnOptimiz         = new NetReturnOptimiz()
-  averageTrade      : AverageTradeOptimiz      = new AverageTradeOptimiz()
-  equityVsAverage   : EquityVsAverageOptimiz   = new EquityVsAverageOptimiz()
-  winningPercentage : WinningPercentageOptimiz = new WinningPercentageOptimiz()
-  maxDrawdown       : MaxDrawdownOptimiz       = new MaxDrawdownOptimiz()
-  trendLine         : TrendLineOptimiz         = new TrendLineOptimiz()
-  profitFactor      : ProfitFactorOptimiz      = new ProfitFactorOptimiz()
-  sharpeRatio       : SharpeRatioOptimiz       = new SharpeRatioOptimiz()
-  sqn100            : Sqn100Optimiz            = new Sqn100Optimiz()
-  returnMaxDDRatio  : ReturnMaxDDRatioOptimiz  = new ReturnMaxDDRatioOptimiz()
+  netReturn          = new BaseOptimiz()
+  averageTrade       = new BaseOptimiz()
+  equityVsAverage    = new BaseOptimiz()
+  winningPercentage  = new BaseOptimiz()
+  maxDrawdown        = new BaseOptimiz()
+  trendLine          = new BaseOptimiz()
+  profitFactor       = new BaseOptimiz()
+  sharpeRatio        = new BaseOptimiz()
+  sqn100             = new BaseOptimiz()
+  returnMaxDDRatio   = new BaseOptimiz()
 
   enable(c : Config) {
     this.netReturn        .enable(c.netReturn.enabled)
@@ -274,145 +282,44 @@ export class OptimizationConfig {
     this.sqn100           .enabled = false
     this.returnMaxDDRatio .enabled = false
   }
+
+  static fromJson(oc : OptimizationConfig) : OptimizationConfig {
+    let res = new OptimizationConfig()
+    res.netReturn         = BaseOptimiz.fromJson(oc.netReturn)
+    res.averageTrade      = BaseOptimiz.fromJson(oc.averageTrade)
+    res.equityVsAverage   = BaseOptimiz.fromJson(oc.equityVsAverage)
+    res.winningPercentage = BaseOptimiz.fromJson(oc.winningPercentage)
+    res.maxDrawdown       = BaseOptimiz.fromJson(oc.maxDrawdown)
+    res.trendLine         = BaseOptimiz.fromJson(oc.trendLine)
+    res.profitFactor      = BaseOptimiz.fromJson(oc.profitFactor)
+    res.sharpeRatio       = BaseOptimiz.fromJson(oc.sharpeRatio)
+    res.sqn100            = BaseOptimiz.fromJson(oc.sqn100)
+    res.returnMaxDDRatio  = BaseOptimiz.fromJson(oc.returnMaxDDRatio)
+
+    return res
+  }
 }
 
 //=============================================================================
 
 export class BaseOptimiz {
-  enabled : boolean = false;
+  enabled : boolean           = false;
+  length  : FieldOptimization = new FieldOptimization(true, 8, 4, 48, 4)
+  value   : FieldOptimization = new FieldOptimization(true, 0, 0,  0, 1)
 
   enable(e : boolean) {
     this.enabled = !e;
-  }
-}
-
-//=============================================================================
-
-export class NetReturnOptimiz extends BaseOptimiz {
-  length  : FieldOptimization = new FieldOptimization(true, 8, 4, 48, 4)
-  value   : FieldOptimization = new FieldOptimization(true, 0, -200, 200, 100)
-
-  override enable(e : boolean) {
-    super.enable(e)
     this.length.enabled = !e;
     this.value.enabled  = !e;
   }
-}
 
-//=============================================================================
+  static fromJson(bo : BaseOptimiz) : BaseOptimiz {
+    let res = new BaseOptimiz()
+    res.enabled = bo.enabled
+    res.length  = FieldOptimization.fromJson(bo.length)
+    res.value   = FieldOptimization.fromJson(bo.value)
 
-export class AverageTradeOptimiz extends BaseOptimiz {
-  length  : FieldOptimization = new FieldOptimization(true, 8, 4, 48, 4)
-  value   : FieldOptimization = new FieldOptimization(true, 0, -20, 20, 10)
-
-  override enable(e : boolean) {
-    super.enable(e)
-    this.length.enabled = !e;
-    this.value.enabled  = !e;
-  }
-}
-
-//=============================================================================
-
-export class EquityVsAverageOptimiz extends BaseOptimiz {
-  length  : FieldOptimization = new FieldOptimization(true, 8, 4, 48, 4)
-  value   : FieldOptimization = new FieldOptimization(true, 0, -50, 50, 25)
-
-  override enable(e : boolean) {
-    super.enable(e)
-    this.length.enabled = !e;
-    this.value.enabled  = !e;
-  }
-}
-
-//=============================================================================
-
-export class WinningPercentageOptimiz extends BaseOptimiz {
-  length  : FieldOptimization = new FieldOptimization(true, 8, 4, 48, 4)
-  value   : FieldOptimization = new FieldOptimization(true, 50, 5, 75, 10)
-
-  override enable(e : boolean) {
-    super.enable(e)
-    this.length.enabled = !e;
-    this.value.enabled  = !e;
-  }
-}
-
-//=============================================================================
-
-export class MaxDrawdownOptimiz extends BaseOptimiz {
-  length  : FieldOptimization = new FieldOptimization(true, 8, 4, 48, 4)
-  value   : FieldOptimization = new FieldOptimization(true, 0, -3200, 0, 400)
-
-  override enable(e : boolean) {
-    super.enable(e)
-    this.length.enabled = !e;
-    this.value.enabled  = !e;
-  }
-}
-
-//=============================================================================
-
-export class TrendLineOptimiz extends BaseOptimiz {
-  length  : FieldOptimization = new FieldOptimization(true, 8, 4, 48, 4)
-  value   : FieldOptimization = new FieldOptimization(true, 0, -1, 1, 0.2)
-
-  override enable(e : boolean) {
-    super.enable(e)
-    this.length.enabled = !e;
-    this.value.enabled  = !e;
-  }
-}
-
-//=============================================================================
-
-export class ProfitFactorOptimiz extends BaseOptimiz {
-  length  : FieldOptimization = new FieldOptimization(true, 8, 4, 48, 4)
-  value   : FieldOptimization = new FieldOptimization(true, 1, 0, 2, 0.25)
-
-  override enable(e : boolean) {
-    super.enable(e)
-    this.length.enabled = !e;
-    this.value.enabled  = !e;
-  }
-}
-
-//=============================================================================
-
-export class SharpeRatioOptimiz extends BaseOptimiz {
-  length  : FieldOptimization = new FieldOptimization(true, 8, 4, 48, 4)
-  value   : FieldOptimization = new FieldOptimization(true, 0, -0.5, 0.5, 0.1)
-
-  override enable(e : boolean) {
-    super.enable(e)
-    this.length.enabled = !e;
-    this.value.enabled  = !e;
-  }
-}
-
-//=============================================================================
-
-export class Sqn100Optimiz extends BaseOptimiz {
-  length  : FieldOptimization = new FieldOptimization(true, 8, 4, 48, 4)
-  value   : FieldOptimization = new FieldOptimization(true, 1, -0.5, 2, 0.25)
-
-  override enable(e : boolean) {
-    super.enable(e)
-    this.length.enabled = !e;
-    this.value.enabled  = !e;
-  }
-}
-
-//=============================================================================
-
-export class ReturnMaxDDRatioOptimiz extends BaseOptimiz {
-  length  : FieldOptimization = new FieldOptimization(true, 8, 4, 48, 4)
-  value   : FieldOptimization = new FieldOptimization(true, 1, 0, 2, 0.25)
-
-  override enable(e : boolean) {
-    super.enable(e)
-    this.length.enabled = !e;
-    this.value.enabled  = !e;
+    return res
   }
 }
 

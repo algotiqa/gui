@@ -762,6 +762,11 @@ page:
         algorOptions:
           - id: simple
             name: Simple (fast, conditions are not combined)
+        profile: Profile
+        profiles:
+          symmetric : Symmetric
+          standard  : Standard
+          aggressive: Aggressive
       progress:
         title     : Filter optimization - Progress
         currStep  : Current step

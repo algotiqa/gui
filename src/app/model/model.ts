@@ -14,6 +14,7 @@
 //=============================================================================
 
 import {TreeNodeProvider} from "./flex-tree";
+import {Field} from "@angular/forms/signals";
 
 export class StatusResponse {
   status? : string
@@ -616,6 +617,12 @@ export class FieldOptimization {
       this.maxValue = max
       this.step     = step
     }
+  }
+
+  //-----------------------------------------------------------------------------
+
+  static fromJson(fo : FieldOptimization) : FieldOptimization {
+    return new FieldOptimization(fo.enabled, fo.curValue, fo.minValue, fo.maxValue, fo.step)
   }
 }
 
