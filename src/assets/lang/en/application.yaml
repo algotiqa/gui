@@ -693,7 +693,7 @@ page:
       combinationModeA: Combination mode (activations)
       combinationModeD: Combination mode (deactivations)
       filterSaved     : Filter saved
-      zero            : Zero level
+      threshold       : Threshold level
       every: every
       WE   : week
       WEs  : weeks

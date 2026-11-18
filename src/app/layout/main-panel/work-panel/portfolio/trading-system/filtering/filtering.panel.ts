@@ -248,7 +248,7 @@ export class FilteringPanel extends AbstractPanel {
 
     let metric = this.metrics.find( m => m.id === id )
     if (metric) {
-      this.createMetricChart(name, metric.time, metric.values)
+      this.createMetricChart(name, metric)
     }
   }
 
@@ -382,14 +382,14 @@ export class FilteringPanel extends AbstractPanel {
 
       //--- Moving average
 
-      let avg = this.findAverage(res.outcomes.activations, res.filter.activation.equityVsAverage, true)
+      let avg = this.findAverage(res.outcomes.activations, res.filter.activation.equityVsAverage)
       if (avg) {
-        datasets = [...datasets, Lib.chart.buildDataset(this.loc("chart.averageAct"), e.time, avg, false, "#808080") ]
+        datasets = [...datasets, Lib.chart.buildDataset(this.loc("chart.averageAct"), e.time.slice(avg.length -1), avg.data, false, "#808080") ]
       }
 
-      avg = this.findAverage(res.outcomes.deactivations, res.filter.deactivation.equityVsAverage, false)
+      avg = this.findAverage(res.outcomes.deactivations, res.filter.deactivation.equityVsAverage)
       if (avg) {
-        datasets = [...datasets, Lib.chart.buildDataset(this.loc("chart.averageDeact"), e.time, avg, false, "#808080") ]
+        datasets = [...datasets, Lib.chart.buildDataset(this.loc("chart.averageDeact"), e.time.slice(avg.length -1), avg.data, false, "#808080") ]
       }
 
       this.equityChartOptions.series = datasets
@@ -397,21 +397,11 @@ export class FilteringPanel extends AbstractPanel {
 
   //-------------------------------------------------------------------------
 
-  private findAverage(list : Activation[], c : EquityVsAverageConfig, activ : boolean) : number[]|undefined {
+  private findAverage(list : Activation[], c : EquityVsAverageConfig) : EqVsAvgInfo|undefined {
     if (list) {
       let a = list.find( a => a.name == "equityVsAverage")
       if (a) {
-        let avg = a.metrics
-        let val = c.value
-
-        if (!activ) {
-          val *= -1
-        }
-
-        let res : number[] = []
-        avg.forEach(v => { res.push(v + val) })
-
-        return res
+        return new EqVsAvgInfo(c.length, a.overlay)
       }
     }
 
@@ -488,7 +478,7 @@ export class FilteringPanel extends AbstractPanel {
   private setupMetrics(o : Outcomes) {
     this.metric  = "none"
     this.metrics = []
-    this.metrics.push({id:"none", name:this.loc("none"), icon:"close_small", time:[], values:[]})
+    this.metrics.push({id:"none", name:this.loc("none"), icon:"close_small", time:[], values:[], threshold:0 })
 
     o.activations  .forEach(a => { this.metrics.push(this.buildMetric(a, "filter_plus"  , "a")) })
     o.deactivations.forEach(d => { this.metrics.push(this.buildMetric(d, "filter_cancel", "d")) })
@@ -499,23 +489,23 @@ export class FilteringPanel extends AbstractPanel {
   //-------------------------------------------------------------------------
 
   private buildMetric(a : Activation, icon : string, prefix : string) : Metric {
-    return new Metric(prefix +"."+ a.name, this.loc("card."+ a.name), icon, a.times, a.metrics)
+    return new Metric(prefix +"."+ a.name, this.loc("card."+ a.name), icon, a.times, a.metrics, a.threshold)
   }
 
   //-------------------------------------------------------------------------
 
-  private createMetricChart(name : string, time : Date[], values : number[]) {
+  private createMetricChart(name : string, metric : Metric) {
     let zeros : number[]= []
     let etime = this.result.equities.time
 
     etime.forEach(value => {
-      zeros.push(0)
+      zeros.push(metric.threshold)
     })
 
     this.metricChartOptions.series = [
       //--- This chart must have etime otherwise it doesn't sync with the other charts
-      Lib.chart.buildDataset(this.loc("zero"), etime, zeros),
-      Lib.chart.buildDataset(this.loc("card."+ name),  time, values),
+      Lib.chart.buildDataset(this.loc("threshold"), etime, zeros),
+      Lib.chart.buildDataset(this.loc("card."+ name), metric.time, metric.values),
     ]
   }
 
@@ -602,11 +592,18 @@ class SummaryRow {
 //=============================================================================
 
 class Metric {
-  constructor(public id    : string,
-              public name  : string,
-              public icon  : string,
-              public time  : Date[],
-              public values: number[]) {}
+  constructor(public id       : string,
+              public name     : string,
+              public icon     : string,
+              public time     : Date[],
+              public values   : number[],
+              public threshold: number) {}
+}
+
+//=============================================================================
+
+class EqVsAvgInfo {
+  constructor(public length : number, public data : number[]) {}
 }
 
 //=============================================================================

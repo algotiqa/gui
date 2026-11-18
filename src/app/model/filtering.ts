@@ -203,10 +203,13 @@ export class Outcomes {
 //=============================================================================
 
 export class Activation {
-  name   : string   = ""
-  times  : Date  [] = []
-  flags  : number[] = []
-  metrics: number[] = []
+  name     : string   = ""
+  times    : Date  [] = []
+  flags    : number[] = []
+  metrics  : number[] = []
+  length   : number = 0
+  threshold: number = 0
+  overlay  : number[] = []
 }
 
 //=============================================================================
