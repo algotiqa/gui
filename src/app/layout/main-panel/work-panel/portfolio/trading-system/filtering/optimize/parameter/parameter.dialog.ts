@@ -27,6 +27,8 @@ import {DialogData} from "../dialog-data";
 import {MatTabsModule} from "@angular/material/tabs";
 import {ParamPanel} from "./param-panel/param.panel";
 import {aggressiveFilter, standardFilter, symmetricFilter} from "./profiles";
+import {LocalService} from "../../../../../../../../service/local.service";
+import {Setting} from "../../../../../../../../model/setting";
 
 //=============================================================================
 
@@ -64,6 +66,7 @@ export class OptimizeParameterDialog extends AbstractPanel {
               labelService            : LabelService,
               router                  : Router,
               private portfolioService: PortfolioService,
+              private localService    : LocalService,
               private dialogRef       : MatDialogRef<OptimizeParameterDialog>,
               @Inject(MAT_DIALOG_DATA) public data: DialogData) {
 
@@ -75,6 +78,8 @@ export class OptimizeParameterDialog extends AbstractPanel {
     this.profileMap.set("symmetric" , symmetricFilter())
     this.profileMap.set("standard"  , standardFilter())
     this.profileMap.set("aggressive", aggressiveFilter())
+
+    this.profileId = localService.getStringItem(Setting.Portfolio_TradSys_FiltProfile, "standard")
   }
 
   //-------------------------------------------------------------------------
@@ -90,6 +95,8 @@ export class OptimizeParameterDialog extends AbstractPanel {
       this.options.filterConfig = FilterConfig.fromJson(fc)
       this.options.filterConfig.enable(f)
       this.options.baseline = f
+
+      this.localService.setStringItem(Setting.Portfolio_TradSys_FiltProfile, this.profileId)
     }
   }
 
