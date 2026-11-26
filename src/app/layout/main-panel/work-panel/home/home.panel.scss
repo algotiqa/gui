@@ -12,13 +12,16 @@
 //=============================================================================
 
 .dashboard {
-  display        : flex;
-  flex-direction : column;
-  gap            : 16px;
-  height         : 100%;
-  overflow       : auto;
-  padding        : 16px;
-  box-sizing     : border-box;
+  display         : flex;
+  flex-direction  : column;
+  flex-wrap       : nowrap;
+  justify-content : flex-start;
+  align-items     : stretch;
+  gap             : 16px;
+  height          : 100%;
+  overflow        : auto;
+  padding         : 16px;
+  box-sizing      : border-box;
   background-color: $backgroundColor;
 }
 
@@ -124,6 +127,9 @@
 .charts-grid {
   display        : flex;
   flex-direction : row;
+  flex-wrap      : nowrap;
+  justify-content: flex-start;
+  align-items    : stretch;
   gap            : 16px;
 }
 
@@ -137,9 +143,16 @@
 //=============================================================================
 
 .chart-card-exp {
-  flex: 1 0 auto;
-  padding:  12px 16px 8px 16px;
+  flex            : 1 1 0;
+  min-width       : 0;
+  padding         : 12px 16px 8px 16px;
   background-color: #FFFFFF;
+  display         : flex;
+  flex-direction  : column;
+  flex-wrap       : nowrap;
+  justify-content : flex-start;
+  align-items     : stretch;
+  gap             : 16px;
 }
 
 //=============================================================================
