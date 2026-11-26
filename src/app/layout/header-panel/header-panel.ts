@@ -22,6 +22,7 @@ import {AbstractPanel} from "../../component/abstract.panel";
 import {Router, RouterModule} from "@angular/router";
 import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {Platform} from "../../model/platform";
 
 //=============================================================================
 
@@ -39,7 +40,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 export class HeaderPanel extends AbstractPanel {
 
   spinnerHidden   = true
-  platformVersion = '???';
+  platformVersion = Platform.Version;
 
 	//-------------------------------------------------------------------------
 	//---
@@ -59,7 +60,6 @@ export class HeaderPanel extends AbstractPanel {
     eventBusService.subscribeToApp(AppEvent.SUBMIT_START, this.onSubmitStart)
     eventBusService.subscribeToApp(AppEvent.SUBMIT_END,   this.onSubmitEnd)
 
-    this.loadPlatformVersion()
 	}
 
 	//-------------------------------------------------------------------------
@@ -102,21 +102,6 @@ export class HeaderPanel extends AbstractPanel {
   //--- Private methods
   //---
   //-------------------------------------------------------------------------
-
-  private loadPlatformVersion() {
-    this.platformVersion = '0.9.6';
-
-    // this.inventoryService.getPlatformInfo().subscribe({
-    //   next: (info) => {
-    //     this.platformVersion = info?.version ? info.version : '-';
-    //   },
-    //   error: (err) => {
-    //     console.log('Cannot load platform version: ' + JSON.stringify(err));
-    //     //TODO: set back "error" here
-    //     this.platformVersion = 'beta';
-    //   }
-    // });
-  }
 }
 
 //=============================================================================

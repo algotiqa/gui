@@ -8,10 +8,8 @@
 //=============================================================================
 
 import {Component, Input, ChangeDetectionStrategy} from "@angular/core";
-import {FlatButton} from "../../form/flat-button/flat-button";
-import {LabelService} from "../../../service/label.service";
 import {ModuleService} from "../../../service/module.service";
-import {MatButton, MatIconButton} from "@angular/material/button";
+import {MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 
 //=============================================================================
@@ -21,7 +19,7 @@ import {MatIcon} from "@angular/material/icon";
   templateUrl: './help.button.html',
   styleUrls  :['./help.button.scss'],
   changeDetection: ChangeDetectionStrategy.Eager,
-  imports: [FlatButton, MatButton, MatIcon, MatIconButton]
+  imports: [ MatIcon, MatIconButton]
 })
 
 //=============================================================================
@@ -42,9 +40,7 @@ export class HelpButton {
   //---
   //-------------------------------------------------------------------------
 
-  constructor(private labelService : LabelService,
-              private moduleService: ModuleService) {
-  }
+  constructor(private moduleService: ModuleService) {}
 
   //-------------------------------------------------------------------------
   //---
@@ -53,13 +49,7 @@ export class HelpButton {
   //-------------------------------------------------------------------------
 
   onClick() {
-    this.moduleService.openHelpViewer(this.help)
-  }
-
-  //-------------------------------------------------------------------------
-
-  public button = (code : string) : string => {
-    return this.labelService.getLabelString("button."+code);
+    this.moduleService.openHelpViewer(this.help);
   }
 }
 

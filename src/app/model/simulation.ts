@@ -7,11 +7,6 @@
 //=== By using this file, you agree to the terms and conditions of that license.
 //=============================================================================
 
-
-import {PorTradingSystem} from "./model";
-import {IntDateAdapter} from "../component/form/date-picker/int-date-adapter";
-import {IntDateTranscoder} from "../component/panel/flex-table/transcoders";
-
 //=============================================================================
 //===
 //=== QualityAnalysisRequest

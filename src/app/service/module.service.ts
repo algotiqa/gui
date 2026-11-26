@@ -8,6 +8,7 @@
 //=============================================================================
 
 import {Injectable} from '@angular/core';
+import {Platform} from "../model/platform";
 
 //=============================================================================
 
@@ -18,6 +19,8 @@ export class ModuleService {
   //--- Variables
   //---
   //-------------------------------------------------------------------------
+
+  private helpWindow? : WindowProxy
 
   //-------------------------------------------------------------------------
   //---
@@ -94,10 +97,19 @@ export class ModuleService {
   //-------------------------------------------------------------------------
 
   public openHelpViewer(topic:string) {
-    let extWindow = window.open('module/help-viewer/'+topic, '', 'popup,width=1200,height=900,left=100,top=100');
+    let url = Platform.HelpBaseUrl + topic +".html"
 
-    if (extWindow == null) {
-      console.log("Help viewer's window is null")
+    if (this.helpWindow) {
+      this.helpWindow.location = url
+    }
+    else {
+      let w = window.open(url, '', 'popup,width=1200,height=900,left=100,top=100');
+
+      if (w == null) {
+        console.log("Help viewer's window is null")
+      } else {
+        this.helpWindow = w
+      }
     }
   }
 }
