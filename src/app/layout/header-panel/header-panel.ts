@@ -23,6 +23,7 @@ import {Router, RouterModule} from "@angular/router";
 import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {Platform} from "../../model/platform";
+import {HelpButton} from "../../component/button/help/help.button";
 
 //=============================================================================
 
@@ -30,7 +31,7 @@ import {Platform} from "../../model/platform";
     selector: 'header-panel',
     templateUrl: './header-panel.html',
     styleUrls: ['./header-panel.scss'],
-    imports: [MatButtonModule, MatIconModule, MatToolbarModule, MatMenuModule, MatDividerModule, RouterModule, MatSnackBarModule, MatProgressSpinnerModule],
+  imports: [MatButtonModule, MatIconModule, MatToolbarModule, MatMenuModule, MatDividerModule, RouterModule, MatSnackBarModule, MatProgressSpinnerModule, HelpButton],
     changeDetection: ChangeDetectionStrategy.Eager,
     providers: []
 })

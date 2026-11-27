@@ -97,9 +97,13 @@ export class ModuleService {
   //-------------------------------------------------------------------------
 
   public openHelpViewer(topic:string) {
-    let url = Platform.HelpBaseUrl + topic +".html"
+    let url = Platform.HelpBaseUrl + ""
 
-    if (this.helpWindow) {
+    if (topic != "") {
+      url = url  +"/user/"+ topic +".html"
+    }
+
+    if (this.helpWindow && !this.helpWindow.closed) {
       this.helpWindow.location = url
     }
     else {

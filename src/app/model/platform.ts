@@ -9,7 +9,7 @@
 
 export enum Platform {
   Version     = "dev",
-  HelpBaseUrl = "https://algotiqa.github.io/algotiqa/"+ Version +"/user/"
+  HelpBaseUrl = "https://algotiqa.github.io/algotiqa/"+ Version
 }
 
 //=============================================================================
